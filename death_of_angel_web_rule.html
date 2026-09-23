@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <title>殺戮小隊：死亡天使 規則手冊 (無贅字高清晰大字版)</title>
+  <style>
+    /* ================= A4 直式無空白頁列印設定 ================= */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 10pt;
+      /* 清晰大字級 */
+      line-height: 1.42;
+    }
+
+    /* 透過標準 break-after 分頁，絕不寫死高度以防擠出空白頁 */
+    .page {
+      width: 100%;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+
+      .page {
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+
+      .page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* ================= 標頭與結構框線 ================= */
+    .header-banner {
+      border: 2px solid #991b1b;
+      border-left: 8px solid #991b1b;
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-bottom: 7px;
+      background: #ffffff;
+    }
+
+    .header-title {
+      font-size: 14pt;
+      font-weight: 900;
+      color: #991b1b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.5px;
+    }
+
+    .header-sub {
+      font-size: 8.8pt;
+      color: #475569;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .section-header {
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #991b1b;
+      padding: 4px 9px;
+      font-size: 10.2pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 6px;
+      margin-bottom: 5px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    /* ================= 特工數據卡 ================= */
+    .datacard {
+      border: 1.2px solid #64748b;
+      border-top: 3.5px solid #991b1b;
+      border-radius: 4px;
+      background: #ffffff;
+      margin-bottom: 6px;
+      page-break-inside: avoid;
+    }
+
+    .op-header {
+      background: #f8fafc;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .op-name {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #991b1b;
+    }
+
+    .op-name-en {
+      font-size: 8pt;
+      color: #64748b;
+      margin-left: 4px;
+      font-weight: 400;
+    }
+
+    .stat-cluster {
+      display: flex;
+      gap: 3.5px;
+    }
+
+    .stat-box {
+      border: 1px solid #64748b;
+      background: #ffffff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-align: center;
+      min-width: 33px;
+    }
+
+    .stat-label {
+      font-size: 6.8pt;
+      color: #64748b;
+      display: block;
+      font-weight: 800;
+      margin-bottom: -1px;
+    }
+
+    .stat-value {
+      font-size: 11pt;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* 武器表格 */
+    .weapon-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.8pt;
+    }
+
+    .weapon-table th {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 3px 6px;
+      text-align: left;
+      border-bottom: 1px solid #cbd5e1;
+      font-weight: 800;
+    }
+
+    .weapon-table td {
+      padding: 3px 6px;
+      border-bottom: 0.5px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .weapon-table tr:nth-child(even) td {
+      background: #fbfcfd;
+    }
+
+    .rule-pill {
+      display: inline-block;
+      border: 0.8px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 3px;
+      padding: 0 4px;
+      font-size: 7.8pt;
+      color: #334155;
+      margin-right: 2px;
+    }
+
+    .dmg-bold {
+      font-weight: 900;
+      color: #b91c1c;
+      font-size: 10pt;
+    }
+
+    .ability-block {
+      background: #fef2f2;
+      border-left: 3px solid #ef4444;
+      padding: 4px 8px;
+      font-size: 8.8pt;
+      color: #1e293b;
+      margin: 3.5px 5px;
+      border-radius: 0 3px 3px 0;
+      line-height: 1.38;
+    }
+
+    .ability-title {
+      font-weight: 800;
+      color: #991b1b;
+    }
+
+    .keywords-row {
+      background: #f8fafc;
+      padding: 2.5px 8px;
+      font-size: 7pt;
+      color: #64748b;
+      letter-spacing: 0.3px;
+      border-top: 0.5px solid #cbd5e1;
+    }
+
+    /* 策略與裝備卡片 */
+    .strat-card,
+    .equip-card {
+      border: 1px solid #cbd5e1;
+      border-left: 4.5px solid #b45309;
+      background: #ffffff;
+      border-radius: 3px;
+      padding: 5px 8px;
+      margin-bottom: 5px;
+      page-break-inside: avoid;
+    }
+
+    .strat-head {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 0.5px solid #e2e8f0;
+      padding-bottom: 2px;
+      margin-bottom: 3px;
+    }
+
+    .strat-name {
+      font-size: 9.8pt;
+      font-weight: 800;
+      color: #9a3412;
+    }
+
+    .strat-cost {
+      border: 1.2px solid #991b1b;
+      color: #991b1b;
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 0 5px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .lore-box {
+      font-style: italic;
+      color: #64748b;
+      font-size: 7.5pt;
+      margin-bottom: 2.5px;
+      line-height: 1.25;
+    }
+
+    .rule-desc {
+      font-size: 8.8pt;
+      color: #1e293b;
+      line-height: 1.38;
+    }
+
+    .rule-desc ul {
+      padding-left: 15px;
+      margin-top: 2px;
+    }
+
+    .rule-desc li {
+      margin-bottom: 2px;
+    }
+
+    .highlight-card {
+      border: 1px dashed #94a3b8;
+      background: #f8fafc;
+      padding: 5px 8px;
+      border-radius: 3px;
+      font-size: 8.8pt;
+      margin-bottom: 6px;
+      line-height: 1.38;
+    }
+
+    .footer-bar {
+      margin-top: 6px;
+      border-top: 0.5px solid #cbd5e1;
+      padding-top: 2px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7pt;
+      color: #64748b;
+    }
+  </style>
+<link rel="stylesheet" href="shared.css">
+</head>
+
+<body class="theme-angels">
+
+<!-- 頂部通用導航列 -->
+<nav class="site-nav">
+  <div class="site-nav-container">
+    <a href="index.html" class="site-logo-link">
+      <img src="assets/kt_logo.png" alt="Kill Team Logo" class="site-logo-img">
+      <span class="site-nav-title">殺戮小隊 繁體中文規則庫</span>
+      <span class="site-nav-badge" style="background:#991b1b;">ANGELS OF DEATH</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 首頁總覽</a></li>
+      <li><a href="match_tracker.html" style="background:#dc2626; color:#fff; font-weight:700;">⚔️ 對戰助手</a></li>
+      <li><a href="universal_equipment.html">🎒 通用裝備</a></li>
+      <li><a href="rule_lite.html">⚡ 簡易核心規則</a></li>
+      <li><a href="death_of_angel_web_rule.html" class="active">🩸 死亡天使</a></li>
+      <li><a href="plague_marine.html">☣️ 瘟疫戰士</a></li>
+      <li><a href="Kommandos.html">🟢 特戰小子</a></li>
+      <li><a href="angel_of_death_starter_set_rule.html">📦 入門套組</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 快速章節選單 -->
+<div class="sub-nav no-print">
+  <div class="sub-nav-container">
+    <span style="color:#94a3b8; font-weight:700; padding:3px 0;">快速跳轉：</span>
+    <a href="#roster">戰隊名冊</a>
+    <a href="#chapter-tactics">戰團戰術</a>
+    <a href="#strategy-ploys">戰略策略</a>
+    <a href="#firefight-ploys">交戰策略</a>
+    <a href="#equipment">陣營專屬裝備</a>
+    <a href="#operatives">特工數據卡</a>
+  </div>
+</div>
+
+<div class="main-wrapper">
+  <!-- 陣營 Hero Banner -->
+  <header class="hero-banner">
+    <div class="hero-text">
+      <span class="hero-tag">ADEPTUS ASTARTES / SPACE MARINES</span>
+      <h1 class="hero-title">殺戮小隊：死亡天使 (ANGELS OF DEATH)</h1>
+      <p class="hero-subtitle">
+        阿斯塔特修會星際戰士是帝國最頂尖的基因強化超人戰士。身穿動力裝甲，手持毀滅性爆彈與等離子武器，死亡天使以鋼鐵般的紀律、戰團戰術與作戰操典主宰任何交戰區域。
+      </p>
+    </div>
+    <img src="assets/angels_p11_1_1308x1421.png" alt="Angels of Death Squad Art" class="hero-art-img no-print">
+  </header>
+
+
+  <!-- ===================================================================================
+     第 1 頁：戰隊配置 + 陣營特規 + 8 項戰團戰術
+=================================================================================== -->
+  <div class="page">
+    <div class="header-banner">
+      <div class="header-title">
+        <span>殺戮小隊：死亡天使 (ANGELS OF DEATH) 戰隊手冊</span>
+        <span style="font-size: 9.5pt; color: #991b1b;">A4 直式列印專用版</span>
+      </div>
+      <div class="header-sub">ADEPTUS ASTARTES — 帝國阿斯塔特修會戰團精銳殺戮小隊</div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 戰隊組建名冊 -->
+      <div class="strat-card" id="roster" style="border-left-color: #991b1b;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#991b1b;">戰隊組建名冊 (OPERATIVES)</span>
+          <span class="strat-cost">總計 6 名特工</span>
+        </div>
+        <div class="rule-desc">
+          <strong>1. 首領特工 (LEADER)：挑選 1 名</strong>
+          <ul>
+            <li><strong>星際戰士連長 (Captain)</strong>：電漿手槍 + 動力拳套。</li>
+            <li><strong>突擊仲裁軍士 (Assault Sgt)</strong>：手持火燄槍/重型爆彈手槍 + 鏈鋸劍/動力拳/動力武器/雷鎚；或選電漿手槍+鏈鋸劍。</li>
+            <li><strong>仲裁軍士 (Intercessor Sgt)</strong>：自動爆彈槍/爆彈槍/追獵者 + 鏈鋸劍/徒手/動力拳/動力武器/雷鎚。</li>
+          </ul>
+          <strong>2. 戰士特工：挑選 5 名</strong>（除常規戰士外各限 1 名）
+          <ul>
+            <li>突擊仲裁擲彈兵 (Grenadier)</li>
+            <li>突擊仲裁戰士 (Assault Warrior)</li>
+            <li>消滅者狙擊手 (Eliminator Sniper)</li>
+            <li>重裝仲裁槍手 (Heavy Gunner)</li>
+            <li>仲裁槍手 (Gunner，附輔助榴彈發射器)</li>
+            <li>仲裁戰士 (Warrior)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 陣營核心能力 -->
+      <div>
+        <div class="strat-card" id="roster" style="border-left-color: #991b1b;">
+          <div class="strat-head">
+            <span class="strat-name" style="color:#991b1b;">陣營特規：阿斯塔特 (ASTARTES)</span>
+            <span class="strat-cost">核心被動</span>
+          </div>
+          <div class="rule-desc">
+            友方特工在其單次啟動期間內，<strong>可以執行兩次「射擊」行動，或兩次「格鬥」行動</strong>。
+            <ul>
+              <li>若執行兩次「射擊」，<strong>至少有一次必須選用爆彈武器 (Bolt weapon)</strong>。</li>
+              <li>若使用「爆彈狙擊步槍」或「重型爆彈槍」連續射擊兩次，<strong>執行第二次射擊必須額外消耗 1 AP</strong>。</li>
+              <li>在反制階段均可執行<strong>反制行動 (Counteract)</strong>，不受其姿態指令（交戰/匿蹤）限制。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="strat-card" style="border-left-color: #b45309;">
+            <div class="strat-head"><span class="strat-name">作戰原型</span></div>
+            <div class="rule-desc" style="font-size: 8.2pt;">安全警戒 (SECURITY)<br>搜尋與摧毀 (SEEK & DESTROY)</div>
+          </div>
+          <div class="strat-card" style="border-left-color: #475569;">
+            <div class="strat-head"><span class="strat-name" style="color:#475569;">爆彈武器定義</span></div>
+            <div class="rule-desc" style="font-size: 8.2pt;">武器名稱包含「<strong>bolt</strong>」字樣之遠程武器。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 戰團戰術總則與 8 大戰術 -->
+    <div class="section-header" id="chapter-tactics">戰團戰術 (CHAPTER TACTICS) — 戰隊自選 1 主戰術 + 1 次戰術</div>
+    <div class="highlight-card">
+      各戰團皆擁有專屬戰鬥哲學。 挑選戰隊時為全員選定<strong>一項主戰術 (Primary)</strong>與<strong>一項次戰術
+        (Secondary)</strong>，戰鬥中全員享有其加成（同項戰術不可累加；系列聯賽中主次戰術每場需固定）。
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="strat-card">
+          <div class="strat-name">1. 凶猛強攻 (AGGRESSIVE)</div>
+          <div class="rule-desc">此特工的所有近戰武器獲得<strong>撕裂 (Rending)</strong> 武器特規。</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">2. 決鬥大師 (DUELLER)</div>
+          <div class="rule-desc">進行格鬥或反擊時，你的<strong>每個普通成功骰皆可招架抵消對手 1 顆爆擊成功骰</strong>（敵方武器具殘暴 Brutal 則除外）。</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">3. 堅毅果決 (RESOLUTE)</div>
+          <div class="rule-desc">無視針對此特工 APL 屬性的任何扣減修改；且此特工不受敵方武器<strong>震擊 (Shock)</strong> 特規影響。</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">4. 潛行獵手 (STEALTHY)</div>
+          <div class="rule-desc">被射擊時若能保留掩體防禦骰，可<strong>額外保留 1
+              顆掩體防禦骰</strong>，或<strong>直接將該顆保留的掩體骰視為爆擊成功</strong>（不與高處地形累加）。</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="strat-card">
+          <div class="strat-name">5. 迅捷機動 (MOBILE)</div>
+          <div class="rule-desc">
+            • 執行「撤退 (Fall Back)」行動消耗的 AP <strong>減少 1 點</strong>。<br>
+            • 處於敵方控場範圍內亦可宣告發動<strong>「衝鋒 (Charge)」</strong>，並允許脫離該控場範圍。
+          </div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">6. 剛毅頑強 (HARDY)</div>
+          <div class="rule-desc">被敵方射擊時，防禦投骰結果為 <strong>5+ 即判定為爆擊成功</strong>。</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">7. 神射精準 (SHARPSHOOTER)</div>
+          <div class="rule-desc">未於同次啟動中執行衝鋒、撤退或重擺陣位而射擊時，爆彈武器獲得<strong>精準 1 (Accurate 1)</strong> 與 <strong>劇烈
+              (Severe)</strong>。</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">8. 圍城破拆專員 (SIEGE SPECIALIST)</div>
+          <div class="rule-desc">遠程武器獲得<strong>飽和壓制 (Saturate)</strong>。 此外進行格鬥或反擊時，<strong>敵方特工無法進行協同援助 (Cannot
+              assist)</strong>。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>殺戮小隊：死亡天使 (Angels of Death) 中文規則手冊</span>
+      <span>第 1 頁 / 共 6 頁 (組隊原則與戰團戰術)</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================================
+     第 2 頁：戰略策略（4種） 與 交戰策略（4種）
+=================================================================================== -->
+  <div class="page">
+    <div class="header-banner">
+      <div class="header-title">
+        <span>阿斯塔特修會戰鬥策略卡冊 (TACTICAL PLOYS)</span>
+        <span style="font-size: 9pt; color: #991b1b;">策略花費：各 1 CP</span>
+      </div>
+    </div>
+
+    <div class="section-header" id="strategy-ploys">戰略策略 (STRATEGY PLOYS) — 戰略階段宣告使用</div>
+    <div class="grid-2">
+      <!-- COMBAT DOCTRINE -->
+      <div class="strat-card">
+        <div class="strat-head">
+          <span class="strat-name">作戰戰術操典 (COMBAT DOCTRINE)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">星際戰士嚴格奉行聖典指引，靈活切換作戰姿態壓制敵手。</div>
+        <div class="rule-desc">
+          宣告時選定一種姿態。 本轉折點符合條件之友方特工武器獲得<strong>平衡 (Balanced，可重擲 1 顆攻擊骰)</strong>：
+          <ul>
+            <li><strong>毀滅者操典 (Devastator)：</strong>射擊距離自身 <strong>超過 6"</strong> 的敵方時。</li>
+            <li><strong>戰術操典 (Tactical)：</strong>射擊距離自身 <strong>6" 以內</strong> 的敵方時。</li>
+            <li><strong>突擊操典 (Assault)：</strong>進行近戰搏鬥或戰鬥反擊時。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- AND THEY SHALL KNOW NO FEAR -->
+      <div class="strat-card">
+        <div class="strat-head">
+          <span class="strat-name">毫無懼色 (AND THEY SHALL KNOW NO FEAR)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">阿斯塔特修士面對絕境毫無動搖，不屈勇氣超凡入聖。</div>
+        <div class="rule-desc">
+          你可以<strong>無視友方特工因重傷 (Injured) 狀態帶來的任何屬性扣減</strong>（包含移動力扣減 2" 及武器命中門檻 Hit 惡化 +1 的負面效果）。
+        </div>
+      </div>
+
+      <!-- ADAPTIVE TACTICS -->
+      <div class="strat-card">
+        <div class="strat-head">
+          <span class="strat-name">彈性適應戰術 (ADAPTIVE TACTICS)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">戰士們依前線戰局隨機應變，迅速調整作戰節奏。</div>
+        <div class="rule-desc">
+          立即將你目前的<strong>次戰術 (Secondary Chapter Tactic)</strong> 替換為另一項戰團戰術。 此更換持續至本轉折點結束為止，隨後自動恢復為原本選定的次戰術。
+        </div>
+      </div>
+
+      <!-- INDOMITUS -->
+      <div class="strat-card">
+        <div class="strat-head">
+          <span class="strat-name">不屈遠征狂瀾 (INDOMITUS)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">沐浴在不屈時代的遠征聖威中，誓死捍衛帝國疆域。</div>
+        <div class="rule-desc">
+          當敵方特工射擊友方特工時，若你的防禦投骰出現<strong>兩顆或更多失敗骰</strong>，你可以<strong>棄置其中一顆失敗骰，將另一顆失敗骰直接轉化為普通成功骰</strong>。
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top: 8px;">交戰策略 (FIREFIGHT PLOYS) — 交戰階段宣告使用</div>
+    <div class="grid-2">
+      <!-- ADJUST DOCTRINE -->
+      <div class="strat-card" style="border-left-color: #ef4444;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#b91c1c;">即時變換操典 (ADJUST DOCTRINE)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">急促的語音鏈路指令，宣告作戰重心的瞬時轉換。</div>
+        <div class="rule-desc">
+          友方特工啟動期間宣告（執行行動前後皆可）。 若本轉折點曾啟用過「作戰戰術操典」，<strong>立即將生效的操典姿態切換為另一種姿態</strong>（毀滅者、戰術或突擊）。
+        </div>
+      </div>
+
+      <!-- TRANSHUMAN PHYSIOLOGY -->
+      <div class="strat-card" style="border-left-color: #ef4444;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#b91c1c;">超人生理構造 (TRANSHUMAN PHYSIOLOGY)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">基因改造的強化器官，能硬生抵禦致死打擊。</div>
+        <div class="rule-desc">
+          當敵方射擊友方特工、進行到「投擲防禦骰」步驟時使用。 你可以<strong>將其中 1 顆普通成功骰直接升級為爆擊成功骰</strong>。
+        </div>
+      </div>
+
+      <!-- SHOCK ASSAULT -->
+      <div class="strat-card" style="border-left-color: #ef4444;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#b91c1c;">震懾衝鋒突擊 (SHOCK ASSAULT)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">鏈鋸劍咆哮與身軀的猛烈撞擊，是敵軍防線的喪鐘。</div>
+        <div class="rule-desc">
+          友方特工於<strong>同一次啟動中衝鋒後發動「格鬥」</strong>時，於結算攻擊骰步驟開始時使用。 直至該次格鬥結束：
+          <ul>
+            <li>近戰武器獲得<strong>震擊 (Shock)</strong> 特規。</li>
+            <li>序列中<strong>首次成功打擊 (Strike) 時，額外造成 1 點傷害</strong>（上限 7 點）。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- WRATH OF VENGEANCE -->
+      <div class="strat-card" style="border-left-color: #ef4444;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#b91c1c;">復仇之怒 (WRATH OF VENGEANCE)</span>
+          <span class="strat-cost">1 CP</span>
+        </div>
+        <div class="lore-box">戰友受創激發戰團怒火，催生超越極限的戰力。</div>
+        <div class="rule-desc">
+          當友方特工正在進行<strong>反制行動 (Counteract)</strong> 時使用。 該特工在該次反制期間，可<strong>免費額外執行一項 1 AP 行動</strong>（兩項行動不可相同）。
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>殺戮小隊：死亡天使 (Angels of Death) 中文規則手冊</span>
+      <span>第 2 頁 / 共 6 頁 (戰略與交戰策略全集)</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================================
+     第 3 頁：陣營專屬裝備（4種） + 星際戰士連長（指揮官）
+=================================================================================== -->
+  <div class="page">
+    <div class="section-header" id="equipment">陣營專屬裝備 (FACTION EQUIPMENT)</div>
+    <div class="grid-2">
+      <!-- PURITY SEALS -->
+      <div class="equip-card" style="border-left-color: #2563eb;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#1d4ed8;">純潔印記 (PURITY SEALS)</span>
+          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+        </div>
+        <div class="lore-box">由戰團牧師加持的誓約羊皮紙，激勵佩戴者奮戰不息。</div>
+        <div class="rule-desc">
+          每轉折點限用一次。 特工進行射擊、格鬥或反擊時，若投出<strong>兩顆或更多失敗骰</strong>，可<strong>棄置其中一顆失敗骰，並將另一顆失敗骰轉化為普通成功骰</strong>。
+        </div>
+      </div>
+
+      <!-- CHAPTER RELIQUARIES -->
+      <div class="equip-card" style="border-left-color: #2563eb;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#1d4ed8;">戰團聖物匣 (CHAPTER RELIQUARIES)</span>
+          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+        </div>
+        <div class="lore-box">裝裱著陣亡英雄骸骨的聖匣，提醒戰士恪守誓言。</div>
+        <div class="rule-desc">
+          當佩戴此裝備的友方特工當前持有<strong>交戰指令 (Engage order)</strong> 時，你可以<strong>以 0 CP（免費）</strong> 代價對其使用「復仇之怒 (Wrath of
+          Vengeance)」交戰策略。
+        </div>
+      </div>
+
+      <!-- TILTING SHIELDS -->
+      <div class="equip-card" style="border-left-color: #2563eb;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#1d4ed8;">近戰胸盾 (TILTING SHIELDS)</span>
+          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+        </div>
+        <div class="lore-box">胸口的小型騎兵盾能彈開刀劍，化解近身致命威脅。</div>
+        <div class="rule-desc">
+          每轉折點限用一次。 特工格鬥或反擊時，於<strong>對手投擲攻擊骰後、重擲前宣告</strong>：對手在該序列中<strong>小於 6 點的投骰皆不可視為爆擊成功</strong>（如致命、撕裂或嚴酷等效果）。
+        </div>
+      </div>
+
+      <!-- AUSPEX -->
+      <div class="equip-card" style="border-left-color: #2563eb;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#1d4ed8;">鳥卜掃描儀 (AUSPEX)</span>
+          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+        </div>
+        <div class="lore-box">多光譜陣列與熱成像儀，輕易穿透掩體鎖定敵影。</div>
+        <div class="rule-desc">
+          每轉折點限用一次。 宣告「射擊」選定目標時使用：直至該次啟動/反制結束，<strong>距離該特工 8" 範圍內的敵方特工皆無法獲得隱蔽掩蔽 (Cannot be obscured)</strong>。
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top: 8px;">指揮特工：星際戰士連長 (SPACE MARINE CAPTAIN)</div>
+    <!-- SPACE MARINE CAPTAIN -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_8_599x690.png" alt="星際戰士連長" class="op-model-thumb no-print"><div><span class="op-name">星際戰士連長</span>
+          <span class="op-name-en">SPACE MARINE CAPTAIN</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">15</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>等離子手槍 (標準) / Plasma pistol (standard)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 5</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>等離子手槍 (超載) / Plasma pistol (supercharge)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">過熱</span><span class="rule-pill">致命
+                5+</span><span class="rule-pill">穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>動力拳套 / Power fist</td>
+            <td align="center">5</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">5 / 7</td>
+            <td><span class="rule-pill">殘暴 (Brutal)</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">英雄領袖 (Heroic Leader)：</span>每轉折點可從下列三項效果擇一執行：
+        <br>• 以 <strong>0 CP</strong> 使用指定連長為對象的交戰策略（指揮重擲除外）。
+        <br>• 當你啟動友方特工時，若連長在場且未接戰，可直接宣告「作戰戰術操典」（正常支付 CP，若本轉折點已宣告過則不可使用）。
+        <br>• 若連長在場且未與敵接戰，可以 <strong>0 CP</strong> 使用「即時變換操典 (Adjust Doctrine)」。
+      </div>
+      <div class="ability-block">
+        <span class="ability-title">鐵光環 (Iron Halo)：</span>每場戰鬥限用一次。 當攻擊骰對連長造成普通傷害 (Normal Dmg) 時，直接無視該次傷害。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, LEADER, SPACE MARINE CAPTAIN</div>
+    </div>
+
+    <div class="footer-bar">
+      <span>殺戮小隊：死亡天使 (Angels of Death) 中文規則手冊</span>
+      <span>第 3 頁 / 共 6 頁 (陣營裝備與星際戰士連長)</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================================
+     第 4 頁：雙軍士專頁（突擊仲裁軍士、仲裁軍士完整表格）
+=================================================================================== -->
+  <div class="page">
+    <div class="section-header">指揮特工：士官數據卡 (SERGEANT DATACARDS)</div>
+
+    <!-- ASSAULT INTERCESSOR SERGEANT -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_9_481x578.png" alt="突擊仲裁軍士" class="op-model-thumb no-print"><div><span class="op-name">突擊仲裁軍士</span>
+          <span class="op-name-en">ASSAULT INTERCESSOR SERGEANT</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">15</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>手持火燄槍 / Hand flamer</td>
+            <td align="center">4</td>
+            <td align="center">2+</td>
+            <td align="center" class="dmg-bold">3 / 3</td>
+            <td><span class="rule-pill">射程 6"</span><span class="rule-pill">飽和</span><span class="rule-pill">洪流
+                1"</span></td>
+          </tr>
+          <tr>
+            <td>重型爆彈手槍 / Heavy bolt pistol</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>等離子手槍 (標準) / Plasma pistol (standard)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 5</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>等離子手槍 (超載) / Plasma pistol (supercharge)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">過熱</span><span class="rule-pill">致命
+                5+</span><span class="rule-pill">穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>鏈鋸劍 / Chainsword</td>
+            <td align="center">5</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>動力拳套 / Power fist</td>
+            <td align="center">5</td>
+            <td align="center">4+</td>
+            <td align="center" class="dmg-bold">5 / 7</td>
+            <td><span class="rule-pill">殘暴 (Brutal)</span></td>
+          </tr>
+          <tr>
+            <td>動力武器 / Power weapon</td>
+            <td align="center">5</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 6</td>
+            <td><span class="rule-pill">致命 5+</span></td>
+          </tr>
+          <tr>
+            <td>雷霆之鎚 / Thunder hammer</td>
+            <td align="center">5</td>
+            <td align="center">4+</td>
+            <td align="center" class="dmg-bold">5 / 6</td>
+            <td><span class="rule-pill">震擊 (Shock)</span><span class="rule-pill">擊暈 (Stun)</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">操典戰法 (Doctrine Warfare)：</span>【突擊姿態】或【戰術姿態】宣告時，若軍士在場，各享有一次 <strong>0 CP</strong>
+        免費宣告。
+      </div>
+      <div class="ability-block">
+        <span class="ability-title">戰團老兵 (Chapter Veteran)：</span>選派此特工上陣時，為其<strong>額外挑選一項專屬戰團戰術</strong>（聯賽每場可自由更換）。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, LEADER, ASSAULT INTERCESSOR, SERGEANT</div>
+    </div>
+
+    <!-- INTERCESSOR SERGEANT -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_10_456x604.png" alt="仲裁軍士" class="op-model-thumb no-print"><div><span class="op-name">仲裁軍士</span>
+          <span class="op-name-en">INTERCESSOR SERGEANT</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">15</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>自動爆彈步槍 / Auto bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">洪流 1"</span></td>
+          </tr>
+          <tr>
+            <td>爆彈步槍 / Bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>追獵者步槍 (架槍) / Stalker (heavy)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 5</td>
+            <td><span class="rule-pill">重型(僅衝刺 (Dash))</span><span class="rule-pill">致命 5+</span><span class="rule-pill">爆擊穿刺
+                1</span></td>
+          </tr>
+          <tr>
+            <td>追獵者步槍 (行進) / Stalker (mobile)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>鏈鋸劍 / Chainsword</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>徒手格鬥 / Fists</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>動力拳套 / Power fist</td>
+            <td align="center">4</td>
+            <td align="center">4+</td>
+            <td align="center" class="dmg-bold">5 / 7</td>
+            <td><span class="rule-pill">殘暴 (Brutal)</span></td>
+          </tr>
+          <tr>
+            <td>動力武器 / Power weapon</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 6</td>
+            <td><span class="rule-pill">致命 5+</span></td>
+          </tr>
+          <tr>
+            <td>雷霆之鎚 / Thunder hammer</td>
+            <td align="center">4</td>
+            <td align="center">4+</td>
+            <td align="center" class="dmg-bold">5 / 6</td>
+            <td><span class="rule-pill">震擊 (Shock)</span><span class="rule-pill">擊暈 (Stun)</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">操典戰法：</span>【毀滅者姿態】或【戰術姿態】宣告時，若軍士在場，各享有一次 <strong>0 CP</strong> 免費宣告。
+      </div>
+      <div class="ability-block">
+        <span class="ability-title">戰團老兵：</span>佈署時額外獲得一項個人專屬戰團戰術加成。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, LEADER, INTERCESSOR, SERGEANT</div>
+    </div>
+
+    <div class="footer-bar">
+      <span>殺戮小隊：死亡天使 (Angels of Death) 中文規則手冊</span>
+      <span>第 4 頁 / 共 6 頁 (突擊仲裁軍士與仲裁軍士數據卡)</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================================
+     第 5 頁：突擊與重裝（擲彈兵、突擊戰士、重裝槍手）
+=================================================================================== -->
+  <div class="page">
+    <div class="section-header">特工數據卡：突擊與重裝部隊 (OPERATIVES - PART 1)</div>
+
+    <!-- ASSAULT INTERCESSOR GRENADIER -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_11_418x550.png" alt="突擊仲裁擲彈兵" class="op-model-thumb no-print"><div><span class="op-name">突擊仲裁擲彈兵</span>
+          <span class="op-name-en">ASSAULT INTERCESSOR GRENADIER</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>重型爆彈手槍 / Heavy bolt pistol</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>鏈鋸劍 / Chainsword</td>
+            <td align="center">5</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">專精擲彈兵 (Grenadier)：</span>此特工可無限次投擲破片手雷 (Frag) 與破甲手雷 (Krak)，且不計入裝備限制。
+        投擲手雷時，<strong>武器 Hit 命中要求直接改善 1 點（變為 2+ 命中）</strong>。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, ASSAULT INTERCESSOR, GRENADIER</div>
+    </div>
+
+    <!-- ASSAULT INTERCESSOR WARRIOR -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_11_418x550.png" alt="突擊仲裁戰士" class="op-model-thumb no-print"><div><span class="op-name">突擊仲裁戰士</span>
+          <span class="op-name-en">ASSAULT INTERCESSOR WARRIOR</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>重型爆彈手槍 / Heavy bolt pistol</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">射程 8"</span><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>鏈鋸劍 / Chainsword</td>
+            <td align="center">5</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">近身強襲：</span>享有「阿斯塔特」核心特規，單次啟動可宣告執行兩次近戰格鬥。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, ASSAULT INTERCESSOR, WARRIOR</div>
+    </div>
+
+    <!-- HEAVY INTERCESSOR GUNNER -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p14_8_477x553.png" alt="重裝仲裁槍手" class="op-model-thumb no-print"><div><span class="op-name">重裝仲裁槍手</span>
+          <span class="op-name-en">HEAVY INTERCESSOR GUNNER</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">18</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>爆彈手槍 / Bolt pistol</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">射程 8"</span></td>
+          </tr>
+          <tr>
+            <td>重型爆彈槍 (集火) / Heavy bolter (focused)</td>
+            <td align="center">5</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>重型爆彈槍 (掃射) / Heavy bolter (sweeping)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td><span class="rule-pill">爆擊穿刺 1</span><span class="rule-pill">洪流 1"</span></td>
+          </tr>
+          <tr>
+            <td>徒手格鬥 / Fists</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">重裝火力支撐：</span>厚重的 Gravis 重動力甲賦予 18 點高額生命值；重型爆彈槍兩次連射需額外耗費 1 AP。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, HEAVY INTERCESSOR, GUNNER</div>
+    </div>
+
+    <div class="footer-bar">
+      <span>殺戮小隊：死亡天使 (Angels of Death) 中文規則手冊</span>
+      <span>第 5 頁 / 共 6 頁 (突擊擲彈兵、突擊戰士、重裝槍手)</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================================
+     第 6 頁：火力與狙擊（仲裁槍手、仲裁戰士、消滅者狙擊手）
+=================================================================================== -->
+  <div class="page">
+    <div class="section-header">特工數據卡：陣地火力與狙擊 (OPERATIVES - PART 2)</div>
+
+    <!-- INTERCESSOR GUNNER -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_3_456x612.png" alt="仲裁槍手 (榴彈步槍)" class="op-model-thumb no-print"><div><span class="op-name">仲裁槍手 (榴彈步槍)</span>
+          <span class="op-name-en">INTERCESSOR GUNNER</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>輔助榴彈槍 (破片) / Aux grenade (frag)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">2 / 4</td>
+            <td><span class="rule-pill">爆炸 2" (Blast 2")</span></td>
+          </tr>
+          <tr>
+            <td>輔助榴彈槍 (破甲) / Aux grenade (krak)</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">4 / 5</td>
+            <td><span class="rule-pill">穿刺 1 (Piercing 1)</span></td>
+          </tr>
+          <tr>
+            <td>自動爆彈步槍 / Auto bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">洪流 1"</span></td>
+          </tr>
+          <tr>
+            <td>爆彈步槍 / Bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>追獵者步槍 (架槍/行進) / Stalker bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3/5 或 3/4</td>
+            <td><span class="rule-pill">架槍: 重型(僅衝刺 (Dash)),致命5+,爆擊穿刺1</span></td>
+          </tr>
+          <tr>
+            <td>徒手格鬥 / Fists</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, INTERCESSOR, GUNNER</div>
+    </div>
+
+    <!-- INTERCESSOR WARRIOR -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p13_3_456x612.png" alt="仲裁戰士" class="op-model-thumb no-print"><div><span class="op-name">仲裁戰士</span>
+          <span class="op-name-en">INTERCESSOR WARRIOR</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>自動爆彈步槍 / Auto bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">洪流 1"</span></td>
+          </tr>
+          <tr>
+            <td>爆彈步槍 / Bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">爆擊穿刺 1</span></td>
+          </tr>
+          <tr>
+            <td>追獵者步槍 (架槍/行進) / Stalker bolt rifle</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3/5 或 3/4</td>
+            <td><span class="rule-pill">架槍: 重型(僅衝刺 (Dash)),致命5+,爆擊穿刺1</span></td>
+          </tr>
+          <tr>
+            <td>徒手格鬥 / Fists</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, INTERCESSOR, WARRIOR</div>
+    </div>
+
+    <!-- ELIMINATOR SNIPER -->
+    <div class="datacard">
+      <div class="op-header">
+        <div style="display:flex; align-items:center; gap:8px;"><img src="assets/angels_p14_7_529x614.png" alt="消滅者狙擊手" class="op-model-thumb no-print"><div><span class="op-name">消滅者狙擊手</span>
+          <span class="op-name-en">ELIMINATOR SNIPER</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">7"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">12</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">武器名稱 (NAME)</th>
+            <th style="width:10%; text-align:center;">攻擊 ATK</th>
+            <th style="width:10%; text-align:center;">命中 HIT</th>
+            <th style="width:12%; text-align:center;">傷害 DMG</th>
+            <th style="width:34%;">武器規則 (WR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>爆彈手槍 / Bolt pistol</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">射程 8"</span></td>
+          </tr>
+          <tr>
+            <td>狙擊槍 (處決彈) / Executioner</td>
+            <td align="center">4</td>
+            <td align="center">2+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td><span class="rule-pill">重型(僅衝刺 (Dash))</span><span class="rule-pill">飽和</span><span
+                class="rule-pill">索敵-輕型</span><span class="rule-pill">無聲</span></td>
+          </tr>
+          <tr>
+            <td>狙擊槍 (破片彈) / Hyperfrag</td>
+            <td align="center">4</td>
+            <td align="center">2+</td>
+            <td align="center" class="dmg-bold">2 / 4</td>
+            <td><span class="rule-pill">爆炸 1"</span><span class="rule-pill">重型(僅衝刺 (Dash))</span><span
+                class="rule-pill">無聲</span></td>
+          </tr>
+          <tr>
+            <td>狙擊槍 (死神彈) / Mortis</td>
+            <td align="center">4</td>
+            <td align="center">2+</td>
+            <td align="center" class="dmg-bold">3 / 3</td>
+            <td><span class="rule-pill">毀滅 3</span><span class="rule-pill">重型(僅衝刺 (Dash))</span><span class="rule-pill">穿刺
+                1</span><span class="rule-pill">無聲</span></td>
+          </tr>
+          <tr>
+            <td>徒手格鬥 / Fists</td>
+            <td align="center">4</td>
+            <td align="center">3+</td>
+            <td align="center" class="dmg-bold">3 / 4</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block">
+        <span class="ability-title">迷彩披風 (Camo Cloak)：</span>無視敵方<strong>飽和壓制 (Saturate)</strong> 特規。 天生自帶<strong>潛行獵手
+          (Stealthy)</strong> 戰術；若戰隊本就選用該戰術，兩者可同時生效（直接保留兩顆掩體骰：一顆普通與一顆爆擊）。
+      </div>
+      <div class="ability-block">
+        <span class="ability-title">專用行動：光學瞄具 (OPTICS) — 1 AP</span>
+        <br>直至此特工下次啟動前射擊時，<strong>敵方特工皆無法獲得隱蔽掩蔽 (Cannot be obscured)</strong>（控場範圍內不可執行）。
+      </div>
+      <div class="keywords-row">ANGEL OF DEATH, IMPERIUM, ADEPTUS ASTARTES, ELIMINATOR, SNIPER</div>
+    </div>
+
+    <div class="footer-bar">
+      <span>殺戮小隊：死亡天使 (Angels of Death) 中文規則手冊</span>
+      <span>第 6 頁 / 共 6 頁 (槍手、戰士與消滅者狙擊手)</span>
+    </div>
+  </div>
+
+
+</div> <!-- end main-wrapper -->
+
+<footer class="site-footer no-print">
+  <div class="site-footer-content">
+    <p>戰錘 40,000：殺戮小隊 (Kill Team) 繁體中文規則庫 | 死亡天使 (Angels of Death) 線上完整手冊</p>
+    <p>相關微縮模型與美術插畫版權均屬 Games Workshop Limited 所有，僅供華語戰棋玩家社群推廣與對戰交流使用。</p>
+  </div>
+</footer>
+</body>
+
+</html>

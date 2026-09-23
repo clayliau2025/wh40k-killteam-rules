@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Firebase cache
+.firebase/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Scratch scripts
+scratch/

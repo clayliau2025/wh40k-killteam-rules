@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>殺戮小隊：通用裝備規則手冊 (Universal Equipment) — 繁體中文全規則庫</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .ue-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ue-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .ue-header {
+      background: #1e293b;
+      color: #ffffff;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--theme-primary);
+    }
+    .ue-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .ue-title-en {
+      font-size: 11px;
+      color: #94a3b8;
+      font-family: var(--font-body);
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .ue-tag {
+      font-size: 10px;
+      background: var(--theme-primary);
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .ue-body {
+      padding: 14px;
+      flex: 1;
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .ue-lore {
+      font-style: italic;
+      color: #64748b;
+      font-size: 11.5px;
+      margin-bottom: 10px;
+      border-left: 3px solid #cbd5e1;
+      padding-left: 8px;
+    }
+    .action-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .action-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    .ap-pill {
+      background: #ea580c;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .commentary-box {
+      background: #f1f5f9;
+      border-left: 4px solid #3b82f6;
+      padding: 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+    .commentary-q {
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 4px;
+    }
+    .commentary-a {
+      color: #334155;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body class="theme-lite">
+
+<!-- 頂部通用導航列 -->
+<nav class="site-nav">
+  <div class="site-nav-container">
+    <a href="index.html" class="site-logo-link">
+      <img src="assets/kt_logo.png" alt="Kill Team Logo" class="site-logo-img">
+      <span class="site-nav-title">殺戮小隊 繁體中文規則庫</span>
+      <span class="site-nav-badge" style="background:#ea580c;">EQUIPMENT</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 首頁總覽</a></li>
+      <li><a href="match_tracker.html" style="background:#dc2626; color:#fff; font-weight:700;">⚔️ 對戰助手</a></li>
+      <li><a href="universal_equipment.html" class="active">🎒 通用裝備</a></li>
+      <li><a href="rule_lite.html">⚡ 簡易核心規則</a></li>
+      <li><a href="death_of_angel_web_rule.html">🩸 死亡天使</a></li>
+      <li><a href="plague_marine.html">☣️ 瘟疫戰士</a></li>
+      <li><a href="Kommandos.html">🟢 特戰小子</a></li>
+      <li><a href="angel_of_death_starter_set_rule.html">📦 入門套組</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 快速章節選單 -->
+<div class="sub-nav no-print">
+  <div class="sub-nav-container">
+    <span style="color:#94a3b8; font-weight:700; padding:3px 0;">快速跳轉：</span>
+    <a href="#equipment-rules">裝備總則</a>
+    <a href="#tactical-gear">戰術地標與阻礙</a>
+    <a href="#grenades">手榴彈與爆炸物</a>
+    <a href="#barricades">工事路障與梯子</a>
+    <a href="#commentary">官方問答與最新勘誤</a>
+    <a href="match_tracker.html">進入雙人對戰助手 ➔</a>
+  </div>
+</div>
+
+<div class="main-wrapper">
+  <!-- 頂部 Hero Banner -->
+  <header class="hero-banner">
+    <div class="hero-text">
+      <span class="hero-tag">OFFICIAL KILL TEAM RULES UPDATE</span>
+      <h1 class="hero-title">殺戮小隊：通用裝備規則手冊 (UNIVERSAL EQUIPMENT)</h1>
+      <p class="hero-subtitle">收錄官方最新修訂版通用裝備全項目、特殊武器數值、動作 AP 消耗規則，以及 2026 年最新規則問答 (Rules Commentary) 與勘誤說明。任何殺戮小隊皆可在自選裝備時選配這些通用戰術物資。</p>
+    </div>
+    <img src="assets/kt_logo.png" alt="Kill Team Logo" class="hero-art-img no-print" style="max-height: 90px;">
+  </header>
+
+  <!-- 裝備選配總則 -->
+  <div class="section-header" id="equipment-rules">
+    <span>裝備挑選與配置總則 (SELECTING EQUIPMENT)</span>
+    <span class="section-tag">核心規則</span>
+  </div>
+  <div class="highlight-card" style="border-left-color: #ea580c;">
+    <h3 style="font-size:15px; font-weight:700; color:#0f172a; margin-bottom:6px;">殺戮小隊裝備挑選原則：</h3>
+    <ul style="padding-left:20px; line-height:1.7; color:#334155;">
+      <li>在對戰開始前的「設定裝備 (Set Up Equipment)」步驟中，每位玩家可以自選 <strong>4 項裝備 (4 Selections)</strong>。</li>
+      <li>這 4 項配額可自由分配於你所屬小隊的<strong>「陣營專屬裝備 (Faction Equipment)」</strong>與本頁面的<strong>「通用裝備 (Universal Equipment)」</strong>。</li>
+      <li>除特別註明「每場限用一次 (Once per battle)」或有限定次數外，每種通用裝備項目通常限選取一次。</li>
+    </ul>
+  </div>
+
+  <!-- 第一類：戰術地標與阻礙 -->
+  <div class="section-header" id="tactical-gear">
+    <span>第一類：戰術信號、地雷與阻礙 (MARKERS & TACTICAL DEPLOYMENT)</span>
+    <span class="section-tag">4 項物資</span>
+  </div>
+  <div class="equip-grid">
+
+    <!-- COMMS DEVICE -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">通訊裝置</span>
+          <span class="ue-title-en">1X COMMS DEVICE</span>
+        </div>
+        <span class="ue-tag">戰術標記</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">通訊設備可以被迅速駭入並用於協調整體行動，或在激烈交火中呼叫戰術支援。</div>
+        <p><strong>部署規則：</strong>在戰鬥開始前，你可以將 <strong>1 枚通訊裝置標記 (Comms Device marker)</strong> 完全設置於你的<strong>己方領地 (Your Territory)</strong> 內。</p>
+        <p style="margin-top:8px;"><strong>效果：</strong>當一名友方特工控制 (Controls) 此標記時，該特工所有指涉友方特工之<strong>「支援 (SUPPORT)」規則的距離要求增加 3"</strong>（例如原本為「選擇 6" 內一名友方特工」，在此加成下變為 9"）。</p>
+        <p style="margin-top:8px; font-size:12px; color:#64748b;"><em>註：你無法因對手的通訊裝置標記而獲得任何效益。</em></p>
+      </div>
+    </div>
+
+    <!-- MINES -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">地雷</span>
+          <span class="ue-title-en">1X MINES</span>
+        </div>
+        <span class="ue-tag">防禦陷阱</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">第 41 千年的戰場充斥著各式地雷，從簡易破片雷到單分子網陷阱與微等離子地雷，無一不致命。</div>
+        <p><strong>部署規則：</strong>在戰鬥開始前，你可以將 <strong>1 枚地雷標記 (Mines marker)</strong> 完全設置於你的己方領地內，且<strong>距離其他標記、出入口 (Access Points) 及可通行地形 (Accessible terrain) 必須大於 2"</strong>。</p>
+        <p style="margin-top:8px;"><strong>引爆效果：</strong><strong>首次</strong>有任何特工進入該標記的控場範圍 (Control Range) 時，立即移除該地雷標記，並對該名特工造成 <strong>D3+3 點直接傷害</strong>。</p>
+      </div>
+    </div>
+
+    <!-- AMMO CACHE -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">彈藥補給箱</span>
+          <span class="ue-title-en">1X AMMO CACHE</span>
+        </div>
+        <span class="ue-tag">補給站點</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">預先埋設的彈藥堆或陣亡同袍遺留的彈藥箱，在白熱化的交火中是維持壓制火力的關鍵。</div>
+        <p><strong>部署規則：</strong>在戰鬥開始前，你可以將 <strong>1 枚彈藥補給箱標記 (Ammo Cache marker)</strong> 完全設置於你的己方領地內。友方特工可在戰鬥中執行下列任務行動：</p>
+        
+        <div class="action-box">
+          <div class="action-head">
+            <span>彈藥補給 (AMMO RESUPPLY)</span>
+            <span class="ap-pill">0 AP</span>
+          </div>
+          <p>當前啟動的友方特工控制你的彈藥補給箱標記時，可於本轉折點使用該標記。</p>
+          <p style="margin-top:4px;"><strong>效果：</strong>直至下個轉折點開始為止，每當此特工使用其數據卡上的武器進行「射擊」時，你皆可以<strong>重擲其中 1 顆攻擊骰</strong>。</p>
+          <p style="margin-top:6px; font-size:11.5px; color:#64748b;"><em>限制：特工處於敵方控場範圍內、該標記非己方所有、或該標記本轉折點已被使用過時，無法執行此行動。</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAZOR WIRE -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">鐵絲網</span>
+          <span class="ue-title-en">1X RAZOR WIRE</span>
+        </div>
+        <span class="ue-tag">阻礙地形</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">快速拉開並固定於立柱上的倒鉤鐵絲網，是阻滯敵方步兵突擊與阻絕要道的痛苦障礙。</div>
+        <p><strong>地形性質：</strong>鐵絲網屬於<strong>暴露地形 (Exposed)</strong> 與<strong>阻礙地形 (Obstructing)</strong>。</p>
+        <p style="margin-top:8px;"><strong>部署規則：</strong>在戰鬥開始前，你可以將其完全設置於己方領地內的地板上，且距離其他裝備地形、出入口與可通行地形<strong>必須大於 2"</strong>。</p>
+        <p style="margin-top:8px;"><strong>阻礙 (Obstructing) 特規：</strong>每當有特工在其 1" 範圍內跨越 (Cross over) 此地形物件時，<strong>該次移動距離必須額外計入 1" 的距離消耗</strong>。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 第二類：手榴彈與爆炸破拆 -->
+  <div class="section-header" id="grenades">
+    <span>第二類：手榴彈與爆炸破拆 (GRENADES & BREACHING CHARGE)</span>
+    <span class="section-tag">3 項物資</span>
+  </div>
+  <div class="equip-grid">
+
+    <!-- UTILITY GRENADES -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">多功能手榴彈</span>
+          <span class="ue-title-en">UTILITY GRENADES (SMOKE / STUN)</span>
+        </div>
+        <span class="ue-tag">二枚自選</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">從神經抑制爆彈到濃煙滾滾的化學發煙罐，能有效壓制敵軍並成為生死之差的護身符。</div>
+        <p><strong>選配規則：</strong>選取此裝備時，<strong>挑選 2 枚多功能手榴彈</strong>（2 枚煙幕、2 枚震撼，或 1 煙幕 + 1 震撼）。每一次挑選代表一項特工可執行的獨特行動，整場戰鬥全隊可執行的總次數等於你的挑選數量。</p>
+
+        <div class="action-box">
+          <div class="action-head">
+            <span>💨 煙幕手榴彈 (SMOKE GRENADE)</span>
+            <span class="ap-pill">1 AP</span>
+          </div>
+          <p>將 1 枚煙幕標記放置於此特工 <strong>6" 範圍內且對此特工可見</strong>之處（或可見地形的高處 Vantage 上）。該標記形成水平半徑 1"、垂直向上無限高度之濃煙區域。</p>
+          <p style="margin-top:4px;"><strong>效果：</strong>當特工完全處於濃煙區域內時，其對超過 2" 外的特工視為<strong>隱蔽遮擋 (Obscured)</strong>（反之亦然）。此外，向濃煙內的敵方射擊時，具有「穿刺 2 (Piercing 2)」或「爆擊穿刺 2」特規的武器，<strong>效果降級為穿刺 1 / 爆擊穿刺 1</strong>（除非彼此在 2" 內）。</p>
+          <p style="margin-top:4px; font-size:11.5px; color:#475569;"><em>持續時間：於下個戰略階段的準備步驟 (Ready step) 中擲一顆 D3，在完成等同於該擲骰結果次數的特工啟動後（或於該轉折點結束時，取先到者）移除該煙幕標記。</em></p>
+        </div>
+
+        <div class="action-box">
+          <div class="action-head">
+            <span>⚡ 震撼手榴彈 (STUN GRENADE)</span>
+            <span class="ap-pill">1 AP</span>
+          </div>
+          <p>選取此特工 <strong>6" 範圍內且可見的一名敵方特工</strong>。該目標特工與其 1" 內之每一名其他特工皆必須進行<strong>震撼檢定 (Stun test)</strong>。</p>
+          <p style="margin-top:4px;"><strong>檢定方式：</strong>擲一顆 D6，<strong>若擲出 3+，該特工之 APL 數值扣減 1 點</strong>，直至其下次啟動結束為止。</p>
+          <p style="margin-top:6px; font-size:11.5px; color:#64748b;"><em>限制：特工處於敵方控場範圍內、或隊伍已達該手榴彈總選取使用上限時，無法執行此行動。</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPLOSIVE GRENADES -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">爆破手榴彈</span>
+          <span class="ue-title-en">EXPLOSIVE GRENADES (FRAG / KRAK)</span>
+        </div>
+        <span class="ue-tag">二枚自選</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">第 41 千年的進攻部隊使用各式各樣的攻擊手榴彈，從破片殺傷雷到撕裂重裝甲的高爆穿甲雷。</div>
+        <p><strong>選配規則：</strong>選取此裝備時，<strong>挑選 2 枚爆破手榴彈</strong>（2 枚破片、2 枚穿甲，或 1 破片 + 1 穿甲）。每一次挑選代表一項友方特工可使用的遠程武器，整場戰鬥全隊可使用的次數等於你的挑選數量。</p>
+
+        <table class="weapon-table" style="margin-top:10px;">
+          <thead>
+            <tr>
+              <th>武器名稱 (NAME)</th>
+              <th align="center">攻擊 ATK</th>
+              <th align="center">命中 HIT</th>
+              <th align="center">傷害 DMG</th>
+              <th>武器規則與特性 (RULES)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="weapon-name-cell">破片手榴彈 (Frag grenade)</td>
+              <td align="center">4</td>
+              <td align="center">4+</td>
+              <td align="center"><span class="wp-dmg-badge">2 / 4</span></td>
+              <td><span class="wp-rule-tag">射程 6"</span> <span class="wp-rule-tag">爆炸 2" (Blast 2")</span> <span class="wp-rule-tag">飽和 (Saturate)</span></td>
+            </tr>
+            <tr>
+              <td class="weapon-name-cell">穿甲手榴彈 (Krak grenade)</td>
+              <td align="center">4</td>
+              <td align="center">4+</td>
+              <td align="center"><span class="wp-dmg-badge">4 / 5</span></td>
+              <td><span class="wp-rule-tag">射程 6"</span> <span class="wp-rule-tag">穿刺 1 (Piercing 1)</span> <span class="wp-rule-tag">飽和 (Saturate)</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:10px; font-size:12px; color:#64748b;"><em>使用說明：投擲手榴彈屬於「射擊 (Shoot)」行動。每次投擲後立即扣減全隊該款手榴彈的可用庫存。</em></p>
+      </div>
+    </div>
+
+    <!-- BREACHING CHARGE -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">破拆炸藥</span>
+          <span class="ue-title-en">BREACHING CHARGE</span>
+        </div>
+        <span class="ue-tag">強行突入</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">這種爆炸裝置即使面對最堅固的重裝甲艙壁或碉堡牆體，也能炸出戰術強行突入孔道。</div>
+        <p><strong>使用時機：</strong><strong>整場戰鬥限用一次 (Once per battle)</strong>。當一名友方特工執行「破拆 (Breach)」行動時，你可以宣告使用此規則。</p>
+        <p style="margin-top:8px;"><strong>效果：</strong>該特工執行該次「破拆」行動所需的 <strong>AP 消耗減少 1 點</strong>（最低降至 1 AP），如同其數據卡上印有「破拆標記 (Breach marker)」字樣般進行破拆。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 第三類：工事路障與梯子 -->
+  <div class="section-header" id="barricades">
+    <span>第三類：防護工事、路障與戰術梯 (BARRICADES & LADDERS)</span>
+    <span class="section-tag">4 項物資</span>
+  </div>
+  <div class="equip-grid">
+
+    <!-- 2X LIGHT BARRICADES -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">輕型路障 (2 座)</span>
+          <span class="ue-title-en">2X LIGHT BARRICADES</span>
+        </div>
+        <span class="ue-tag">輕型地形</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">專為特工與工兵快速拖曳就位並架設而設計的防禦工事，足以抵擋輕型武器火力射擊。</div>
+        <p><strong>地形性質：</strong>輕型路障屬於<strong>輕型地形 (Light terrain)</strong>；其支撐腳架則屬於微型 (Insignificant) 與暴露 (Exposed)。</p>
+        <p style="margin-top:8px;"><strong>部署規則：</strong>在戰鬥開始前，你可以將<strong>至多 2 座輕型路障</strong>完全設置於你的己方領地內的地板上，且每座距離其他裝備地形、出入口與可通行地形<strong>必須大於 2"</strong>。</p>
+      </div>
+    </div>
+
+    <!-- 1X HEAVY BARRICADE -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">重型路障 (1 座)</span>
+          <span class="ue-title-en">1X HEAVY BARRICADE</span>
+        </div>
+        <span class="ue-tag">重型地形</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">由塑鋼與精金打造的厚重防護板，在最激烈的彈雨交火中提供堅不可摧的掩蔽掩體。</div>
+        <p><strong>地形性質：</strong>重型路障屬於<strong>重型地形 (Heavy terrain)</strong>。</p>
+        <p style="margin-top:8px;"><strong>部署規則：</strong>在戰鬥開始前，你可以將 <strong>1 座重型路障</strong>設置於<strong>距離你的空投區 (Drop Zone) 4" 範圍內</strong>且完全位於殺戮區地板上，且距離其他裝備地形、出入口與可通行地形必須大於 2"。</p>
+      </div>
+    </div>
+
+    <!-- 1X PORTABLE BARRICADE -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">便攜式路障 (1 座)</span>
+          <span class="ue-title-en">1X PORTABLE BARRICADE</span>
+        </div>
+        <span class="ue-tag">移動掩體</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">配有裝甲底座的防暴盾牌掩體，可由特工合力扛起推進，在開闊區域創造移動式掩體。</div>
+        <p><strong>地形性質：</strong>便攜式路障屬於<strong>輕型 (Light)、防護 (Protective) 與便攜 (Portable)</strong> 地形（腳架為微型與暴露）。</p>
+        <p style="margin-top:6px;"><strong>部署規則：</strong>戰鬥開始前完全設置於己方領地地板上，距其他裝備地形、出入口及可通行地形 >2"。</p>
+        <p style="margin-top:6px;"><strong>防護 (Protective) 效果：</strong>當特工以此地形物件獲得掩護 (In cover) 時，其<strong>豁免數值 (Save stat) 提升 1 點</strong>（例如由 3+ 提升至 2+，最高上限為 2+）。</p>
+
+        <div class="action-box">
+          <div class="action-head">
+            <span>攜帶路障移動 (MOVE WITH BARRICADE)</span>
+            <span class="ap-pill">獨特行動</span>
+          </div>
+          <p>與路障內側相連 (Connected to the inside) 的特工可執行此行動。規則同「換位 (Reposition)」，但該特工<strong>移動上限為其移動力減去 2"</strong>，且無法攀爬、躍下、跳躍或使用任何撤下重新設置的陣營特規。</p>
+          <p style="margin-top:4px; font-size:11.5px; color:#475569;">移動完成後，將便攜路障重新相連設置，且不可距其他裝備地形、出入口或可通行地形 2" 以內（若無法滿足則路障無法重新架設）。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2X LADDERS -->
+    <div class="ue-card">
+      <div class="ue-header">
+        <div>
+          <span class="ue-title">戰術梯 (2 座)</span>
+          <span class="ue-title-en">2X LADDERS</span>
+        </div>
+        <span class="ue-tag">攀爬輔助</span>
+      </div>
+      <div class="ue-body">
+        <div class="ue-lore">折疊收納的輕合金突擊梯，為突入要塞高處或搶佔關鍵制高優勢點 (Vantage) 提供迅捷捷徑。</div>
+        <p><strong>地形性質：</strong>梯子屬於<strong>微型 (Insignificant)</strong> 與<strong>暴露 (Exposed)</strong> 地形。</p>
+        <p style="margin-top:6px;"><strong>部署規則：</strong>戰鬥開始前設置至多 2 座，完全位於己方領地內、直立倚靠於至少 2" 高的地形物件、距其他裝備地形 >2" 且距門扉與出入口 >1"。</p>
+        <p style="margin-top:6px;"><strong>攀爬捷徑效果：</strong>特工可視若無物般穿過梯子（但不可停留在梯子上）。<strong>每動作限用一次</strong>，每當特工攀爬靠有梯子的地形時，若該梯子在整個攀爬過程中皆處於該特工之控場範圍內，<strong>該次垂直攀爬距離一律僅計為 1"</strong>！</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 官方問答與最新勘誤 -->
+  <div class="section-header" id="commentary">
+    <span>官方規則評註與勘誤說明 (RULES COMMENTARY & ERRATAS)</span>
+    <span class="section-tag">2026 最新官方裁定</span>
+  </div>
+
+  <div class="commentary-box">
+    <div class="commentary-q">問：我可以將梯子完全設置於我的己方領地內，但倚靠在中線 (Centreline) 上的地形物件嗎？</div>
+    <div class="commentary-a">答：<strong>可以。</strong>只要梯子本體完全位於你的己方領地範圍內即可。</div>
+
+    <div class="commentary-q">問：如果距離特工 1" 內沒有其他可攀爬的地形部分，我能藉由梯子直接攀爬上高於該特工 3" 以上的制高點 (Vantage) 嗎？</div>
+    <div class="commentary-a">答：<strong>可以。</strong>梯子本身即提供合法的垂直攀爬路徑。</div>
+
+    <div class="commentary-q">問：當特工被具備「穿刺 2 (Piercing 2)」特規的武器射擊時，我能利用煙幕手榴彈的效果將其降級為「穿刺 1」，再藉由特工自身其他能使穿刺惡化 1 級的特規（例如死亡守望風暴盾）完全抵消穿刺效果嗎？</div>
+    <div class="commentary-a">答：<strong>可以。</strong>多項規則對穿刺等級的減損可以正常疊加結算，降至 0 時即完全無視穿刺特規。</div>
+  </div>
+
+  <!-- 快速導引卡 -->
+  <div class="ploy-card" style="border-left:5px solid #dc2626; padding:16px; margin-top:20px;">
+    <div class="ploy-header">
+      <span class="ploy-title" style="font-size:16px;">⚔️ 立即開啟雙人對戰助手 (Match Companion)</span>
+      <span class="ploy-cost">APP</span>
+    </div>
+    <p style="font-size:13px; color:#475569; margin-bottom:12px;">
+      準備好進行一場痛快的殺戮小隊對決了嗎？在「對戰助手」中，你可以為雙方玩家從上述 11 項通用裝備與各陣營專屬裝備中自選 4 項裝備配額，並在實戰看板中一鍵追蹤手榴彈剩餘次數、彈藥箱每回合重置與特工即時血量！
+    </p>
+    <a href="match_tracker.html" class="btn-action" style="background:#dc2626; display:inline-block; text-decoration:none;">開啟對戰助手 ➔</a>
+  </div>
+
+</div> <!-- end main-wrapper -->
+
+<footer class="site-footer no-print">
+  <div class="site-footer-content">
+    <p>戰錘 40,000：殺戮小隊 (Kill Team) 繁體中文規則庫 | 通用裝備規則手冊 (Universal Equipment)</p>
+    <p>相關微縮模型與美術插畫版權均屬 Games Workshop Limited 所有，僅供華語戰棋玩家社群推廣與對戰交流使用。</p>
+  </div>
+</footer>
+
+</body>
+</html>

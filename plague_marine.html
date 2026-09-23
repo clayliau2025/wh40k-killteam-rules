@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>殺戮小隊：瘟疫戰士 完整規則手冊 (A4直式清晰列印版)</title>
+  <style>
+    /* ================= A4 直式無空白頁列印設定 ================= */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 10pt;
+      line-height: 1.42;
+    }
+
+    .page {
+      width: 100%;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+      .page {
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+      .page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* ================= 瘟疫戰士專屬綠/金標頭 ================= */
+    .header-banner {
+      border: 2px solid #2d5a27;
+      border-left: 8px solid #2d5a27;
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-bottom: 7px;
+      background: #ffffff;
+    }
+
+    .header-title {
+      font-size: 14pt;
+      font-weight: 900;
+      color: #2d5a27;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.5px;
+    }
+
+    .header-sub {
+      font-size: 8.8pt;
+      color: #475569;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .section-header {
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #2d5a27;
+      padding: 4px 9px;
+      font-size: 10.2pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 6px;
+      margin-bottom: 5px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    /* ================= 特工數據卡 ================= */
+    .datacard {
+      border: 1.2px solid #64748b;
+      border-top: 3.5px solid #2d5a27;
+      border-radius: 4px;
+      background: #ffffff;
+      margin-bottom: 6px;
+      page-break-inside: avoid;
+    }
+
+    .op-header {
+      background: #f8fafc;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .op-name {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #2d5a27;
+    }
+
+    .op-name-en {
+      font-size: 8pt;
+      color: #64748b;
+      margin-left: 4px;
+      font-weight: 400;
+    }
+
+    .stat-cluster {
+      display: flex;
+      gap: 3.5px;
+    }
+
+    .stat-box {
+      border: 1px solid #64748b;
+      background: #ffffff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-align: center;
+      min-width: 33px;
+    }
+
+    .stat-label {
+      font-size: 6.8pt;
+      color: #64748b;
+      display: block;
+      font-weight: 800;
+      margin-bottom: -1px;
+    }
+
+    .stat-value {
+      font-size: 11pt;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* 武器表格 */
+    .weapon-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.8pt;
+    }
+
+    .weapon-table th {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 3px 6px;
+      text-align: left;
+      border-bottom: 1px solid #cbd5e1;
+      font-weight: 800;
+    }
+
+    .weapon-table td {
+      padding: 3px 6px;
+      border-bottom: 0.5px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .weapon-table tr:nth-child(even) td {
+      background: #fbfcfd;
+    }
+
+    .rule-pill {
+      display: inline-block;
+      border: 0.8px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 3px;
+      padding: 0 4px;
+      font-size: 7.8pt;
+      color: #334155;
+      margin-right: 2px;
+    }
+
+    .dmg-bold {
+      font-weight: 900;
+      color: #9a6a12;
+      font-size: 10pt;
+    }
+
+    .ability-block {
+      background: #f4f7f4;
+      border-left: 3px solid #2d5a27;
+      padding: 4px 8px;
+      font-size: 8.8pt;
+      color: #1e293b;
+      margin: 3.5px 5px;
+      border-radius: 0 3px 3px 0;
+      line-height: 1.38;
+    }
+
+    .ability-title {
+      font-weight: 800;
+      color: #2d5a27;
+    }
+
+    .keywords-row {
+      background: #f8fafc;
+      padding: 2.5px 8px;
+      font-size: 7pt;
+      color: #64748b;
+      letter-spacing: 0.3px;
+      border-top: 0.5px solid #cbd5e1;
+    }
+
+    /* 策略與裝備卡片 */
+    .strat-card, .equip-card {
+      border: 1px solid #cbd5e1;
+      border-left: 4.5px solid #9a6a12;
+      background: #ffffff;
+      border-radius: 3px;
+      padding: 5px 8px;
+      margin-bottom: 5px;
+      page-break-inside: avoid;
+    }
+
+    .strat-head {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 0.5px solid #e2e8f0;
+      padding-bottom: 2px;
+      margin-bottom: 3px;
+    }
+
+    .strat-name {
+      font-size: 9.8pt;
+      font-weight: 800;
+      color: #714605;
+    }
+
+    .strat-cost {
+      border: 1.2px solid #2d5a27;
+      color: #2d5a27;
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 0 5px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .lore-box {
+      font-style: italic;
+      color: #64748b;
+      font-size: 7.5pt;
+      margin-bottom: 2.5px;
+      line-height: 1.25;
+    }
+
+    .rule-desc {
+      font-size: 8.8pt;
+      color: #1e293b;
+      line-height: 1.38;
+    }
+
+    .rule-desc ul {
+      padding-left: 15px;
+      margin-top: 2px;
+    }
+
+    .rule-desc li {
+      margin-bottom: 2px;
+    }
+
+    .highlight-card {
+      border: 1px dashed #94a3b8;
+      background: #f8fafc;
+      padding: 5px 8px;
+      border-radius: 3px;
+      font-size: 8.8pt;
+      margin-bottom: 6px;
+      line-height: 1.38;
+    }
+
+    .footer-bar {
+      margin-top: 6px;
+      border-top: 0.5px solid #cbd5e1;
+      padding-top: 2px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7pt;
+      color: #64748b;
+    }
+  </style>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body class="theme-plague">
+
+<!-- 頂部通用導航列 -->
+<nav class="site-nav">
+  <div class="site-nav-container">
+    <a href="index.html" class="site-logo-link">
+      <img src="assets/kt_logo.png" alt="Kill Team Logo" class="site-logo-img">
+      <span class="site-nav-title">殺戮小隊 繁體中文規則庫</span>
+      <span class="site-nav-badge" style="background:#2d5a27;">PLAGUE MARINES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 首頁總覽</a></li>
+      <li><a href="match_tracker.html" style="background:#dc2626; color:#fff; font-weight:700;">⚔️ 對戰助手</a></li>
+      <li><a href="universal_equipment.html">🎒 通用裝備</a></li>
+      <li><a href="rule_lite.html">⚡ 簡易核心規則</a></li>
+      <li><a href="death_of_angel_web_rule.html">🩸 死亡天使</a></li>
+      <li><a href="plague_marine.html" class="active">☣️ 瘟疫戰士</a></li>
+      <li><a href="Kommandos.html">🟢 特戰小子</a></li>
+      <li><a href="angel_of_death_starter_set_rule.html">📦 入門套組</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 快速章節選單 -->
+<div class="sub-nav no-print">
+  <div class="sub-nav-container">
+    <span style="color:#94a3b8; font-weight:700; padding:3px 0;">快速跳轉：</span>
+    <a href="#rules">陣營特規</a>
+    <a href="#strategy-ploys">戰略策略</a>
+    <a href="#firefight-ploys">交戰策略</a>
+    <a href="#equipment">陣營專屬裝備</a>
+    <a href="#operatives">特工數據卡</a>
+  </div>
+</div>
+
+<div class="main-wrapper">
+  <!-- 陣營 Hero Banner -->
+  <header class="hero-banner">
+    <div class="hero-text">
+      <span class="hero-tag" style="color:#84cc16;">DEATH GUARD / NURGLE</span>
+      <h1 class="hero-title">殺戮小隊：瘟疫戰士 (PLAGUE MARINES)</h1>
+      <p class="hero-subtitle">
+        效忠於慈父納垢的死亡守衛背叛者修士。身披腐化膨脹的生化裝甲，肉體散發致命惡疫與毒瘴。瘟疫戰士擁有「噁心堅韌」的不死軀體，無懼任何重創，以惡疾與腐爛火力蠶食戰場。
+      </p>
+    </div>
+    <img src="assets/plague_p9_1_1668x1274.png" alt="Plague Marines Squad Art" class="hero-art-img no-print">
+  </header>
+
+
+<!-- ===================================================================================
+     第 1 頁：戰隊配置 + 陣營核心特規 (阿斯塔特 / 劇毒 / 噁心韌性)
+=================================================================================== -->
+<div class="page">
+  <div class="header-banner">
+    <div class="header-title">
+      <span>殺戮小隊：瘟疫戰士 (PLAGUE MARINES) 戰隊手冊</span>
+      <span style="font-size: 9.5pt; color: #2d5a27;">A4 直式列印專用版</span>
+    </div>
+    <div class="header-sub">HERETIC ASTARTES — 混沌納垢慈父之腐爛神選死亡守衛</div>
+  </div>
+
+  <div class="grid-2">
+    <!-- 戰隊組建名冊 -->
+    <div class="strat-card" style="border-left-color: #2d5a27;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#2d5a27;">戰隊組建名冊 (KILL TEAM OPERATIVES)</span>
+        <span class="strat-cost">總計 6 名特工</span>
+      </div>
+      <div class="lore-box">莫塔里安的墮落子嗣體內充斥著潰爛與疫病，雖步履蹣跚，卻具備駭人聽聞的非凡韌性。</div>
+      <div class="rule-desc">
+        <strong>1. 首領特工 (LEADER)：包含 1 名</strong>
+        <ul>
+          <li><strong>瘟疫戰士冠軍頭目 (Plague Marine Champion)</strong></li>
+        </ul>
+        <strong>2. 戰士特工：從下列名單挑選 5 名（各限 1 名）</strong>
+        <ul>
+          <li><strong>瘟疫戰士轟炸手 (Plague Marine Bombardier)</strong></li>
+          <li><strong>瘟疫戰士格鬥家 (Plague Marine Fighter)</strong></li>
+          <li><strong>瘟疫戰士重裝槍手 (Plague Marine Heavy Gunner)</strong></li>
+          <li><strong>瘟疫戰士扛旗手 (Plague Marine Icon Bearer)</strong></li>
+          <li><strong>惡意施瘟者 (Malignant Plaguecaster)</strong></li>
+          <li><strong>瘟疫戰士常規戰士 (Plague Marine Warrior)</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 任務原型與陣營特性 -->
+    <div>
+      <div class="strat-card" style="border-left-color: #9a6a12;">
+        <div class="strat-head">
+          <span class="strat-name">作戰原型 (ARCHETYPES)</span>
+          <span style="font-weight:bold; font-size:8.2pt; color:#714605;">安全警戒 / 搜尋與摧毀</span>
+        </div>
+        <div class="rule-desc">
+          瘟疫戰士殺戮小隊可採用 <strong>安全警戒 (SECURITY)</strong> 以及 <strong>搜尋與摧毀 (SEEK & DESTROY)</strong> 作戰行動卡牌。
+        </div>
+      </div>
+
+      <div class="strat-card" style="border-left-color: #2d5a27; margin-top: 4px;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#2d5a27;">納垢聖數密語 (SIGIL OF NURGLE)</span>
+        </div>
+        <div class="lore-box">慈父納垢的神聖數字為 7，其腐化印記顯化為 3。其無邊瘟疫便自此神聖數列中奔湧而出。</div>
+        <div class="rule-desc">
+          戰隊中的多項能力與射程均緊扣 7" 與 3" 之神聖距離結算。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 核心特規 1: ASTARTES -->
+  <div class="section-header" id="rules">陣營特規：阿斯塔特 (ASTARTES)</div>
+  <div class="highlight-card">
+    友方瘟疫戰士特工在其單次啟動期間內，<strong>可以執行兩次「射擊 (Shoot)」行動，或兩次「格鬥 (Fight)」行動</strong>。
+    <ul>
+      <li>若宣告執行兩次「射擊」行動，則其中<strong>至少有一次必須選用爆彈手槍 (Bolt pistol)、爆彈槍 (Boltgun) 或 靈能武器 (PSYCHIC weapon)</strong>。</li>
+      <li>在同一次啟動期間內，<strong>同一把靈能遠程武器不可選擇超過一次</strong>。</li>
+      <li>每名友方瘟疫戰士特工在反制階段均可執行<strong>反制行動 (Counteract)</strong>，不受其當前姿態指令（交戰或匿蹤）限制。</li>
+    </ul>
+  </div>
+
+  <!-- 核心特規 2 & 3: POISON & DISGUSTINGLY RESILIENT -->
+  <div class="grid-2">
+    <div class="strat-card" style="border-left-color: #714605;">
+      <div class="strat-head">
+        <span class="strat-name">陣營特規：劇毒標記 (POISON)</span>
+        <span class="strat-cost">狀態特規</span>
+      </div>
+      <div class="lore-box">納垢的惡魔毒素與靈魂潰爛無視自然免疫與任何常規醫療救援。</div>
+      <div class="rule-desc">
+        若武器具備「劇毒 (Poison)」特規，在<strong>結算攻擊骰 (Resolve Attack Dice)</strong> 步驟中，只要有任何成功骰造成傷害，被攻擊的目標特工（不包含友方瘟疫戰士）<strong>立即獲得 1 枚你的「劇毒標記 (Poison token)」</strong>（若其身上尚未持有）。<br>
+        <strong>持續折磨：</strong>凡帶有你的劇毒標記之特工<strong>每次被啟動時，立即承受 1 點傷害</strong>。
+      </div>
+    </div>
+
+    <div class="strat-card" style="border-left-color: #2d5a27;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#2d5a27;">陣營特規：噁心韌性 (DISGUSTINGLY RESILIENT)</span>
+        <span class="strat-cost">防禦減傷</span>
+      </div>
+      <div class="lore-box">納垢信徒的肉身因死亡與腫脹而麻木，刀槍不入。</div>
+      <div class="rule-desc">
+        每當有攻擊骰對友方瘟疫戰士特工造成 <strong>3 點或更多傷害</strong> 時，擲一顆 D6：若結果為 <strong>4+</strong>，該次造成的傷害<strong>減 1 點</strong>。
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：瘟疫戰士 (Plague Marines) 中文規則手冊</span>
+    <span>第 1 頁 / 共 6 頁 (組隊原則與陣營核心特規)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 2 頁：戰略策略（4種） 與 交戰策略（4種）
+=================================================================================== -->
+<div class="page">
+  <div class="header-banner">
+    <div class="header-title">
+      <span>死亡守衛作戰策略卡冊 (TACTICAL PLOYS)</span>
+      <span style="font-size: 9pt; color: #2d5a27;">策略花費：各 1 CP</span>
+    </div>
+  </div>
+
+  <div class="section-header" id="strategy-ploys">戰略策略 (STRATEGY PLOYS) — 戰略階段宣告使用</div>
+  <div class="grid-2">
+    <!-- CONTAGION -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">傳染病威能 (CONTAGION)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">腐敗的毒瘴自其軀體滲出，大幅削弱周遭敵軍的氣力。</div>
+      <div class="rule-desc">
+        當敵方特工符合下列任一條件時，其<strong>移動力 Move 扣減 2"</strong>，且武器的 <strong>Hit 命中門檻惡化 +1</strong>（不可與重傷 Injured 效果累加）：
+        <ul>
+          <li>帶有你的劇毒標記，且處於友方特工 <strong>3" 範圍內且彼此可見</strong>。</li>
+          <li>處於友方<strong>瘟疫戰士扛旗手 3" 範圍內且彼此可見</strong>。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LUMBERING DEATH -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">蹣跚死境 (LUMBERING DEATH)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">瘟疫戰士推進沉穩堅定，在堅韌的行進中傾瀉死神火力。</div>
+      <div class="rule-desc">
+        當友方特工於同次啟動中<strong>移動距離未超過 3"</strong> 而發動射擊或格鬥時，或當其進行<strong>格鬥反擊 (Retaliating)</strong> 時，其武器獲得<strong>無休 (Ceaseless，可重擲所有結果為 1 個指定點數的攻擊骰)</strong> 特規。
+      </div>
+    </div>
+
+    <!-- CLOUD OF FLIES -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">蒼蠅雲 (CLOUD OF FLIES)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">肥碩的屍蠅漫天飛舞，遮蔽前進的身影並吸收敵火射擊。</div>
+      <div class="rule-desc">
+        在殺戮區放置 1 枚你的「蒼蠅雲標記 (Cloud of Flies marker)」。當敵方射擊距離自身超過 3" 的友方特工時，若該友方特工<strong>完全處於該標記 1" 範圍內，則該友方特工視為獲得隱蔽掩蔽 (Obscured)</strong>。於下次戰略階段的就緒步驟移除該標記。
+      </div>
+    </div>
+
+    <!-- NURGLINGS -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">納垢靈騷擾 (NURGLINGS)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">矮小惡毒的小惡魔發出刺耳尖笑，以腐爛爪牙撕扯敵軍。</div>
+      <div class="rule-desc">
+        選擇一名處於友方特工 <strong>3" 內</strong> 的敵方特工，或一名<strong>帶有你的劇毒標記且處於友方特工 7" 內</strong> 的敵方特工。直至該目標下次啟動結束為止，其 <strong>APL 屬性扣減 1 點</strong>。
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top: 8px;">交戰策略 (FIREFIGHT PLOYS) — 交戰階段宣告使用</div>
+  <div class="grid-2">
+    <!-- VIRULENT POISON -->
+    <div class="strat-card" style="border-left-color: #2d5a27;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#2d5a27;">劇烈毒素 (VIRULENT POISON)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">最致命的瘟疫隨風擴散，甚至能滲透防毒面具與密封盔甲。</div>
+      <div class="rule-desc">
+        在友方特工啟動或反制期間宣告（執行行動前後皆可）。使一名距離該特工 <strong>3" 內，或處於 7" 內且可見</strong> 的敵方特工立即獲得 1 枚劇毒標記（若尚未持有）。
+      </div>
+    </div>
+
+    <!-- POISONOUS DEMISE -->
+    <div class="strat-card" style="border-left-color: #2d5a27;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#2d5a27;">劇毒殞命 (POISONOUS DEMISE)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">瘟疫戰士腫脹的殘軀倒地時引發毒爆，將致命穢物噴濺四方。</div>
+      <div class="rule-desc">
+        當友方特工陣亡癱瘓 (Incapacitated)、自戰場移出前使用。所有距離該特工 <strong>3" 內且可見</strong> 的敵方特工皆獲得 1 枚劇毒標記；若其中已有敵方持有劇毒標記，則改為<strong>對其造成 1 點傷害</strong>。
+      </div>
+    </div>
+
+    <!-- SICKENING RESILIENCE -->
+    <div class="strat-card" style="border-left-color: #2d5a27;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#2d5a27;">令人作嘔的韌性 (SICKENING RESILIENCE)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">甘願將肉身奉獻為神聖瘟疫的溫床，換取更加深沉的生命活力。</div>
+      <div class="rule-desc">
+        當攻擊骰對友方特工造成傷害時使用。直至該啟動或反制結束為止，該特工結算「噁心韌性」特規時<strong>直接扣減 1 點傷害（最低減至 2 點）——完全無須投骰判定</strong>。
+      </div>
+    </div>
+
+    <!-- CURSE OF ROT -->
+    <div class="strat-card" style="border-left-color: #2d5a27;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#2d5a27;">腐朽詛咒 (CURSE OF ROT)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">與瘟疫戰士短兵相接，便是將自身靈魂暴露於不可逆的衰敗中。</div>
+      <div class="rule-desc">
+        當友方特工對 3" 內的敵方（若敵方持有劇毒標記則擴大至 7" 內）射擊或格鬥時，於對手投擲攻擊/防禦骰後使用：<strong>對手每投出一個「3 點」的骰子，該敵方立即承受 1 點傷害</strong>，且該骰子不可保留為成功亦不能重擲。
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：瘟疫戰士 (Plague Marines) 中文規則手冊</span>
+    <span>第 2 頁 / 共 6 頁 (戰略策略與交戰策略全集)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 3 頁：陣營專屬裝備（4種） + 瘟疫戰士冠軍頭目數據卡
+=================================================================================== -->
+<div class="page">
+  <div class="section-header" id="equipment">陣營專屬裝備 (FACTION EQUIPMENT)</div>
+  <div class="grid-2">
+    <!-- PLAGUE BELLS -->
+    <div class="equip-card" style="border-left-color: #9a6a12;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#714605;">瘟疫之鐘 (PLAGUE BELLS)</span>
+        <span class="strat-cost" style="border-color:#9a6a12; color:#714605;">裝備道具</span>
+      </div>
+      <div class="lore-box">當喪鐘敲響，邪穢能量湧入體內，將不潔的忍耐力推向極致。</div>
+      <div class="rule-desc">
+        你可以<strong>完全無視友方瘟疫戰士特工因重傷 (Injured) 狀態所帶來的任何屬性扣減</strong>（包含移動力與武器命中）。
+      </div>
+    </div>
+
+    <!-- BLIGHT GRENADES -->
+    <div class="equip-card" style="border-left-color: #9a6a12;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#714605;">枯萎手雷 (BLIGHT GRENADES)</span>
+        <span class="strat-cost" style="border-color:#9a6a12; color:#714605;">裝備武器</span>
+      </div>
+      <div class="lore-box">彈體內填滿毒性病原體與鏽蝕鐵片，在爆炸中擴散致命毒瘴。</div>
+      <div class="rule-desc">
+        友方特工獲得下列遠程武器（整場戰鬥累計限選用 2 次）：
+        <br>• <strong>枯萎手雷：</strong>Atk 4 | Hit 4+ | Dmg 2/4
+        <br>• 特規：<span class="rule-pill">射程 6"</span><span class="rule-pill">爆炸 2"</span><span class="rule-pill">飽和</span><span class="rule-pill">劇烈</span><span class="rule-pill">劇毒</span>
+      </div>
+    </div>
+
+    <!-- PLAGUE ROUNDS -->
+    <div class="equip-card" style="border-left-color: #9a6a12;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#714605;">瘟疫彈藥 (PLAGUE ROUNDS)</span>
+        <span class="strat-cost" style="border-color:#9a6a12; color:#714605;">裝備道具</span>
+      </div>
+      <div class="lore-box">彈頭滴淌著黏稠毒液，任何擦傷都將引發嚴重的壞疽感染。</div>
+      <div class="rule-desc">
+        友方特工配備的<strong>爆彈槍 (Boltgun)</strong> 與 <strong>爆彈手槍 (Bolt pistol)</strong> 獲得 <strong>劇毒 (Poison)</strong> 與 <strong>劇烈 (Severe)</strong> 武器特規。
+      </div>
+    </div>
+
+    <!-- POISON VENTS -->
+    <div class="equip-card" style="border-left-color: #9a6a12;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#714605;">排毒通風口 (POISON VENTS)</span>
+        <span class="strat-cost" style="border-color:#9a6a12; color:#714605;">裝備道具</span>
+      </div>
+      <div class="lore-box">動力裝甲閥門噴出惡臭毒霧，直接灼傷附近敵人的肺部。</div>
+      <div class="rule-desc">
+        每當有敵方特工在友方特工 <strong>3" 範圍內被啟動</strong> 時：
+        <ul>
+          <li>若該敵方未持有劇毒標記：擲一顆 D3，<strong>若擲出 3 點，該敵方獲得 1 枚劇毒標記</strong>。</li>
+          <li>若該敵方已持有劇毒標記：<strong>對其造成 D3 點傷害</strong>（取代原本的 1 點）。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top: 8px;">指揮特工：瘟疫戰士冠軍頭目 (PLAGUE MARINE CHAMPION)</div>
+  <!-- PLAGUE MARINE CHAMPION -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p10_4_621x742.png" alt="瘟疫戰士冠軍頭目" class="op-model-thumb no-print"><div><span class="op-name">瘟疫戰士冠軍頭目</span>
+        <span class="op-name-en">PLAGUE MARINE CHAMPION</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">15</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>等離子手槍 (標準) / Plasma pistol (standard)</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 5</td>
+          <td><span class="rule-pill">射程 8"</span><span class="rule-pill">穿刺 1</span></td>
+        </tr>
+        <tr>
+          <td>等離子手槍 (超載) / Plasma pistol (supercharge)</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">4 / 5</td>
+          <td><span class="rule-pill">射程 8"</span><span class="rule-pill">過熱</span><span class="rule-pill">致命 5+</span><span class="rule-pill">穿刺 1</span></td>
+        </tr>
+        <tr>
+          <td>瘟疫之劍 / Plague sword</td>
+          <td align="center">5</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">4 / 5</td>
+          <td><span class="rule-pill">劇烈</span><span class="rule-pill">劇毒</span><span class="rule-pill">淬毒*</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">慈父恩澤 (Grandfather's Blessing)：</span>當帶有你劇毒標記的敵方特工在冠軍頭目 <strong>7" 範圍內失去生命值</strong> 時，冠軍頭目<strong>回復等量失去的生命值</strong>（每轉折點最多回復 3 點生命值，且僅限頭目未陣亡時生效）。
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">淬毒特規 (*Toxic)：</span>當使用此武器攻擊在行動開始前<strong>已帶有你劇毒標記的敵方特工</strong>時，此武器的<strong>普通傷害與爆擊傷害數值皆 +1</strong>。
+    </div>
+    <div class="keywords-row">PLAGUE MARINES, CHAOS, HERETIC ASTARTES, LEADER, CHAMPION</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：瘟疫戰士 (Plague Marines) 中文規則手冊</span>
+    <span>第 3 頁 / 共 6 頁 (陣營裝備與瘟疫冠軍頭目)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 4 頁：惡意施瘟者（含專屬靈能行動） + 瘟疫戰士轟炸手
+=================================================================================== -->
+<div class="page">
+  <div class="section-header">特工數據卡：靈能者與爆破專家 (OPERATIVES - PART 1)</div>
+
+  <!-- MALIGNANT PLAGUECASTER -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p10_5_575x705.png" alt="惡意施瘟者" class="op-model-thumb no-print"><div><span class="op-name">惡意施瘟者</span>
+        <span class="op-name-en">MALIGNANT PLAGUECASTER</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>生命衰變 / Entropy</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 7</td>
+          <td><span class="rule-pill">靈能</span><span class="rule-pill">射程 7"</span><span class="rule-pill">飽和</span><span class="rule-pill">劇烈</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+        <tr>
+          <td>瘟疫之風 / Plague wind</td>
+          <td align="center">6</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">2 / 3</td>
+          <td><span class="rule-pill">靈能</span><span class="rule-pill">飽和</span><span class="rule-pill">劇烈</span><span class="rule-pill">洪流 1"</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+        <tr>
+          <td>腐化法杖 / Corrupted staff</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">靈能</span><span class="rule-pill">劇烈</span><span class="rule-pill">震擊</span><span class="rule-pill">擊暈</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">專屬靈能行動：劇毒毒瘴 (POISONOUS MIASMA) — 1 AP</span><br>
+      <strong>靈能。</strong>選擇一名距離此特工 7" 內可見、或是此特工合法目標的敵方特工。該敵方<strong>獲得 1 枚劇毒標記</strong>；若其身上已持有劇毒標記，改為<strong>直接對其造成 3 點傷害</strong>（處於敵方控場範圍內不可執行）。
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">專屬靈能行動：腐敗生機 (PUTRESCENT VITALITY) — 1 AP</span><br>
+      <strong>靈能。</strong>選擇一名距離此特工 3" 內且可見的友方特工，投擲 2D6：<strong>若總和為 7 點，該特工立即回復 7 點失去的生命值</strong>；否則回復等同於較高點數 D6 的生命值（每轉折點限執行一次，控場範圍內不可執行）。
+    </div>
+    <div class="keywords-row">PLAGUE MARINE, CHAOS, HERETIC ASTARTES, PSYKER, MALIGNANT PLAGUECASTER</div>
+  </div>
+
+  <!-- PLAGUE MARINE BOMBARDIER -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p11_10_562x930.png" alt="瘟疫戰士轟炸手" class="op-model-thumb no-print"><div><span class="op-name">瘟疫戰士轟炸手</span>
+        <span class="op-name-en">PLAGUE MARINE BOMBARDIER</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>爆彈槍 / Boltgun</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>徒手格鬥 / Fists</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">專精擲彈兵 (Grenadier)：</span>此特工可無限次投擲<strong>枯萎手雷 (Blight grenade)</strong> 與 <strong>破甲手雷 (Krak grenade)</strong>，不計入全隊次數限制。投擲手雷時，<strong>該武器的 Hit 命中要求改善 1 點（變為 2+）</strong>，且其投擲的枯萎手雷直接獲得<strong>淬毒 (Toxic)</strong> 特規。
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">淬毒特規 (Toxic)：</span>攻擊在行動開始前已帶有你劇毒標記的敵方特工時，武器普通與爆擊傷害數值皆 +1。
+    </div>
+    <div class="keywords-row">PLAGUE MARINE, CHAOS, HERETIC ASTARTES, BOMBARDIER</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：瘟疫戰士 (Plague Marines) 中文規則手冊</span>
+    <span>第 4 頁 / 共 6 頁 (惡意施瘟者與轟炸手)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 5 頁：瘟疫戰士格鬥家（含連枷行動） + 瘟疫戰士重裝槍手
+=================================================================================== -->
+<div class="page">
+  <div class="section-header">特工數據卡：近戰絞肉與重火力 (OPERATIVES - PART 2)</div>
+
+  <!-- PLAGUE MARINE FIGHTER -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p11_8_764x689.png" alt="瘟疫戰士格鬥家" class="op-model-thumb no-print"><div><span class="op-name">瘟疫戰士格鬥家</span>
+        <span class="op-name-en">PLAGUE MARINE FIGHTER</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>爆彈手槍 / Bolt pistol</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 8"</span></td>
+        </tr>
+        <tr>
+          <td>腐化連枷 / Flail of Corruption</td>
+          <td align="center">5</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">4 / 5</td>
+          <td><span class="rule-pill">殘暴</span><span class="rule-pill">劇烈</span><span class="rule-pill">震擊</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">專屬連枷橫掃行動：連枷 (FLAIL) — 1 AP</span><br>
+      對所有距離此特工 <strong>2" 範圍內且可見的每一名其他特工造成 D3+2 點傷害</strong>。每名目標分別單獨投骰：若目標為敵方特工且 <strong>D3 擲出 3 點，該敵方同時獲得 1 枚你的劇毒標記</strong>（若尚未持有）。<br>
+      <em>規則判定：在行動限制與阿斯塔特特規判定中，此行動視為一次「格鬥 (Fight)」行動；隱蔽指令下不可執行。</em>
+    </div>
+    <div class="keywords-row">PLAGUE MARINES, CHAOS, HERETIC ASTARTES, FIGHTER</div>
+  </div>
+
+  <!-- PLAGUE MARINE HEAVY GUNNER -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p11_3_847x843.png" alt="瘟疫戰士重裝槍手" class="op-model-thumb no-print"><div><span class="op-name">瘟疫戰士重裝槍手</span>
+        <span class="op-name-en">PLAGUE MARINE HEAVY GUNNER</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>爆彈手槍 / Bolt pistol</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 8"</span></td>
+        </tr>
+        <tr>
+          <td>瘟疫噴射器 / Plague spewer</td>
+          <td align="center">5</td>
+          <td align="center">2+</td>
+          <td align="center" class="dmg-bold">3 / 3</td>
+          <td><span class="rule-pill">射程 7"</span><span class="rule-pill">飽和</span><span class="rule-pill">劇烈</span><span class="rule-pill">洪流 2"</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+        <tr>
+          <td>徒手格鬥 / Fists</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">生化滅絕重火：</span>手持能噴灑腐蝕原液的瘟疫噴射器，具備 2+ 極高命中門檻與 2" 範圍洪流壓制能力，能瞬間感染成群敵軍。
+    </div>
+    <div class="keywords-row">PLAGUE MARINE, CHAOS, HERETIC ASTARTES, HEAVY GUNNER</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：瘟疫戰士 (Plague Marines) 中文規則手冊</span>
+    <span>第 5 頁 / 共 6 頁 (格鬥家與重裝槍手)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 6 頁：瘟疫戰士扛旗手 + 瘟疫戰士常規戰士
+=================================================================================== -->
+<div class="page">
+  <div class="section-header">特工數據卡：聖像守護與戰線中堅 (OPERATIVES - PART 3)</div>
+
+  <!-- PLAGUE MARINE ICON BEARER -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p11_9_610x644.png" alt="瘟疫戰士扛旗手" class="op-model-thumb no-print"><div><span class="op-name">瘟疫戰士扛旗手</span>
+        <span class="op-name-en">PLAGUE MARINE ICON BEARER</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>爆彈手槍 / Bolt pistol</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 8"</span></td>
+        </tr>
+        <tr>
+          <td>瘟疫小刀 / Plague knife</td>
+          <td align="center">5</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">劇烈</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">聖像旗手 (Icon Bearer)：</span>在判定目標標記 (Marker) 的控制權歸屬時，將此特工的 <strong>APL 屬性直接視為提高 1 點</strong>（此為計算加成而非修改屬性，可與其他修改正常累加）。
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">傳染聖像 (Icon of Contagion)：</span>每當此特工處於<strong>敵方陣地領土 (Opponent's territory) 範圍內</strong>時，你使用「傳染病威能 (Contagion)」戰略策略的消耗變為 <strong>0 CP（免費）</strong>。
+    </div>
+    <div class="keywords-row">PLAGUE MARINES, CHAOS, HERETIC ASTARTES, ICON BEARER</div>
+  </div>
+
+  <!-- PLAGUE MARINE WARRIOR -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/plague_p11_11_516x762.png" alt="瘟疫戰士常規戰士" class="op-model-thumb no-print"><div><span class="op-name">瘟疫戰士常規戰士</span>
+        <span class="op-name-en">PLAGUE MARINE WARRIOR</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">5"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">3+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>爆彈槍 / Boltgun</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">淬毒*</span></td>
+        </tr>
+        <tr>
+          <td>瘟疫小刀 / Plague knife</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">劇烈</span><span class="rule-pill">劇毒</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">可憎防護 (Repulsive Fortitude)：</span>當敵方特工向此特工發動射擊時，你的防禦投骰結果為 <strong>5+ 即判定為爆擊成功</strong>。
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">淬毒特規 (*Toxic)：</span>攻擊在行動開始前已帶有你劇毒標記的敵方特工時，武器普通與爆擊傷害數值皆 +1。
+    </div>
+    <div class="keywords-row">PLAGUE MARINE, CHAOS, HERETIC ASTARTES, WARRIOR</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：瘟疫戰士 (Plague Marines) 中文規則手冊</span>
+    <span>第 6 頁 / 共 6 頁 (扛旗手與常規戰士)</span>
+  </div>
+</div>
+
+
+</div> <!-- end main-wrapper -->
+
+<footer class="site-footer no-print">
+  <div class="site-footer-content">
+    <p>戰錘 40,000：殺戮小隊 (Kill Team) 繁體中文規則庫 | 瘟疫戰士 (Plague Marines) 線上完整手冊</p>
+    <p>相關微縮模型與美術插畫版權均屬 Games Workshop Limited 所有，僅供華語戰棋玩家社群推廣與對戰交流使用。</p>
+  </div>
+</footer>
+</body>
+</html>

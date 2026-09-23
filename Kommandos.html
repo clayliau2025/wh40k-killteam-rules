@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>殺戮小隊：特戰小子 (Kommandos) 規則手冊 - 繁體中文標準版</title>
+  <style>
+    /* ================= A4 直式無空白頁列印設定 ================= */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 10pt;
+      line-height: 1.42;
+    }
+
+    .page {
+      width: 100%;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+      .page {
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+      .page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* ================= 獸人綠皮專屬標頭 ================= */
+    .header-banner {
+      border: 2px solid #166534;
+      border-left: 8px solid #ea580c;
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-bottom: 7px;
+      background: #ffffff;
+    }
+
+    .header-title {
+      font-size: 14pt;
+      font-weight: 900;
+      color: #166534;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.5px;
+    }
+
+    .header-sub {
+      font-size: 8.8pt;
+      color: #475569;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .section-header {
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #166534;
+      padding: 4px 9px;
+      font-size: 10.2pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 6px;
+      margin-bottom: 5px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    /* ================= 特工數據卡 ================= */
+    .datacard {
+      border: 1.2px solid #64748b;
+      border-top: 3.5px solid #166534;
+      border-radius: 4px;
+      background: #ffffff;
+      margin-bottom: 6px;
+      page-break-inside: avoid;
+    }
+
+    .op-header {
+      background: #f8fafc;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .op-name {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #166534;
+    }
+
+    .op-name-en {
+      font-size: 8pt;
+      color: #64748b;
+      margin-left: 4px;
+      font-weight: 400;
+    }
+
+    .stat-cluster {
+      display: flex;
+      gap: 3.5px;
+    }
+
+    .stat-box {
+      border: 1px solid #64748b;
+      background: #ffffff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-align: center;
+      min-width: 33px;
+    }
+
+    .stat-label {
+      font-size: 6.8pt;
+      color: #64748b;
+      display: block;
+      font-weight: 800;
+      margin-bottom: -1px;
+    }
+
+    .stat-value {
+      font-size: 11pt;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* 武器表格 */
+    .weapon-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.8pt;
+    }
+
+    .weapon-table th {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 3px 6px;
+      text-align: left;
+      border-bottom: 1px solid #cbd5e1;
+      font-weight: 800;
+    }
+
+    .weapon-table td {
+      padding: 3px 6px;
+      border-bottom: 0.5px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .weapon-table tr:nth-child(even) td {
+      background: #fbfcfd;
+    }
+
+    .rule-pill {
+      display: inline-block;
+      border: 0.8px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 3px;
+      padding: 0 4px;
+      font-size: 7.8pt;
+      color: #334155;
+      margin-right: 2px;
+    }
+
+    .dmg-bold {
+      font-weight: 900;
+      color: #ea580c;
+      font-size: 10pt;
+    }
+
+    .ability-block {
+      background: #f0fdf4;
+      border-left: 3px solid #166534;
+      padding: 4px 8px;
+      font-size: 8.8pt;
+      color: #1e293b;
+      margin: 3.5px 5px;
+      border-radius: 0 3px 3px 0;
+      line-height: 1.38;
+    }
+
+    .ability-title {
+      font-weight: 800;
+      color: #166534;
+    }
+
+    .keywords-row {
+      background: #f8fafc;
+      padding: 2.5px 8px;
+      font-size: 7pt;
+      color: #64748b;
+      letter-spacing: 0.3px;
+      border-top: 0.5px solid #cbd5e1;
+    }
+
+    /* 策略與裝備卡片 */
+    .strat-card, .equip-card {
+      border: 1px solid #cbd5e1;
+      border-left: 4.5px solid #ea580c;
+      background: #ffffff;
+      border-radius: 3px;
+      padding: 5px 8px;
+      margin-bottom: 5px;
+      page-break-inside: avoid;
+    }
+
+    .strat-head {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 0.5px solid #e2e8f0;
+      padding-bottom: 2px;
+      margin-bottom: 3px;
+    }
+
+    .strat-name {
+      font-size: 9.8pt;
+      font-weight: 800;
+      color: #c2410c;
+    }
+
+    .strat-cost {
+      border: 1.2px solid #166534;
+      color: #166534;
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 0 5px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .lore-box {
+      font-style: italic;
+      color: #64748b;
+      font-size: 7.5pt;
+      margin-bottom: 2.5px;
+      line-height: 1.25;
+    }
+
+    .rule-desc {
+      font-size: 8.8pt;
+      color: #1e293b;
+      line-height: 1.38;
+    }
+
+    .rule-desc ul {
+      padding-left: 15px;
+      margin-top: 2px;
+    }
+
+    .rule-desc li {
+      margin-bottom: 2px;
+    }
+
+    .highlight-card {
+      border: 1px dashed #94a3b8;
+      background: #f8fafc;
+      padding: 5px 8px;
+      border-radius: 3px;
+      font-size: 8.8pt;
+      margin-bottom: 6px;
+      line-height: 1.38;
+    }
+
+    .footer-bar {
+      margin-top: 6px;
+      border-top: 0.5px solid #cbd5e1;
+      padding-top: 2px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7pt;
+      color: #64748b;
+    }
+  </style>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body class="theme-kommandos">
+
+<!-- 頂部通用導航列 -->
+<nav class="site-nav">
+  <div class="site-nav-container">
+    <a href="index.html" class="site-logo-link">
+      <img src="assets/kt_logo.png" alt="Kill Team Logo" class="site-logo-img">
+      <span class="site-nav-title">殺戮小隊 繁體中文規則庫</span>
+      <span class="site-nav-badge" style="background:#166534;">KOMMANDOS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 首頁總覽</a></li>
+      <li><a href="match_tracker.html" style="background:#dc2626; color:#fff; font-weight:700;">⚔️ 對戰助手</a></li>
+      <li><a href="universal_equipment.html">🎒 通用裝備</a></li>
+      <li><a href="rule_lite.html">⚡ 簡易核心規則</a></li>
+      <li><a href="death_of_angel_web_rule.html">🩸 死亡天使</a></li>
+      <li><a href="plague_marine.html">☣️ 瘟疫戰士</a></li>
+      <li><a href="Kommandos.html" class="active">🟢 特戰小子</a></li>
+      <li><a href="angel_of_death_starter_set_rule.html">📦 入門套組</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 快速章節選單 -->
+<div class="sub-nav no-print">
+  <div class="sub-nav-container">
+    <span style="color:#94a3b8; font-weight:700; padding:3px 0;">快速跳轉：</span>
+    <a href="#boss-plan">老大戰術簡報</a>
+    <a href="#strategy-ploys">戰略策略</a>
+    <a href="#firefight-ploys">交戰策略</a>
+    <a href="#equipment">陣營專屬裝備</a>
+    <a href="#operatives">特工數據卡</a>
+  </div>
+</div>
+
+<div class="main-wrapper">
+  <!-- 陣營 Hero Banner -->
+  <header class="hero-banner">
+    <div class="hero-text">
+      <span class="hero-tag" style="color:#f97316;">ORKS / KOMMANDOS</span>
+      <h1 class="hero-title">殺戮小隊：特戰小子 (KOMMANDOS)</h1>
+      <p class="hero-subtitle">
+        歐克獸人中最狡猾也最殘忍的潛行部隊。特戰小子精通伏擊、割喉突襲與暴力爆破，深諳「又搞又毛（Mork and Gork）」的精髓——趁敵不備從陰影中突入，接著展開排山倒海的 WAAAGH! 肉搏痛擊！
+      </p>
+    </div>
+    <img src="assets/kommandos_p11_1_1958x1660.png" alt="Kommandos Squad Art" class="hero-art-img no-print">
+  </header>
+
+
+<!-- ===================================================================================
+     第 1 頁：戰隊配置 + 陣營核心特規 + 標記與原型
+=================================================================================== -->
+<div class="page">
+  <div class="header-banner">
+    <div class="header-title">
+      <span>殺戮小隊：獸人特戰小子 (KOMMANDOS) 戰隊手冊</span>
+      <span style="font-size: 9.5pt; color: #166534;">A4 直式列印專用版</span>
+    </div>
+    <div class="header-sub">ORK KOMMANDOS — 狡黠、殘暴且深諳潛伏突襲之道的綠皮精銳</div>
+  </div>
+
+  <div class="grid-2">
+    <!-- 戰隊組建名冊 -->
+    <div class="strat-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">戰隊組建名冊 (KILL TEAM OPERATIVES)</span>
+        <span class="strat-cost">1 領袖 + 9 戰士</span>
+      </div>
+      <div class="lore-box">特戰小子是獸人中罕見懂得運用偽裝與詭計的戰士，但當戰鬥打響時，他們對暴力與殺戮的熱愛絲毫不減。</div>
+      <div class="rule-desc">
+        <strong>1. 首領特工 (LEADER)：挑選 1 名</strong>
+        <ul>
+          <li><strong>特戰頭目老大 (Boss Nob)</strong>，裝備挑選二選一：
+            <br>• 短手槍 + 大砍刀 (Slugga; big choppa)
+            <br>• 短手槍 + 動力巨爪 (Slugga; power klaw)
+          </li>
+        </ul>
+        <strong>2. 戰士特工：挑選 9 名</strong>（除特戰小子 Boy 可重複外，其餘各限選 1 名）：
+        <ul>
+          <li><strong>炸彈史奎格 (Bomb Squig)*</strong></li>
+          <li><strong>特戰小子 (Kommando Boy)</strong></li>
+          <li><strong>破門小子 (Breacha Boy)</strong></li>
+          <li><strong>燒烤小子 (Burna Boy)</strong></li>
+          <li><strong>通訊小子 (Comms Boy)</strong></li>
+          <li><strong>突突小子 (Dakka Boy)</strong></li>
+          <li><strong>特戰屁精 (Kommando Grot)*</strong></li>
+          <li><strong>火箭小子 (Rokkit Boy)</strong></li>
+          <li><strong>雙刀小子 (Slasha Boy)</strong></li>
+          <li><strong>狙擊小子 (Snipa Boy)</strong></li>
+        </ul>
+        <strong style="color:#ea580c;">*半數名額規則：</strong>炸彈史奎格與特戰屁精<strong>各自僅佔半個特工名額</strong>，這代表你可以同時選用這兩名特工，兩者合計僅算佔用 1 個名額！
+      </div>
+    </div>
+
+    <!-- 任務原型與專屬標記 -->
+    <div>
+      <div class="strat-card" style="border-left-color: #ea580c;">
+        <div class="strat-head">
+          <span class="strat-name">作戰原型 (ARCHETYPES)</span>
+          <span style="font-weight:bold; font-size:8.2pt; color:#c2410c;">滲透潛入 / 搜尋與摧毀</span>
+        </div>
+        <div class="rule-desc">
+          獸人特戰小子殺戮小隊可採用 <strong>滲透潛入 (INFILTRATION)</strong> 以及 <strong>搜尋與摧毀 (SEEK & DESTROY)</strong> 作戰行動卡牌。
+        </div>
+      </div>
+
+      <div class="strat-card" style="border-left-color: #64748b; margin-top: 4px;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#334155;">專屬標記指南 (MARKER/TOKEN GUIDE)</span>
+        </div>
+        <div class="rule-desc" style="font-size: 8.2pt;">
+          本隊伍配備專屬戰術標記：
+          <br>• <strong>炸藥標記 (Explosives token)</strong>
+          <br>• <strong>破門標記 (Breach marker)</strong>
+          <br>• <strong>炸藥包標記 (Dynamite token)</strong>
+          <br>• <strong>魚叉標記 (Harpoon token)</strong>
+          <br>• <strong>震撼彈標記 (Stun Grenade token)</strong>
+          <br>• <strong>煙霧彈標記 (Smoke Grenade token)</strong>
+        </div>
+      </div>
+
+      <div class="strat-card" style="border-left-color: #166534; margin-top: 4px;">
+        <div class="strat-head">
+          <span class="strat-name" style="color:#166534;">陣營特規：割喉小子 (THROAT SLITTAS)</span>
+          <span class="strat-cost">被動核心</span>
+        </div>
+        <div class="lore-box">特戰小子利用陰影與誤導悄無聲息地靠近敵人，隨後亮出鋸齒大刀猛烈突擊。</div>
+        <div class="rule-desc">
+          友方特戰小子特工（<strong>炸彈史奎格除外</strong>）即使當前持有<strong>隱蔽指令 (Conceal order)</strong>，<strong>依然可以合法宣告並執行「衝鋒 (Charge)」行動</strong>！
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 老大名言戰術面板 -->
+  <div class="section-header" id="boss-plan">老大戰術簡報 (BOSS NOB'S BATTLE PLAN)</div>
+  <div class="highlight-card" style="font-style: italic; color:#1e293b;">
+    「聽好啦，小子們！那些蝦米（人類）搞了個又大又閃的發電機鐵盒子，給他們所有破爛玩意供電！老大的作戰計畫是：咱們直接把大門踹開，給他們來一頓瘋狂突突大佳，把火箭筒砸過去，直到那破盒子像雷區裡的蹦蹦車一樣轟隆炸飛！然後——完工大吉！有啥問題嗎？沒有吧？俺就知道沒有……那就衝上去幹架，小子們！WAAAGH！」
+    <br><span style="font-style: normal; font-weight: bold; font-size:7.8pt; color:#64748b; float:right;">—— 特戰頭目老大 踩爛加茲洛特，於第二發電機融毀災難前夕</span>
+    <div style="clear:both;"></div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：獸人特戰小子 (Kommandos) 中文規則手冊</span>
+    <span>第 1 頁 / 共 6 頁 (組隊名冊與割喉核心特規)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 2 頁：戰略策略（4種） 與 交戰策略（4種）
+=================================================================================== -->
+<div class="page">
+  <div class="header-banner">
+    <div class="header-title">
+      <span>特戰小子戰鬥策略卡冊 (TACTICAL PLOYS)</span>
+      <span style="font-size: 9pt; color: #166534;">策略花費：各 1 CP</span>
+    </div>
+  </div>
+
+  <div class="section-header" id="strategy-ploys">戰略策略 (STRATEGY PLOYS) — 戰略階段宣告使用</div>
+  <div class="grid-2">
+    <!-- DAKKA! DAKKA! DAKKA! -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">大佳！大佳！大佳！ (DAKKA! DAKKA! DAKKA!)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">雖然比同類狡猾，但特戰小子堅信任何目標都能靠更密集的子彈暴雨撕裂。</div>
+      <div class="rule-desc">
+        本轉折點內，所有友方特戰小子特工的<strong>遠程武器獲得制裁 (Punishing) 武器特規</strong>（只要保留任何爆擊成功骰，即可將 1 顆失敗骰直接轉為普通成功保留）。
+      </div>
+    </div>
+
+    <!-- WAAAGH! -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">WAAAGH! (歐克戰吼！)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">獸人臭名昭著的恐怖戰吼引爆嗜血狂潮，掀起近身屠戮的風暴。</div>
+      <div class="rule-desc">
+        本轉折點內，所有友方特戰小子特工的<strong>近戰武器獲得平衡 (Balanced) 武器特規</strong>（每次格鬥或反擊皆可重擲 1 顆攻擊骰）。
+      </div>
+    </div>
+
+    <!-- SKULK ABOUT -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">鬼祟潛伏 (SKULK ABOUT)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">特戰小子極為擅長利用掩體與陰影戲弄敵人，干擾對手的射擊瞄準。</div>
+      <div class="rule-desc">
+        每當敵方射擊<strong>持有隱蔽指令 (Conceal order) 的友方特工</strong>時，你可以<strong>直接將 1 顆防禦骰視為普通成功保留，免擲該骰</strong>（可與常規掩體防禦骰同時保留並累加）。
+      </div>
+    </div>
+
+    <!-- SSSSHHH! -->
+    <div class="strat-card">
+      <div class="strat-head">
+        <span class="strat-name">噓噓噓！ (SSSSHHHH!)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">儘管身型粗壯龐大，但只要形勢需要，綠皮特戰隊能以驚人的靜謐迅速推進。</div>
+      <div class="rule-desc">
+        所有<strong>目前非敵方有效目標、或持有隱蔽指令且距離敵方超過 6"</strong> 的友方特工，<strong>立即免費執行一次衝刺 (Dash) (Dash) 行動</strong>。此策略在戰鬥的第一個回合同步點（第 1 回合）不可宣告使用。
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top: 8px;">交戰策略 (FIREFIGHT PLOYS) — 交戰階段宣告使用</div>
+  <div class="grid-2">
+    <!-- JUST A SCRATCH -->
+    <div class="strat-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">只是皮肉傷 (JUST A SCRATCH)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">獸人具備不可思議的生命韌性，能對足以致命的創傷嗤之以鼻。</div>
+      <div class="rule-desc">
+        當有攻擊骰對友方特工（<strong>炸彈史奎格與特戰屁精除外</strong>）造成<strong>普通傷害 (Normal Dmg)</strong> 時使用。<strong>直接無視該次攻擊骰所造成的傷害</strong>。
+      </div>
+    </div>
+
+    <!-- KRUMP 'EM! -->
+    <div class="strat-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">痛扁他們！ (KRUMP 'EM!)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">雖然戰術狡猾，但綠皮特戰隊內心深處永遠受渴望幹架與近戰殺戮的本能驅使。</div>
+      <div class="rule-desc">
+        在<strong>交戰階段即將結束時</strong>使用。挑選一名友方特戰小子特工，該特工<strong>立即免費執行一次「格鬥 (Fight)」行動</strong>。
+      </div>
+    </div>
+
+    <!-- KUNNIN' BUT BRUTAL -->
+    <div class="strat-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">狡猾又殘暴 (KUNNIN' BUT BRUTAL)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">利用陰影掩蔽突進到敵人眼前，隨後爆發出最野蠻純粹的暴力重劈。</div>
+      <div class="rule-desc">
+        當<strong>持有隱蔽指令且在同次啟動中衝鋒過的友方特工</strong>進行格鬥時，在結算第一顆攻擊骰且該骰為<strong>普通打擊 (Strike with normal success)</strong> 時使用：<strong>直接將該顆普通成功升級轉化為爆擊成功結算</strong>！
+      </div>
+    </div>
+
+    <!-- SHAKE IT OFF -->
+    <div class="strat-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">抖擻精神 (SHAKE IT OFF)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div class="lore-box">土製護甲與狂野韌性相結合，讓特戰小子的突襲步伐幾乎無法被遏止。</div>
+      <div class="rule-desc">
+        當友方特工被啟動、或當其 APL 屬性遭受變更修改時使用。直至下個回合同步點開始為止，<strong>你可以無視針對該特工 APL 屬性的任何扣減與修改</strong>。
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：獸人特戰小子 (Kommandos) 中文規則手冊</span>
+    <span>第 2 頁 / 共 6 頁 (戰略與交戰策略全集)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 3 頁：陣營專屬裝備（4種） + 特戰頭目老大（BOSS NOB）
+=================================================================================== -->
+<div class="page">
+  <div class="section-header" id="equipment">陣營專屬裝備 (FACTION EQUIPMENT)</div>
+  <div class="grid-2">
+    <!-- CHOPPAS -->
+    <div class="equip-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">大砍刀 (CHOPPAS)</span>
+        <span class="strat-cost" style="border-color:#166534; color:#166534;">裝備武器</span>
+      </div>
+      <div class="lore-box">綠皮砍刀看似粗糙鏽蝕，但被當頭劈中時沒人笑得出來。</div>
+      <div class="rule-desc">
+        友方特工（炸彈史奎格與屁精除外）配備下列近戰武器（若特工本身已有更高數值的砍刀，則使用該優質版本）：
+        <br>• <strong>砍刀：</strong>Atk 3 | Hit 3+ | Dmg 4/5
+      </div>
+    </div>
+
+    <!-- DYNAMITE -->
+    <div class="equip-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">炸藥包 (DYNAMITE)</span>
+        <span class="strat-cost" style="border-color:#166534; color:#166534;">裝備武器</span>
+      </div>
+      <div class="lore-box">土製炸藥捆包極不穩定，爆炸瞬間能將整隊敵軍撕成碎片。</div>
+      <div class="rule-desc">
+        每場戰鬥限用一次。一名友方特工（史奎格與屁精除外）可使用下列遠程武器：
+        <br>• <strong>炸藥包：</strong>Atk 5 | Hit 4+ | Dmg 4/5
+        <br>• 特規：<span class="rule-pill">射程 4"</span><span class="rule-pill">爆炸 1"</span><span class="rule-pill">重型(僅限重整陣位)</span><span class="rule-pill">飽和</span>
+      </div>
+    </div>
+
+    <!-- HARPOON -->
+    <div class="equip-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">魚叉槍 (HARPOON)</span>
+        <span class="strat-cost" style="border-color:#166534; color:#166534;">裝備武器</span>
+      </div>
+      <div class="lore-box">帶有鋒利倒鉤的拋射物，能死死鉤住倖存的獵物限制其移動。</div>
+      <div class="rule-desc">
+        每轉折點限用一次。一名友方特工（史奎格與屁精除外）可發射此武器：
+        <br>• <strong>魚叉槍：</strong>Atk 4 | Hit 4+ | Dmg 4/5
+        <br>• 特規：<span class="rule-pill">射程 8"</span><span class="rule-pill">致命 5+</span><span class="rule-pill">擊暈 (Stun)</span>
+      </div>
+    </div>
+
+    <!-- COLLAPSIBLE STOCKS -->
+    <div class="equip-card" style="border-left-color: #166534;">
+      <div class="strat-head">
+        <span class="strat-name" style="color:#166534;">摺疊槍托 (COLLAPSIBLE STOCKS)</span>
+        <span class="strat-cost" style="border-color:#166534; color:#166534;">裝備改造</span>
+      </div>
+      <div class="lore-box">削短或摺疊的槍托提升了射擊穩定度與攜帶便捷性。</div>
+      <div class="rule-desc">
+        直接<strong>移除</strong>友方特工下列遠程武器的<strong>射程限制 (Range x) 特規</strong>（使其成為全地圖無射程限制之遠程火力）：
+        <br>• <strong>電擊手槍 (Shokka pistol)</strong>
+        <br>• <strong>短手槍 (Slugga)</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top: 8px;">首領特工：特戰頭目老大 (KOMMANDO BOSS NOB)</div>
+  <!-- BOSS NOB DATACARD -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p12_4_527x710.png" alt="特戰頭目老大" class="op-model-thumb no-print"><div><span class="op-name">特戰頭目老大</span>
+        <span class="op-name-en">KOMMANDO BOSS NOB</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">3</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">14</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>短手槍 / Slugga</td>
+          <td align="center">4</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 8"</span></td>
+        </tr>
+        <tr>
+          <td>大砍刀 / Big choppa</td>
+          <td align="center">5</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">5 / 6</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>動力巨爪 / Power klaw</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">5 / 7</td>
+          <td><span class="rule-pill">殘暴 (Brutal)</span><span class="rule-pill">震擊 (Shock)</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">揍人時間 (Krumpin' Time)：</span>此特工在其單次啟動期間內，<strong>可以執行兩次「格鬥 (Fight)」行動</strong>。
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">專屬指令行動：麻利點幹！ (GET IT DUN!) — 1 AP</span><br>
+      <strong>支援。</strong>選擇一名距離此特工 6" 內可見的友方特戰小子特工（炸彈史奎格除外）。直至該目標特工下次啟動結束為止，<strong>其 APL 屬性 +1</strong>。
+      <br><em>限制：老大處於敵方控場範圍內或進行反制行動時，不可執行此行動。</em>
+    </div>
+    <div class="keywords-row">KOMMANDOS, ORK, LEADER, BOSS NOB</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：獸人特戰小子 (Kommandos) 中文規則手冊</span>
+    <span>第 3 頁 / 共 6 頁 (陣營裝備與特戰頭目老大)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 4 頁：炸彈史奎格 + 特戰小子 + 破門小子
+=================================================================================== -->
+<div class="page">
+  <div class="section-header">特工數據卡：炸彈魔、常規小子與破門突擊 (OPERATIVES - PART 1)</div>
+
+  <!-- BOMB SQUIG -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p12_5_521x485.png" alt="特戰炸彈史奎格" class="op-model-thumb no-print"><div><span class="op-name">特戰炸彈史奎格</span>
+        <span class="op-name-en">KOMMANDO BOMB SQUIG</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">5</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>綁在背上的炸藥 / Explosives</td>
+          <td align="center">6</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">4 / 5</td>
+          <td><span class="rule-pill">爆炸 1"</span><span class="rule-pill">限定 1 次</span><span class="rule-pill">自爆*</span></td>
+        </tr>
+        <tr>
+          <td>獠牙撕咬 / Bite</td>
+          <td align="center">3</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">4 / 5</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">自爆特規 (*Explosive)：</span>處於敵方控場範圍內時仍可發射炸藥。<strong>不需選定目標，史奎格自身恆為主目標且無法獲得掩體或隱蔽</strong>。其爆炸範圍將波及周遭所有敵我單位！
+      <br><span class="ability-title">轟隆！ (Boom!)：</span>若史奎格在未使用炸藥前被擊殺癱瘓，擲一顆 D6（或自願擲 2D6）：只要出現 <strong>4+</strong>，<strong>史奎格移出戰場前立即免費執行一次炸藥射擊</strong>！
+    </div>
+    <div class="ability-block">
+      <span class="ability-title">一根筋笨蛋 (Stoopid)：</span>不可選擇隱蔽指令；除衝鋒、衝刺 (Dash)、格鬥、陣位變更與射擊外不可執行其他行動。<br>
+      <span class="ability-title">消耗品牲口 (Expendable)：</span>敵方的擊殺/殲滅任務、逃脫或生存計分判定中，<strong>完全無視史奎格的陣亡或存在</strong>。
+    </div>
+    <div class="keywords-row">KOMMANDO, ORK, BOMB SQUIG</div>
+  </div>
+
+  <!-- KOMMANDO BOY -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p13_10_447x508.png" alt="特戰小子 (常規戰士)" class="op-model-thumb no-print"><div><span class="op-name">特戰小子 (常規戰士)</span>
+        <span class="op-name-en">KOMMANDO BOY</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>短手槍 / Slugga</td>
+          <td align="center">4</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 8"</span></td>
+        </tr>
+        <tr>
+          <td>大砍刀 / Choppa</td>
+          <td align="center">4</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">4 / 5</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">戰術雜七雜八 (Taktical Wot-notz)：</span>每轉折點各限執行一次：
+      <br>• 一名友方特戰小子可免費執行「煙霧手雷 (Smoke Grenade)」行動。
+      <br>• 一名友方特戰小子可免費執行「震撼手雷 (Stun Grenade)」行動（不計入常規裝備次數限制）。
+    </div>
+    <div class="keywords-row">KOMMANDOS, ORK, BOY</div>
+  </div>
+
+  <!-- BREACHA BOY -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p13_3_463x537.png" alt="破門小子" class="op-model-thumb no-print"><div><span class="op-name">破門小子</span>
+        <span class="op-name-en">KOMMANDO BREACHA BOY</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>短手槍 / Slugga</td>
+          <td align="center">4</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 8"</span></td>
+        </tr>
+        <tr>
+          <td>破門撞槌 / Breacha ram</td>
+          <td align="center">4</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">5 / 5</td>
+          <td><span class="rule-pill">殘暴</span><span class="rule-pill">劇烈</span><span class="rule-pill">震擊</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">專屬行動：爆破撞門 (BREACH) — 1 AP</span><br>
+      在自身控場範圍內的地形旁放置 1 枚破門標記 (Breach marker)。凡距離該標記 1" 內的特工，<strong>可將該地形厚度不超過 1" 的牆體視為可直接通行的通路 (Accessible terrain)</strong>！
+      <br><em>機動破門：此行動可在衝鋒或重整陣位中發動（此時花費減少 1 AP，即為 0 AP 免費使用），撞開牆面後可繼續使用剩餘距離穿過！</em>
+    </div>
+    <div class="keywords-row">KOMMANDOS, ORK, BREACHA BOY</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：獸人特戰小子 (Kommandos) 中文規則手冊</span>
+    <span>第 4 頁 / 共 6 頁 (炸彈史奎格、特戰小子、破門小子)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 5 頁：燒烤小子 + 通訊小子 + 突突小子
+=================================================================================== -->
+<div class="page">
+  <div class="section-header">特工數據卡：特種火力與協調支援 (OPERATIVES - PART 2)</div>
+
+  <!-- BURNA BOY -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p13_5_494x551.png" alt="燒烤小子 (火燄噴射器)" class="op-model-thumb no-print"><div><span class="op-name">燒烤小子 (火燄噴射器)</span>
+        <span class="op-name-en">KOMMANDO BURNA BOY</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>火燄噴射 (標準) / Burna (standard)</td>
+          <td align="center">4</td>
+          <td align="center">2+</td>
+          <td align="center" class="dmg-bold">3 / 3</td>
+          <td><span class="rule-pill">射程 8"</span><span class="rule-pill">飽和</span><span class="rule-pill">洪流 2"</span></td>
+        </tr>
+        <tr>
+          <td>火燄噴射 (近距灌注) / Burna (deluge)</td>
+          <td align="center">4</td>
+          <td align="center">2+</td>
+          <td align="center" class="dmg-bold">3 / 3</td>
+          <td><span class="rule-pill">射程 4"</span><span class="rule-pill">飽和</span><span class="rule-pill">索敵 (Seek)</span><span class="rule-pill">洪流 0"*</span></td>
+        </tr>
+        <tr>
+          <td>沙包拳頭 / Fists</td>
+          <td align="center">3</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">*近距灌注特規 (Torrent 0")：</span>代表不能選定次要目標，但武器在所有規則判定中仍被視為具備洪流特規（可觸發特定地形規則）。配備索敵特規，敵方匿蹤無法藉地形獲得掩體！
+    </div>
+    <div class="keywords-row">KOMMANDO, ORK, BURNA BOY</div>
+  </div>
+
+  <!-- COMMS BOY -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p13_7_336x360.png" alt="通訊小子" class="op-model-thumb no-print"><div><span class="op-name">通訊小子</span>
+        <span class="op-name-en">KOMMANDO COMMS BOY</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>電擊手槍 / Shokka pistol</td>
+          <td align="center">6</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">1 / 0</td>
+          <td><span class="rule-pill">射程 8"</span><span class="rule-pill">毀滅 2</span><span class="rule-pill">劇烈</span><span class="rule-pill">擊暈</span></td>
+        </tr>
+        <tr>
+          <td>沙包拳頭 / Fists</td>
+          <td align="center">3</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">俺有妙計，小子們！ (I Got a Plan, Ladz)：</span>每次啟動中，執行撿起標記、放置標記或任務動作時，<strong>消耗的 AP 減少 1 點</strong>。
+      <br><span class="ability-title">專屬通訊行動：聽好了！ (LISTEN IN) — 1 AP</span><br>
+      <strong>支援。</strong>選擇一名距離此特工 6" 內可見的友方特工（炸彈史奎格除外）。直至該目標特工下次啟動結束為止，<strong>其 APL 屬性 +1</strong>（控場範圍內不可執行）。
+    </div>
+    <div class="keywords-row">KOMMANDO, ORK, COMMS BOY</div>
+  </div>
+
+  <!-- DAKKA BOY -->
+  <div class="datacard">
+    <div class="op-header">
+      <div style="display:flex; align-items:center; gap:8px;"><img src="assets/kommandos_p13_8_581x489.png" alt="突突小子 (重機槍手)" class="op-model-thumb no-print"><div><span class="op-name">突突小子 (重機槍手)</span>
+        <span class="op-name-en">KOMMANDO DAKKA BOY</span>
+      </div>
+      <div class="stat-cluster">
+        <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+        <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+        <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+        <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+      </div>
+    </div>
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th style="width:34%;">武器名稱 (NAME)</th>
+          <th style="width:10%; text-align:center;">攻擊 ATK</th>
+          <th style="width:10%; text-align:center;">命中 HIT</th>
+          <th style="width:12%; text-align:center;">傷害 DMG</th>
+          <th style="width:34%;">武器規則 (WR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>突突槍 (近距掃射) / Dakka shoota (short)</td>
+          <td align="center">5</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td><span class="rule-pill">射程 9"</span><span class="rule-pill">無休 (Ceaseless)</span></td>
+        </tr>
+        <tr>
+          <td>突突槍 (遠距壓制) / Dakka shoota (long)</td>
+          <td align="center">5</td>
+          <td align="center">4+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>沙包拳頭 / Fists</td>
+          <td align="center">3</td>
+          <td align="center">3+</td>
+          <td align="center" class="dmg-bold">3 / 4</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ability-block">
+      <span class="ability-title">專屬射擊行動：邊跑邊突突！ (DAKKA DASH) — 1 AP</span><br>
+      依任意順序<strong>免費執行一次衝刺 (Dash) (Dash) 與一次突突槍射擊 (Shoot)</strong>！隱蔽指令或處於敵方控場範圍內時不可執行。
+    </div>
+    <div class="keywords-row">KOMMANDOS, ORK, DAKKA BOY</div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：獸人特戰小子 (Kommandos) 中文規則手冊</span>
+    <span>第 5 頁 / 共 6 頁 (燒烤小子、通訊小子、突突小子)</span>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     第 6 頁：特戰屁精 + 火箭小子 + 雙刀小子 + 狙擊小子
+=================================================================================== -->
+<div class="page">
+  <div class="section-header">特工數據卡：狡黠突襲與精準殺戮 (OPERATIVES - PART 3)</div>
+
+  <!-- GROT & ROKKIT BOY -->
+  <div class="grid-2">
+    <!-- GROT -->
+    <div class="datacard">
+      <div class="op-header">
+        <div>
+          <span class="op-name">特戰屁精</span>
+          <span class="op-name-en">KOMMANDO GROT</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">5</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th>武器</th><th>A</th><th>Hit</th><th>Dmg</th><th>特規</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>屁精小砍刀</td><td>3</td><td>5+</td><td class="dmg-bold">1 / 4</td><td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block" style="font-size:7.8pt;">
+        <span class="ability-title">鬼祟雜種 (Sneaky Zogger)：</span>不能持有交戰指令。<strong>凡在掩體中，絕對不可被選為射擊目標</strong>（優先於索敵 Seek 或高處優勢 Vantage 等規則，僅 2" 貼身時例外）。
+        <br><span class="ability-title">抓鉤繩槍 (GRAPPLING HOOK) — 1 AP：</span>視為重整陣位。選定可見地形點，將屁精直接重新架設於該點水平 1" 內合法位置。
+      </div>
+      <div class="keywords-row">KOMMANDOS, ORK, GROT</div>
+    </div>
+
+    <!-- ROKKIT BOY -->
+    <div class="datacard">
+      <div class="op-header">
+        <div>
+          <span class="op-name">火箭筒小子</span>
+          <span class="op-name-en">ROKKIT BOY</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th>武器</th><th>A</th><th>Hit</th><th>Dmg</th><th>特規</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>火箭筒 (瞄準)</td><td>6</td><td>4+</td><td class="dmg-bold">4 / 5</td><td><span class="rule-pill">爆炸 1"</span><span class="rule-pill">無休</span><span class="rule-pill">重型(僅衝刺 (Dash))</span></td>
+          </tr>
+          <tr>
+            <td>火箭筒 (盲射)</td><td>6</td><td>4+</td><td class="dmg-bold">4 / 5</td><td><span class="rule-pill">爆炸 1"</span></td>
+          </tr>
+          <tr>
+            <td>沙包拳頭</td><td>3</td><td>3+</td><td class="dmg-bold">3 / 4</td><td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="keywords-row">KOMMANDO, ORK, ROKKIT BOY</div>
+    </div>
+  </div>
+
+  <!-- SLASHA BOY & SNIPA BOY -->
+  <div class="grid-2" style="margin-top: 4px;">
+    <!-- SLASHA BOY -->
+    <div class="datacard">
+      <div class="op-header">
+        <div>
+          <span class="op-name">雙刀小子</span>
+          <span class="op-name-en">SLASHA BOY</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th>武器</th><th>A</th><th>Hit</th><th>Dmg</th><th>特規</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>飛刀 / Knives</td><td>4</td><td>3+</td><td class="dmg-bold">2 / 5</td><td><span class="rule-pill">射程 6"</span><span class="rule-pill">無聲</span></td>
+          </tr>
+          <tr>
+            <td>雙手砍刀</td><td>4</td><td>3+</td><td class="dmg-bold">4 / 5</td><td><span class="rule-pill">無休</span><span class="rule-pill">致命 5+</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block" style="font-size:7.8pt;">
+        <span class="ability-title">你就這點本事？ (Dat All You Got?)：</span>進行格鬥或反擊後，只要此特工未陣亡，<strong>立即對該敵方額外造成 D3 點傷害</strong>！
+      </div>
+      <div class="keywords-row">KOMMANDO, ORK, SLASHA BOY</div>
+    </div>
+
+    <!-- SNIPA BOY -->
+    <div class="datacard">
+      <div class="op-header">
+        <div>
+          <span class="op-name">狙擊小子</span>
+          <span class="op-name-en">SNIPA BOY</span>
+        </div>
+        <div class="stat-cluster">
+          <div class="stat-box"><span class="stat-label">APL</span><span class="stat-value">2</span></div>
+          <div class="stat-box"><span class="stat-label">MOVE</span><span class="stat-value">6"</span></div>
+          <div class="stat-box"><span class="stat-label">SAVE</span><span class="stat-value">5+</span></div>
+          <div class="stat-box"><span class="stat-label">WOUNDS</span><span class="stat-value">10</span></div>
+        </div>
+      </div>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th>武器</th><th>A</th><th>Hit</th><th>Dmg</th><th>特規</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>瞄準大突突 (匿蹤)*</td><td>5</td><td>3+</td><td class="dmg-bold">3 / 3</td><td><span class="rule-pill">毀滅 2</span><span class="rule-pill">重型</span><span class="rule-pill">無聲</span></td>
+          </tr>
+          <tr>
+            <td>瞄準大突突 (架槍)</td><td>5</td><td>3+</td><td class="dmg-bold">3 / 3</td><td><span class="rule-pill">毀滅 2</span><span class="rule-pill">重型</span></td>
+          </tr>
+          <tr>
+            <td>瞄準大突突 (掃射)</td><td>5</td><td>3+</td><td class="dmg-bold">3 / 4</td><td><span class="rule-pill">重型(僅衝刺 (Dash))</span><span class="rule-pill">洪流 1"</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ability-block" style="font-size:7.5pt;">
+        <span class="ability-title">*隱密伏擊 (Concealed Position)：</span>「瞄準大突突 (匿蹤)」僅限此特工在整場戰鬥中<strong>首次宣告射擊行動時使用</strong>。
+      </div>
+      <div class="keywords-row">KOMMANDOS, ORK, SNIPA BOY</div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>殺戮小隊：獸人特戰小子 (Kommandos) 中文規則手冊</span>
+    <span>第 6 頁 / 共 6 頁 (屁精、火箭、雙刀與狙擊小子)</span>
+  </div>
+</div>
+
+
+</div> <!-- end main-wrapper -->
+
+<footer class="site-footer no-print">
+  <div class="site-footer-content">
+    <p>戰錘 40,000：殺戮小隊 (Kill Team) 繁體中文規則庫 | 特戰小子 (Kommandos) 線上完整手冊</p>
+    <p>相關微縮模型與美術插畫版權均屬 Games Workshop Limited 所有，僅供華語戰棋玩家社群推廣與對戰交流使用。</p>
+  </div>
+</footer>
+</body>
+</html>

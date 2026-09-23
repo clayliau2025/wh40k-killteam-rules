@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>戰錘 40,000：殺戮小隊 簡易規則 (Lite Rules) - 繁體中文標準版</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ================= A4 列印與基礎設定 ================= */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    body.theme-lite {
+      background-color: #f8fafc;
+      font-size: 9.5pt;
+      line-height: 1.45;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+      .no-print, .site-nav, .sub-nav {
+        display: none !important;
+      }
+      .card {
+        page-break-inside: avoid;
+        border: 1px solid #94a3b8 !important;
+        box-shadow: none !important;
+      }
+      .container {
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+    }
+
+    /* 頂部標題 */
+    .lite-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-left: 8px solid var(--theme-primary);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .title-group h2 {
+      font-size: 9pt;
+      letter-spacing: 3px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-family: var(--font-display);
+    }
+
+    .title-group h1 {
+      font-size: 20pt;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin: 2px 0 6px 0;
+      font-family: var(--font-display);
+    }
+
+    .subtitle-badge {
+      display: inline-block;
+      background: var(--theme-primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 8.5pt;
+      padding: 2px 8px;
+      letter-spacing: 0.5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .intro-p {
+      color: #cbd5e1;
+      font-size: 9pt;
+      line-height: 1.45;
+      max-width: 760px;
+    }
+
+    /* 佈局容器 */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* 模組與卡片 */
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--theme-border);
+      border-top: 3px solid var(--theme-primary);
+      border-radius: 4px;
+      padding: 12px 14px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 11pt;
+      font-weight: 900;
+      color: #0f172a;
+      text-transform: uppercase;
+      border-left: 4px solid var(--theme-primary);
+      padding-left: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+    }
+
+    .cost-badge {
+      border: 1px solid var(--theme-primary);
+      background: #fff7ed;
+      color: var(--theme-primary);
+      font-size: 8pt;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 800;
+      font-family: var(--font-display);
+    }
+
+    /* 序列與列表 */
+    ol, ul {
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-bottom: 4px;
+      font-size: 9pt;
+      line-height: 1.45;
+    }
+
+    li::marker {
+      color: var(--theme-primary);
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 9pt;
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
+    /* 示意圖與重點框 */
+    .diagram-box {
+      background: #fff7ed;
+      border: 1px dashed #fdba74;
+      border-radius: 4px;
+      padding: 8px 10px;
+      margin-top: 8px;
+      font-size: 8.8pt;
+      color: #9a3412;
+      line-height: 1.45;
+    }
+
+    .diagram-box strong {
+      color: #7c2d12;
+    }
+
+    /* 武器規則雙欄網格 */
+    .weapons-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 700px) {
+      .weapons-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .weapon-item {
+      font-size: 8.8pt;
+      line-height: 1.4;
+      background: #f8fafc;
+      padding: 7px 10px;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid var(--theme-primary);
+      border-radius: 3px;
+    }
+
+    .weapon-item strong {
+      color: #c2410c;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 8.5pt;
+      color: #64748b;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+    }
+  </style>
+</head>
+<body class="theme-lite">
+
+<!-- 頂部通用導航列 -->
+<nav class="site-nav">
+  <div class="site-nav-container">
+    <a href="index.html" class="site-logo-link">
+      <img src="assets/kt_logo.png" alt="Kill Team Logo" class="site-logo-img">
+      <span class="site-nav-title">殺戮小隊 繁體中文規則庫</span>
+      <span class="site-nav-badge">3rd Edition</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 首頁總覽</a></li>
+      <li><a href="match_tracker.html" style="background:#dc2626; color:#fff; font-weight:700;">⚔️ 對戰助手</a></li>
+      <li><a href="universal_equipment.html">🎒 通用裝備</a></li>
+      <li><a href="rule_lite.html" class="active">⚡ 簡易核心規則</a></li>
+      <li><a href="death_of_angel_web_rule.html">🩸 死亡天使</a></li>
+      <li><a href="plague_marine.html">☣️ 瘟疫戰士</a></li>
+      <li><a href="Kommandos.html">🟢 特戰小子</a></li>
+      <li><a href="angel_of_death_starter_set_rule.html">📦 入門套組</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 快速章節選單 -->
+<div class="sub-nav no-print">
+  <div class="sub-nav-container">
+    <span style="color:#64748b; font-weight:700; padding:3px 0;">快速跳轉：</span>
+    <a href="#setup">戰鬥前置設定</a>
+    <a href="#orders">特工指令與反制</a>
+    <a href="#flow">轉折點戰鬥流程</a>
+    <a href="#actions">六大基礎行動</a>
+    <a href="#concepts">控制範圍與掩護</a>
+    <a href="#combat">射擊與格鬥序列</a>
+    <a href="#weapons">22項特殊武器規則</a>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 標題橫幅 -->
+  <header class="lite-header">
+    <div class="title-group">
+      <h2>Warhammer 40,000</h2>
+      <h1>KILL TEAM LITE RULES</h1>
+      <span class="subtitle-badge">殺戮小隊 簡易規則 (3rd Edition / 2024 最新繁中標準版)</span>
+      <p class="intro-p">
+        《殺戮小隊》是一款設定在第 41 千年黑暗未來中的微縮模型戰術對決遊戲。兩支各自由菁英特工組成的殺戮小隊互相廝殺、爭奪目標以奪取最終勝利。此處呈現的規則已自《殺戮小隊核心規則手冊》濃縮簡化，專為快速入門對戰與規則速查設計。
+      </p>
+    </div>
+    <img src="assets/wh40k_logo.png" alt="Warhammer 40,000 Logo" class="hero-art-img no-print" style="max-height: 85px;">
+  </header>
+
+  <div class="grid">
+    <!-- 戰前佈置 -->
+    <div class="card" id="setup">
+      <div class="card-title">戰鬥前置設定 (Set Up)</div>
+      <p>每位玩家挑選一支殺戮小隊，並備齊對應的 Citadel 模型（特工）、線上規則、一塊殺戮區（Killzone，標準尺寸為 30" × 22" 棋盤與地形）、英吋測量工具、10 顆六面骰 (D6)，以及各類標記。</p>
+      <ol>
+        <li><strong>佈置殺戮區：</strong>隨機決定一名玩家擁有<strong>先攻權（Initiative）</strong>。</li>
+        <li><strong>選擇空投區：</strong>擁有先攻權的玩家從任務地圖選擇空投區（Drop Zone）。若不使用任務地圖，該玩家選擇殺戮區的一邊，對側即為對手陣營。每位玩家的空投區為距離自身殺戮區邊緣 3 吋以內的區域。</li>
+        <li><strong>部署特工：</strong>由先攻玩家開始，雙方輪流部署自身小隊三分之一（小數點無條件進位）的模型。部署特工時必須完全位於自身空投區內，且初始必須賦予<strong>隱蔽指令（Conceal order）</strong>（在旁放置對應標記）。</li>
+      </ol>
+    </div>
+
+    <!-- 姿態指令與反制機制 -->
+    <div class="card" id="orders">
+      <div class="card-title">特工指令與反制機制 (Orders & Counteract)</div>
+      <p><strong>交戰指令 (Engage Order)：</strong><br>持有交戰指令的特工可照常執行所有行動與反制行動。</p>
+      <p><strong>隱蔽指令 (Conceal Order)：</strong><br>持有隱蔽指令的特工在<strong>掩護（Cover）</strong>後無法被選為有效射擊目標，但該特工無法宣告執行射擊或衝鋒行動。</p>
+      <div class="diagram-box">
+        <strong>反制行動 (Counteract)：</strong><br>
+        若你的所有特工均已待機（Expended），而對手尚有未啟動特工時，輪到你啟動特工的時機，可挑選一名帶有<strong>交戰指令</strong>且已待機的友方特工執行<strong>反制</strong>：免費進行一項 1AP 的行動。每名特工每轉折點（Turning Point）限反制一次，且反制中的移動距離不得超過 2 吋。
+      </div>
+    </div>
+
+    <!-- 戰鬥流程 -->
+    <div class="card full-width" id="flow">
+      <div class="card-title">戰鬥流程 (Battle Flow)</div>
+      <p>除非任務另有說明，一場戰鬥共持續 <strong>4 個轉折點 (Turning Points)</strong>。每個轉折點包含<strong>戰略階段</strong>與<strong>交戰階段</strong>。</p>
+      
+      <div class="grid" style="gap: 12px; margin-top: 8px;">
+        <div style="background: #f8fafc; padding: 10px 12px; border-radius: 4px; border: 1px solid #cbd5e1; border-left: 4px solid #ea580c;">
+          <strong style="color: #c2410c; font-size: 10.5pt; font-family: var(--font-display);">1. 戰略階段 (Strategy Phase)</strong>
+          <ul style="margin-top: 6px;">
+            <li>雙方各擲一顆 D6：點數高者決定誰獲得本轉折點<strong>先攻權</strong>；若點數持平，由當前未持有先攻權的玩家決定先攻權。</li>
+            <li>對戰開始時雙方各有 2CP。第一轉折點戰略階段各得 1CP；隨後每個戰略階段，先攻玩家得 1CP，後攻玩家得 2CP。計謀（Ploy）每次使用耗費 1CP。</li>
+            <li>將所有友方特工翻至<strong>就緒面 (Ready)</strong>。</li>
+            <li>從先攻玩家開始，交替使用<strong>戰略策略 (Strategy Ploys)</strong>或選擇<strong>跳過（Pass）</strong>，直到雙方連續跳過為止。每個戰略策略每轉折點限用一次。</li>
+          </ul>
+        </div>
+        <div style="background: #f8fafc; padding: 10px 12px; border-radius: 4px; border: 1px solid #cbd5e1; border-left: 4px solid #ea580c;">
+          <strong style="color: #c2410c; font-size: 10.5pt; font-family: var(--font-display);">2. 交戰階段 (Firefight Phase)</strong>
+          <ul style="margin-top: 6px;">
+            <li>由先攻玩家開始，雙方輪流啟動一名處於就緒狀態的友方特工。</li>
+            <li><strong>啟動流程：</strong>先為特工選擇指令（交戰指令或隱蔽指令），接著消耗行動點 (AP) 執行各項行動（總耗費不能超過其 APL 屬性）。除非規則另有說明，同一啟動內<strong>不能重複執行相同的行動</strong>。</li>
+            <li>行動結束後將特工指令標記翻至<strong>待機面 (Expended)</strong>。所有特工皆待機後該轉折點結束。</li>
+            <li><strong>交戰策略 (Firefight Ploys)：</strong>本階段可消耗 CP 使用交戰策略。例如通用策略<strong>指揮重擲 (Command Re-roll)</strong>：耗費 1CP，在你擲出攻擊骰或防禦骰後，可重擲其中 1 顆骰子。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 基礎行動列表 -->
+    <div class="card" id="actions">
+      <div class="card-title">特工基礎行動 (Actions)</div>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 8px;">
+          <div style="display:flex; justify-content:space-between;"><strong>換位 (Reposition)</strong> <span class="cost-badge">1 AP</span></div>
+          移動距離不超過其 Move 數值。移動過程中任何部位均不可進入敵方特工的控制範圍（Control Range）。特工不能在敵方控制範圍內執行此行動，亦不可與衝鋒或撤退在同一次啟動內重複執行。
+        </li>
+        <li style="margin-bottom: 8px;">
+          <div style="display:flex; justify-content:space-between;"><strong>衝刺 (Dash)</strong> <span class="cost-badge">1 AP</span></div>
+          規則與換位相同，但最大移動距離固定為 <strong>3 吋</strong>，且過程不可攀爬。不可在敵方控制範圍內執行，不可與衝鋒在同一次啟動內重複執行。
+        </li>
+        <li style="margin-bottom: 8px;">
+          <div style="display:flex; justify-content:space-between;"><strong>衝鋒 (Charge)</strong> <span class="cost-badge">1 AP</span></div>
+          規則與換位相同，但移動距離為 <strong>Move + 2 吋</strong>。特工可以進入敵方控制範圍，且<strong>必須</strong>在敵方特工的控制範圍內結束移動。僅限擁有<strong>交戰指令</strong>的特工執行；若處於隱蔽指令、已在敵方控制範圍內、或已執行過換位/衝刺/撤退時不可執行。
+        </li>
+        <li style="margin-bottom: 8px;">
+          <div style="display:flex; justify-content:space-between;"><strong>撤退 (Fall Back)</strong> <span class="cost-badge">2 AP</span></div>
+          允許特工脫離交戰，但結束移動時<strong>不能</strong>停留在任何敵方特工的控制範圍內。只有在特工處於敵方控制範圍內時才能宣告執行。
+        </li>
+        <li style="margin-bottom: 8px;">
+          <div style="display:flex; justify-content:space-between;"><strong>射擊 (Shoot)</strong> <span class="cost-badge">1 AP</span></div>
+          選擇一把配備的遠程武器，對有效目標發動遠程攻擊。特工處於隱蔽指令（除非武器具備靜音特性）或處於敵方控制範圍內時無法執行射擊。
+        </li>
+        <li>
+          <div style="display:flex; justify-content:space-between;"><strong>近戰搏鬥 (Fight)</strong> <span class="cost-badge">1 AP</span></div>
+          選擇一把配備的近戰武器，與其控制範圍內的敵方特工展開近身對決。僅限特工控制範圍內存在敵方特工時才能宣告執行。
+        </li>
+      </ul>
+    </div>
+
+    <!-- 核心判定概念 -->
+    <div class="card" id="concepts">
+      <div class="card-title">控制範圍、可見度與掩護</div>
+      <p><strong>控制範圍 (Control Range)：</strong><br>特工<strong>可見</strong>且距離其底盤 <strong>1 吋以內</strong>的空間。控制範圍是互惠的，任一方判定成立即視為彼此皆處於對方的控制範圍內。</p>
+      
+      <p><strong>可見度 (Visible) 與有效目標 (Valid Target)：</strong></p>
+      <ul>
+        <li>從特工頭部朝目標任何部位（不含底盤）能拉出一條無阻礙直線即為<strong>可見</strong>。</li>
+        <li>目標為<strong>交戰指令</strong>：只要對攻擊者可見即為有效目標。</li>
+        <li>目標為<strong>隱蔽指令</strong>：必須對攻擊者可見且<strong>未處於掩護（Cover）中</strong>才算有效目標。</li>
+      </ul>
+
+      <p><strong>掩護 (Cover)：</strong><br>在目標特工 1 吋控制範圍內存在遮擋視線的地形障礙。<strong>例外：</strong>若兩名特工相距在 <strong>2 吋以內</strong>，因距離過近無法藏匿，目標永遠不算處於掩護中。</p>
+
+      <p><strong>負傷狀態 (Damage & Injury)：</strong><br>特工生命值低於起始值為<strong>受傷 (Wounded)</strong>；生命值低於起始生命值一半時為<strong>重傷 (Injured)</strong>（移動力 Move -2 吋，且武器 Hit 命中要求惡化 1 點）。生命值歸 0 則失去戰鬥能力並移出殺戮區。</p>
+    </div>
+
+    <!-- 射擊結算流程 -->
+    <div class="card" id="combat">
+      <div class="card-title">射擊序列 (Shoot Sequence)</div>
+      <ol>
+        <li><strong>選擇武器：</strong>攻擊方挑選特工的一把遠程武器。</li>
+        <li><strong>選定目標：</strong>選定一名有效目標（且目標控制範圍內無任何友軍特工）。</li>
+        <li><strong>擲攻擊骰：</strong>投擲等同於武器 Atk 數值的 D6。點數大於等於 Hit 數值視為成功；6 恆為爆擊成功，1 恆為失敗。</li>
+        <li><strong>擲防禦骰：</strong>防守方擲 3 顆 D6。點數大於等於目標 Save 數值為成功。<strong>若防守方處於掩護中，可直接將 1 顆防禦骰作為普通成功保留，免擲該骰。</strong></li>
+        <li><strong>格擋分配：</strong>防守方分配成功骰進行格擋：
+          <br>• 1 個普通成功可抵消對手 1 個普通成功。
+          <br>• 2 個普通成功可抵消對手 1 個爆擊成功。
+          <br>• 1 個爆擊成功可抵消對手 1 個普通成功或 1 個爆擊成功。
+        </li>
+        <li><strong>結算傷害：</strong>未被格擋的攻擊骰造成傷害：普通成功造成第一數值傷害（Normal Dmg），爆擊成功造成第二數值傷害（Critical Dmg）。</li>
+      </ol>
+    </div>
+
+    <!-- 近戰格鬥流程 -->
+    <div class="card">
+      <div class="card-title">近戰搏鬥序列 (Fight Sequence)</div>
+      <ol>
+        <li><strong>宣告近戰：</strong>選擇控制範圍內的一名敵軍特工展開搏鬥（對方將同時參與對決與反擊）。</li>
+        <li><strong>挑選近戰武器：</strong>雙方各選定一項配備的近戰武器。</li>
+        <li><strong>雙方擲骰：</strong>雙方同時投擲等同於各自武器 Atk 數值的攻擊骰，比對各自 Hit 門檻保留成功骰（6 恆為爆擊成功）。</li>
+        <li><strong>輪流決議骰子：</strong>由攻擊方開始，雙方交替分配各自保留的未結算成功骰，每次可選擇<strong>打擊 (Strike)</strong> 或 <strong>招架 (Block)</strong>：
+          <br>• <strong>打擊 (Strike)：</strong>對目標造成武器傷害（普通打擊造成普通傷害，爆擊打擊造成爆擊傷害）。
+          <br>• <strong>招架 (Block)：</strong>消耗此骰，抵消對手 1 顆尚未結算的成功骰（普通招架普通；爆擊可招架普通或爆擊）。
+        </li>
+      </ol>
+    </div>
+
+    <!-- 特殊武器規則 -->
+    <div class="card full-width" id="weapons">
+      <div class="card-title">22 項武器規則與特性 (Weapon Rules)</div>
+      <div class="weapons-grid">
+        <div class="weapon-item"><strong>精準 x (Accurate x)：</strong>可直接將最多 x 顆攻擊骰作為普通成功保留，無需投擲。</div>
+        <div class="weapon-item"><strong>平衡 (Balanced)：</strong>攻擊時可重擲其中 1 顆攻擊骰。</div>
+        <div class="weapon-item"><strong>爆破 x (Blast x)：</strong>攻擊主目標後，對主目標 x 吋距離內且可見的次要目標依序單獨結算射擊（無視隱蔽指令）。</div>
+        <div class="weapon-item"><strong>殘暴 (Brutal)：</strong>防守方在近戰中只能使用爆擊成功進行招架。</div>
+        <div class="weapon-item"><strong>不息 (Ceaseless)：</strong>可選擇一個點數結果，重擲該次攻擊中所有該點數的骰子（例如重擲所有 2 點）。</div>
+        <div class="weapon-item"><strong>毀滅 x (Devastating x)：</strong>每保留 1 個爆擊成功，立即對目標造成 x 點直接傷害（該骰後續仍可正常結算）。</div>
+        <div class="weapon-item"><strong>重型 (Heavy)：</strong>在執行過移動的啟動或反制中不可使用；使用此武器後該次啟動中不可移動。若為「重型(僅限衝刺)」，則僅允許執行衝刺。</div>
+        <div class="weapon-item"><strong>過熱 (Hot)：</strong>使用後擲 1 顆 D6，若小於武器 Hit 命中值，射手受到等於該點數 × 2 的傷害。</div>
+        <div class="weapon-item"><strong>致命 x+ (Lethal x+)：</strong>擲出大於等於 x 的成功骰直接視為爆擊成功（例如致命 5+）。</div>
+        <div class="weapon-item"><strong>受限 x (Limited x)：</strong>整場戰鬥中累計使用達 x 次後便無法再次使用。</div>
+        <div class="weapon-item"><strong>穿刺 x (Piercing x)：</strong>防守方擲骰時減少 x 顆防禦骰（「爆擊穿刺 x」則需產生爆擊成功才觸發）。</div>
+        <div class="weapon-item"><strong>痛擊 (Punishing)：</strong>若保留任何爆擊成功，可將 1 顆失敗骰轉為普通成功保留。</div>
+        <div class="weapon-item"><strong>射程 x (Range x)：</strong>僅能以距離活躍特工 x 吋以內的特工為有效目標。</div>
+        <div class="weapon-item"><strong>無情 (Relentless)：</strong>可重擲該次攻擊中任意數量的攻擊骰。</div>
+        <div class="weapon-item"><strong>撕裂 (Rending)：</strong>若保留任何爆擊成功，可將另 1 顆普通成功轉為爆擊成功保留。</div>
+        <div class="weapon-item"><strong>飽和 (Saturate)：</strong>防守方無法保留掩護帶來的免費防禦成功。</div>
+        <div class="weapon-item"><strong>追蹤 (Seek)：</strong>判定有效目標時，隱蔽特工無法藉由地形取得掩護判定（「追蹤輕型」則僅限輕型掩體）。</div>
+        <div class="weapon-item"><strong>重創 (Severe)：</strong>若本次攻擊未保留任何爆擊成功，可將 1 顆普通成功轉為爆擊成功。</div>
+        <div class="weapon-item"><strong>震盪 (Shock)：</strong>近戰中首次使用爆擊成功打擊時，額外棄置對手 1 顆未結算的普通成功（若無普通成功則棄置爆擊成功）。</div>
+        <div class="weapon-item"><strong>靜音 (Silent)：</strong>特工在隱蔽指令下依然可以使用此武器執行射擊行動。</div>
+        <div class="weapon-item"><strong>暈眩 (Stun)：</strong>若保留任何爆擊成功，目標特工的 APL 數值 -1 直至其下次啟動結束。</div>
+        <div class="weapon-item"><strong>洪流 x (Torrent x)：</strong>選定主目標後，可同時對距離主目標 x 吋內的任意數量可見有效目標依序單獨結算射擊。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <p>© Games Workshop Limited 2024 / 戰錘 40,000：殺戮小隊 簡易對戰規則速查手冊 (Kill Team 3rd Edition Traditional Chinese Edition)</p>
+  </div>
+</div>
+
+<footer class="site-footer no-print">
+  <div class="site-footer-content">
+    <p>戰錘 40,000：殺戮小隊 (Kill Team) 繁體中文規則庫 | 依據 Games Workshop 官方第 3 版規則整理</p>
+    <p>相關商標、微縮模型造型與美術插畫版權均屬 Games Workshop Limited 所有，僅供華語戰棋玩家社群推廣與對戰交流使用。</p>
+  </div>
+</footer>
+
+</body>
+</html>
