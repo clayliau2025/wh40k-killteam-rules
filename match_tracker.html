@@ -847,7 +847,7 @@
             <span>📜 1. 戰略階段 (Strategy)</span>
             <span class="phase-card-badge" id="phaseBadge1">當前階段</span>
           </div>
-          <div class="phase-card-desc">產生 CP (+1 CP) ➔ 擲先攻對決 ➔ 宣告戰略策略</div>
+          <div class="phase-card-desc">1. 先攻擲骰對決 ➔ 2. 依先後攻分配 CP (先攻+1/後攻+2) ➔ 3. 戰略宣告</div>
         </div>
         <!-- 階段 2 -->
         <div class="phase-card" id="phaseCard2" onclick="setPhase(2)">
@@ -1818,12 +1818,13 @@ let matchState = {
   phase: 1, // 1: 戰略, 2: 交戰, 3: 結算
   initiative: 1, // 1: 玩家1, 2: 玩家2
   rollOffResults: null,
+  cpClaimedInCurrentTp: false,
   players: [
     {
       id: 1,
       name: '玩家 1',
       faction: 'angels',
-      cp: 3,
+      cp: 2,
       vp: 0,
       tactics: ['爆彈操典', '震懾突擊'],
       equipment: [],
@@ -1833,7 +1834,7 @@ let matchState = {
       id: 2,
       name: '玩家 2',
       faction: 'plague',
-      cp: 3,
+      cp: 2,
       vp: 0,
       tactics: ['噁心韌性', '納垢賜福'],
       equipment: [],
@@ -2389,9 +2390,10 @@ function startMatch() {
   matchState.phase = 1;
   matchState.initiative = 1;
   matchState.rollOffResults = null;
-  matchState.players[0].cp = 3;
+  matchState.cpClaimedInCurrentTp = false;
+  matchState.players[0].cp = 2; // 對戰開始時雙方各有 2CP
   matchState.players[0].vp = 0;
-  matchState.players[1].cp = 3;
+  matchState.players[1].cp = 2; // 對戰開始時雙方各有 2CP
   matchState.players[1].vp = 0;
 
   saveState();
@@ -2510,6 +2512,23 @@ function renderPhaseWorkflowPanel() {
 
   if (matchState.phase === 1) {
     // 戰略階段 (Strategy Phase)
+    const isTP1 = matchState.turningPoint === 1;
+    const initPlayer = matchState.initiative === 1 ? p1 : p2;
+    const nonInitPlayer = matchState.initiative === 1 ? p2 : p1;
+
+    let cpActionHtml = '';
+    if (matchState.cpClaimedInCurrentTp) {
+      cpActionHtml = `<span style="display:inline-flex; align-items:center; gap:4px; background:#065f46; color:#a7f3d0; font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px;">
+        ✅ 本回合 CP 已發放完畢 (${isTP1 ? '雙方各 +1 CP' : `${initPlayer.name} +1 CP / ${nonInitPlayer.name} +2 CP`})
+      </span>`;
+    } else {
+      if (isTP1) {
+        cpActionHtml = `<button class="btn-action" style="background:#0284c7; padding:4px 10px; font-size:11.5px;" onclick="claimStrategyCP()">💰 領取 TP 1 指揮點數 (雙方各 +1 CP)</button>`;
+      } else {
+        cpActionHtml = `<button class="btn-action" style="background:#0284c7; padding:4px 10px; font-size:11.5px;" onclick="claimStrategyCP()">💰 依先後攻發放 CP (${initPlayer.name} +1 CP，${nonInitPlayer.name} +2 CP)</button>`;
+      }
+    }
+
     html = `<div class="workflow-header">
       <div style="font-weight:800; font-size:14px; color:#fdba74; display:flex; align-items:center; gap:6px;">
         <span>📜 戰略階段引導工作流 (STRATEGY PHASE)</span>
@@ -2520,18 +2539,25 @@ function renderPhaseWorkflowPanel() {
       </button>
     </div>
     <div style="font-size:12px; color:#cbd5e1; line-height:1.6;">
-      <div style="margin-bottom:8px;">
-        <strong>步驟 1：產生指揮點數 (CP)</strong> — 雙方指揮官每回合開始時各獲取 +1 CP：
-        <button class="btn-outline" style="padding:2px 8px; font-size:11px; margin-left:6px; color:#38bdf8; border-color:#38bdf8;" onclick="claimStrategyCP()">💰 雙方各領取 +1 CP</button>
-      </div>
-      <div style="margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <strong>步驟 2：爭奪先攻權 (Initiative Roll-off)</strong> — 雙方擲 D6，點數高者奪取先攻冠冕：
+      <!-- 步驟 1：爭奪先攻權 -->
+      <div style="margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <div><strong>步驟 1：爭奪先攻權 (Roll-off)</strong> — 雙方擲 D6，點數高者奪取本回合先攻權：</div>
         <button class="btn-outline" style="padding:2px 8px; font-size:11px; color:#fbbf24; border-color:#fbbf24;" onclick="rollInitiativeDice()">🎲 擲先攻權對決骰</button>
-        ${matchState.rollOffResults ? `<span style="font-size:11.5px; color:#fef08a;">對決結果：${p1.name} [ <span class="dice-badge">${matchState.rollOffResults.p1}</span> ] vs ${p2.name} [ <span class="dice-badge">${matchState.rollOffResults.p2}</span> ] ➔ <strong>${matchState.initiative === 1 ? p1.name : p2.name} 奪得先攻！</strong></span>` : ''}
+        ${matchState.rollOffResults ? `<span style="font-size:11.5px; color:#fef08a;">對決結果：${p1.name} [ <span class="dice-badge">${matchState.rollOffResults.p1}</span> ] vs ${p2.name} [ <span class="dice-badge">${matchState.rollOffResults.p2}</span> ] ➔ <strong>${matchState.initiative === 1 ? p1.name : p2.name} 奪得先攻！</strong></span>` : `<span style="font-size:11px; color:#94a3b8;">(目前先攻：<strong>${matchState.initiative === 1 ? p1.name : p2.name}</strong>，可點擊上方冠冕手動指定)</span>`}
       </div>
+
+      <!-- 步驟 2：產生指揮點數 (決定先後攻後分配) -->
+      <div style="margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <div><strong>步驟 2：產生指揮點數 (CP)</strong> — 
+          <span style="color:#94a3b8;">${isTP1 ? '第 1 回合雙方各得 1 CP：' : `先攻玩家 (${initPlayer.name}) 得 1 CP，後攻玩家 (${nonInitPlayer.name}) 得 2 CP：`}</span>
+        </div>
+        ${cpActionHtml}
+      </div>
+
+      <!-- 步驟 3：宣告戰略策略 -->
       <div>
         <strong>步驟 3：宣告戰略策略 (Strategy Ploys)</strong> — 
-        ${isStarter ? '<span style="color:#94a3b8;">入門套組手冊規範：<strong>無戰略策略卡</strong>，CP 專用於交戰階段之<strong>「指揮重骰 (Command Re-roll)」</strong>。擲完先攻即可直接開戰！</span>' : '<span style="color:#94a3b8;">由持有先攻權者依序輪流花費 CP 宣告本回合戰略策略。</span>'}
+        ${isStarter ? '<span style="color:#94a3b8;">入門套組手冊規範：<strong>無戰略策略卡</strong>，CP 專用於交戰階段之<strong>「指揮重骰 (Command Re-roll)」</strong>。完成先後攻與 CP 發放後即可開戰！</span>' : `<span style="color:#94a3b8;">由先攻玩家 (${initPlayer.name}) 優先宣告，雙方交替花費 1 CP 使用戰略策略，直至雙方皆放棄。</span>`}
       </div>
     </div>`;
   } else if (matchState.phase === 2) {
@@ -2611,6 +2637,13 @@ function setPhase(ph) {
 }
 
 function nextPhase() {
+  if (matchState.phase === 1) {
+    if (!matchState.cpClaimedInCurrentTp) {
+      if (confirm('【戰略階段提醒】本轉折點的指揮點數 (CP) 尚未發放！\n\n是否現在依規則發放 CP 並進入交戰階段？\n（第1回合雙方各+1 CP；後續回合先攻+1 CP / 後攻+2 CP）')) {
+        claimStrategyCP();
+      }
+    }
+  }
   if (matchState.phase < 3) {
     matchState.phase++;
   } else {
@@ -2620,12 +2653,31 @@ function nextPhase() {
   updateMatchUI();
 }
 
-/* 戰略階段：雙方領取 +1 CP */
+/* 戰略階段：依先後攻發放指揮點數 (CP) */
 function claimStrategyCP() {
-  matchState.players[0].cp++;
-  matchState.players[1].cp++;
-  updateMatchUI();
-  alert(`【戰略階段】雙方指揮官各獲取 +1 CP！\n目前點數：\n${matchState.players[0].name}: ${matchState.players[0].cp} CP\n${matchState.players[1].name}: ${matchState.players[1].cp} CP`);
+  if (matchState.cpClaimedInCurrentTp) {
+    alert('【提醒】本轉折點的戰略階段指揮點數 (CP) 已經發放完畢！');
+    return;
+  }
+  const isTP1 = matchState.turningPoint === 1;
+  const p1 = matchState.players[0];
+  const p2 = matchState.players[1];
+
+  if (isTP1) {
+    p1.cp += 1;
+    p2.cp += 1;
+    matchState.cpClaimedInCurrentTp = true;
+    updateMatchUI();
+    alert(`【第 1 轉折點戰略階段 CP 發放】\n規則：第一轉折點戰略階段雙方各得 1 CP。\n\n${p1.name}：+1 CP (現有 ${p1.cp} CP)\n${p2.name}：+1 CP (現有 ${p2.cp} CP)`);
+  } else {
+    const initPlayer = matchState.initiative === 1 ? p1 : p2;
+    const nonInitPlayer = matchState.initiative === 1 ? p2 : p1;
+    initPlayer.cp += 1; // 先攻玩家得 1 CP
+    nonInitPlayer.cp += 2; // 後攻玩家得 2 CP
+    matchState.cpClaimedInCurrentTp = true;
+    updateMatchUI();
+    alert(`【第 ${matchState.turningPoint} 轉折點戰略階段 CP 發放】\n規則：先攻玩家得 1 CP，後攻玩家得 2 CP。\n\n👑 先攻玩家 (${initPlayer.name})：+1 CP (現有 ${initPlayer.cp} CP)\n🛡️ 後攻玩家 (${nonInitPlayer.name})：+2 CP (現有 ${nonInitPlayer.cp} CP)`);
+  }
 }
 
 /* 戰略階段：先攻擲骰對決 */
@@ -3119,6 +3171,13 @@ function changeVP(playerNum, val) {
 }
 
 function setInitiative(playerNum) {
+  if (matchState.phase === 1 && matchState.turningPoint >= 2 && matchState.cpClaimedInCurrentTp && matchState.initiative !== playerNum) {
+    const oldInit = matchState.initiative;
+    const newInit = playerNum;
+    matchState.players[oldInit - 1].cp += 1;
+    matchState.players[newInit - 1].cp = Math.max(0, matchState.players[newInit - 1].cp - 1);
+    alert(`👑 先攻權手動切換至 ${matchState.players[newInit - 1].name}！\n依官方規則已自動重新校正 CP 配額：\n• ${matchState.players[newInit - 1].name} (新先攻)：+1 CP\n• ${matchState.players[oldInit - 1].name} (新後攻)：+2 CP`);
+  }
   matchState.initiative = playerNum;
   updateMatchUI();
 }
@@ -3141,12 +3200,11 @@ function nextTurningPoint() {
     }
     return;
   }
-  if (confirm(`確定推進至第 ${matchState.turningPoint + 1} 轉折點？\n\n系統將自動：\n1. 雙方玩家各獲取 +1 CP\n2. 所有特工重置為「待啟動」\n3. 自動切換回階段 1 (戰略階段)`)) {
+  if (confirm(`確定推進至第 ${matchState.turningPoint + 1} 轉折點？\n\n系統將自動：\n1. 所有特工重置為「待啟動」\n2. 重置每回合限用裝備\n3. 前進至第 ${matchState.turningPoint + 1} 轉折點戰略階段（將在決定先後攻後分配：先攻 +1 CP，後攻 +2 CP）`)) {
     matchState.turningPoint++;
     matchState.phase = 1;
     matchState.rollOffResults = null;
-    matchState.players[0].cp++;
-    matchState.players[1].cp++;
+    matchState.cpClaimedInCurrentTp = false;
     matchState.players.forEach(p => {
       p.operatives.forEach(o => o.isActivated = false);
       p.equipment.forEach(eq => {
