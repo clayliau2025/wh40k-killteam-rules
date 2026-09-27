@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>戰錘 40,000：殺戮小隊 (Kill Team) 繁體中文全規則情報庫</title>
-  <link rel="stylesheet" href="shared.css">
+  <title>戰錘 40,000 & 殺戮小隊 (Kill Team) 繁體中文全戰棋情報庫</title>
+  <link rel="stylesheet" href="shared.css?v=3.0.0">
   <style>
     /* ================= 首頁特有樣式 ================= */
     .portal-hero {
@@ -479,48 +483,447 @@
 </head>
 <body>
 
-<!-- 頂部通用導航列 -->
-<nav class="site-nav">
-  <div class="site-nav-container">
-    <a href="index.html" class="site-logo-link">
-      <img src="assets/kt_logo.png" alt="Kill Team Logo" class="site-logo-img">
-      <span class="site-nav-title">殺戮小隊 繁體中文規則庫</span>
-      <span class="site-nav-badge">HUB</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">🏠 首頁總覽</a></li>
-      <li><a href="match_tracker.html" style="background:#dc2626; color:#fff; font-weight:700;">⚔️ 對戰助手</a></li>
-      <li><a href="universal_equipment.html">🎒 通用裝備</a></li>
-      <li><a href="rule_lite.html">⚡ 簡易核心規則</a></li>
-      <li><a href="death_of_angel_web_rule.html">🩸 死亡天使</a></li>
-      <li><a href="plague_marine.html">☣️ 瘟疫戰士</a></li>
-      <li><a href="Kommandos.html">🟢 特戰小子</a></li>
-      <li><a href="#starter-sets">📦 入門套組</a></li>
-      <li><a href="#weapons-glossary">📖 武器辭典</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="app-layout">
+  <!-- 手機版側邊欄背景遮罩 -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- 左側側邊欄導航 (SIDEBAR) -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="sidebar-logo-img">
+        <div class="sidebar-title-group">
+          <div class="sidebar-brand-name">戰錘 40K & KT</div>
+          <div class="sidebar-brand-sub">繁體中文情報庫</div>
+        </div>
+      </a>
+      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄">◀</button>
+    </div>
+
+    <div class="sidebar-scrollable">
+      <nav class="sidebar-nav">
+        <!-- 首頁 -->
+        <a href="index.html" class="nav-item-link active">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-text">首頁總覽</span>
+        </a>
+
+        <!-- 40K 核心規則 & 戰巡隊 (點擊展開 Accordion) -->
+        <div class="nav-group ">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">⚡</span>
+              <span class="nav-text">戰錘 40K (核心 & 戰巡)</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="40k_core_rules.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>40K 完整核心規則 (11版)</span>
+              <span class="sub-badge badge-blue">APP同步</span>
+            </a>
+            <a href="40k_combat_patrol_rules.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>戰巡核心作戰手冊 (11版)</span>
+            </a>
+            <a href="40k_combat_patrol_rules.html#mission-flow" class="sub-nav-link">
+              <span class="sub-bullet">•</span>
+              <span>官方任務流程 (10步驟)</span>
+            </a>
+            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>戰巡對戰助手 (War Journal)</span>
+              <span class="sub-badge badge-red">HOT</span>
+            </a>
+            <div class="sub-group-label">戰巡隊資料卡 (DATASHEETS)</div>
+            <a href="40k_cp_astartes.html" class="sub-nav-link ">
+              <span class="sub-bullet">🩸</span>
+              <span>突擊分隊 (阿斯塔特)</span>
+            </a>
+            <a href="40k_cp_orks.html" class="sub-nav-link ">
+              <span class="sub-bullet">🟢</span>
+              <span>硬漢幫 (歐克蠻人)</span>
+            </a>
+            <a href="index.html#cp-roster-directory" class="sub-nav-link">
+              <span class="sub-bullet">📜</span>
+              <span>App 全 24 支戰巡名冊</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 殺戮小隊 (點擊展開 Accordion) -->
+        <div class="nav-group ">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">🎯</span>
+              <span class="nav-text">殺戮小隊 (Kill Team)</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="rule_lite.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>核心作戰規則 (精簡版)</span>
+            </a>
+            <a href="match_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>殺戮小隊計分助手</span>
+              <span class="sub-badge badge-red">KT 3版</span>
+            </a>
+            <div class="sub-group-label">特遣戰隊 (TEAMS)</div>
+            <a href="death_of_angel_web_rule.html" class="sub-nav-link ">
+              <span class="sub-bullet">🩸</span>
+              <span>死亡天使 (Angels of Death)</span>
+            </a>
+            <a href="Kommandos.html" class="sub-nav-link ">
+              <span class="sub-bullet">🪓</span>
+              <span>歐克特戰小子 (Kommandos)</span>
+            </a>
+            <a href="plague_marine.html" class="sub-nav-link ">
+              <span class="sub-bullet">🪰</span>
+              <span>瘟疫戰士 (Plague Marines)</span>
+            </a>
+            <a href="universal_equipment.html" class="sub-nav-link ">
+              <span class="sub-bullet">⚙️</span>
+              <span>通用戰術裝備庫</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 對戰助手專區 (點擊展開 Accordion) -->
+        <div class="nav-group ">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">⚔️</span>
+              <span class="nav-text">對戰助手專區</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">⚡</span>
+              <span>40K 戰巡 War Journal 助手</span>
+              <span class="sub-badge badge-red">HOT</span>
+            </a>
+            <a href="match_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">🎯</span>
+              <span>殺戮小隊 對戰計分助手</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 辭典 -->
+        <a href="index.html#weapons-glossary" class="nav-item-link">
+          <span class="nav-icon">📖</span>
+          <span class="nav-text">特規與武器辭典</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>GW 官方 App 實機同步</span>
+      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.0.0</span>
+    </div>
+  </aside>
+
+  <!-- 右側主區域 (MAIN CONTENT) -->
+  <div class="app-main">
+        <!-- 頂部通用輔助條 -->
+        <!-- 頂部通用輔助條 -->
+        <!-- 頂部通用輔助條 -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">☰</button>
+        <div class="topbar-breadcrumbs">
+          <span>戰錘 40K & KT 繁中情報庫</span> <span class="bc-sep">/</span> <span class="bc-current">首頁總覽</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a href="40k_core_rules.html" class="topbar-btn btn-tracker-quick" style="background:#2563eb;">🛡️ 40K 核心規則</a> <a href="40k_combat_patrol_tracker.html" class="topbar-btn btn-tracker-quick">⚔️ 戰巡 War Journal</a>
+      </div>
+    </header>
+
+    <div class="app-content">
 
 <div class="main-wrapper">
   <!-- Portal Hero Banner -->
-  <header class="portal-hero">
+  <header class="portal-hero" style="border-top: 4px solid #2563eb;">
     <div class="hero-top-row">
+      <div class="hero-logos">
+        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="hero-wh-logo" style="height:50px; width:auto; filter:brightness(1.8);">
+        <span style="font-size:22px; color:#475569; font-weight:300;">|</span>
+        <img src="assets/kt_logo.png" alt="Kill Team" class="hero-kt-logo" style="height:48px; width:auto;">
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <span class="edition-tag" style="background:linear-gradient(90deg, #2563eb, #3b82f6); box-shadow:0 2px 8px rgba(37,99,235,0.4);">WH40K 11TH ED COMBAT PATROL</span>
+        <span class="edition-tag">KILL TEAM 3RD ED</span>
+        <span class="edition-tag" style="background:linear-gradient(90deg, #059669, #10b981); box-shadow:0 2px 8px rgba(16,185,129,0.4);">v3.0.0 全站統一更新</span>
+      </div>
     </div>
-    <h1 class="portal-title">戰錘 40,000：殺戮小隊 繁體中文規則庫</h1>
+    <h1 class="portal-title">戰錘 40,000 & 殺戮小隊 繁體中文全戰棋情報庫</h1>
     <p class="portal-desc">
-      歡迎來到《戰錘 40,000：殺戮小隊》（Warhammer 40,000: Kill Team）繁體中文情報庫。本站依據 Games Workshop 最新官方第 3 版規則體系，結合華語戰棋社群通用的標準術語全面編修。提供簡易核心入門規則、完整小隊戰隊手冊、入門套組速查表與可即時搜尋的武器特性辭典。
+      歡迎來到《戰錘 40,000》（Warhammer 40,000）與《殺戮小隊》（Kill Team）繁體中文情報庫。本站依據 Games Workshop 最新官方 <strong>第 11 版官方巡邏特遣隊 (Combat Patrol 11th Edition)</strong> 與殺戮小隊第 3 版規則體系，結合華語戰棋社群通用的標準術語全面編修。提供 11 版戰巡核心作戰手冊、兩大熱門戰巡部隊數據卡、40K 戰巡 War Journal 對戰助手、殺戮小隊戰隊手冊與特規辭典。
     </p>
     <div class="hero-quick-actions">
-      <a href="match_tracker.html" class="btn-action" style="background:#dc2626; font-weight:800;">⚔️ 雙人即時對戰助手 (App)</a>
-      <a href="universal_equipment.html" class="btn-action" style="background:#0284c7;">🎒 官方通用裝備 (11項物資)</a>
-      <a href="rule_lite.html" class="btn-action btn-secondary">⚡ 簡易核心規則</a>
-      <a href="#team-portals" class="btn-action btn-secondary">⚔️ 瀏覽殺戮小隊手冊</a>
-      <a href="#weapons-glossary" class="btn-action btn-secondary">📖 22項武器特規辭典</a>
+      <a href="40k_core_rules.html" class="btn-action" style="background:#1e3a8a; border: 1.5px solid #60a5fa; font-weight:800; box-shadow: 0 4px 12px rgba(37,99,235,0.4);">🛡️ 40K 完整核心規則 (11版)</a>
+      <a href="40k_combat_patrol_rules.html" class="btn-action" style="background:#2563eb; font-weight:800;">⚡ 40K 戰巡核心手冊 (11版)</a>
+      <a href="40k_combat_patrol_tracker.html" class="btn-action" style="background:#dc2626; font-weight:800; box-shadow:0 4px 12px rgba(220,38,38,0.4);">⚔️ 40K 戰巡對戰助手 (War Journal)</a>
+      <a href="40k_cp_astartes.html" class="btn-action" style="background:#b91c1c; font-weight:800;">🩸 阿斯塔特：突擊分隊</a>
+      <a href="40k_cp_orks.html" class="btn-action" style="background:#15803d; font-weight:800;">🟢 歐克蠻人：硬漢幫</a>
+      <a href="match_tracker.html" class="btn-action btn-secondary">🎯 KT 殺戮小隊助手</a>
+      <a href="#weapons-glossary" class="btn-action btn-secondary">📖 40K & KT 特規辭典</a>
     </div>
   </header>
 
-  <!-- 小隊手冊入口 -->
-  <h2 class="portal-section-title" id="team-portals">殺戮小隊戰隊手冊 (Kill Team Factions)</h2>
+  <!-- ================= 40K 戰巡隊專區 (Combat Patrol 11th Edition) ================= -->
+  <h2 class="portal-section-title" id="combat-patrol-section" style="color:#1e3a8a;">
+    <span style="background:#2563eb; color:#ffffff; padding:2px 8px; border-radius:3px; font-size:11px; margin-right:8px; vertical-align:middle;">11TH ED</span>
+    戰錘 40,000：核心規則與巡邏特遣隊專區 (Core Rules & Combat Patrol)
+  </h2>
+  
+  <div class="team-cards-grid" style="margin-bottom:28px;">
+    <!-- 40K 完整核心規則庫卡 -->
+    <div class="team-card" style="border-top: 4px solid #3b82f6;">
+      <div class="team-card-banner" style="background: linear-gradient(135deg, #091326 0%, #1e3a8a 60%, #1e40af 100%);">
+        <div style="text-align:center; padding:20px; z-index:2;">
+          <div style="font-size:36px; margin-bottom:4px;">🛡️📖</div>
+          <div style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:1px; text-transform:uppercase;">11TH ED OFFICIAL CORE RULES</div>
+          <div style="font-size:18px; font-weight:900; color:#ffffff; font-family:var(--font-display);">40K 完整核心規則庫 (全檢索)</div>
+        </div>
+      </div>
+      <div class="team-card-body">
+        <p class="team-card-desc">
+          直接同步自官方《Warhammer 40,000》最新實機資料庫！收錄全部 25 個核心章節、10 個核心計謀、40 項核心技能、最新平衡勘誤與 66 項官方 FAQ。
+        </p>
+        <ul class="team-features-list">
+          <li><strong>25 個核心章節全收錄：</strong>從核心概念、資料表、五大階段到進階載具/運輸/預備隊</li>
+          <li><strong>10 大通用核心計謀：</strong>指揮重擲、史詩挑戰、粉碎衝擊、警戒射擊、英勇介入等完整卡片</li>
+          <li><strong>40 項核心與武器技能：</strong>深入打擊、不覺疼痛、先攻、[致命一擊]、[爆炸]、[熱熔]速查</li>
+          <li><strong>即時關鍵字檢索：</strong>支援中英雙語關鍵字即時輸入檢索與一鍵展開/收合</li>
+          <li><strong>66 條官方問答與最新勘誤：</strong>最新平衡更新與官方疑難裁判完整解答</li>
+        </ul>
+        <div class="team-card-actions">
+          <a href="40k_core_rules.html" class="team-btn-primary" style="background:#2563eb;">🛡️ 查閱 40K 完整核心規則庫</a>
+        </div>
+      </div>
+    </div>
+    <!-- 40K 核心規則卡 -->
+    <div class="team-card" style="border-top: 4px solid #2563eb;">
+      <div class="team-card-banner" style="background: linear-gradient(135deg, #091326 0%, #1e3a8a 100%);">
+        <div style="text-align:center; padding:20px; z-index:2;">
+          <div style="font-size:36px; margin-bottom:4px;">⚡📘</div>
+          <div style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:1px; text-transform:uppercase;">OFFICIAL CORE RULES</div>
+          <div style="font-size:18px; font-weight:900; color:#ffffff; font-family:var(--font-display);">戰巡核心作戰指南 (11版)</div>
+        </div>
+      </div>
+      <div class="team-card-body">
+        <p class="team-card-desc">
+          第 11 版官方標準入門與緊湊對戰規格！免算軍表分數，專為 44" &times; 30" 桌面設計，收錄完整 10 大作戰流程與計策速查。
+        </p>
+        <ul class="team-features-list">
+          <li><strong>完整五大階段：</strong>指揮/戰場震懾、移動、射擊判定、衝鋒、近戰</li>
+          <li><strong>受傷判定矩陣：</strong>武器力量 (S) vs 目標堅韌 (T) 對比速查</li>
+          <li><strong>6 大通用計策：</strong>指揮重擲、反攻、英勇介入、煙幕掩護等 (禁用粉碎/炸藥/深打)</li>
+          <li><strong>官方 10 步流程：</strong>佈局 A/B/C 三大地圖、攻防判定、5 輪任務計分</li>
+        </ul>
+        <div class="team-card-actions">
+          <a href="40k_combat_patrol_rules.html" class="team-btn-primary" style="background:#2563eb;">⚡ 進入戰巡核心作戰手冊</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 40K War Journal 對戰助手卡 -->
+    <div class="team-card" style="border-top: 4px solid #dc2626;">
+      <div class="team-card-banner" style="background: linear-gradient(135deg, #1e1b4b 0%, #7f1d1d 100%);">
+        <div style="text-align:center; padding:20px; z-index:2;">
+          <div style="font-size:36px; margin-bottom:4px;">⚔️📱</div>
+          <div style="font-size:11px; font-weight:800; color:#fca5a5; letter-spacing:1px; text-transform:uppercase;">WAR JOURNAL INTERACTIVE</div>
+          <div style="font-size:18px; font-weight:900; color:#ffffff; font-family:var(--font-display);">戰巡對戰助手 (War Journal)</div>
+        </div>
+      </div>
+      <div class="team-card-body">
+        <p class="team-card-desc">
+          依據官方 App「War Journal」規格打造！整合 5 輪次計分、專屬主要任務自動載入、CP 計謀扣除與單位傷亡面板。
+        </p>
+        <ul class="team-features-list">
+          <li><strong>主要任務自動載入：</strong>阿斯塔特【為了戰團的榮耀】＆ 歐克【痛揍他們！】</li>
+          <li><strong>戰場佈局切換：</strong>一鍵呼出佈局 A、B、C 官方戰術地圖與先攻拼骰</li>
+          <li><strong>CP 與計謀調用：</strong>支援專屬戰略與核心計謀即時調用，自動核減 CP</li>
+          <li><strong>單位血量與傷亡：</strong>實時監控連長、頭目、卡車與步兵小隊存活狀態</li>
+        </ul>
+        <div class="team-card-actions">
+          <a href="40k_combat_patrol_tracker.html" class="team-btn-primary" style="background:#dc2626;">⚔️ 啟動 40K 戰巡對戰助手</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 阿斯塔特：突擊分隊卡 -->
+    <div class="team-card" style="border-top: 4px solid #b91c1c;">
+      <div class="team-card-banner">
+        <img src="assets/angels_p11_1_1308x1421.png" alt="Astartes Combat Patrol" class="team-card-banner-bg">
+        <div class="team-card-banner-overlay">
+          <span class="team-faction-tag" style="color:#fca5a5;">ADEPTUS ASTARTES / 帝國星際戰士</span>
+          <div class="team-card-name">阿斯塔特：突擊分隊 (Strike Force)</div>
+        </div>
+      </div>
+      <div class="team-card-body">
+        <p class="team-card-desc">
+          Mac 官方 App 實機同步最新編制！聖物盾連長率領智庫員、先鋒老兵跳躍背包、仲裁者與高速蘭德速攻艇實施精準雷霆斬首。
+        </p>
+        <ul class="team-features-list">
+          <li><strong>連長與智庫員：</strong>聖物盾自帶 4++ 特保，智庫員提供全隊 4++ 靈能護盾</li>
+          <li><strong>高速打帶跑先鋒：</strong>5 人跳躍先鋒老兵小隊 (快速反應撤退 6")</li>
+          <li><strong>堅定防禦與重火力：</strong>仲裁者小隊 (OC 3)、蘭德速攻艇 (M14" 多管熱熔/重焚化)</li>
+          <li><strong>官方專屬任務與計謀：</strong>主要任務【為了戰團的榮耀】、戰略【無息攻勢/斬首打擊】</li>
+        </ul>
+        <div class="team-card-actions">
+          <a href="40k_cp_astartes.html" class="team-btn-primary" style="background:#b91c1c;">🩸 查閱突擊分隊手冊</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 歐克蠻人：硬漢幫卡 -->
+    <div class="team-card" style="border-top: 4px solid #15803d;">
+      <div class="team-card-banner">
+        <img src="assets/kommandos_p11_1_1958x1660.png" alt="Orks Combat Patrol" class="team-card-banner-bg">
+        <div class="team-card-banner-overlay">
+          <span class="team-faction-tag" style="color:#bbf7d0;">ORKS / 綠皮歐克蠻人</span>
+          <div class="team-card-name">歐克蠻人：硬漢幫 (Hard Boyz)</div>
+        </div>
+      </div>
+      <div class="team-card-body">
+        <p class="team-card-desc">
+          Mac 官方 App 實機同步最新編制！由戰爭頭目率領靈能小子、戰鬥卡車、小子、蠻人小子與無限死遁的屁精大隊席捲戰場。
+        </p>
+        <ul class="team-features-list">
+          <li><strong>戰爭頭目＆靈能小子：</strong>大斬刀 (劈裂1 傷害3)，靈能小子【摩克圖騰】永久控制目標</li>
+          <li><strong>重裝戰鬥卡車：</strong>移動 12"、生命 7，死後無差別引爆；可強化為 3+ 護甲與 4++ 特保</li>
+          <li><strong>不死地精災害：</strong>屁精小隊被滅時重置為備軍，以【深度打擊】重新空降戰場！</li>
+          <li><strong>官方專屬任務與計謀：</strong>主要任務【痛揍他們！】、戰略【碾碎他們/醫療跳跳】</li>
+        </ul>
+        <div class="team-card-actions">
+          <a href="40k_cp_orks.html" class="team-btn-primary" style="background:#15803d;">🟢 查閱硬漢幫手冊</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 官方 App 全 24 支戰巡名冊速覽區 -->
+  <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 22px; margin-bottom: 40px;" id="cp-roster-directory">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+      <div>
+        <h3 style="margin:0; font-size:16px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
+          <span>📜 官方 App 全 24 支 Combat Patrol 戰巡名冊目錄</span>
+          <span class="dropdown-badge badge-40k">APP DATABASE</span>
+        </h3>
+        <p style="margin:4px 0 0 0; font-size:12px; color:#94a3b8;">
+          我們已透過本地 SQLite 介面完全打通您 Mac 上官方 App 的資料庫，目前已優先上線最熱門的「突擊分隊」與「硬漢幫」，其餘 22 支戰巡隊隨時皆可秒速提取生成繁中手冊！
+        </p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:10px;">
+      <a href="40k_cp_astartes.html" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); border-radius:6px; padding:10px 12px; text-decoration:none; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:700; color:#fca5a5; font-size:13px;">突擊分隊 (星際戰士)</div>
+          <div style="font-size:11px; color:#94a3b8;">主要任務：為了戰團的榮耀</div>
+        </div>
+        <span class="dropdown-badge badge-hot">已實裝</span>
+      </a>
+
+      <a href="40k_cp_orks.html" style="background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.4); border-radius:6px; padding:10px 12px; text-decoration:none; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:700; color:#86efac; font-size:13px;">硬漢幫 (歐克蠻人)</div>
+          <div style="font-size:11px; color:#94a3b8;">主要任務：痛揍他們！</div>
+        </div>
+        <span class="dropdown-badge badge-hot">已實裝</span>
+      </a>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">聖血先鋒 (聖血天使)</div>
+          <div style="font-size:11px; color:#64748b;">任務：高空突襲</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">復仇兄弟會 (暗黑天使)</div>
+          <div style="font-size:11px; color:#64748b;">任務：奪取據點</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">克羅的淨化者 (灰騎士)</div>
+          <div style="font-size:11px; color:#64748b;">任務：淨化惡魔</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">瓦爾登加斯特蟲群 (泰倫)</div>
+          <div style="font-size:11px; color:#64748b;">任務：準備吞噬</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">蛆蟲領主 (死亡守衛)</div>
+          <div style="font-size:11px; color:#64748b;">任務：不可阻擋的征服</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">阿蒙霍泰克衛隊 (死靈)</div>
+          <div style="font-size:11px; color:#64748b;">任務：光復王朝</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">疾曉核心隊 (鈦帝國)</div>
+          <div style="font-size:11px; color:#64748b;">任務：遠征戰役</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">崔斯蒂安鎏金之刃 (禁軍)</div>
+          <div style="font-size:11px; color:#64748b;">任務：黃金王座守護者</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">凱格瑞爾守護者 (方舟靈族)</div>
+          <div style="font-size:11px; color:#64748b;">任務：環繞包圍</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; color:#cbd5e1; font-size:13px;">德雷登騎兵隊 (星界軍)</div>
+          <div style="font-size:11px; color:#64748b;">任務：為了卡迪亞！</div>
+        </div>
+        <span style="font-size:10.5px; color:#64748b;">App 就緒</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 殺戮小隊專區 (Kill Team Factions) ================= -->
+  <h2 class="portal-section-title" id="kt-section">殺戮小隊戰隊手冊 (Kill Team Factions)</h2>
   <div class="team-cards-grid">
     
     <!-- 死亡天使 -->
@@ -679,14 +1082,70 @@
     </div>
   </div>
 
-  <!-- 22 項武器規則即時搜尋辭典 -->
-  <h2 class="portal-section-title" id="weapons-glossary">22 項特殊武器規則與特性速查辭典 (Weapon Rules Glossary)</h2>
+  <!-- 武器規則即時搜尋辭典 -->
+  <h2 class="portal-section-title" id="weapons-glossary">戰錘 40K & 殺戮小隊 通用武器特規速查辭典 (Weapon & Ability Glossary)</h2>
   <div class="glossary-box">
     <div class="glossary-search-bar">
-      <input type="text" id="keywordSearch" class="glossary-input" placeholder="🔍 輸入關鍵字或英文快速篩選（如：穿刺、重型、blast、lethal、爆擊）...">
+      <input type="text" id="keywordSearch" class="glossary-input" placeholder="🔍 輸入關鍵字或英文快速篩選（如：毀滅打擊、重擊、lethal、torrent、rapid fire、blast、穿刺）...">
     </div>
     <div class="glossary-grid" id="glossaryGrid">
       
+      <!-- 40K 11版核心關鍵字 -->
+      <div class="glossary-card" data-kw="毀滅打擊 致命傷 devastating wounds 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>毀滅打擊 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Devastating Wounds</span></div>
+        <div class="glossary-card-desc">攻擊受傷擲骰擲出未修正的 6（爆擊受傷）時，防守方<strong>無法進行常規護甲存救或特殊存救</strong>，直接造成等於該武器傷害值的致命傷害！</div>
+      </div>
+
+      <div class="glossary-card" data-kw="重擊 自動受傷 lethal hits 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>重擊 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Lethal Hits</span></div>
+        <div class="glossary-card-desc">攻擊命中擲骰擲出未修正的 6（爆擊命中）時，該攻擊<strong>自動成功受傷</strong>，跳過受傷骰判定直接進入防守方存救階段。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="連續命中 sustained hits 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>連續命中 x <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Sustained Hits x</span></div>
+        <div class="glossary-card-desc">攻擊命中擲骰擲出未修正的 6（爆擊命中）時，本次命中除了保留之外，額外<strong>追加產生 x 次額外命中</strong>判定！</div>
+      </div>
+
+      <div class="glossary-card" data-kw="激流 噴射 自動命中 torrent 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>激流 / 噴射 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Torrent</span></div>
+        <div class="glossary-card-desc">本武器在射程內射擊時<strong>自動命中目標</strong>，完全無須進行命中擲骰 (Hit Roll)，直接擲骰決定攻擊次數並進行受傷判定。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="急速射擊 半程射擊 rapid fire 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>急速射擊 x <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Rapid Fire x</span></div>
+        <div class="glossary-card-desc">當目標處於武器最大射程的一半（半程）以內時，每次攻擊的攻擊次數 (Attacks) 額外<strong>增加 x 次</strong>。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="劈砍 破防 cleave 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>劈砍 x <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Cleave x</span></div>
+        <div class="glossary-card-desc">第 11 版新規則特規。近戰攻擊爆擊命中或高力打擊時，武器的穿甲值 (AP) 額外改善 x 點（例如 AP -2 變為 AP -3）。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="衝擊破防 lance 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>衝擊破防 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Lance</span></div>
+        <div class="glossary-card-desc">持此武器的單位在發動過衝鋒 (Charge) 的回合內發動近戰攻擊時，近戰武器的<strong>受傷骰 (Wound roll) +1</strong>。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="雙聯 重骰受傷 twin-linked 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>雙聯武器 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Twin-linked</span></div>
+        <div class="glossary-card-desc">使用本武器進行攻擊時，可以<strong>重新擲出該次攻擊所有失敗的受傷骰 (Re-roll Wound rolls)</strong>。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="精確打擊 斬首 precision 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>精確打擊 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Precision</span></div>
+        <div class="glossary-card-desc">若攻擊目標為聯合單位（有角色附屬帶隊），攻擊者可以將成功的攻擊傷害<strong>直接分配給敵方角色 (Character) 模型</strong>，繞過普通護衛兵！</div>
+      </div>
+
+      <div class="glossary-card" data-kw="熱熔 近距重創 melta 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>熱熔 x <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Melta x</span></div>
+        <div class="glossary-card-desc">當目標處於武器最大射程的一半（半程）以內時，每次未被存救的成功攻擊其<strong>傷害值額外增加 x 點</strong>（如熱熔 2 增加 2 點傷害）。</div>
+      </div>
+
+      <div class="glossary-card" data-kw="危險 過熱 自爆 hazardous 40k" style="border-top:3px solid #2563eb;">
+        <div class="glossary-card-title"><span>危險武器 <span style="font-size:9px; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px;">40K</span></span><span class="glossary-card-en">Hazardous</span></div>
+        <div class="glossary-card-desc">射擊結束後為每件危險武器擲 1 顆 D6。每擲出 1，射手單位必須消滅 1 名裝備此武器的模型（若為角色/載具則承受 3 點致命傷害）。</div>
+      </div>
+
       <div class="glossary-card" data-kw="精準 accurate">
         <div class="glossary-card-title"><span>精準 x</span><span class="glossary-card-en">Accurate x</span></div>
         <div class="glossary-card-desc">你可以在不擲骰子的情況下，將最多 x 顆攻擊骰直接作為「普通成功」保留。若持有多個精準 x，可視為精準 2。</div>
@@ -928,18 +1387,22 @@
   </div>
 
 </div> <!-- end main-wrapper -->
+    </div> <!-- end app-content -->
 
-<!-- 頁尾 -->
-<footer class="site-footer">
-  <div class="site-footer-content">
-    <p><strong>戰錘 40,000：殺戮小隊 (Warhammer 40,000: Kill Team) 繁體中文全規則情報庫</strong></p>
-    <p style="margin-top:4px;">本網站所有規則、專有名詞對照依據 Games Workshop 官方 Kill Team 3rd Edition (2024 / Hivestorm 世代) 整理編譯。</p>
-    <p style="margin-top:4px; font-size:10.5px; color:#64748b;">
-      Warhammer 40,000, Kill Team, Citadel, Adeptus Astartes, Death Guard, Orks 及所有相關商標與圖案均為 Games Workshop Limited 之註冊商標或版權所有，本站僅供華語戰棋愛好者社團學習、推廣與非商業交流使用。
-    </p>
-  </div>
-</footer>
+    <!-- 頁尾 -->
+    <footer class="site-footer">
+      <div class="site-footer-content">
+        <p><strong>戰錘 40,000 & 殺戮小隊 (Warhammer 40,000 & Kill Team) 繁體中文全戰棋情報庫</strong></p>
+        <p style="margin-top:4px;">本網站所有規則、專有名詞對照依據 Games Workshop 官方 Kill Team 3rd Edition (2024 / Hivestorm 世代) 與 40K 11th Edition 整理編譯。</p>
+        <p style="margin-top:4px; font-size:10.5px; color:#64748b;">
+          Warhammer 40,000, Kill Team, Citadel, Adeptus Astartes, Death Guard, Orks 及所有相關商標與圖案均為 Games Workshop Limited 之註冊商標或版權所有，本站僅供華語戰棋愛好者社團學習、推廣與非商業交流使用。
+        </p>
+      </div>
+    </footer>
+  </div> <!-- end app-main -->
+</div> <!-- end app-layout -->
 
+<script src="shared.js?v=3.0.0"></script>
 <!-- 關鍵字搜尋腳本 -->
 <script>
   document.getElementById('keywordSearch').addEventListener('input', function(e) {

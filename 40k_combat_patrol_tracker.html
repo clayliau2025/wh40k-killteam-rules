@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>戰錘 40K 戰巡對戰助手 (War Journal: Combat Patrol Match Tracker) - 繁中官方規格</title>
+  <link rel="stylesheet" href="shared.css?v=3.0.0">
+  <style>
+    /* ================= 戰巡 War Journal 專屬樣式 ================= */
+    body.theme-40k-journal {
+      background-color: #0b1120;
+      color: #f1f5f9;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wj-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 16px 20px 60px 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* 頂部標題看板 */
+    .wj-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #172554 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wj-header::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.2) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .wj-title-group h1 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wj-title-group p {
+      margin: 0;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .wj-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .btn-wj {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-wj-primary {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+    .btn-wj-primary:hover {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      transform: translateY(-1px);
+    }
+
+    .btn-wj-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-wj-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .btn-wj-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .btn-wj-danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff;
+    }
+
+    /* 戰場佈局與概況條 */
+    .battle-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .battle-bar-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .battle-bar-label {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .battle-bar-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    /* 輪次選擇導航標籤 */
+    .round-nav {
+      display: flex;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+
+    .round-tab {
+      flex: 1;
+      min-width: 110px;
+      text-align: center;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-family: inherit;
+    }
+
+    .round-tab .round-sub {
+      font-size: 11px;
+      font-weight: normal;
+      opacity: 0.7;
+    }
+
+    .round-tab:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+    }
+
+    .round-tab.active {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+
+    .round-tab.completed {
+      border-bottom: 2px solid #22c55e;
+    }
+
+    /* 雙方對戰儀表板 (2欄) */
+    .command-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 860px) {
+      .command-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 玩家指揮堡壘卡片 */
+    .bunker-card {
+      background: #0f172a;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bunker-p1 {
+      border-top: 4px solid #ef4444;
+    }
+
+    .bunker-p2 {
+      border-top: 4px solid #22c55e;
+    }
+
+    .bunker-header {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .bunker-faction {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bunker-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-p1 {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .badge-p2 {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .bunker-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .bunker-enhancement {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* 分數與 CP 儀表 */
+    .bunker-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 16px 20px;
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .stat-box {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .stat-box-title {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .stat-box-value {
+      font-size: 32px;
+      font-weight: 900;
+      font-family: var(--font-display);
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .stat-ctrl-btns {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn-stat-step {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .btn-stat-step:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* 主要任務計分區 (Primary Mission Section) */
+    .mission-scoring-section {
+      padding: 16px 20px;
+      flex: 1;
+    }
+
+    .mission-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .mission-title-bar h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #cbd5e1;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mission-lore {
+      font-size: 12px;
+      color: #94a3b8;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      padding-left: 8px;
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .scoring-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .scoring-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .scoring-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .scoring-item.checked {
+      background: rgba(37, 99, 235, 0.18);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    .scoring-checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid #64748b;
+      margin-top: 2px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      transition: all 0.15s;
+    }
+
+    .scoring-item.checked .scoring-checkbox {
+      background: #2563eb;
+      border-color: #3b82f6;
+    }
+
+    .scoring-text-group {
+      flex: 1;
+    }
+
+    .scoring-desc {
+      font-size: 13px;
+      color: #e2e8f0;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .scoring-timing {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 3px;
+    }
+
+    .scoring-pts-badge {
+      font-size: 12px;
+      font-weight: 800;
+      font-family: var(--font-display);
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(234, 179, 8, 0.2);
+      color: #facc15;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      white-space: nowrap;
+    }
+
+    /* 戰略計謀調用按鈕與清單 */
+    .bunker-actions {
+      padding: 12px 20px 16px 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-stratagem-open {
+      flex: 1;
+      padding: 9px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-stratagem-open:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* 單位存活與生命狀態看板 (ROSTER & WOUNDS) */
+    .roster-drawer {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .roster-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .roster-header h2 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .roster-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .roster-team-card {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px;
+    }
+
+    .roster-team-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .unit-wound-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .unit-wound-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      gap: 10px;
+    }
+
+    .unit-wound-row.destroyed {
+      opacity: 0.5;
+      text-decoration: line-through;
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+
+    .unit-name-box {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .unit-stats-pill {
+      font-size: 10.5px;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+
+    .unit-wound-ctrls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-wound-tick {
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .btn-wound-tick:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .wound-display {
+      font-size: 13px;
+      font-weight: 800;
+      color: #38bdf8;
+      min-width: 44px;
+      text-align: center;
+      font-family: var(--font-display);
+    }
+
+    /* War Journal 戰報日誌饋流 (BATTLE LOG) */
+    .journal-feed-card {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .journal-feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .journal-feed-header h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .journal-feed-list {
+      max-height: 220px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .feed-entry {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feed-time {
+      font-size: 10.5px;
+      color: #64748b;
+      font-family: monospace;
+    }
+
+    /* 戰前設定模態框 (SETUP MODAL) */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      animation: modalFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalFade {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .btn-close-modal {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .btn-close-modal:hover { color: #ffffff; }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .form-select, .form-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 9px 12px;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 13.5px;
+      font-family: inherit;
+    }
+    .form-select:focus, .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* 計謀選擇抽屜 (STRATAGEM DRAWER MODAL) */
+    .strat-grid-modal {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .strat-modal-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .strat-modal-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .strat-modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .strat-modal-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .strat-modal-cost {
+      font-size: 11px;
+      font-weight: 800;
+      background: #dc2626;
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .strat-modal-timing {
+      font-size: 11px;
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    .strat-modal-effect {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body class="theme-40k-core">
+
+<div class="app-layout">
+  <!-- 手機版側邊欄背景遮罩 -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- 左側側邊欄導航 (SIDEBAR) -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="sidebar-logo-img">
+        <div class="sidebar-title-group">
+          <div class="sidebar-brand-name">戰錘 40K & KT</div>
+          <div class="sidebar-brand-sub">繁體中文情報庫</div>
+        </div>
+      </a>
+      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄">◀</button>
+    </div>
+
+    <div class="sidebar-scrollable">
+      <nav class="sidebar-nav">
+        <!-- 首頁 -->
+        <a href="index.html" class="nav-item-link ">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-text">首頁總覽</span>
+        </a>
+
+        <!-- 40K 核心規則 & 戰巡隊 (點擊展開 Accordion) -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">⚡</span>
+              <span class="nav-text">戰錘 40K (核心 & 戰巡)</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="40k_core_rules.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>40K 完整核心規則 (11版)</span>
+              <span class="sub-badge badge-blue">APP同步</span>
+            </a>
+            <a href="40k_combat_patrol_rules.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>戰巡核心作戰手冊 (11版)</span>
+            </a>
+            <a href="40k_combat_patrol_rules.html#mission-flow" class="sub-nav-link">
+              <span class="sub-bullet">•</span>
+              <span>官方任務流程 (10步驟)</span>
+            </a>
+            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link active">
+              <span class="sub-bullet">•</span>
+              <span>戰巡對戰助手 (War Journal)</span>
+              <span class="sub-badge badge-red">HOT</span>
+            </a>
+            <div class="sub-group-label">戰巡隊資料卡 (DATASHEETS)</div>
+            <a href="40k_cp_astartes.html" class="sub-nav-link ">
+              <span class="sub-bullet">🩸</span>
+              <span>突擊分隊 (阿斯塔特)</span>
+            </a>
+            <a href="40k_cp_orks.html" class="sub-nav-link ">
+              <span class="sub-bullet">🟢</span>
+              <span>硬漢幫 (歐克蠻人)</span>
+            </a>
+            <a href="index.html#cp-roster-directory" class="sub-nav-link">
+              <span class="sub-bullet">📜</span>
+              <span>App 全 24 支戰巡名冊</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 殺戮小隊 (點擊展開 Accordion) -->
+        <div class="nav-group ">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">🎯</span>
+              <span class="nav-text">殺戮小隊 (Kill Team)</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="rule_lite.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>核心作戰規則 (精簡版)</span>
+            </a>
+            <a href="match_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>殺戮小隊計分助手</span>
+              <span class="sub-badge badge-red">KT 3版</span>
+            </a>
+            <div class="sub-group-label">特遣戰隊 (TEAMS)</div>
+            <a href="death_of_angel_web_rule.html" class="sub-nav-link ">
+              <span class="sub-bullet">🩸</span>
+              <span>死亡天使 (Angels of Death)</span>
+            </a>
+            <a href="Kommandos.html" class="sub-nav-link ">
+              <span class="sub-bullet">🪓</span>
+              <span>歐克特戰小子 (Kommandos)</span>
+            </a>
+            <a href="plague_marine.html" class="sub-nav-link ">
+              <span class="sub-bullet">🪰</span>
+              <span>瘟疫戰士 (Plague Marines)</span>
+            </a>
+            <a href="universal_equipment.html" class="sub-nav-link ">
+              <span class="sub-bullet">⚙️</span>
+              <span>通用戰術裝備庫</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 對戰助手專區 (點擊展開 Accordion) -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">⚔️</span>
+              <span class="nav-text">對戰助手專區</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link active">
+              <span class="sub-bullet">⚡</span>
+              <span>40K 戰巡 War Journal 助手</span>
+              <span class="sub-badge badge-red">HOT</span>
+            </a>
+            <a href="match_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">🎯</span>
+              <span>殺戮小隊 對戰計分助手</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 辭典 -->
+        <a href="index.html#weapons-glossary" class="nav-item-link">
+          <span class="nav-icon">📖</span>
+          <span class="nav-text">特規與武器辭典</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>GW 官方 App 實機同步</span>
+      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.0.0</span>
+    </div>
+  </aside>
+
+  <!-- 右側主區域 (MAIN CONTENT) -->
+  <div class="app-main">
+        <!-- 頂部通用輔助條 -->
+        <!-- 頂部通用輔助條 -->
+        <!-- 頂部通用輔助條 -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">☰</button>
+        <div class="topbar-breadcrumbs">
+          <span>戰錘 40K (核心 & 戰巡)</span> <span class="bc-sep">/</span> <span class="bc-current">戰巡 War Journal 助手</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a href="40k_combat_patrol_rules.html" class="topbar-btn btn-search-quick">⚡ 戰巡核心手冊</a> <a href="40k_core_rules.html" class="topbar-btn btn-search-quick">🛡️ 40K 核心規則</a>
+      </div>
+    </header>
+
+    <main class="app-content">
+
+<div class="wj-container">
+
+  <!-- 頂部標題列 -->
+  <header class="wj-header">
+    <div class="wj-title-group">
+      <h1>
+        <span>⚔️ WAR JOURNAL：戰巡對戰助手</span>
+        <span class="site-nav-badge" style="background:#2563eb; font-size:11px;">官方 App 規格</span>
+      </h1>
+      <p>專為《戰錘 40,000》第 11 版 Combat Patrol 打造之即時互動戰記系統。支援官方專屬主要任務計分、CP 管理、戰略計謀調用與單位陣亡監控。</p>
+    </div>
+    <div class="wj-actions">
+      <button class="btn-wj btn-wj-outline" onclick="openSetupModal()">⚙️ 戰前設定</button>
+      <button class="btn-wj btn-wj-outline" onclick="showDeploymentModal()">🗺️ 戰場佈局地圖</button>
+      <button class="btn-wj btn-wj-danger" onclick="resetBattle()">🔄 重置戰局</button>
+    </div>
+  </header>
+
+  <!-- 戰場設定摘要條 -->
+  <div class="battle-bar">
+    <div class="battle-bar-card">
+      <div>
+        <div class="battle-bar-label">戰場部署佈局 (Deployment)</div>
+        <div class="battle-bar-val" id="bar-layout-name">佈局 A (44" &times; 30")</div>
+      </div>
+      <button class="btn-wj btn-wj-outline" style="padding:4px 8px; font-size:11px;" onclick="showDeploymentModal()">查看地圖</button>
+    </div>
+
+    <div class="battle-bar-card">
+      <div>
+        <div class="battle-bar-label">先攻方 (First Turn)</div>
+        <div class="battle-bar-val" id="bar-first-player" style="color:#60a5fa;">Player 1 (阿斯塔特)</div>
+      </div>
+      <button class="btn-wj btn-wj-outline" style="padding:4px 8px; font-size:11px;" onclick="rollForFirstTurn()">🎲 拼骰</button>
+    </div>
+
+    <div class="battle-bar-card">
+      <div>
+        <div class="battle-bar-label">戰備塗裝標竿 (+10 VP)</div>
+        <div class="battle-bar-val" id="bar-battle-ready">雙方皆已達成</div>
+      </div>
+      <span class="dropdown-badge badge-40k">ACTIVE</span>
+    </div>
+
+    <div class="battle-bar-card">
+      <div>
+        <div class="battle-bar-label">對戰狀態 (Game Status)</div>
+        <div class="battle-bar-val" id="bar-current-round" style="color:#f59e0b;">第 1 戰鬥輪次中</div>
+      </div>
+      <span class="dropdown-badge badge-hot" id="bar-status-badge">ROUNDS 1/5</span>
+    </div>
+  </div>
+
+  <!-- 輪次標籤列 -->
+  <div class="round-nav">
+    <button class="round-tab active" onclick="switchRound(1)" id="tab-r1">
+      <span>第 1 戰鬥輪次</span>
+      <span class="round-sub">預備與推進</span>
+    </button>
+    <button class="round-tab" onclick="switchRound(2)" id="tab-r2">
+      <span>第 2 戰鬥輪次</span>
+      <span class="round-sub">開始計分</span>
+    </button>
+    <button class="round-tab" onclick="switchRound(3)" id="tab-r3">
+      <span>第 3 戰鬥輪次</span>
+      <span class="round-sub">交火白熱化</span>
+    </button>
+    <button class="round-tab" onclick="switchRound(4)" id="tab-r4">
+      <span>第 4 戰鬥輪次</span>
+      <span class="round-sub">決戰陣地</span>
+    </button>
+    <button class="round-tab" onclick="switchRound(5)" id="tab-r5">
+      <span>第 5 戰鬥輪次</span>
+      <span class="round-sub">終局結算</span>
+    </button>
+  </div>
+
+  <!-- 雙方指揮中心 (BUNKERS) -->
+  <div class="command-grid">
+    
+    <!-- PLAYER 1: 阿斯塔特 突擊分隊 -->
+    <div class="bunker-card bunker-p1">
+      <div class="bunker-header">
+        <div class="bunker-faction">
+          <span class="bunker-badge badge-p1">PLAYER 1</span>
+          <div>
+            <h2 class="bunker-name" id="p1-name-display">突擊分隊 (阿斯塔特修會)</h2>
+            <div class="bunker-enhancement" id="p1-enhancement-display">統帥：連長 ｜ 強化：劍術大師 (預設)</div>
+          </div>
+        </div>
+        <div id="p1-turn-indicator" style="font-size:12px; font-weight:700; color:#ef4444;">● 先攻方</div>
+      </div>
+
+      <!-- 分數與 CP -->
+      <div class="bunker-stats-row">
+        <div class="stat-box">
+          <div class="stat-box-title">總勝利點數 (VP)</div>
+          <div class="stat-box-value" id="p1-vp-display" style="color:#ef4444;">10</div>
+          <div class="stat-ctrl-btns">
+            <button class="btn-stat-step" onclick="changeVP(1, -1)">-</button>
+            <button class="btn-stat-step" onclick="changeVP(1, 1)">+</button>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-title">指揮點數 (CP)</div>
+          <div class="stat-box-value" id="p1-cp-display" style="color:#38bdf8;">1</div>
+          <div class="stat-ctrl-btns">
+            <button class="btn-stat-step" onclick="changeCP(1, -1)">-</button>
+            <button class="btn-stat-step" onclick="changeCP(1, 1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 專屬主要任務計分區 (依輪次動態更新) -->
+      <div class="mission-scoring-section">
+        <div class="mission-title-bar">
+          <h3 id="p1-mission-title">🎯 主要任務：為了戰團的榮耀</h3>
+          <span class="dropdown-badge badge-40k">本輪最高 15 VP</span>
+        </div>
+        <div class="mission-lore" id="p1-mission-lore">
+          「佔領目標並不讓任何敵人將您擊退。今天所取得的光榮勝利也將維護戰團的榮譽。」
+        </div>
+
+        <div class="scoring-checklist" id="p1-scoring-list">
+          <!-- 動態渲染此輪次勾選項目 -->
+        </div>
+      </div>
+
+      <!-- 戰略計謀調用 -->
+      <div class="bunker-actions">
+        <button class="btn-stratagem-open" onclick="openStratagemModal(1)">
+          <span>⚡ 調用戰略計謀 (Stratagems)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PLAYER 2: 歐克蠻人 硬漢幫 -->
+    <div class="bunker-card bunker-p2">
+      <div class="bunker-header">
+        <div class="bunker-faction">
+          <span class="bunker-badge badge-p2">PLAYER 2</span>
+          <div>
+            <h2 class="bunker-name" id="p2-name-display">硬漢幫 (歐克蠻人)</h2>
+            <div class="bunker-enhancement" id="p2-enhancement-display">統帥：戰爭頭目 ｜ 強化：振奮戰吼 (預設)</div>
+          </div>
+        </div>
+        <div id="p2-turn-indicator" style="font-size:12px; font-weight:700; color:#94a3b8;">○ 後攻方</div>
+      </div>
+
+      <!-- 分數與 CP -->
+      <div class="bunker-stats-row">
+        <div class="stat-box">
+          <div class="stat-box-title">總勝利點數 (VP)</div>
+          <div class="stat-box-value" id="p2-vp-display" style="color:#22c55e;">10</div>
+          <div class="stat-ctrl-btns">
+            <button class="btn-stat-step" onclick="changeVP(2, -1)">-</button>
+            <button class="btn-stat-step" onclick="changeVP(2, 1)">+</button>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-title">指揮點數 (CP)</div>
+          <div class="stat-box-value" id="p2-cp-display" style="color:#38bdf8;">1</div>
+          <div class="stat-ctrl-btns">
+            <button class="btn-stat-step" onclick="changeCP(2, -1)">-</button>
+            <button class="btn-stat-step" onclick="changeCP(2, 1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 專屬主要任務計分區 (依輪次動態更新) -->
+      <div class="mission-scoring-section">
+        <div class="mission-title-bar">
+          <h3 id="p2-mission-title">🪓 主要任務：痛揍他們！</h3>
+          <span class="dropdown-badge badge-40k">本輪最高 15 VP</span>
+        </div>
+        <div class="mission-lore" id="p2-mission-lore">
+          「這些小子以為自己比咱們歐克蠻人要厲害。給他們一頓忘不掉的痛揍！」
+        </div>
+
+        <div class="scoring-checklist" id="p2-scoring-list">
+          <!-- 動態渲染此輪次勾選項目 -->
+        </div>
+      </div>
+
+      <!-- 戰略計謀調用 -->
+      <div class="bunker-actions">
+        <button class="btn-stratagem-open" onclick="openStratagemModal(2)">
+          <span>⚡ 調用戰略計謀 (Stratagems)</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 單位存活與生命值監控區 -->
+  <div class="roster-drawer">
+    <div class="roster-header">
+      <h2>
+        <span>🛡️ 雙方部隊存活與生命值監控 (Roster & Wounds)</span>
+      </h2>
+      <span style="font-size:12px; color:#94a3b8;">生命值歸零時自動標記戰損，並觸發擊殺得分紀錄</span>
+    </div>
+
+    <div class="roster-grid">
+      <!-- Player 1 Units -->
+      <div class="roster-team-card">
+        <div class="roster-team-title">
+          <span>突擊分隊編制 (5 單位)</span>
+          <span id="p1-alive-count" style="color:#ef4444;">5 / 5 存活</span>
+        </div>
+        <div class="unit-wound-list" id="p1-unit-list">
+          <!-- 動態渲染 P1 單位 -->
+        </div>
+      </div>
+
+      <!-- Player 2 Units -->
+      <div class="roster-team-card">
+        <div class="roster-team-title">
+          <span>硬漢幫編制 (6 單位)</span>
+          <span id="p2-alive-count" style="color:#22c55e;">6 / 6 存活</span>
+        </div>
+        <div class="unit-wound-list" id="p2-unit-list">
+          <!-- 動態渲染 P2 單位 -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- War Journal 戰況即時饋流 -->
+  <div class="journal-feed-card">
+    <div class="journal-feed-header">
+      <h3>📜 戰記日誌 (War Journal Live Log)</h3>
+      <button class="btn-wj btn-wj-outline" style="padding:4px 10px; font-size:11px;" onclick="copyJournalText()">📋 複製戰報文本</button>
+    </div>
+    <div class="journal-feed-list" id="journal-feed">
+      <div class="feed-entry">
+        <span class="feed-time">[戰前準備]</span>
+        <span>戰巡衝突建立完成：突擊分隊 (Player 1) vs 硬漢幫 (Player 2)。戰場佈局：佈局 A。</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 模態框 1：戰前設定 (SETUP MODAL) -->
+<div class="modal-overlay" id="modal-setup">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>⚙️ 戰前衝突設定 (Combat Patrol Setup)</h3>
+      <button class="btn-close-modal" onclick="closeSetupModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">戰場部署地圖 (Deployment Layout)</label>
+        <select class="form-select" id="setup-layout" onchange="updateSetupLayout()">
+          <option value="A">佈局 A (Layout A) - 經典交角佔領</option>
+          <option value="B">佈局 B (Layout B) - 橫切深入突擊</option>
+          <option value="C">佈局 C (Layout C) - 長距推進交鋒</option>
+        </select>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="form-group">
+          <label class="form-label">Player 1 強化 (Enhancement)</label>
+          <select class="form-select" id="setup-p1-enhancement">
+            <option value="劍術大師 (預設)">劍術大師 (連長 A+2，未著護甲目標致命重創)</option>
+            <option value="戰線老兵">戰線老兵 (連長所在部隊受遠程攻擊時 Save+1)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Player 2 強化 (Enhancement)</label>
+          <select class="form-select" id="setup-p2-enhancement">
+            <option value="振奮戰吼 (預設)">振奮戰吼 (Waaagh! 回合復活 D3+2 隻小子)</option>
+            <option value="額外裝甲">額外裝甲 (戰鬥卡車獲得 3+ 護甲與 4++ 特保)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">先攻方決定 (First Turn)</label>
+        <select class="form-select" id="setup-first-player">
+          <option value="1">Player 1 (阿斯塔特 突擊分隊) 先手</option>
+          <option value="2">Player 2 (歐克蠻人 硬漢幫) 先手</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <input type="checkbox" id="setup-battle-ready" checked>
+          <span>計入戰備塗裝標準 (+10 VP Battle Ready Army Modifier)</span>
+        </label>
+        <span style="font-size:11.5px; color:#94a3b8;">依照官方手冊：模型涂裝至戰備級標準可各獲 10 VP 獎勵。初學者可自由取消。</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-wj btn-wj-outline" onclick="closeSetupModal()">取消</button>
+      <button class="btn-wj btn-wj-primary" onclick="saveSetup()">儲存並套用設定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 模態框 2：戰場佈局地圖 (DEPLOYMENT MAP MODAL) -->
+<div class="modal-overlay" id="modal-map">
+  <div class="modal-box" style="max-width:800px;">
+    <div class="modal-header">
+      <h3 id="map-modal-title">🗺️ 戰場部署地圖：佈局 A (Layout A)</h3>
+      <button class="btn-close-modal" onclick="closeDeploymentModal()">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center;">
+      <p style="font-size:12.5px; color:#94a3b8; margin:0 0 10px 0;">
+        戰場規格：44 英吋 &times; 30 英吋。包含客觀目標標記點、進攻方/防守方部署邊界與推薦地形模型放置位置。
+      </p>
+      <img id="map-modal-img" src="https://d3ocysny7bghv8.cloudfront.net/82e08cef-90a9-4fb7-920e-4f8d05e151c4" alt="Combat Patrol Layout Map" style="max-width:100%; height:auto; border-radius:8px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+      <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;">
+        <button class="btn-wj btn-wj-outline" onclick="switchMapLayout('A')">查看佈局 A</button>
+        <button class="btn-wj btn-wj-outline" onclick="switchMapLayout('B')">查看佈局 B</button>
+        <button class="btn-wj btn-wj-outline" onclick="switchMapLayout('C')">查看佈局 C</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 模態框 3：戰略計謀調用 (STRATAGEM DRAWER MODAL) -->
+<div class="modal-overlay" id="modal-stratagem">
+  <div class="modal-box" style="max-width:640px;">
+    <div class="modal-header">
+      <h3 id="strat-modal-title">⚡ 調用戰略計謀 (Stratagem Vault)</h3>
+      <button class="btn-close-modal" onclick="closeStratagemModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12px; color:#94a3b8; margin:0 0 10px 0;">
+        點擊計謀卡片將自動從當前玩家扣除相應 CP，並在 War Journal 記錄使用事件。注意：粉碎衝擊、炸藥與迅速入場在戰巡模式中已被官方禁用。
+      </p>
+      <div class="strat-grid-modal" id="strat-modal-list">
+        <!-- 動態渲染計謀卡 -->
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+</div> <!-- end app-main -->
+</div> <!-- end app-layout -->
+
+<!-- JS 邏輯引擎 -->
+<script>
+function toggleNavGroup(btn) {
+  const group = btn.closest('.nav-group');
+  if (group) group.classList.toggle('open');
+}
+
+// ==================== 對戰數據模型 ====================
+const gameState = {
+  currentRound: 1,
+  firstPlayer: 1,
+  layout: 'A',
+  battleReady: true,
+  p1: {
+    name: '突擊分隊 (阿斯塔特修會)',
+    enhancement: '劍術大師 (預設)',
+    baseVP: 10,
+    roundScores: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+    cp: 1,
+    scoringState: {
+      2: { objEqual: false, objMoreNonHome: false },
+      3: { objEqual: false, objMoreNonHome: false },
+      4: { objEqual: false, objMoreNonHome: false },
+      5: { objEqual: false, objMoreNonHome: false }
+    },
+    units: [
+      { id: 'c1', name: '突擊分隊連長 (Captain)', maxW: 5, curW: 5, inv: '4++', isDestroyed: false },
+      { id: 'c2', name: '突擊分隊智庫員 (Librarian)', maxW: 4, curW: 4, inv: '4++', isDestroyed: false },
+      { id: 'c3', name: '先鋒老兵 (跳躍背包, 5人)', maxW: 5, curW: 5, inv: '-', isDestroyed: false },
+      { id: 'c4', name: '仲裁者小隊 (Intercessors, 5人)', maxW: 5, curW: 5, inv: '-', isDestroyed: false },
+      { id: 'c5', name: '突擊分隊蘭德速攻艇', maxW: 9, curW: 9, inv: '-', isDestroyed: false }
+    ]
+  },
+  p2: {
+    name: '硬漢幫 (歐克蠻人)',
+    enhancement: '振奮戰吼 (預設)',
+    baseVP: 10,
+    roundScores: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+    cp: 1,
+    scoringState: {
+      1: { killEnemy: false },
+      2: { objNonHome: false, objEnemyHome: false, killEnemy: false },
+      3: { objNonHome: false, objEnemyHome: false, killEnemy: false },
+      4: { objNonHome: false, objEnemyHome: false, killEnemy: false },
+      5: { objNonHome: false, objEnemyHome: false, killEnemy: false }
+    },
+    units: [
+      { id: 'o1', name: '硬漢幫戰爭頭目 (Warboss)', maxW: 6, curW: 6, inv: '5++', isDestroyed: false },
+      { id: 'o2', name: '硬漢幫靈能小子 (Weirdboy)', maxW: 4, curW: 4, inv: '-', isDestroyed: false },
+      { id: 'o3', name: '硬漢幫戰鬥卡車 (Trukk)', maxW: 7, curW: 7, inv: '6++', isDestroyed: false },
+      { id: 'o4', name: '硬漢幫小子 (Boyz, 10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false },
+      { id: 'o5', name: '硬漢幫蠻人小子 (10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false },
+      { id: 'o6', name: '硬漢幫屁精 (Gretchin, 10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false }
+    ]
+  },
+  logs: []
+};
+
+// 官方 CDN 地圖連結
+const MAP_URLS = {
+  'A': 'https://d3ocysny7bghv8.cloudfront.net/82e08cef-90a9-4fb7-920e-4f8d05e151c4',
+  'B': 'https://d3ocysny7bghv8.cloudfront.net/8354aea5-9750-498b-a227-9d1875e9db85',
+  'C': 'https://d3ocysny7bghv8.cloudfront.net/346a8c02-f2b2-4e25-9592-280c63cf46f3'
+};
+
+// 計謀庫
+const STRATAGEMS = {
+  p1: [
+    { name: '無息攻勢', cost: 1, type: '突擊分隊專屬', timing: '己方衝鋒階段', effect: '為目標單位重擲衝鋒擲骰；若衝鋒成功，對交戰敵軍造成 D3 處致命傷害！' },
+    { name: '恐怖衝鋒', cost: 1, type: '突擊分隊專屬', timing: '己方衝鋒階段結束時', effect: '目標交戰敵方單位必須立即進行一次戰場震懾檢定。' },
+    { name: '斬首打擊', cost: 1, type: '突擊分隊專屬', timing: '己方近戰階段', effect: '直到階段結束前，目標連長的所有近戰攻擊獲得 [致命命中] (命中 6 自動傷)。' },
+    { name: '指揮重擲 (Command Re-roll)', cost: 1, type: '核心戰術', timing: '任意階段', effect: '重擲剛才的一次命中、致傷、存救、前進或衝鋒測試。' },
+    { name: '反攻 (Counter-offensive)', cost: 2, type: '核心謀策', timing: '近戰階段', effect: '敵方單位攻擊結束後，立即插隊指派一個友方單位進行近戰交戰！' },
+    { name: '英勇介入 (Heroic Intervention)', cost: 1, type: '核心史詩', timing: '敵方衝鋒階段結束時', effect: '對已完成衝鋒的敵方單位發動防衛性英勇反衝鋒。' },
+    { name: '煙幕 (Smokescreen)', cost: 1, type: '核心防護', timing: '敵方射擊階段', effect: '使目標單位獲得掩體增益並對遠程射擊 -1 命中。' },
+    { name: '瘋狂之勇 (Insane Bravery)', cost: 1, type: '核心史詩', timing: '己方指揮階段', effect: '戰場震懾檢定前使用，該檢定自動成功！' }
+  ],
+  p2: [
+    { name: '碾碎他們', cost: 1, type: '硬漢幫專屬', timing: '己方衝鋒階段', effect: '戰鬥卡車衝鋒結束後，擲 6D6，每有一個 4+ 對交戰敵軍造成 1 致命傷 (最高 6)。' },
+    { name: '醫療跳跳', cost: 1, type: '硬漢幫專屬', timing: '任意階段受傷時', effect: '直到階段結束前，目標小子或蠻人小子單位獲得 5++ 特殊存救！' },
+    { name: '打起精神', cost: 1, type: '硬漢幫專屬', timing: '敵方射擊階段結束時', effect: '遭受射擊並有模型損失的單位，可立即朝最近敵軍突進移動 D6+1 英吋！' },
+    { name: '指揮重擲 (Command Re-roll)', cost: 1, type: '核心戰術', timing: '任意階段', effect: '重擲剛才的一次命中、致傷、存救、前進或衝鋒測試。' },
+    { name: '反攻 (Counter-offensive)', cost: 2, type: '核心謀策', timing: '近戰階段', effect: '敵方單位攻擊結束後，立即插隊指派一個友方單位進行近戰交戰！' },
+    { name: '英勇介入 (Heroic Intervention)', cost: 1, type: '核心史詩', timing: '敵方衝鋒階段結束時', effect: '對已完成衝鋒的敵方單位發動防衛性英勇反衝鋒。' },
+    { name: '瘋狂之勇 (Insane Bravery)', cost: 1, type: '核心史詩', timing: '己方指揮階段', effect: '戰場震懾檢定前使用，該檢定自動成功！' }
+  ]
+};
+
+// ==================== 初始化與渲染 ====================
+function init() {
+  loadFromStorage();
+  renderAll();
+}
+
+function renderAll() {
+  renderRoundTabs();
+  renderScores();
+  renderMissionChecklists();
+  renderUnits();
+  renderStatusBar();
+}
+
+function renderRoundTabs() {
+  for (let r = 1; r <= 5; r++) {
+    const tab = document.getElementById(`tab-r${r}`);
+    tab.className = `round-tab ${gameState.currentRound === r ? 'active' : ''}`;
+  }
+}
+
+function renderScores() {
+  // P1 總分計算
+  let p1RoundsVP = Object.values(gameState.p1.roundScores).reduce((a, b) => a + b, 0);
+  let p1Total = (gameState.battleReady ? 10 : 0) + p1RoundsVP;
+  document.getElementById('p1-vp-display').textContent = p1Total;
+  document.getElementById('p1-cp-display').textContent = gameState.p1.cp;
+
+  // P2 總分計算
+  let p2RoundsVP = Object.values(gameState.p2.roundScores).reduce((a, b) => a + b, 0);
+  let p2Total = (gameState.battleReady ? 10 : 0) + p2RoundsVP;
+  document.getElementById('p2-vp-display').textContent = p2Total;
+  document.getElementById('p2-cp-display').textContent = gameState.p2.cp;
+}
+
+function renderMissionChecklists() {
+  const r = gameState.currentRound;
+
+  // P1: 為了戰團的榮耀 (第 2 輪起計分)
+  const p1List = document.getElementById('p1-scoring-list');
+  if (r === 1) {
+    p1List.innerHTML = `
+      <div style="font-size:12.5px; color:#94a3b8; padding:8px 0;">
+        ⚠️ 第 1 輪次為部隊佔位階段，主要任務計分於<strong>第 2 戰鬥輪次指揮階段</strong>正式開啟！
+      </div>`;
+  } else {
+    const state = gameState.p1.scoringState[r];
+    p1List.innerHTML = `
+      <div class="scoring-item ${state.objEqual ? 'checked' : ''}" onclick="toggleP1Score(${r}, 'objEqual', 5)">
+        <div class="scoring-checkbox">${state.objEqual ? '✓' : ''}</div>
+        <div class="scoring-text-group">
+          <div class="scoring-desc">控制 1 個或更多目標，且目標數量 &ge; 對手控制數</div>
+          <div class="scoring-timing">時機：己方指揮階段結束時 (或第5輪結束)</div>
+        </div>
+        <span class="scoring-pts-badge">+5 VP</span>
+      </div>
+
+      <div class="scoring-item ${state.objMoreNonHome ? 'checked' : ''}" onclick="toggleP1Score(${r}, 'objMoreNonHome', 10)">
+        <div class="scoring-checkbox">${state.objMoreNonHome ? '✓' : ''}</div>
+        <div class="scoring-text-group">
+          <div class="scoring-desc">控制 2 個或更多目標（己方領地目標除外）</div>
+          <div class="scoring-timing">時機：己方指揮階段結束時 (推進佔據無人區/敵方陣地)</div>
+        </div>
+        <span class="scoring-pts-badge">+10 VP</span>
+      </div>
+    `;
+  }
+
+  // P2: 痛揍他們！
+  const p2List = document.getElementById('p2-scoring-list');
+  const state2 = gameState.p2.scoringState[r];
+  let p2HTML = '';
+
+  if (r >= 2) {
+    p2HTML += `
+      <div class="scoring-item ${state2.objNonHome ? 'checked' : ''}" onclick="toggleP2Score(${r}, 'objNonHome', 5)">
+        <div class="scoring-checkbox">${state2.objNonHome ? '✓' : ''}</div>
+        <div class="scoring-text-group">
+          <div class="scoring-desc">控制 1 個或更多目標（己方領地目標除外）</div>
+          <div class="scoring-timing">時機：己方指揮階段結束時</div>
+        </div>
+        <span class="scoring-pts-badge">+5 VP</span>
+      </div>
+
+      <div class="scoring-item ${state2.objEnemyHome ? 'checked' : ''}" onclick="toggleP2Score(${r}, 'objEnemyHome', 5)">
+        <div class="scoring-checkbox">${state2.objEnemyHome ? '✓' : ''}</div>
+        <div class="scoring-text-group">
+          <div class="scoring-desc">控制對手的領地目標 (奪取阿斯塔特大本營)</div>
+          <div class="scoring-timing">時機：己方指揮階段結束時</div>
+        </div>
+        <span class="scoring-pts-badge">+5 VP</span>
+      </div>
+    `;
+  } else {
+    p2HTML += `
+      <div style="font-size:12px; color:#94a3b8; margin-bottom:6px;">
+        💡 目標控制得分於第 2 輪開始；但【消滅敵軍】在任意輪次皆可計分！
+      </div>`;
+  }
+
+  p2HTML += `
+    <div class="scoring-item ${state2.killEnemy ? 'checked' : ''}" onclick="toggleP2Score(${r}, 'killEnemy', 5)">
+      <div class="scoring-checkbox">${state2.killEnemy ? '✓' : ''}</div>
+      <div class="scoring-text-group">
+        <div class="scoring-desc">本回合或上一個回合中摧毀了一個敵方單位</div>
+        <div class="scoring-timing">時機：己方回合結束時 (痛揍敵軍！)</div>
+      </div>
+      <span class="scoring-pts-badge">+5 VP</span>
+    </div>
+  `;
+  p2List.innerHTML = p2HTML;
+}
+
+function toggleP1Score(round, key, pts) {
+  const cur = gameState.p1.scoringState[round][key];
+  gameState.p1.scoringState[round][key] = !cur;
+
+  // 計算該輪得分
+  let sum = 0;
+  if (gameState.p1.scoringState[round].objEqual) sum += 5;
+  if (gameState.p1.scoringState[round].objMoreNonHome) sum += 10;
+  if (sum > 15) sum = 15; // 官方上限
+  gameState.p1.roundScores[round] = sum;
+
+  logEvent(`Round ${round} 突擊分隊 ${!cur ? '達成' : '取消'} 主要任務條目，當前本輪 VP：${sum}`);
+  saveToStorage();
+  renderAll();
+}
+
+function toggleP2Score(round, key, pts) {
+  const cur = gameState.p2.scoringState[round][key];
+  gameState.p2.scoringState[round][key] = !cur;
+
+  let sum = 0;
+  if (round >= 2) {
+    if (gameState.p2.scoringState[round].objNonHome) sum += 5;
+    if (gameState.p2.scoringState[round].objEnemyHome) sum += 5;
+  }
+  if (gameState.p2.scoringState[round].killEnemy) sum += 5;
+  if (sum > 15) sum = 15; // 官方上限
+  gameState.p2.roundScores[round] = sum;
+
+  logEvent(`Round ${round} 硬漢幫 ${!cur ? '達成' : '取消'} 主要任務條目，當前本輪 VP：${sum}`);
+  saveToStorage();
+  renderAll();
+}
+
+function renderUnits() {
+  // P1 Units
+  const p1Box = document.getElementById('p1-unit-list');
+  let p1Alive = 0;
+  p1Box.innerHTML = gameState.p1.units.map(u => {
+    if (!u.isDestroyed) p1Alive++;
+    return `
+      <div class="unit-wound-row ${u.isDestroyed ? 'destroyed' : ''}">
+        <div class="unit-name-box">
+          <span>${u.name}</span>
+          ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#f87171;">${u.inv}</span>` : ''}
+        </div>
+        <div class="unit-wound-ctrls">
+          <button class="btn-wound-tick" onclick="adjustWound(1, '${u.id}', -1)">-</button>
+          <span class="wound-display">${u.curW} / ${u.maxW} W</span>
+          <button class="btn-wound-tick" onclick="adjustWound(1, '${u.id}', 1)">+</button>
+          <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroy(1, '${u.id}')">${u.isDestroyed ? '復活' : '戰損'}</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('p1-alive-count').textContent = `${p1Alive} / ${gameState.p1.units.length} 存活`;
+
+  // P2 Units
+  const p2Box = document.getElementById('p2-unit-list');
+  let p2Alive = 0;
+  p2Box.innerHTML = gameState.p2.units.map(u => {
+    if (!u.isDestroyed) p2Alive++;
+    return `
+      <div class="unit-wound-row ${u.isDestroyed ? 'destroyed' : ''}">
+        <div class="unit-name-box">
+          <span>${u.name}</span>
+          ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#4ade80;">${u.inv}</span>` : ''}
+        </div>
+        <div class="unit-wound-ctrls">
+          <button class="btn-wound-tick" onclick="adjustWound(2, '${u.id}', -1)">-</button>
+          <span class="wound-display">${u.curW} / ${u.maxW} W</span>
+          <button class="btn-wound-tick" onclick="adjustWound(2, '${u.id}', 1)">+</button>
+          <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroy(2, '${u.id}')">${u.isDestroyed ? '復活' : '戰損'}</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('p2-alive-count').textContent = `${p2Alive} / ${gameState.p2.units.length} 存活`;
+}
+
+function adjustWound(player, unitId, delta) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit) return;
+
+  unit.curW = Math.max(0, Math.min(unit.maxW, unit.curW + delta));
+  if (unit.curW === 0 && !unit.isDestroyed) {
+    unit.isDestroyed = true;
+    logEvent(`💥 ${unit.name} 生命值歸零，已遭摧毀！`);
+  } else if (unit.curW > 0 && unit.isDestroyed) {
+    unit.isDestroyed = false;
+  }
+  saveToStorage();
+  renderAll();
+}
+
+function toggleDestroy(player, unitId) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit) return;
+  unit.isDestroyed = !unit.isDestroyed;
+  if (unit.isDestroyed) {
+    unit.curW = 0;
+    logEvent(`💥 標記單位【${unit.name}】已陣亡！`);
+  } else {
+    unit.curW = unit.maxW;
+    logEvent(`✨ 標記單位【${unit.name}】重新部署 / 復活！`);
+  }
+  saveToStorage();
+  renderAll();
+}
+
+function renderStatusBar() {
+  document.getElementById('bar-layout-name').textContent = `佈局 ${gameState.layout} (44" × 30")`;
+  document.getElementById('bar-first-player').textContent = gameState.firstPlayer === 1 ? 'Player 1 (阿斯塔特)' : 'Player 2 (歐克蠻人)';
+  document.getElementById('bar-battle-ready').textContent = gameState.battleReady ? '雙方各 +10 VP' : '未計入戰備分';
+  document.getElementById('bar-current-round').textContent = `第 ${gameState.currentRound} 戰鬥輪次中`;
+  document.getElementById('bar-status-badge').textContent = `ROUNDS ${gameState.currentRound}/5`;
+}
+
+// ==================== 輪次與控制 ====================
+function switchRound(roundNum) {
+  if (roundNum === gameState.currentRound) return;
+  const oldR = gameState.currentRound;
+  gameState.currentRound = roundNum;
+
+  // 每輪切換自動給雙方 +1 CP (指揮階段)
+  gameState.p1.cp += 1;
+  gameState.p2.cp += 1;
+  logEvent(`➡️ 推進至【第 ${roundNum} 戰鬥輪次】！雙方指揮階段各獲得 1 CP。`);
+
+  saveToStorage();
+  renderAll();
+}
+
+function changeVP(player, delta) {
+  if (player === 1) gameState.p1.baseVP = Math.max(0, gameState.p1.baseVP + delta);
+  else gameState.p2.baseVP = Math.max(0, gameState.p2.baseVP + delta);
+  saveToStorage();
+  renderScores();
+}
+
+function changeCP(player, delta) {
+  if (player === 1) gameState.p1.cp = Math.max(0, gameState.p1.cp + delta);
+  else gameState.p2.cp = Math.max(0, gameState.p2.cp + delta);
+  saveToStorage();
+  renderScores();
+}
+
+function rollForFirstTurn() {
+  const d1 = Math.floor(Math.random() * 6) + 1;
+  const d2 = Math.floor(Math.random() * 6) + 1;
+  if (d1 === d2) {
+    alert(`拼骰平手！雙方皆擲出 ${d1}，請再次擲骰！`);
+    return rollForFirstTurn();
+  }
+  gameState.firstPlayer = d1 > d2 ? 1 : 2;
+  logEvent(`🎲 先手拼骰結果：P1 [${d1}] vs P2 [${d2}] -> ${gameState.firstPlayer === 1 ? '突擊分隊' : '硬漢幫'} 贏得先攻！`);
+  saveToStorage();
+  renderAll();
+}
+
+// ==================== 計謀彈窗 ====================
+let currentStratPlayer = 1;
+function openStratagemModal(player) {
+  currentStratPlayer = player;
+  const list = player === 1 ? STRATAGEMS.p1 : STRATAGEMS.p2;
+  const title = player === 1 ? '突擊分隊 (阿斯塔特) 戰略計謀庫' : '硬漢幫 (歐克蠻人) 戰略計謀庫';
+  document.getElementById('strat-modal-title').textContent = `⚡ ${title} (可用 CP: ${player === 1 ? gameState.p1.cp : gameState.p2.cp})`;
+
+  const box = document.getElementById('strat-modal-list');
+  box.innerHTML = list.map(s => `
+    <div class="strat-modal-card" onclick="useStratagem('${s.name}', ${s.cost})">
+      <div class="strat-modal-top">
+        <span class="strat-modal-name">${s.name} <span style="font-size:11px; font-weight:normal; color:#94a3b8;">[${s.type}]</span></span>
+        <span class="strat-modal-cost">${s.cost} CP</span>
+      </div>
+      <div class="strat-modal-timing">時機：${s.timing}</div>
+      <div class="strat-modal-effect">${s.effect}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('modal-stratagem').classList.add('active');
+}
+
+function closeStratagemModal() {
+  document.getElementById('modal-stratagem').classList.remove('active');
+}
+
+function useStratagem(name, cost) {
+  const curCP = currentStratPlayer === 1 ? gameState.p1.cp : gameState.p2.cp;
+  if (curCP < cost) {
+    alert(`CP 不足！使用【${name}】需要 ${cost} CP，當前僅剩 ${curCP} CP。`);
+    return;
+  }
+  if (currentStratPlayer === 1) gameState.p1.cp -= cost;
+  else gameState.p2.cp -= cost;
+
+  logEvent(`⚡ ${currentStratPlayer === 1 ? '突擊分隊' : '硬漢幫'} 使用了計謀【${name}】(-${cost} CP)，剩餘 ${currentStratPlayer === 1 ? gameState.p1.cp : gameState.p2.cp} CP。`);
+  closeStratagemModal();
+  saveToStorage();
+  renderAll();
+}
+
+// ==================== 地圖與設定彈窗 ====================
+function showDeploymentModal() {
+  switchMapLayout(gameState.layout);
+  document.getElementById('modal-map').classList.add('active');
+}
+
+function closeDeploymentModal() {
+  document.getElementById('modal-map').classList.remove('active');
+}
+
+function switchMapLayout(layout) {
+  document.getElementById('map-modal-title').textContent = `🗺️ 戰場部署地圖：佈局 ${layout} (Layout ${layout})`;
+  document.getElementById('map-modal-img').src = MAP_URLS[layout];
+}
+
+function openSetupModal() {
+  document.getElementById('setup-layout').value = gameState.layout;
+  document.getElementById('setup-p1-enhancement').value = gameState.p1.enhancement;
+  document.getElementById('setup-p2-enhancement').value = gameState.p2.enhancement;
+  document.getElementById('setup-first-player').value = gameState.firstPlayer;
+  document.getElementById('setup-battle-ready').checked = gameState.battleReady;
+  document.getElementById('modal-setup').classList.add('active');
+}
+
+function closeSetupModal() {
+  document.getElementById('modal-setup').classList.remove('active');
+}
+
+function saveSetup() {
+  gameState.layout = document.getElementById('setup-layout').value;
+  gameState.p1.enhancement = document.getElementById('setup-p1-enhancement').value;
+  gameState.p2.enhancement = document.getElementById('setup-p2-enhancement').value;
+  gameState.firstPlayer = parseInt(document.getElementById('setup-first-player').value);
+  gameState.battleReady = document.getElementById('setup-battle-ready').checked;
+
+  document.getElementById('p1-enhancement-display').textContent = `統帥：連長 ｜ 強化：${gameState.p1.enhancement}`;
+  document.getElementById('p2-enhancement-display').textContent = `統帥：戰爭頭目 ｜ 強化：${gameState.p2.enhancement}`;
+
+  logEvent(`⚙️ 戰前設定已更新：佈局 ${gameState.layout}，P1 強化【${gameState.p1.enhancement}】，P2 強化【${gameState.p2.enhancement}】。`);
+  closeSetupModal();
+  saveToStorage();
+  renderAll();
+}
+
+// ==================== 日誌與存檔 ====================
+function logEvent(msg) {
+  const time = new Date().toLocaleTimeString('zh-TW', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  gameState.logs.unshift({ time, msg });
+  if (gameState.logs.length > 50) gameState.logs.pop();
+
+  const feed = document.getElementById('journal-feed');
+  feed.innerHTML = gameState.logs.map(l => `
+    <div class="feed-entry">
+      <span class="feed-time">[${l.time}]</span>
+      <span>${l.msg}</span>
+    </div>
+  `).join('');
+}
+
+function copyJournalText() {
+  const text = gameState.logs.map(l => `[${l.time}] ${l.msg}`).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    alert('戰報文本已複製至剪貼簿！');
+  }).catch(() => {
+    alert('複製失敗，請手動選取日誌。');
+  });
+}
+
+function resetBattle() {
+  if (!confirm('確定要重置當前戰局嗎？所有計分與部隊血量將回復至初始狀態。')) return;
+  localStorage.removeItem('wh40k_cp_journal_v1');
+  location.reload();
+}
+
+function saveToStorage() {
+  try {
+    localStorage.setItem('wh40k_cp_journal_v1', JSON.stringify(gameState));
+  } catch (e) {
+    console.error('Storage error', e);
+  }
+}
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem('wh40k_cp_journal_v1');
+    if (raw) {
+      const data = JSON.parse(raw);
+      Object.assign(gameState, data);
+    }
+  } catch (e) {
+    console.error('Failed to parse state', e);
+  }
+}
+
+// 啟動
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+
+  // 側邊欄折疊開關 (桌面端)
+  const collapseBtn = document.getElementById('sidebarCollapseBtn');
+  const sidebar = document.getElementById('appSidebar');
+  if (collapseBtn && sidebar) {
+    collapseBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
+    });
+    if (localStorage.getItem('sidebar_collapsed') === 'true') {
+      sidebar.classList.add('collapsed');
+    }
+  }
+
+  // 手機版抽屜開關
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  if (mobileBtn && sidebar && backdrop) {
+    mobileBtn.addEventListener('click', () => {
+      sidebar.classList.add('mobile-open');
+      backdrop.classList.add('active');
+    });
+    backdrop.addEventListener('click', () => {
+      sidebar.classList.remove('mobile-open');
+      backdrop.classList.remove('active');
+    });
+  }
+});
+</script>
+
+<script src="shared.js?v=3.0.0"></script>
+</body>
+</html>

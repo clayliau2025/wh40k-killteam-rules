@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>阿斯塔特修會戰巡隊：突擊分隊 (Strike Force) - 官方 App 實機數據手冊</title>
+  <link rel="stylesheet" href="shared.css?v=3.0.0">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
+
+    body.theme-40k-astartes {
+      background-color: #f8fafc;
+      font-size: 10pt;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    /* 頂部標題 */
+    .astartes-header {
+      background: linear-gradient(135deg, #180d0d 0%, #7f1d1d 60%, #991b1b 100%);
+      border-left: 8px solid #ef4444;
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      margin-bottom: 20px;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(127, 29, 29, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .astartes-header::after {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .title-group h2 {
+      font-size: 9.5pt;
+      letter-spacing: 3px;
+      color: #fca5a5;
+      text-transform: uppercase;
+      font-family: var(--font-display);
+      margin-bottom: 3px;
+    }
+
+    .title-group h1 {
+      font-size: 24pt;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.15;
+      margin: 2px 0 8px 0;
+      font-family: var(--font-display);
+    }
+
+    .edition-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #b91c1c;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 9pt;
+      padding: 3px 10px;
+      letter-spacing: 1px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .intro-p {
+      color: #fecaca;
+      font-size: 9.5pt;
+      line-height: 1.55;
+      max-width: 820px;
+    }
+
+    /* 快捷導航 */
+    .sub-nav {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      position: sticky;
+      top: 50px;
+      z-index: 90;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .sub-nav a {
+      color: #991b1b;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: #fef2f2;
+      transition: all 0.15s ease;
+    }
+
+    .sub-nav a:hover {
+      background: #b91c1c;
+      color: #ffffff;
+    }
+
+    /* 區塊標題 */
+    .section-banner {
+      background: #180d0d;
+      color: #ffffff;
+      padding: 10px 16px;
+      border-left: 6px solid #b91c1c;
+      border-radius: var(--radius-sm);
+      font-size: 13.5pt;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      font-family: var(--font-display);
+      margin: 26px 0 14px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-badge {
+      font-size: 9pt;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: #b91c1c;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-weight: 700;
+    }
+
+    /* 特工數據卡 */
+    .datacard {
+      border: 1.5px solid #cbd5e1;
+      border-top: 4px solid #b91c1c;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .card-top {
+      background: #f8fafc;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-unit-name {
+      font-size: 14pt;
+      font-weight: 900;
+      color: #7f1d1d;
+      font-family: var(--font-display);
+    }
+
+    .card-unit-en {
+      font-size: 9pt;
+      color: #64748b;
+      margin-left: 6px;
+      font-weight: 500;
+    }
+
+    /* 屬性聚落 */
+    .stat-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .stat-box {
+      border: 1.5px solid #94a3b8;
+      background: #ffffff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-align: center;
+      min-width: 40px;
+    }
+
+    .stat-box.highlight {
+      border-color: #b91c1c;
+      background: #fef2f2;
+    }
+
+    .stat-label {
+      font-size: 7pt;
+      color: #64748b;
+      font-weight: 800;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .stat-val {
+      font-size: 13pt;
+      font-weight: 900;
+      color: #0f172a;
+      font-family: var(--font-display);
+    }
+
+    .stat-box.highlight .stat-val {
+      color: #b91c1c;
+    }
+
+    .card-content {
+      padding: 14px 16px;
+    }
+
+    /* 武器表格 */
+    .weapon-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 9pt;
+    }
+
+    .weapon-table th {
+      background: #1e293b;
+      color: #ffffff;
+      padding: 6px 8px;
+      font-size: 8.5pt;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .weapon-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: center;
+      color: #1e293b;
+    }
+
+    .weapon-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .weapon-name-cell {
+      text-align: left !important;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .ability-block {
+      background: #f8fafc;
+      border-left: 3px solid #b91c1c;
+      padding: 8px 12px;
+      margin-top: 8px;
+      border-radius: 0 4px 4px 0;
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+
+    .ability-title {
+      font-weight: 800;
+      color: #991b1b;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .strat-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #b91c1c;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .strat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .strat-title {
+      font-size: 11.5pt;
+      font-weight: 900;
+      color: #7f1d1d;
+      font-family: var(--font-display);
+    }
+
+    .strat-cost {
+      background: #b91c1c;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 8.5pt;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body class="theme-40k-astartes">
+
+<div class="app-layout">
+  <!-- 手機版側邊欄背景遮罩 -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- 左側側邊欄導航 (SIDEBAR) -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="sidebar-logo-img">
+        <div class="sidebar-title-group">
+          <div class="sidebar-brand-name">戰錘 40K & KT</div>
+          <div class="sidebar-brand-sub">繁體中文情報庫</div>
+        </div>
+      </a>
+      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄">◀</button>
+    </div>
+
+    <div class="sidebar-scrollable">
+      <nav class="sidebar-nav">
+        <!-- 首頁 -->
+        <a href="index.html" class="nav-item-link ">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-text">首頁總覽</span>
+        </a>
+
+        <!-- 40K 核心規則 & 戰巡隊 (點擊展開 Accordion) -->
+        <div class="nav-group open">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">⚡</span>
+              <span class="nav-text">戰錘 40K (核心 & 戰巡)</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="40k_core_rules.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>40K 完整核心規則 (11版)</span>
+              <span class="sub-badge badge-blue">APP同步</span>
+            </a>
+            <a href="40k_combat_patrol_rules.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>戰巡核心作戰手冊 (11版)</span>
+            </a>
+            <a href="40k_combat_patrol_rules.html#mission-flow" class="sub-nav-link">
+              <span class="sub-bullet">•</span>
+              <span>官方任務流程 (10步驟)</span>
+            </a>
+            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>戰巡對戰助手 (War Journal)</span>
+              <span class="sub-badge badge-red">HOT</span>
+            </a>
+            <div class="sub-group-label">戰巡隊資料卡 (DATASHEETS)</div>
+            <a href="40k_cp_astartes.html" class="sub-nav-link active">
+              <span class="sub-bullet">🩸</span>
+              <span>突擊分隊 (阿斯塔特)</span>
+            </a>
+            <a href="40k_cp_orks.html" class="sub-nav-link ">
+              <span class="sub-bullet">🟢</span>
+              <span>硬漢幫 (歐克蠻人)</span>
+            </a>
+            <a href="index.html#cp-roster-directory" class="sub-nav-link">
+              <span class="sub-bullet">📜</span>
+              <span>App 全 24 支戰巡名冊</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 殺戮小隊 (點擊展開 Accordion) -->
+        <div class="nav-group ">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">🎯</span>
+              <span class="nav-text">殺戮小隊 (Kill Team)</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="rule_lite.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>核心作戰規則 (精簡版)</span>
+            </a>
+            <a href="match_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">•</span>
+              <span>殺戮小隊計分助手</span>
+              <span class="sub-badge badge-red">KT 3版</span>
+            </a>
+            <div class="sub-group-label">特遣戰隊 (TEAMS)</div>
+            <a href="death_of_angel_web_rule.html" class="sub-nav-link ">
+              <span class="sub-bullet">🩸</span>
+              <span>死亡天使 (Angels of Death)</span>
+            </a>
+            <a href="Kommandos.html" class="sub-nav-link ">
+              <span class="sub-bullet">🪓</span>
+              <span>歐克特戰小子 (Kommandos)</span>
+            </a>
+            <a href="plague_marine.html" class="sub-nav-link ">
+              <span class="sub-bullet">🪰</span>
+              <span>瘟疫戰士 (Plague Marines)</span>
+            </a>
+            <a href="universal_equipment.html" class="sub-nav-link ">
+              <span class="sub-bullet">⚙️</span>
+              <span>通用戰術裝備庫</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 對戰助手專區 (點擊展開 Accordion) -->
+        <div class="nav-group ">
+          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
+            <span class="group-header-left">
+              <span class="nav-icon">⚔️</span>
+              <span class="nav-text">對戰助手專區</span>
+            </span>
+            <span class="group-arrow">▾</span>
+          </button>
+          <div class="nav-sub-list">
+            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">⚡</span>
+              <span>40K 戰巡 War Journal 助手</span>
+              <span class="sub-badge badge-red">HOT</span>
+            </a>
+            <a href="match_tracker.html" class="sub-nav-link ">
+              <span class="sub-bullet">🎯</span>
+              <span>殺戮小隊 對戰計分助手</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 辭典 -->
+        <a href="index.html#weapons-glossary" class="nav-item-link">
+          <span class="nav-icon">📖</span>
+          <span class="nav-text">特規與武器辭典</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>GW 官方 App 實機同步</span>
+      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.0.0</span>
+    </div>
+  </aside>
+
+  <!-- 右側主區域 (MAIN CONTENT) -->
+  <div class="app-main">
+        <!-- 頂部通用輔助條 -->
+        <!-- 頂部通用輔助條 -->
+        <!-- 頂部通用輔助條 -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">☰</button>
+        <div class="topbar-breadcrumbs">
+          <span>戰錘 40K (核心 & 戰巡)</span> <span class="bc-sep">/</span> <span>戰巡資料卡</span> <span class="bc-sep">/</span> <span class="bc-current">突擊分隊 (阿斯塔特)</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a href="40k_combat_patrol_tracker.html" class="topbar-btn btn-tracker-quick">⚔️ 戰巡 War Journal</a> <a href="40k_combat_patrol_rules.html" class="topbar-btn btn-search-quick">⚡ 戰巡核心手冊</a>
+      </div>
+    </header>
+
+    <div class="app-content">
+
+<div class="container">
+  
+  <!-- 頁面頂部橫幅 -->
+  <header class="astartes-header">
+    <div class="title-group">
+      <div>
+        <span class="edition-pill">Mac 官方 WH40K App 實機同步</span>
+        <span class="edition-pill" style="background:#d97706;">COMBAT PATROL: STRIKE FORCE</span>
+      </div>
+      <h1>阿斯塔特修會戰巡隊：突擊分隊</h1>
+      <h2>ADEPTUS ASTARTES: COMBAT PATROL STRIKE FORCE</h2>
+      <p class="intro-p">
+        直接萃取自您 Mac 正在運行的官方《Warhammer 40,000》App 原版數據庫！由突擊分隊連長率領，配備聖物盾與大師級動力武器，協同靈能智庫員、先鋒老兵跳躍小隊、仲裁者小隊以及重裝蘭德速攻艇，發動雷霆打擊！
+      </p>
+    </div>
+  </header>
+
+  <!-- 內部快捷錨點 -->
+  <div class="sub-nav">
+    <span style="font-weight:800; font-size:11px; color:#64748b; letter-spacing:1px; text-transform:uppercase;">App 數據直達：</span>
+    <a href="#datasheets-app">1. 實機部隊數據卡 (5 大主力)</a>
+    <a href="#enhancements-app">2. App 戰巡強化 (劍術大師/戰線老兵)</a>
+    <a href="#stratagems-app">3. App 專屬作戰計策 (3 項)</a>
+    <a href="40k_combat_patrol_rules.html">4. 返回戰巡核心手冊</a>
+  </div>
+
+  <!-- SECTION 1: 實機部隊數據卡 -->
+  <div class="section-banner" id="datasheets-app">
+    <span>1. 官方 App 實機部隊數據卡 (Datasheets)</span>
+    <span class="section-badge">5 UNITS IN APP</span>
+  </div>
+
+  <!-- 1. 突擊分隊連長 -->
+  <div class="datacard">
+    <div class="card-top">
+      <div>
+        <span class="card-unit-name">突擊分隊連長</span>
+        <span class="card-unit-en">Captain [戰帥 WARLORD]</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
+        <div class="stat-box"><span class="stat-label">T</span><span class="stat-val">4</span></div>
+        <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
+        <div class="stat-box highlight"><span class="stat-label">4++</span><span class="stat-val">4++</span></div>
+        <div class="stat-box highlight"><span class="stat-label">W</span><span class="stat-val">6</span></div>
+        <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
+        <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">1</span></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:25%;">武器名稱</th>
+            <th>類型</th>
+            <th>射程</th>
+            <th>攻擊次數 A</th>
+            <th>命中 BS/WS</th>
+            <th>力量 S</th>
+            <th>穿甲 AP</th>
+            <th>傷害 D</th>
+            <th style="width:25%;">武器關鍵字</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="weapon-name-cell">重型爆矢手槍 (Heavy Bolt Pistol)</td>
+            <td>遠程</td>
+            <td>18"</td>
+            <td>1</td>
+            <td>2+</td>
+            <td>4</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[手槍 / 近距離 PISTOL]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">大師級動力武器 (Master-crafted Weapon)</td>
+            <td>近戰</td>
+            <td>Melee</td>
+            <td>6</td>
+            <td>2+</td>
+            <td>5</td>
+            <td>-2</td>
+            <td>2</td>
+            <td>[近戰 MELEE]</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ability-block">
+        <span class="ability-title">聖物盾 (Relic Shield)：</span>
+        該模型的生命值 <strong>W +1</strong>（已包括在數據卡 6W 屬性中），並賦予 <strong>4+ 特殊存救 (4++ Invulnerable Save)</strong>。
+      </div>
+      <div class="ability-block">
+        <span class="ability-title">戰爭大師 (Master of War)：</span>
+        在對手的衝鋒階段結束時，如果該單位<strong>不處於交戰狀態</strong>，並且位於一個或多個敵方單位的 <strong>6" 內</strong>，您可以使用本技能。若使用，該單位<strong>結算一次衝鋒</strong>。在進行衝鋒擲骰時，如果擲骰結果大於 6（修正後），則將結果變為 6。
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 突擊分隊智庫員 -->
+  <div class="datacard">
+    <div class="card-top">
+      <div>
+        <span class="card-unit-name">突擊分隊智庫員</span>
+        <span class="card-unit-en">Librarian</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
+        <div class="stat-box"><span class="stat-label">T</span><span class="stat-val">4</span></div>
+        <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
+        <div class="stat-box highlight"><span class="stat-label">4++</span><span class="stat-val">4++</span></div>
+        <div class="stat-box"><span class="stat-label">W</span><span class="stat-val">4</span></div>
+        <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
+        <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">1</span></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:25%;">武器名稱</th>
+            <th>類型</th>
+            <th>射程</th>
+            <th>攻擊次數 A</th>
+            <th>命中 BS/WS</th>
+            <th>力量 S</th>
+            <th>穿甲 AP</th>
+            <th>傷害 D</th>
+            <th style="width:25%;">武器關鍵字</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="weapon-name-cell">爆矢手槍 (Bolt Pistol)</td>
+            <td>遠程</td>
+            <td>12"</td>
+            <td>1</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>0</td>
+            <td>1</td>
+            <td>[手槍 PISTOL]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">電襲術 - 電流脈衝 (Electric Pulse)</td>
+            <td>遠程</td>
+            <td>24"</td>
+            <td>2</td>
+            <td>3+</td>
+            <td>8</td>
+            <td>-2</td>
+            <td>3</td>
+            <td>[靈能 PSYCHIC]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">電襲術 - 閃電衝擊 (Chain Lightning)</td>
+            <td>遠程</td>
+            <td>24"</td>
+            <td>3</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[靈能, 爆炸 2 BLAST 2]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">靈能武器 (Force Weapon)</td>
+            <td>近戰</td>
+            <td>Melee</td>
+            <td>4</td>
+            <td>3+</td>
+            <td>6</td>
+            <td>-1</td>
+            <td>2</td>
+            <td>[靈能 PSYCHIC]</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ability-block">
+        <span class="ability-title">亞空間洞察 (Warp Insight)：</span>
+        該單位的遠程攻擊可以<strong>完全忽略以下負面修正</strong>：
+        <ul>
+          <li><strong>BS (彈道技能) 減值</strong></li>
+          <li><strong>命中擲骰 (Hit roll) 減值</strong> 和 <strong>致傷擲骰 (Wound roll) 減值</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 突擊分隊跳躍背包先鋒老兵 -->
+  <div class="datacard">
+    <div class="card-top">
+      <div>
+        <span class="card-unit-name">突擊分隊跳躍背包先鋒老兵</span>
+        <span class="card-unit-en">Vanguard Veterans with Jump Packs</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box highlight"><span class="stat-label">M</span><span class="stat-val">12"</span></div>
+        <div class="stat-box"><span class="stat-label">T</span><span class="stat-val">4</span></div>
+        <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
+        <div class="stat-box"><span class="stat-label">W</span><span class="stat-val">2</span></div>
+        <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
+        <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">1</span></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:25%;">武器名稱</th>
+            <th>類型</th>
+            <th>射程</th>
+            <th>攻擊次數 A</th>
+            <th>命中 BS/WS</th>
+            <th>力量 S</th>
+            <th>穿甲 AP</th>
+            <th>傷害 D</th>
+            <th style="width:25%;">武器關鍵字</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="weapon-name-cell">等離子手槍 - 標準 (Plasma Pistol)</td>
+            <td>遠程</td>
+            <td>12"</td>
+            <td>1</td>
+            <td>3+</td>
+            <td>7</td>
+            <td>-2</td>
+            <td>1</td>
+            <td>[手槍 PISTOL]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">等離子手槍 - 過載 (Supercharge)</td>
+            <td>遠程</td>
+            <td>12"</td>
+            <td>1</td>
+            <td>3+</td>
+            <td>8</td>
+            <td>-3</td>
+            <td>2</td>
+            <td>[手槍, 危險 HAZARDOUS]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">重型爆矢手槍 (Heavy Bolt Pistol)</td>
+            <td>遠程</td>
+            <td>18"</td>
+            <td>1</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[手槍 PISTOL]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">大師級動力武器 (Power Weapon)</td>
+            <td>近戰</td>
+            <td>Melee</td>
+            <td>3</td>
+            <td>3+</td>
+            <td>5</td>
+            <td>-2</td>
+            <td>2</td>
+            <td>[近戰 MELEE]</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ability-block">
+        <span class="ability-title">快速反應 (Quick Reaction - 每個單位，每回合限一次)：</span>
+        在您對手的射擊階段中，當一個敵方單位進行射擊後，如果那個敵方單位以該單位為目標，那麼該單位可以<strong>立即進行一次最多 D6+1" 的常規移動</strong>！
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 突擊分隊仲裁者小隊 -->
+  <div class="datacard">
+    <div class="card-top">
+      <div>
+        <span class="card-unit-name">突擊分隊仲裁者小隊</span>
+        <span class="card-unit-en">Intercessor Squad</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
+        <div class="stat-box"><span class="stat-label">T</span><span class="stat-val">4</span></div>
+        <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
+        <div class="stat-box"><span class="stat-label">W</span><span class="stat-val">2</span></div>
+        <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
+        <div class="stat-box highlight"><span class="stat-label">OC</span><span class="stat-val">3</span></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:25%;">武器名稱</th>
+            <th>類型</th>
+            <th>射程</th>
+            <th>攻擊次數 A</th>
+            <th>命中 BS/WS</th>
+            <th>力量 S</th>
+            <th>穿甲 AP</th>
+            <th>傷害 D</th>
+            <th style="width:25%;">武器關鍵字</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="weapon-name-cell">爆矢步槍 (Bolt Rifle)</td>
+            <td>遠程</td>
+            <td>24"</td>
+            <td>2</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[重型 HEAVY, 突擊 ASSAULT]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">榴彈發射器 - 破片 (Frag)</td>
+            <td>遠程</td>
+            <td>24"</td>
+            <td>2</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[爆炸 1 BLAST 1]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">榴彈發射器 - 穿甲 (Krak)</td>
+            <td>遠程</td>
+            <td>24"</td>
+            <td>2</td>
+            <td>3+</td>
+            <td>5</td>
+            <td>-2</td>
+            <td>3</td>
+            <td>[針對-凶獸/載具 4+]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">鏈鋸劍 (Astartes Chainsword)</td>
+            <td>近戰</td>
+            <td>Melee</td>
+            <td>5</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[近戰 MELEE]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">戰鬥刀和拳頭 (Combat Knife)</td>
+            <td>近戰</td>
+            <td>Melee</td>
+            <td>3</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>0</td>
+            <td>1</td>
+            <td>[近戰 MELEE]</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ability-block">
+        <span class="ability-title">堅定防禦者 (Firm Defender)：</span>
+        在一個敵方單位對該單位進行攻擊時，如果該單位中的每一個模型都位於一個<strong>客觀目標 (Objective) 的範圍內</strong>，那麼針對該單位進行的所有攻擊的 <strong>穿甲值 (AP) -1</strong>（大幅提升護甲存活率！）。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 突擊分隊蘭德速攻艇 -->
+  <div class="datacard">
+    <div class="card-top">
+      <div>
+        <span class="card-unit-name">突擊分隊蘭德速攻艇</span>
+        <span class="card-unit-en">Land Speeder</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box highlight"><span class="stat-label">M</span><span class="stat-val">14"</span></div>
+        <div class="stat-box highlight"><span class="stat-label">T</span><span class="stat-val">8</span></div>
+        <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
+        <div class="stat-box highlight"><span class="stat-label">W</span><span class="stat-val">9</span></div>
+        <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
+        <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">2</span></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th style="width:25%;">武器名稱</th>
+            <th>類型</th>
+            <th>射程</th>
+            <th>攻擊次數 A</th>
+            <th>命中 BS/WS</th>
+            <th>力量 S</th>
+            <th>穿甲 AP</th>
+            <th>傷害 D</th>
+            <th style="width:25%;">武器關鍵字</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="weapon-name-cell">多管熱熔 (Multi-melta)</td>
+            <td>遠程</td>
+            <td>18"</td>
+            <td>2</td>
+            <td>3+</td>
+            <td>10</td>
+            <td>-4</td>
+            <td>D6</td>
+            <td>[熱熔 2 MELTA 2]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">風暴之怒導彈發射器 (Missile)</td>
+            <td>遠程</td>
+            <td>48"</td>
+            <td>1</td>
+            <td>3+</td>
+            <td>10</td>
+            <td>-3</td>
+            <td>4</td>
+            <td>[重裝重創打擊]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">重型焚化槍 (Heavy Flamer)</td>
+            <td>遠程</td>
+            <td>12"</td>
+            <td>D6</td>
+            <td>-</td>
+            <td>5</td>
+            <td>-1</td>
+            <td>1</td>
+            <td>[激流 TORRENT, 無視掩體]</td>
+          </tr>
+          <tr>
+            <td class="weapon-name-cell">裝甲衝撞 (Armoured Ram)</td>
+            <td>近戰</td>
+            <td>Melee</td>
+            <td>4</td>
+            <td>3+</td>
+            <td>4</td>
+            <td>0</td>
+            <td>1</td>
+            <td>[近戰 MELEE]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 2: App 戰帥強化 -->
+  <div class="section-banner" id="enhancements-app">
+    <span>2. 官方 App 突擊分隊強化 (Enhancements)</span>
+    <span class="section-badge">OFFICIAL APP</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="strat-card" style="border-left-color:#d97706;">
+      <div class="strat-top">
+        <span class="strat-title">劍術大師 (Master of the Blade)</span>
+        <span class="strat-cost" style="background:#d97706;">預設強化 (DEFAULT)</span>
+      </div>
+      <p style="font-size:8.8pt; color:#64748b; margin-bottom:4px;">升級：僅限突擊分隊跳躍背包先鋒老兵小隊單位</p>
+      <p style="font-size:9.2pt; color:#334155; line-height:1.5;">
+        在一個敵方單位結束一次<strong>衝鋒移動</strong>時，如果那個敵方單位與該單位<strong>處於交戰狀態</strong>，那麼直到回合結束前，那個敵方單位近戰攻擊的<strong>致傷擲骰 (Wound roll) -1</strong>！
+      </p>
+    </div>
+
+    <div class="strat-card">
+      <div class="strat-top">
+        <span class="strat-title">戰線老兵 (Battleline Veteran)</span>
+        <span class="strat-cost">替代強化</span>
+      </div>
+      <p style="font-size:8.8pt; color:#64748b; margin-bottom:4px;">升級：僅限突擊分隊仲裁者小隊單位</p>
+      <p style="font-size:9.2pt; color:#334155; line-height:1.5;">
+        該單位的爆矢步槍武器獲得 <strong>[速射 1 (Rapid Fire 1)]</strong>（半程射程內每把步槍攻擊次數增加至 3 次！）。
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: App 專屬作戰計策 -->
+  <div class="section-banner" id="stratagems-app">
+    <span>3. 官方 App 突擊分隊作戰計策 (Stratagems)</span>
+    <span class="section-badge">1 CP EACH</span>
+  </div>
+
+  <div class="grid-2">
+    <!-- 無息攻勢 -->
+    <div class="strat-card">
+      <div class="strat-top">
+        <span class="strat-title">無息攻勢 (Relentless Advance)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div style="font-size:8.5pt; color:#64748b; margin-bottom:4px;">時機：近戰階段，當一個己方突擊分隊單位被選擇進行一次「重整移動」時。</div>
+      <p style="font-size:9.2pt; color:#334155; line-height:1.5;">
+        <strong>效果：</strong>當進行重整移動時，該己方單位可以<strong>最多移動 D6"</strong>（大幅突破常規 3" 限制，快速穿插佔領！）。
+      </p>
+    </div>
+
+    <!-- 恐怖衝鋒 -->
+    <div class="strat-card">
+      <div class="strat-top">
+        <span class="strat-title">恐怖衝鋒 (Terrifying Charge)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div style="font-size:8.5pt; color:#64748b; margin-bottom:4px;">時機：在您的衝鋒階段中，當一個己方突擊分隊單位結束「衝鋒移動」時。</div>
+      <p style="font-size:9.2pt; color:#334155; line-height:1.5;">
+        <strong>效果：</strong>選擇一個與您的單位處於交戰狀態的敵方單位。那個敵方單位立即進行一次<strong>戰鬥震懾擲骰 (Battle-shock test)</strong>，並且該擲骰 <strong>-1</strong>！
+      </p>
+    </div>
+
+    <!-- 斬首打擊 -->
+    <div class="strat-card" style="grid-column: 1 / -1;">
+      <div class="strat-top">
+        <span class="strat-title">斬首打擊 (Decapitation Strike)</span>
+        <span class="strat-cost">1 CP</span>
+      </div>
+      <div style="font-size:8.5pt; color:#64748b; margin-bottom:4px;">時機：在近戰階段中，當一個己方突擊分隊單位「被選擇進行近戰」時。</div>
+      <p style="font-size:9.2pt; color:#334155; line-height:1.5;">
+        <strong>效果：</strong>該單位本次的所有近戰攻擊獲得 <strong>[精準 PRECISION]</strong>（可越過護衛直接點殺敵方軍官角色！）。
+      </p>
+    </div>
+  </div>
+
+</div> <!-- end container -->
+    </div> <!-- end app-content -->
+
+    <!-- 頁尾 -->
+    <footer class="site-footer">
+      <div class="site-footer-content">
+        <p><strong>戰錘 40,000：阿斯塔特突擊分隊 (Adeptus Astartes Strike Force) 官方 App 實機數據庫</strong></p>
+        <p style="margin-top:4px;">本網頁依據 Games Workshop 官方第 11 版 Combat Patrol 數據表與 WH40K 官方 App 數據嚴格整理校對。</p>
+        <p style="margin-top:4px; font-size:10.5px; color:#64748b;">
+          Warhammer 40,000, Adeptus Astartes, Combat Patrol 及所有相關商標與圖案均為 Games Workshop Limited 之註冊商標或版權所有，本站僅供華語戰棋愛好者社團學習、推廣與非商業交流使用。
+        </p>
+      </div>
+    </footer>
+  </div> <!-- end app-main -->
+</div> <!-- end app-layout -->
+
+<script src="shared.js?v=3.0.0"></script>
+</body>
+</html>

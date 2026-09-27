@@ -5,7 +5,10 @@
       "firebase.json",
       ".firebaserc",
       "**/.*",
-      "kill_team/**"
+      "kill_team/**",
+      "40K/**",
+      "scratch/**",
+      "server.py"
     ],
     "headers": [
       {
