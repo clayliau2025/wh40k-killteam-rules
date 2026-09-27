@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>阿斯塔特修會戰巡隊：突擊分隊 (Strike Force) - 官方 App 實機數據手冊</title>
-  <link rel="stylesheet" href="shared.css?v=3.0.1">
+  <link rel="stylesheet" href="shared.css?v=3.1.0">
   <style>
     @page {
       size: A4 portrait;
@@ -178,6 +178,18 @@
       gap: 10px;
     }
 
+    .cp-unit-thumb {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      object-position: 50% 15%;
+      border-radius: 8px;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #f1f5f9;
+      flex-shrink: 0;
+    }
+
     .card-unit-name {
       font-size: 14pt;
       font-weight: 900;
@@ -330,7 +342,7 @@
 
 <div class="app-layout">
   <!-- 手機版側邊欄背景遮罩 -->
-          <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+                <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <!-- 左側側邊欄導航 (SIDEBAR) -->
   <aside class="app-sidebar" id="appSidebar">
@@ -468,13 +480,13 @@
 
     <div class="sidebar-footer">
       <span>GW 官方 App 實機同步</span>
-      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.0.1</span>
+      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.1.0</span>
     </div>
   </aside>
 
   <!-- 右側主區域 (MAIN CONTENT) -->
   <div class="app-main">
-        <!-- 頂部通用輔助條 -->
+    <!-- 頂部通用輔助條 -->
     <header class="app-topbar">
       <div class="topbar-left">
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">☰</button>
@@ -501,6 +513,7 @@
         直接萃取自您 Mac 正在運行的官方《Warhammer 40,000》App 原版數據庫！由突擊分隊連長率領，配備聖物盾與大師級動力武器，協同靈能智庫員、先鋒老兵跳躍小隊、仲裁者小隊以及重裝蘭德速攻艇，發動雷霆打擊！
       </p>
     </div>
+    <img src="assets/cp_astartes/hero_astartes_combat_patrol.jpg" alt="阿斯塔特突擊分隊" class="hero-art-img no-print" style="max-height:120px; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.2);">
   </header>
 
   <!-- 內部快捷錨點 -->
@@ -521,15 +534,18 @@
   <!-- 1. 突擊分隊連長 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">突擊分隊連長</span>
-        <span class="card-unit-en">Captain [戰帥 WARLORD]</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_astartes/captain.jpg" alt="突擊分隊連長" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">突擊分隊連長</span>
+          <span class="card-unit-en">Captain [戰帥 WARLORD]</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
         <div class="stat-box"><span class="stat-label">T</span><span class="stat-val">4</span></div>
         <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
-        <div class="stat-box highlight"><span class="stat-label">4++</span><span class="stat-val">4++</span></div>
+        <div class="stat-box highlight" title="特殊存救 (Invulnerable Save，不因穿甲 AP 減值)"><span class="stat-label">INSV</span><span class="stat-val">4+</span></div>
         <div class="stat-box highlight"><span class="stat-label">W</span><span class="stat-val">6</span></div>
         <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
         <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">1</span></div>
@@ -590,15 +606,18 @@
   <!-- 2. 突擊分隊智庫員 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">突擊分隊智庫員</span>
-        <span class="card-unit-en">Librarian</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_astartes/librarian.jpg" alt="突擊分隊智庫員" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">突擊分隊智庫員</span>
+          <span class="card-unit-en">Librarian</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
         <div class="stat-box"><span class="stat-label">T</span><span class="stat-val">4</span></div>
         <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">3+</span></div>
-        <div class="stat-box highlight"><span class="stat-label">4++</span><span class="stat-val">4++</span></div>
+        <div class="stat-box highlight" title="特殊存救 (Invulnerable Save，不因穿甲 AP 減值)"><span class="stat-label">INSV</span><span class="stat-val">4+</span></div>
         <div class="stat-box"><span class="stat-label">W</span><span class="stat-val">4</span></div>
         <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
         <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">1</span></div>
@@ -681,9 +700,12 @@
   <!-- 3. 突擊分隊跳躍背包先鋒老兵 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">突擊分隊跳躍背包先鋒老兵</span>
-        <span class="card-unit-en">Vanguard Veterans with Jump Packs</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_astartes/vanguard.jpg" alt="先鋒老兵" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">突擊分隊跳躍背包先鋒老兵</span>
+          <span class="card-unit-en">Vanguard Veterans with Jump Packs</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box highlight"><span class="stat-label">M</span><span class="stat-val">12"</span></div>
@@ -767,9 +789,12 @@
   <!-- 4. 突擊分隊仲裁者小隊 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">突擊分隊仲裁者小隊</span>
-        <span class="card-unit-en">Intercessor Squad</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_astartes/intercessors.jpg" alt="仲裁者小隊" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">突擊分隊仲裁者小隊</span>
+          <span class="card-unit-en">Intercessor Squad</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
@@ -864,9 +889,12 @@
   <!-- 5. 突擊分隊蘭德速攻艇 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">突擊分隊蘭德速攻艇</span>
-        <span class="card-unit-en">Land Speeder</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_astartes/landspeeder.jpg" alt="重裝蘭德速攻艇" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">突擊分隊蘭德速攻艇</span>
+          <span class="card-unit-en">Land Speeder</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box highlight"><span class="stat-label">M</span><span class="stat-val">14"</span></div>
@@ -1032,6 +1060,6 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.0.1"></script>
+<script src="shared.js?v=3.1.0"></script>
 </body>
 </html>

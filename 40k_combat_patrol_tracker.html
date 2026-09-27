@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>戰錘 40K 戰巡對戰助手 (War Journal: Combat Patrol Match Tracker) - 繁中官方規格</title>
-  <link rel="stylesheet" href="shared.css?v=3.0.1">
+  <link rel="stylesheet" href="shared.css?v=3.1.0">
   <style>
     /* ================= 戰巡 War Journal 專屬樣式 ================= */
     body.theme-40k-journal {
@@ -834,7 +834,7 @@
 
 <div class="app-layout">
   <!-- 手機版側邊欄背景遮罩 -->
-          <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+                <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <!-- 左側側邊欄導航 (SIDEBAR) -->
   <aside class="app-sidebar" id="appSidebar">
@@ -972,13 +972,13 @@
 
     <div class="sidebar-footer">
       <span>GW 官方 App 實機同步</span>
-      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.0.1</span>
+      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.1.0</span>
     </div>
   </aside>
 
   <!-- 右側主區域 (MAIN CONTENT) -->
   <div class="app-main">
-        <!-- 頂部通用輔助條 -->
+    <!-- 頂部通用輔助條 -->
     <header class="app-topbar">
       <div class="topbar-left">
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">☰</button>
@@ -1264,7 +1264,7 @@
           <label class="form-label">Player 2 強化 (Enhancement)</label>
           <select class="form-select" id="setup-p2-enhancement">
             <option value="振奮戰吼 (預設)">振奮戰吼 (Waaagh! 回合復活 D3+2 隻小子)</option>
-            <option value="額外裝甲">額外裝甲 (戰鬥卡車獲得 3+ 護甲與 4++ 特保)</option>
+            <option value="額外裝甲">額外裝甲 (戰鬥卡車獲得 3+ 護甲與 4+ 特殊存救)</option>
           </select>
         </div>
       </div>
@@ -1360,8 +1360,8 @@ const gameState = {
       5: { objEqual: false, objMoreNonHome: false }
     },
     units: [
-      { id: 'c1', name: '突擊分隊連長 (Captain)', maxW: 5, curW: 5, inv: '4++', isDestroyed: false },
-      { id: 'c2', name: '突擊分隊智庫員 (Librarian)', maxW: 4, curW: 4, inv: '4++', isDestroyed: false },
+      { id: 'c1', name: '突擊分隊連長 (Captain)', maxW: 5, curW: 5, inv: '4+ InSv', isDestroyed: false },
+      { id: 'c2', name: '突擊分隊智庫員 (Librarian)', maxW: 4, curW: 4, inv: '4+ InSv', isDestroyed: false },
       { id: 'c3', name: '先鋒老兵 (跳躍背包, 5人)', maxW: 5, curW: 5, inv: '-', isDestroyed: false },
       { id: 'c4', name: '仲裁者小隊 (Intercessors, 5人)', maxW: 5, curW: 5, inv: '-', isDestroyed: false },
       { id: 'c5', name: '突擊分隊蘭德速攻艇', maxW: 9, curW: 9, inv: '-', isDestroyed: false }
@@ -1381,9 +1381,9 @@ const gameState = {
       5: { objNonHome: false, objEnemyHome: false, killEnemy: false }
     },
     units: [
-      { id: 'o1', name: '硬漢幫戰爭頭目 (Warboss)', maxW: 6, curW: 6, inv: '5++', isDestroyed: false },
+      { id: 'o1', name: '硬漢幫戰爭頭目 (Warboss)', maxW: 6, curW: 6, inv: '5+ InSv', isDestroyed: false },
       { id: 'o2', name: '硬漢幫靈能小子 (Weirdboy)', maxW: 4, curW: 4, inv: '-', isDestroyed: false },
-      { id: 'o3', name: '硬漢幫戰鬥卡車 (Trukk)', maxW: 7, curW: 7, inv: '6++', isDestroyed: false },
+      { id: 'o3', name: '硬漢幫戰鬥卡車 (Trukk)', maxW: 7, curW: 7, inv: '6+ InSv', isDestroyed: false },
       { id: 'o4', name: '硬漢幫小子 (Boyz, 10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false },
       { id: 'o5', name: '硬漢幫蠻人小子 (10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false },
       { id: 'o6', name: '硬漢幫屁精 (Gretchin, 10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false }
@@ -1413,7 +1413,7 @@ const STRATAGEMS = {
   ],
   p2: [
     { name: '碾碎他們', cost: 1, type: '硬漢幫專屬', timing: '己方衝鋒階段', effect: '戰鬥卡車衝鋒結束後，擲 6D6，每有一個 4+ 對交戰敵軍造成 1 致命傷 (最高 6)。' },
-    { name: '醫療跳跳', cost: 1, type: '硬漢幫專屬', timing: '任意階段受傷時', effect: '直到階段結束前，目標小子或蠻人小子單位獲得 5++ 特殊存救！' },
+    { name: '醫療跳跳', cost: 1, type: '硬漢幫專屬', timing: '任意階段受傷時', effect: '直到階段結束前，目標小子或蠻人小子單位獲得 5+ 特殊存救 (5+ InSv)！' },
     { name: '打起精神', cost: 1, type: '硬漢幫專屬', timing: '敵方射擊階段結束時', effect: '遭受射擊並有模型損失的單位，可立即朝最近敵軍突進移動 D6+1 英吋！' },
     { name: '指揮重擲 (Command Re-roll)', cost: 1, type: '核心戰術', timing: '任意階段', effect: '重擲剛才的一次命中、致傷、存救、前進或衝鋒測試。' },
     { name: '反攻 (Counter-offensive)', cost: 2, type: '核心謀策', timing: '近戰階段', effect: '敵方單位攻擊結束後，立即插隊指派一個友方單位進行近戰交戰！' },
@@ -1866,6 +1866,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="shared.js?v=3.0.1"></script>
+<script src="shared.js?v=3.1.0"></script>
 </body>
 </html>

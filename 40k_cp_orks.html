@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>歐克蠻人戰巡隊：硬漢幫 (Hard Boyz) - 官方 App 實機數據手冊</title>
-  <link rel="stylesheet" href="shared.css?v=3.0.1">
+  <link rel="stylesheet" href="shared.css?v=3.1.0">
   <style>
     @page {
       size: A4 portrait;
@@ -178,6 +178,18 @@
       gap: 10px;
     }
 
+    .cp-unit-thumb {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      object-position: 50% 15%;
+      border-radius: 8px;
+      border: 2px solid #86efac;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #14532d;
+      flex-shrink: 0;
+    }
+
     .card-unit-name {
       font-size: 14pt;
       font-weight: 900;
@@ -330,7 +342,7 @@
 
 <div class="app-layout">
   <!-- 手機版側邊欄背景遮罩 -->
-          <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+                <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <!-- 左側側邊欄導航 (SIDEBAR) -->
   <aside class="app-sidebar" id="appSidebar">
@@ -468,13 +480,13 @@
 
     <div class="sidebar-footer">
       <span>GW 官方 App 實機同步</span>
-      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.0.1</span>
+      <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.1.0</span>
     </div>
   </aside>
 
   <!-- 右側主區域 (MAIN CONTENT) -->
   <div class="app-main">
-        <!-- 頂部通用輔助條 -->
+    <!-- 頂部通用輔助條 -->
     <header class="app-topbar">
       <div class="topbar-left">
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="切換選單">☰</button>
@@ -501,6 +513,7 @@
         直接萃取自您 Mac 正在運行的官方《Warhammer 40,000》App 原版數據庫！由硬漢幫戰爭頭目領軍，配備大砍刀與自製射槍，協同靈能小子、戰鬥卡車、蠻人小子、小子群與無限返還的地精屁精，震撼席捲戰場！
       </p>
     </div>
+    <img src="assets/cp_orks/hero_orks_banner.jpg" alt="歐克蠻人硬漢幫" class="hero-art-img no-print" style="max-height:120px; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.2);">
   </header>
 
   <!-- 內部快捷錨點 -->
@@ -521,15 +534,18 @@
   <!-- 1. 硬漢幫戰爭頭目 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">硬漢幫戰爭頭目</span>
-        <span class="card-unit-en">Warboss [戰帥 WARLORD]</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_orks/warboss.jpg" alt="硬漢幫戰爭頭目" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">硬漢幫戰爭頭目</span>
+          <span class="card-unit-en">Warboss [戰帥 WARLORD]</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
         <div class="stat-box highlight"><span class="stat-label">T</span><span class="stat-val">5</span></div>
         <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">4+</span></div>
-        <div class="stat-box highlight"><span class="stat-label">5++</span><span class="stat-val">5++</span></div>
+        <div class="stat-box highlight" title="特殊存救 (Invulnerable Save，不因穿甲 AP 減值)"><span class="stat-label">INSV</span><span class="stat-val">5+</span></div>
         <div class="stat-box highlight"><span class="stat-label">W</span><span class="stat-val">6</span></div>
         <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">6+</span></div>
         <div class="stat-box"><span class="stat-label">OC</span><span class="stat-val">1</span></div>
@@ -594,9 +610,12 @@
   <!-- 2. 硬漢幫靈能小子 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">硬漢幫靈能小子</span>
-        <span class="card-unit-en">Weirdboy</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_orks/weirdboy.jpg" alt="硬漢幫靈能小子" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">硬漢幫靈能小子</span>
+          <span class="card-unit-en">Weirdboy</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
@@ -680,15 +699,18 @@
   <!-- 3. 硬漢幫戰鬥卡車 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">硬漢幫戰鬥卡車</span>
-        <span class="card-unit-en">Trukk [運輸載具]</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_orks/trukk.jpg" alt="硬漢幫戰鬥卡車" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">硬漢幫戰鬥卡車</span>
+          <span class="card-unit-en">Trukk [運輸載具]</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box highlight"><span class="stat-label">M</span><span class="stat-val">12"</span></div>
         <div class="stat-box highlight"><span class="stat-label">T</span><span class="stat-val">6</span></div>
         <div class="stat-box"><span class="stat-label">SV</span><span class="stat-val">4+</span></div>
-        <div class="stat-box"><span class="stat-label">6++</span><span class="stat-val">6++</span></div>
+        <div class="stat-box" title="特殊存救 (Invulnerable Save，不因穿甲 AP 減值)"><span class="stat-label">INSV</span><span class="stat-val">6+</span></div>
         <div class="stat-box highlight"><span class="stat-label">W</span><span class="stat-val">7</span></div>
         <div class="stat-box"><span class="stat-label">LD</span><span class="stat-val">7+</span></div>
         <div class="stat-box highlight"><span class="stat-label">OC</span><span class="stat-val">3</span></div>
@@ -756,9 +778,12 @@
   <!-- 4. 硬漢幫小子 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">硬漢幫小子</span>
-        <span class="card-unit-en">Boyz Mob</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_orks/boyz.jpg" alt="硬漢幫小子" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">硬漢幫小子</span>
+          <span class="card-unit-en">Boyz Mob</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
@@ -842,9 +867,12 @@
   <!-- 5. 硬漢幫蠻人小子 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">硬漢幫蠻人小子</span>
-        <span class="card-unit-en">Beast Snagga Boyz</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_orks/beast_snagga_boyz.jpg" alt="硬漢幫蠻人小子" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">硬漢幫蠻人小子</span>
+          <span class="card-unit-en">Beast Snagga Boyz</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
@@ -917,9 +945,12 @@
   <!-- 6. 硬漢幫屁精 -->
   <div class="datacard">
     <div class="card-top">
-      <div>
-        <span class="card-unit-name">硬漢幫屁精</span>
-        <span class="card-unit-en">Gretchin</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/cp_orks/gretchin.jpg" alt="硬漢幫屁精" class="cp-unit-thumb no-print">
+        <div>
+          <span class="card-unit-name">硬漢幫屁精</span>
+          <span class="card-unit-en">Gretchin</span>
+        </div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><span class="stat-label">M</span><span class="stat-val">6"</span></div>
@@ -1085,6 +1116,6 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.0.1"></script>
+<script src="shared.js?v=3.1.0"></script>
 </body>
 </html>
