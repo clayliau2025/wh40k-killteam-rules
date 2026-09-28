@@ -553,29 +553,64 @@
 
     .unit-wound-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       background: rgba(255, 255, 255, 0.03);
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      gap: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+
+    .unit-wound-row:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.045);
     }
 
     .unit-wound-row.destroyed {
-      opacity: 0.5;
+      opacity: 0.55;
+      background: rgba(239, 68, 68, 0.06);
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+
+    .unit-wound-row.destroyed .unit-title-text {
       text-decoration: line-through;
-      background: rgba(239, 68, 68, 0.08);
-      border-color: rgba(239, 68, 68, 0.2);
+      color: #94a3b8;
+    }
+
+    .unit-main-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .unit-name-box {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1 1 200px;
+    }
+
+    .unit-name-title-line {
       display: flex;
       align-items: center;
       gap: 6px;
+      cursor: pointer;
+    }
+    .unit-name-title-line:hover .unit-title-text {
+      color: #38bdf8;
+    }
+
+    .unit-badges-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .unit-stats-pill {
@@ -587,28 +622,93 @@
       font-family: monospace;
     }
 
+    .roster-model-pill {
+      font-size: 11px;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .roster-wound-pill {
+      font-size: 11px;
+      font-weight: 800;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+    .roster-wound-pill.ork {
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+
     .unit-wound-ctrls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-expand-unit {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-expand-unit:hover {
+      background: rgba(56, 189, 248, 0.25);
+      color: #ffffff;
+    }
+    .btn-expand-unit.active {
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+    }
+
+    .btn-expand-unit.ork {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.35);
+      color: #4ade80;
+    }
+    .btn-expand-unit.ork:hover {
+      background: rgba(34, 197, 94, 0.25);
+      color: #ffffff;
+    }
+    .btn-expand-unit.ork.active {
+      background: #4ade80;
+      color: #0f172a;
+      border-color: #4ade80;
     }
 
     .btn-wound-tick {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #ffffff;
       border-radius: 4px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 13px;
+      transition: all 0.15s ease;
     }
     .btn-wound-tick:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     .wound-display {
@@ -618,6 +718,117 @@
       min-width: 44px;
       text-align: center;
       font-family: var(--font-display);
+    }
+    .wound-display.ork {
+      color: #4ade80;
+    }
+
+    /* 士兵展開詳細區塊 (SOLDIER BREAKDOWN DRAWER) */
+    .unit-soldiers-drawer {
+      padding: 10px 12px 12px 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      animation: modalFade 0.15s ease;
+    }
+
+    .soldiers-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #94a3b8;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .soldiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 6px;
+    }
+
+    .soldiers-grid.horde-grid {
+      grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+      gap: 6px;
+    }
+
+    .soldier-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 6px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .soldier-card.dead {
+      opacity: 0.4;
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+    .soldier-card.dead .soldier-name {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .soldier-name {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .soldier-wound-track {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .heart-pip {
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      user-select: none;
+      transition: transform 0.1s;
+    }
+    .heart-pip:hover {
+      transform: scale(1.25);
+    }
+
+    /* 歐克 1W 暴民小隊按鈕格 */
+    .horde-soldier-btn {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #4ade80;
+      border-radius: 5px;
+      padding: 6px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .horde-soldier-btn:hover {
+      background: rgba(34, 197, 94, 0.25);
+      border-color: #4ade80;
+    }
+    .horde-soldier-btn.dead {
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.25);
+      color: #f87171;
+      opacity: 0.45;
+      text-decoration: line-through;
     }
 
     /* War Journal 戰報日誌饋流 (BATTLE LOG) */
@@ -1409,7 +1620,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.5 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.6 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -1821,6 +2032,202 @@ function toggleNavGroup(btn) {
   if (group) group.classList.toggle('open');
 }
 
+// ==================== 預設小隊編制與單兵模型數據 (OFFICIAL 40K SQUAD COMPOSITION) ====================
+const DEFAULT_P1_UNITS = [
+  {
+    id: 'c1',
+    name: '突擊分隊連長 (Captain)',
+    modelCount: 1,
+    modelW: 6,
+    maxW: 6,
+    curW: 6,
+    inv: '4+ InSv',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '連長 (Captain [戰帥])', maxW: 6, curW: 6 }
+    ]
+  },
+  {
+    id: 'c2',
+    name: '突擊分隊智庫員 (Librarian)',
+    modelCount: 1,
+    modelW: 4,
+    maxW: 4,
+    curW: 4,
+    inv: '4+ InSv',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '智庫員 (Librarian)', maxW: 4, curW: 4 }
+    ]
+  },
+  {
+    id: 'c3',
+    name: '先鋒老兵 (跳躍背包, 5人)',
+    modelCount: 5,
+    modelW: 2,
+    maxW: 10,
+    curW: 10,
+    inv: '-',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '老兵士官 (Sergeant)', maxW: 2, curW: 2 },
+      { id: 'm2', name: '跳躍老兵 #2', maxW: 2, curW: 2 },
+      { id: 'm3', name: '跳躍老兵 #3', maxW: 2, curW: 2 },
+      { id: 'm4', name: '跳躍老兵 #4', maxW: 2, curW: 2 },
+      { id: 'm5', name: '跳躍老兵 #5', maxW: 2, curW: 2 }
+    ]
+  },
+  {
+    id: 'c4',
+    name: '仲裁者小隊 (Intercessors, 5人)',
+    modelCount: 5,
+    modelW: 2,
+    maxW: 10,
+    curW: 10,
+    inv: '-',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '仲裁者士官 (Sergeant)', maxW: 2, curW: 2 },
+      { id: 'm2', name: '仲裁者 #2', maxW: 2, curW: 2 },
+      { id: 'm3', name: '仲裁者 #3', maxW: 2, curW: 2 },
+      { id: 'm4', name: '仲裁者 #4', maxW: 2, curW: 2 },
+      { id: 'm5', name: '仲裁者 #5', maxW: 2, curW: 2 }
+    ]
+  },
+  {
+    id: 'c5',
+    name: '突擊分隊蘭德速攻艇',
+    modelCount: 1,
+    modelW: 9,
+    maxW: 9,
+    curW: 9,
+    inv: '-',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '蘭德速攻艇 (Land Speeder)', maxW: 9, curW: 9 }
+    ]
+  }
+];
+
+const DEFAULT_P2_UNITS = [
+  {
+    id: 'o1',
+    name: '硬漢幫戰爭頭目 (Warboss)',
+    modelCount: 1,
+    modelW: 6,
+    maxW: 6,
+    curW: 6,
+    inv: '5+ InSv',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '戰爭頭目 (Warboss [戰帥])', maxW: 6, curW: 6 }
+    ]
+  },
+  {
+    id: 'o2',
+    name: '硬漢幫靈能小子 (Weirdboy)',
+    modelCount: 1,
+    modelW: 4,
+    maxW: 4,
+    curW: 4,
+    inv: '-',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '靈能小子 (Weirdboy)', maxW: 4, curW: 4 }
+    ]
+  },
+  {
+    id: 'o3',
+    name: '硬漢幫戰鬥卡車 (Trukk)',
+    modelCount: 1,
+    modelW: 7,
+    maxW: 7,
+    curW: 7,
+    inv: '6+ InSv',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '戰鬥卡車 (Trukk)', maxW: 7, curW: 7 }
+    ]
+  },
+  {
+    id: 'o4',
+    name: '硬漢幫小子 (Boyz, 10人)',
+    modelCount: 10,
+    modelW: 1,
+    maxW: 10,
+    curW: 10,
+    inv: '-',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '小子老大 (Nob)', maxW: 1, curW: 1 },
+      { id: 'm2', name: '歐克小子 #2', maxW: 1, curW: 1 },
+      { id: 'm3', name: '歐克小子 #3', maxW: 1, curW: 1 },
+      { id: 'm4', name: '歐克小子 #4', maxW: 1, curW: 1 },
+      { id: 'm5', name: '歐克小子 #5', maxW: 1, curW: 1 },
+      { id: 'm6', name: '歐克小子 #6', maxW: 1, curW: 1 },
+      { id: 'm7', name: '歐克小子 #7', maxW: 1, curW: 1 },
+      { id: 'm8', name: '歐克小子 #8', maxW: 1, curW: 1 },
+      { id: 'm9', name: '歐克小子 #9', maxW: 1, curW: 1 },
+      { id: 'm10', name: '歐克小子 #10', maxW: 1, curW: 1 }
+    ]
+  },
+  {
+    id: 'o5',
+    name: '硬漢幫蠻人小子 (10人)',
+    modelCount: 10,
+    modelW: 1,
+    maxW: 10,
+    curW: 10,
+    inv: '6+ InSv',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '蠻人老大 (Nob)', maxW: 1, curW: 1 },
+      { id: 'm2', name: '蠻人小子 #2', maxW: 1, curW: 1 },
+      { id: 'm3', name: '蠻人小子 #3', maxW: 1, curW: 1 },
+      { id: 'm4', name: '蠻人小子 #4', maxW: 1, curW: 1 },
+      { id: 'm5', name: '蠻人小子 #5', maxW: 1, curW: 1 },
+      { id: 'm6', name: '蠻人小子 #6', maxW: 1, curW: 1 },
+      { id: 'm7', name: '蠻人小子 #7', maxW: 1, curW: 1 },
+      { id: 'm8', name: '蠻人小子 #8', maxW: 1, curW: 1 },
+      { id: 'm9', name: '蠻人小子 #9', maxW: 1, curW: 1 },
+      { id: 'm10', name: '蠻人小子 #10', maxW: 1, curW: 1 }
+    ]
+  },
+  {
+    id: 'o6',
+    name: '硬漢幫屁精 (Gretchin, 10人)',
+    modelCount: 10,
+    modelW: 1,
+    maxW: 10,
+    curW: 10,
+    inv: '-',
+    isDestroyed: false,
+    isExpanded: false,
+    models: [
+      { id: 'm1', name: '屁精 #1', maxW: 1, curW: 1 },
+      { id: 'm2', name: '屁精 #2', maxW: 1, curW: 1 },
+      { id: 'm3', name: '屁精 #3', maxW: 1, curW: 1 },
+      { id: 'm4', name: '屁精 #4', maxW: 1, curW: 1 },
+      { id: 'm5', name: '屁精 #5', maxW: 1, curW: 1 },
+      { id: 'm6', name: '屁精 #6', maxW: 1, curW: 1 },
+      { id: 'm7', name: '屁精 #7', maxW: 1, curW: 1 },
+      { id: 'm8', name: '屁精 #8', maxW: 1, curW: 1 },
+      { id: 'm9', name: '屁精 #9', maxW: 1, curW: 1 },
+      { id: 'm10', name: '屁精 #10', maxW: 1, curW: 1 }
+    ]
+  }
+];
+
 // ==================== 對戰數據模型 ====================
 const gameState = {
   currentRound: 1,
@@ -1839,13 +2246,7 @@ const gameState = {
       4: { objEqual: false, objMoreNonHome: false },
       5: { objEqual: false, objMoreNonHome: false }
     },
-    units: [
-      { id: 'c1', name: '突擊分隊連長 (Captain)', maxW: 5, curW: 5, inv: '4+ InSv', isDestroyed: false },
-      { id: 'c2', name: '突擊分隊智庫員 (Librarian)', maxW: 4, curW: 4, inv: '4+ InSv', isDestroyed: false },
-      { id: 'c3', name: '先鋒老兵 (跳躍背包, 5人)', maxW: 5, curW: 5, inv: '-', isDestroyed: false },
-      { id: 'c4', name: '仲裁者小隊 (Intercessors, 5人)', maxW: 5, curW: 5, inv: '-', isDestroyed: false },
-      { id: 'c5', name: '突擊分隊蘭德速攻艇', maxW: 9, curW: 9, inv: '-', isDestroyed: false }
-    ]
+    units: JSON.parse(JSON.stringify(DEFAULT_P1_UNITS))
   },
   p2: {
     name: '硬漢幫 (歐克蠻人)',
@@ -1860,14 +2261,7 @@ const gameState = {
       4: { objNonHome: false, objEnemyHome: false, killEnemy: false },
       5: { objNonHome: false, objEnemyHome: false, killEnemy: false }
     },
-    units: [
-      { id: 'o1', name: '硬漢幫戰爭頭目 (Warboss)', maxW: 6, curW: 6, inv: '5+ InSv', isDestroyed: false },
-      { id: 'o2', name: '硬漢幫靈能小子 (Weirdboy)', maxW: 4, curW: 4, inv: '-', isDestroyed: false },
-      { id: 'o3', name: '硬漢幫戰鬥卡車 (Trukk)', maxW: 7, curW: 7, inv: '6+ InSv', isDestroyed: false },
-      { id: 'o4', name: '硬漢幫小子 (Boyz, 10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false },
-      { id: 'o5', name: '硬漢幫蠻人小子 (10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false },
-      { id: 'o6', name: '硬漢幫屁精 (Gretchin, 10人)', maxW: 10, curW: 10, inv: '-', isDestroyed: false }
-    ]
+    units: JSON.parse(JSON.stringify(DEFAULT_P2_UNITS))
   },
   logs: []
 };
@@ -1912,6 +2306,8 @@ const UNIT_DATASHEETS = {
     enName: 'Captain [戰帥 WARLORD]',
     role: '戰帥 / 角色',
     image: 'assets/cp_astartes/captain.jpg',
+    modelCount: 1,
+    modelW: 6,
     stats: { m: '6"', t: '4', sv: '3+', insv: '4+', w: '6', ld: '6+', oc: '1' },
     weapons: [
       { name: '重型爆矢手槍 (Heavy Bolt Pistol)', type: '遠程', range: '18"', a: '1', bsWs: '2+', s: '4', ap: '-1', d: '1', keywords: ['手槍 PISTOL'] },
@@ -1931,6 +2327,8 @@ const UNIT_DATASHEETS = {
     enName: 'Librarian',
     role: '靈能者 / 角色',
     image: 'assets/cp_astartes/librarian.jpg',
+    modelCount: 1,
+    modelW: 4,
     stats: { m: '6"', t: '4', sv: '3+', insv: '4+', w: '4', ld: '6+', oc: '1' },
     weapons: [
       { name: '爆矢手槍 (Bolt Pistol)', type: '遠程', range: '12"', a: '1', bsWs: '3+', s: '4', ap: '0', d: '1', keywords: ['手槍 PISTOL'] },
@@ -1951,7 +2349,9 @@ const UNIT_DATASHEETS = {
     enName: 'Vanguard Veterans with Jump Packs',
     role: '跳躍步兵 / 菁英',
     image: 'assets/cp_astartes/vanguard.jpg',
-    stats: { m: '12"', t: '4', sv: '3+', insv: '-', w: '2 (編制5人/共5W)', ld: '6+', oc: '1' },
+    modelCount: 5,
+    modelW: 2,
+    stats: { m: '12"', t: '4', sv: '3+', insv: '-', w: '2', ld: '6+', oc: '1' },
     weapons: [
       { name: '等離子手槍 - 標準 (Plasma Pistol)', type: '遠程', range: '12"', a: '1', bsWs: '3+', s: '7', ap: '-2', d: '1', keywords: ['手槍 PISTOL'] },
       { name: '等離子手槍 - 過載 (Supercharge)', type: '遠程', range: '12"', a: '1', bsWs: '3+', s: '8', ap: '-3', d: '2', keywords: ['手槍', '危險 HAZARDOUS'] },
@@ -1971,7 +2371,9 @@ const UNIT_DATASHEETS = {
     enName: 'Intercessor Squad',
     role: '戰線步兵 / 核心',
     image: 'assets/cp_astartes/intercessors.jpg',
-    stats: { m: '6"', t: '4', sv: '3+', insv: '-', w: '2 (編制5人/共5W)', ld: '6+', oc: '3' },
+    modelCount: 5,
+    modelW: 2,
+    stats: { m: '6"', t: '4', sv: '3+', insv: '-', w: '2', ld: '6+', oc: '3' },
     weapons: [
       { name: '爆矢步槍 (Bolt Rifle)', type: '遠程', range: '24"', a: '2', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['重型 HEAVY', '突擊 ASSAULT'] },
       { name: '榴彈發射器 - 破片 (Frag)', type: '遠程', range: '24"', a: '2', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['爆炸 1 BLAST 1'] },
@@ -1992,6 +2394,8 @@ const UNIT_DATASHEETS = {
     enName: 'Land Speeder (Storm Speeder)',
     role: '載具 / 快速攻擊',
     image: 'assets/cp_astartes/landspeeder.jpg',
+    modelCount: 1,
+    modelW: 9,
     stats: { m: '14"', t: '8', sv: '3+', insv: '-', w: '9', ld: '6+', oc: '2' },
     weapons: [
       { name: '多管熱熔 (Multi-melta)', type: '遠程', range: '18"', a: '2', bsWs: '3+', s: '10', ap: '-4', d: 'D6', keywords: ['熱熔 2 MELTA 2'] },
@@ -2014,6 +2418,8 @@ const UNIT_DATASHEETS = {
     enName: 'Warboss [戰帥 WARLORD]',
     role: '戰帥 / 角色',
     image: 'assets/cp_orks/warboss.jpg',
+    modelCount: 1,
+    modelW: 6,
     stats: { m: '6"', t: '5', sv: '4+', insv: '5+', w: '6', ld: '6+', oc: '1' },
     weapons: [
       { name: '自製射槍 (Kustom Shoota)', type: '遠程', range: '18"', a: '4', bsWs: '5+', s: '4', ap: '0', d: '1', keywords: ['速射 2 RAPID FIRE 2'] },
@@ -2032,6 +2438,8 @@ const UNIT_DATASHEETS = {
     enName: 'Weirdboy',
     role: '靈能者 / 角色',
     image: 'assets/cp_orks/weirdboy.jpg',
+    modelCount: 1,
+    modelW: 4,
     stats: { m: '6"', t: '5', sv: '5+', insv: '-', w: '4', ld: '7+', oc: '1' },
     weapons: [
       { name: '綠皮之怒 (Edbanger)', type: '遠程', range: '24"', a: '1', bsWs: '4+', s: '8', ap: '-2', d: 'D6', keywords: ['靈能 PSYCHIC', '致命一擊'] },
@@ -2050,6 +2458,8 @@ const UNIT_DATASHEETS = {
     enName: 'Trukk [載具/運輸 VEHICLE]',
     role: '載具 / 專用運輸',
     image: 'assets/cp_orks/trukk.jpg',
+    modelCount: 1,
+    modelW: 7,
     stats: { m: '12"', t: '8', sv: '4+', insv: '6+', w: '7', ld: '7+', oc: '2' },
     weapons: [
       { name: '大型射槍 (Big Shoota)', type: '遠程', range: '36"', a: '3', bsWs: '5+', s: '5', ap: '0', d: '1', keywords: ['速射 2 RAPID FIRE 2'] },
@@ -2068,7 +2478,9 @@ const UNIT_DATASHEETS = {
     enName: 'Boyz (10 Models)',
     role: '戰線步兵 / 核心',
     image: 'assets/cp_orks/boyz.jpg',
-    stats: { m: '6"', t: '5', sv: '5+', insv: '-', w: '1 (編制10人/共10W)', ld: '7+', oc: '2' },
+    modelCount: 10,
+    modelW: 1,
+    stats: { m: '6"', t: '5', sv: '5+', insv: '-', w: '1', ld: '7+', oc: '2' },
     weapons: [
       { name: '劈刀 (Choppa)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['近戰 MELEE'] },
       { name: '射槍 (Slugga)', type: '遠程', range: '12"', a: '1', bsWs: '5+', s: '4', ap: '0', d: '1', keywords: ['手槍 PISTOL'] },
@@ -2087,7 +2499,9 @@ const UNIT_DATASHEETS = {
     enName: 'Beast Snagga Boyz (10 Models)',
     role: '戰線步兵 / 菁英',
     image: 'assets/cp_orks/beast_snagga_boyz.jpg',
-    stats: { m: '6"', t: '5', sv: '5+', insv: '6+', w: '1 (編制10人/共10W)', ld: '7+', oc: '2' },
+    modelCount: 10,
+    modelW: 1,
+    stats: { m: '6"', t: '5', sv: '5+', insv: '6+', w: '1', ld: '7+', oc: '2' },
     weapons: [
       { name: '蠻人劈刀 (Choppa)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '5', ap: '-1', d: '1', keywords: ['近戰 MELEE'] },
       { name: '蠻人散彈槍 (Slugga)', type: '遠程', range: '12"', a: '1', bsWs: '5+', s: '4', ap: '0', d: '1', keywords: ['手槍 PISTOL'] }
@@ -2105,7 +2519,9 @@ const UNIT_DATASHEETS = {
     enName: 'Gretchin (10 Models)',
     role: '雜役步兵 / 占點',
     image: 'assets/cp_orks/gretchin.jpg',
-    stats: { m: '6"', t: '2', sv: '6+', insv: '-', w: '1 (編制10人/共10W)', ld: '8+', oc: '2' },
+    modelCount: 10,
+    modelW: 1,
+    stats: { m: '6"', t: '2', sv: '6+', insv: '-', w: '1', ld: '8+', oc: '2' },
     weapons: [
       { name: '爆槍 (Grot Blaster)', type: '遠程', range: '18"', a: '1', bsWs: '4+', s: '3', ap: '0', d: '1', keywords: ['手槍 PISTOL'] },
       { name: '拾荒匕首 (Scrap Shiv)', type: '近戰', range: 'Melee', a: '1', bsWs: '5+', s: '2', ap: '0', d: '1', keywords: ['近戰 MELEE'] }
@@ -2323,25 +2739,298 @@ function toggleP2Score(round, key, pts) {
   renderAll();
 }
 
+// ==================== 單位與單兵生命值控制邏輯 (SQUAD & SOLDIER WOUND ENGINE) ====================
+function syncUnitTotals(unit) {
+  if (!unit.models || !unit.models.length) return;
+  unit.curW = unit.models.reduce((sum, m) => sum + m.curW, 0);
+  unit.maxW = unit.models.reduce((sum, m) => sum + m.maxW, 0);
+  const aliveCount = unit.models.filter(m => m.curW > 0).length;
+  unit.isDestroyed = (aliveCount === 0);
+}
+
+function toggleUnitExpand(player, unitId) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit) return;
+  unit.isExpanded = !unit.isExpanded;
+  saveToStorage();
+  renderUnits();
+}
+
+function adjustModelWound(player, unitId, modelIndex, delta) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit || !unit.models || !unit.models[modelIndex]) return;
+
+  const model = unit.models[modelIndex];
+  const oldW = model.curW;
+  model.curW = Math.max(0, Math.min(model.maxW, model.curW + delta));
+
+  if (oldW > 0 && model.curW === 0) {
+    logEvent(`💀 ${unit.name} 的【${model.name}】受到致命傷害陣亡！`);
+  } else if (oldW === 0 && model.curW > 0) {
+    logEvent(`✨ ${unit.name} 的【${model.name}】回復生命存活！`);
+  }
+
+  const wasDestroyed = unit.isDestroyed;
+  syncUnitTotals(unit);
+
+  if (!wasDestroyed && unit.isDestroyed) {
+    logEvent(`💥 ${unit.name} 全員陣亡，小隊已被消滅！`);
+  }
+
+  saveToStorage();
+  renderAll();
+}
+
+function toggleModelDead(player, unitId, modelIndex) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit || !unit.models || !unit.models[modelIndex]) return;
+
+  const model = unit.models[modelIndex];
+  if (model.curW > 0) {
+    model.curW = 0;
+    logEvent(`💀 標記 ${unit.name}【${model.name}】陣亡！`);
+  } else {
+    model.curW = model.maxW;
+    logEvent(`✨ 標記 ${unit.name}【${model.name}】復活！`);
+  }
+
+  const wasDestroyed = unit.isDestroyed;
+  syncUnitTotals(unit);
+
+  if (!wasDestroyed && unit.isDestroyed) {
+    logEvent(`💥 ${unit.name} 全員陣亡，小隊已被消滅！`);
+  }
+
+  saveToStorage();
+  renderAll();
+}
+
+// 快速扣除或回復小隊生命（依 40K 官方規則：優先扣除當前已受傷模型，無受傷則從後往前扣除）
+function adjustUnitQuick(player, unitId, delta) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit || !unit.models) return;
+
+  if (delta < 0) {
+    // 依規則：優先分配給「已受傷但未陣亡的模型」
+    let target = unit.models.find(m => m.curW > 0 && m.curW < m.maxW);
+    if (!target) {
+      // 若無受傷模型，扣除最後一個存活的士兵
+      const aliveList = unit.models.filter(m => m.curW > 0);
+      if (aliveList.length > 0) {
+        target = aliveList[aliveList.length - 1];
+      }
+    }
+    if (target) {
+      target.curW = Math.max(0, target.curW - 1);
+      if (target.curW === 0) {
+        logEvent(`💀 ${unit.name} 的【${target.name}】陣亡！`);
+      }
+    }
+  } else {
+    // 回復生命：優先回復受傷未滿的模型
+    let target = unit.models.find(m => m.curW > 0 && m.curW < m.maxW);
+    if (!target) {
+      // 若無受傷模型，復活最近陣亡的模型
+      target = unit.models.find(m => m.curW === 0);
+      if (target) target.curW = 1;
+    } else {
+      target.curW = Math.min(target.maxW, target.curW + 1);
+    }
+  }
+
+  syncUnitTotals(unit);
+  saveToStorage();
+  renderAll();
+}
+
+// 歐克暴民批次傷亡操作
+function batchHordeCasualties(player, unitId, count) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit || !unit.models) return;
+
+  if (count === 999) {
+    unit.models.forEach(m => m.curW = m.maxW);
+    logEvent(`✨ ${unit.name} 全體士兵生命回滿！`);
+  } else {
+    let removed = 0;
+    for (let i = unit.models.length - 1; i >= 0; i--) {
+      if (unit.models[i].curW > 0 && removed < count) {
+        unit.models[i].curW = 0;
+        removed++;
+      }
+    }
+    logEvent(`💥 ${unit.name} 承受大量傷害，損失 ${removed} 名士兵！`);
+  }
+
+  syncUnitTotals(unit);
+  saveToStorage();
+  renderAll();
+}
+
+function toggleDestroyUnit(player, unitId) {
+  const team = player === 1 ? gameState.p1 : gameState.p2;
+  const unit = team.units.find(u => u.id === unitId);
+  if (!unit) return;
+
+  unit.isDestroyed = !unit.isDestroyed;
+  if (unit.isDestroyed) {
+    if (unit.models) {
+      unit.models.forEach(m => m.curW = 0);
+    }
+    unit.curW = 0;
+    logEvent(`💥 標記單位【${unit.name}】全員戰損！`);
+  } else {
+    if (unit.models) {
+      unit.models.forEach(m => m.curW = m.maxW);
+    }
+    unit.curW = unit.maxW;
+    logEvent(`✨ 標記單位【${unit.name}】重新部署 / 全員復活！`);
+  }
+  syncUnitTotals(unit);
+  saveToStorage();
+  renderAll();
+}
+
+function renderSoldiersHTML(player, unit) {
+  if (!unit.models || !unit.models.length) return '';
+  const isP1 = player === 1;
+
+  // 1. 如果是 10 人 1W 的歐克暴民小隊 (Boyz, Beast Snagga, Gretchin)
+  if (unit.modelCount >= 10 && unit.modelW === 1) {
+    return `
+      <div style="grid-column: 1 / -1; display:flex; gap:6px; flex-wrap:wrap; margin-bottom:4px;">
+        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 1)">-1 傷亡</button>
+        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 3)">-3 傷亡</button>
+        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 5)">-5 傷亡</button>
+        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 999)">全體回滿</button>
+      </div>
+      ${unit.models.map((m, idx) => {
+        const isDead = m.curW === 0;
+        return `
+          <button class="horde-soldier-btn ${isDead ? 'dead' : ''}" onclick="toggleModelDead(${player}, '${unit.id}', ${idx})" title="點擊切換存活/陣亡">
+            <span>${isDead ? '💀' : '🪖'} ${m.name}</span>
+            <span style="font-size:10px; opacity:0.85;">${isDead ? '陣亡 (0W)' : '1 / 1 W'}</span>
+          </button>
+        `;
+      }).join('')}
+    `;
+  }
+
+  // 2. 多模型小隊 (如先鋒老兵 5人 2W, 仲裁者 5人 2W)
+  if (unit.modelCount > 1) {
+    return unit.models.map((m, idx) => {
+      const isDead = m.curW === 0;
+      let heartsHTML = '';
+      for (let w = 1; w <= m.maxW; w++) {
+        const isFilled = w <= m.curW;
+        heartsHTML += `<span class="heart-pip" onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, ${isFilled ? -1 : 1})" title="${isFilled ? '扣除 1W' : '回復 1W'}">${isFilled ? '❤️' : '🖤'}</span>`;
+      }
+
+      return `
+        <div class="soldier-card ${isDead ? 'dead' : ''}">
+          <div style="min-width:0; flex:1;">
+            <div class="soldier-name">${isDead ? '💀 ' : '🪖 '}${m.name}</div>
+            <div style="font-size:10px; color:${isDead ? '#f87171' : '#94a3b8'};">
+              ${isDead ? '已陣亡 (Casualty)' : `生命值：${m.curW} / ${m.maxW} W`}
+            </div>
+          </div>
+          <div class="soldier-wound-track">
+            ${heartsHTML}
+            <button class="btn-wound-tick" style="width:20px; height:20px; font-size:10px; padding:0;" onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, -1)">-</button>
+            <button class="btn-wound-tick" style="width:20px; height:20px; font-size:10px; padding:0;" onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, 1)">+</button>
+            <button class="btn-wj btn-wj-outline" style="padding:1px 5px; font-size:10px;" onclick="toggleModelDead(${player}, '${unit.id}', ${idx})">
+              ${isDead ? '復活' : '陣亡'}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 3. 單一模型 (連長 6W, 智庫員 4W, 蘭德速攻艇 9W, 戰爭頭目 6W 等)
+  const m = unit.models[0];
+  if (!m) return '';
+  const isDead = m.curW === 0;
+  let heartsHTML = '';
+  for (let w = 1; w <= m.maxW; w++) {
+    const isFilled = w <= m.curW;
+    heartsHTML += `<span class="heart-pip" onclick="adjustModelWound(${player}, '${unit.id}', 0, ${isFilled ? -1 : 1})">${isFilled ? '❤️' : '🖤'}</span>`;
+  }
+
+  const pct = Math.round((m.curW / m.maxW) * 100);
+  return `
+    <div style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <span style="font-size:12px; font-weight:700; color:#ffffff;">${m.name} 狀態槽</span>
+        <div style="display:flex; align-items:center; gap:4px;">
+          ${heartsHTML}
+        </div>
+      </div>
+      <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
+        <div style="width:${pct}%; height:100%; background:${pct > 50 ? (isP1 ? '#38bdf8' : '#4ade80') : (pct > 25 ? '#f59e0b' : '#ef4444')}; transition:width 0.2s;"></div>
+      </div>
+    </div>
+  `;
+}
+
 function renderUnits() {
   // P1 Units
   const p1Box = document.getElementById('p1-unit-list');
   let p1Alive = 0;
   p1Box.innerHTML = gameState.p1.units.map(u => {
+    syncUnitTotals(u);
     if (!u.isDestroyed) p1Alive++;
+    const aliveModels = u.models ? u.models.filter(m => m.curW > 0).length : (u.isDestroyed ? 0 : u.modelCount);
+    const isSquad = u.modelCount > 1;
+
     return `
       <div class="unit-wound-row ${u.isDestroyed ? 'destroyed' : ''}">
-        <div class="unit-name-box" onclick="openUnitDatasheet('${u.id}', 1)" title="點擊查看 ${u.name} 角色資料卡">
-          <span class="unit-title-text">${u.name}</span>
-          <span class="unit-card-btn">📋 數據卡</span>
-          ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#f87171;">${u.inv}</span>` : ''}
+        <div class="unit-main-bar">
+          <div class="unit-name-box">
+            <div class="unit-name-title-line" onclick="openUnitDatasheet('${u.id}', 1)" title="點擊查看 ${u.name} 角色資料卡">
+              <span class="unit-title-text">${u.name}</span>
+              <span class="unit-card-btn">📋 數據卡</span>
+              ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#f87171;">${u.inv}</span>` : ''}
+            </div>
+            <div class="unit-badges-line">
+              ${isSquad ? `
+                <span class="roster-model-pill">👥 <strong>${aliveModels} / ${u.modelCount}</strong> 人存活</span>
+                <span class="roster-wound-pill">❤️ <strong>${u.curW} / ${u.maxW}</strong> W (每兵 2W)</span>
+              ` : `
+                <span class="roster-wound-pill">❤️ <strong>${u.curW} / ${u.maxW}</strong> W (單兵)</span>
+              `}
+            </div>
+          </div>
+
+          <div class="unit-wound-ctrls">
+            <button class="btn-expand-unit ${u.isExpanded ? 'active' : ''}" onclick="toggleUnitExpand(1, '${u.id}')" title="展開/收合各士兵獨立血量">
+              ${u.isExpanded ? '收合士兵 ▲' : '展開士兵 ▼'}
+            </button>
+            <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(1, '${u.id}', -1)` : `adjustModelWound(1, '${u.id}', 0, -1)`}" title="扣除 1 點傷害">-</button>
+            <span class="wound-display">${u.curW} / ${u.maxW} W</span>
+            <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(1, '${u.id}', 1)` : `adjustModelWound(1, '${u.id}', 0, 1)`}" title="回復 1 點生命">+</button>
+            <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroyUnit(1, '${u.id}')">
+              ${u.isDestroyed ? '復活' : '戰損'}
+            </button>
+          </div>
         </div>
-        <div class="unit-wound-ctrls">
-          <button class="btn-wound-tick" onclick="adjustWound(1, '${u.id}', -1)">-</button>
-          <span class="wound-display">${u.curW} / ${u.maxW} W</span>
-          <button class="btn-wound-tick" onclick="adjustWound(1, '${u.id}', 1)">+</button>
-          <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroy(1, '${u.id}')">${u.isDestroyed ? '復活' : '戰損'}</button>
-        </div>
+
+        ${u.isExpanded ? `
+          <div class="unit-soldiers-drawer">
+            <div class="soldiers-drawer-header">
+              <span>🪖 ${isSquad ? '小隊士兵獨立血量監控 (40K 規則：依單一模型分配傷害)' : '模型生命監控槽'}</span>
+              <span style="color:#38bdf8;">${isSquad ? `每名士兵 ${u.modelW}W × ${u.modelCount}人 = 全隊 ${u.maxW}W` : `單一模型 (${u.maxW}W)`}</span>
+            </div>
+            <div class="soldiers-grid ${u.modelCount >= 10 ? 'horde-grid' : ''}">
+              ${renderSoldiersHTML(1, u)}
+            </div>
+          </div>
+        ` : ''}
       </div>
     `;
   }).join('');
@@ -2351,56 +3040,58 @@ function renderUnits() {
   const p2Box = document.getElementById('p2-unit-list');
   let p2Alive = 0;
   p2Box.innerHTML = gameState.p2.units.map(u => {
+    syncUnitTotals(u);
     if (!u.isDestroyed) p2Alive++;
+    const aliveModels = u.models ? u.models.filter(m => m.curW > 0).length : (u.isDestroyed ? 0 : u.modelCount);
+    const isSquad = u.modelCount > 1;
+
     return `
       <div class="unit-wound-row ${u.isDestroyed ? 'destroyed' : ''}">
-        <div class="unit-name-box" onclick="openUnitDatasheet('${u.id}', 2)" title="點擊查看 ${u.name} 角色資料卡">
-          <span class="unit-title-text">${u.name}</span>
-          <span class="unit-card-btn">📋 數據卡</span>
-          ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#4ade80;">${u.inv}</span>` : ''}
+        <div class="unit-main-bar">
+          <div class="unit-name-box">
+            <div class="unit-name-title-line" onclick="openUnitDatasheet('${u.id}', 2)" title="點擊查看 ${u.name} 角色資料卡">
+              <span class="unit-title-text">${u.name}</span>
+              <span class="unit-card-btn">📋 數據卡</span>
+              ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#4ade80;">${u.inv}</span>` : ''}
+            </div>
+            <div class="unit-badges-line">
+              ${isSquad ? `
+                <span class="roster-model-pill">👥 <strong>${aliveModels} / ${u.modelCount}</strong> 人存活</span>
+                <span class="roster-wound-pill ork">❤️ <strong>${u.curW} / ${u.maxW}</strong> W (每兵 1W)</span>
+              ` : `
+                <span class="roster-wound-pill ork">❤️ <strong>${u.curW} / ${u.maxW}</strong> W (單兵)</span>
+              `}
+            </div>
+          </div>
+
+          <div class="unit-wound-ctrls">
+            <button class="btn-expand-unit ork ${u.isExpanded ? 'active' : ''}" onclick="toggleUnitExpand(2, '${u.id}')" title="展開/收合各士兵獨立血量">
+              ${u.isExpanded ? '收合士兵 ▲' : '展開士兵 ▼'}
+            </button>
+            <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(2, '${u.id}', -1)` : `adjustModelWound(2, '${u.id}', 0, -1)`}" title="扣除 1 點傷害">-</button>
+            <span class="wound-display ork">${u.curW} / ${u.maxW} W</span>
+            <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(2, '${u.id}', 1)` : `adjustModelWound(2, '${u.id}', 0, 1)`}" title="回復 1 點生命">+</button>
+            <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroyUnit(2, '${u.id}')">
+              ${u.isDestroyed ? '復活' : '戰損'}
+            </button>
+          </div>
         </div>
-        <div class="unit-wound-ctrls">
-          <button class="btn-wound-tick" onclick="adjustWound(2, '${u.id}', -1)">-</button>
-          <span class="wound-display">${u.curW} / ${u.maxW} W</span>
-          <button class="btn-wound-tick" onclick="adjustWound(2, '${u.id}', 1)">+</button>
-          <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroy(2, '${u.id}')">${u.isDestroyed ? '復活' : '戰損'}</button>
-        </div>
+
+        ${u.isExpanded ? `
+          <div class="unit-soldiers-drawer">
+            <div class="soldiers-drawer-header">
+              <span>🪖 ${isSquad ? '小隊士兵獨立血量監控 (40K 規則：依單一模型分配傷害)' : '模型生命監控槽'}</span>
+              <span style="color:#4ade80;">${isSquad ? `每名士兵 ${u.modelW}W × ${u.modelCount}人 = 全隊 ${u.maxW}W` : `單一模型 (${u.maxW}W)`}</span>
+            </div>
+            <div class="soldiers-grid ${u.modelCount >= 10 ? 'horde-grid' : ''}">
+              ${renderSoldiersHTML(2, u)}
+            </div>
+          </div>
+        ` : ''}
       </div>
     `;
   }).join('');
   document.getElementById('p2-alive-count').textContent = `${p2Alive} / ${gameState.p2.units.length} 存活`;
-}
-
-function adjustWound(player, unitId, delta) {
-  const team = player === 1 ? gameState.p1 : gameState.p2;
-  const unit = team.units.find(u => u.id === unitId);
-  if (!unit) return;
-
-  unit.curW = Math.max(0, Math.min(unit.maxW, unit.curW + delta));
-  if (unit.curW === 0 && !unit.isDestroyed) {
-    unit.isDestroyed = true;
-    logEvent(`💥 ${unit.name} 生命值歸零，已遭摧毀！`);
-  } else if (unit.curW > 0 && unit.isDestroyed) {
-    unit.isDestroyed = false;
-  }
-  saveToStorage();
-  renderAll();
-}
-
-function toggleDestroy(player, unitId) {
-  const team = player === 1 ? gameState.p1 : gameState.p2;
-  const unit = team.units.find(u => u.id === unitId);
-  if (!unit) return;
-  unit.isDestroyed = !unit.isDestroyed;
-  if (unit.isDestroyed) {
-    unit.curW = 0;
-    logEvent(`💥 標記單位【${unit.name}】已陣亡！`);
-  } else {
-    unit.curW = unit.maxW;
-    logEvent(`✨ 標記單位【${unit.name}】重新部署 / 復活！`);
-  }
-  saveToStorage();
-  renderAll();
 }
 
 function renderStatusBar() {
@@ -2594,8 +3285,9 @@ function renderUnitDatasheetModal() {
 
   // 3. Current unit state (curW, isDestroyed)
   const runtimeUnit = teamUnits.find(u => u.id === currentUnitModalId);
-  const curW = runtimeUnit ? runtimeUnit.curW : unit.stats.w;
-  const maxW = runtimeUnit ? runtimeUnit.maxW : unit.stats.w;
+  const curW = runtimeUnit ? runtimeUnit.curW : (unit.modelCount * unit.modelW);
+  const maxW = runtimeUnit ? runtimeUnit.maxW : (unit.modelCount * unit.modelW);
+  const aliveModels = runtimeUnit && runtimeUnit.models ? runtimeUnit.models.filter(m => m.curW > 0).length : (runtimeUnit && runtimeUnit.isDestroyed ? 0 : unit.modelCount);
   const isDestroyed = runtimeUnit ? runtimeUnit.isDestroyed : false;
 
   // 4. Attached enhancement check
@@ -2664,8 +3356,11 @@ function renderUnitDatasheetModal() {
         <div class="unit-sheet-name-en">${unit.enName}</div>
         <div class="unit-sheet-badges">
           <span class="unit-badge-pill ${unit.role.includes('戰帥') ? 'unit-badge-warlord' : ''}">${unit.role}</span>
+          <span class="unit-badge-pill" style="color:#cbd5e1; background:rgba(255,255,255,0.06);">
+            ${unit.modelCount > 1 ? `👥 小隊編制：${unit.modelCount} 人（每名士兵 ${unit.modelW}W / 小隊總生命 ${unit.modelCount * unit.modelW}W）` : `👤 單一模型 (${unit.modelW}W)`}
+          </span>
           <span class="unit-badge-pill" style="color:${isDestroyed ? '#94a3b8' : (isP1 ? '#f87171' : '#4ade80')};">
-            ${isDestroyed ? '💥 已戰損 (DESTROYED)' : `❤️ 當前生命：${curW} / ${maxW} W`}
+            ${isDestroyed ? '💥 全隊已戰損 (DESTROYED)' : (unit.modelCount > 1 ? `❤️ 當前存活：${aliveModels} / ${unit.modelCount} 人 (${curW} / ${maxW} W)` : `❤️ 當前生命：${curW} / ${maxW} W`)}
           </span>
           <a href="${unit.codexLink}" target="_blank" class="unit-badge-pill" style="text-decoration:none; color:#38bdf8; background:rgba(56,189,248,0.1);">📖 官方數據庫 &rarr;</a>
         </div>
@@ -2691,7 +3386,7 @@ function renderUnitDatasheetModal() {
         <div class="unit-hud-val">${unit.stats.insv}</div>
       </div>
       <div class="unit-hud-box">
-        <div class="unit-hud-label">W (生命)</div>
+        <div class="unit-hud-label">W (單兵生命)</div>
         <div class="unit-hud-val" style="color:#ef4444;">${unit.stats.w}</div>
       </div>
       <div class="unit-hud-box">
@@ -2916,23 +3611,50 @@ function copyJournalText() {
 
 function resetBattle() {
   if (!confirm('確定要重置當前戰局嗎？所有計分與部隊血量將回復至初始狀態。')) return;
+  localStorage.removeItem('wh40k_cp_journal_v2');
   localStorage.removeItem('wh40k_cp_journal_v1');
   location.reload();
 }
 
 function saveToStorage() {
   try {
-    localStorage.setItem('wh40k_cp_journal_v1', JSON.stringify(gameState));
+    localStorage.setItem('wh40k_cp_journal_v2', JSON.stringify(gameState));
   } catch (e) {
     console.error('Storage error', e);
   }
 }
 
+function mergeUnitsWithDefaults(storedUnits, defaultUnits) {
+  if (!Array.isArray(storedUnits)) return JSON.parse(JSON.stringify(defaultUnits));
+  return defaultUnits.map(def => {
+    const match = storedUnits.find(u => u.id === def.id);
+    if (!match) return JSON.parse(JSON.stringify(def));
+    // 若舊儲存資料缺少 models 或最大生命值不符官方最新規格
+    if (!match.models || match.models.length !== def.models.length || match.maxW !== def.maxW) {
+      const copy = JSON.parse(JSON.stringify(def));
+      copy.isDestroyed = !!match.isDestroyed;
+      copy.isExpanded = !!match.isExpanded;
+      if (copy.isDestroyed) {
+        copy.models.forEach(m => m.curW = 0);
+        copy.curW = 0;
+      }
+      return copy;
+    }
+    return match;
+  });
+}
+
 function loadFromStorage() {
   try {
-    const raw = localStorage.getItem('wh40k_cp_journal_v1');
+    const raw = localStorage.getItem('wh40k_cp_journal_v2') || localStorage.getItem('wh40k_cp_journal_v1');
     if (raw) {
       const data = JSON.parse(raw);
+      if (data.p1 && data.p1.units) {
+        data.p1.units = mergeUnitsWithDefaults(data.p1.units, DEFAULT_P1_UNITS);
+      }
+      if (data.p2 && data.p2.units) {
+        data.p2.units = mergeUnitsWithDefaults(data.p2.units, DEFAULT_P2_UNITS);
+      }
       Object.assign(gameState, data);
     }
   } catch (e) {
@@ -2946,6 +3668,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="shared.js?v=3.2.4"></script>
+<script src="shared.js?v=3.2.5"></script>
 </body>
 </html>
