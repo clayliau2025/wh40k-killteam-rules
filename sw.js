@@ -3,13 +3,13 @@
  * 版本: v3.2.0 (PWA 離線支援與快取管理)
  */
 
-const CACHE_NAME = 'wh40k-pwa-v3.2.2';
+const CACHE_NAME = 'wh40k-pwa-v3.2.3';
 
 const PRECACHE_ASSETS = [
   './',
   'index.html',
-  'shared.css?v=3.2.2',
-  'shared.js?v=3.2.2',
+  'shared.css?v=3.2.3',
+  'shared.js?v=3.2.3',
   'manifest.json',
   '40k_core_rules.html',
   '40k_combat_patrol_rules.html',
