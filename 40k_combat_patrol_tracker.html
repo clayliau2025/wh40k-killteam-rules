@@ -693,13 +693,15 @@
     .modal-box {
       background: #0f172a;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
+      border-radius: 14px;
       width: 100%;
       max-width: 680px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      max-height: calc(100vh - 40px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
       animation: modalFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     @keyframes modalFade {
@@ -708,11 +710,13 @@
     }
 
     .modal-header {
-      padding: 16px 20px;
+      padding: 14px 20px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
+      background: #0f172a;
     }
 
     .modal-header h3 {
@@ -726,9 +730,10 @@
       background: transparent;
       border: none;
       color: #94a3b8;
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       line-height: 1;
+      padding: 4px;
     }
     .btn-close-modal:hover { color: #ffffff; }
 
@@ -737,6 +742,11 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
     }
 
     .form-group {
@@ -831,7 +841,10 @@
 
     /* 角色資料表與強化詞綴浮層樣式 (BUBBLE MODALS) */
     .modal-box.modal-unit {
-      max-width: 800px;
+      max-width: 840px;
+      width: 95vw;
+      max-height: calc(100vh - 36px);
+      max-height: calc(100dvh - 36px);
       padding: 0;
       overflow: hidden;
       display: flex;
@@ -839,60 +852,106 @@
     }
 
     .modal-box.modal-enhancement {
-      max-width: 640px;
+      max-width: 660px;
+      width: 95vw;
+      max-height: calc(100vh - 36px);
+      max-height: calc(100dvh - 36px);
       padding: 0;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-unit .modal-body,
+    .modal-enhancement .modal-body {
+      padding: 16px 20px 24px 20px;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    /* 浮層專屬捲軸美化 */
+    .modal-unit .modal-body::-webkit-scrollbar,
+    .modal-enhancement .modal-body::-webkit-scrollbar,
+    .modal-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    .modal-unit .modal-body::-webkit-scrollbar-track,
+    .modal-enhancement .modal-body::-webkit-scrollbar-track,
+    .modal-box::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.25);
+    }
+    .modal-unit .modal-body::-webkit-scrollbar-thumb,
+    .modal-enhancement .modal-body::-webkit-scrollbar-thumb,
+    .modal-box::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+    .modal-unit .modal-body::-webkit-scrollbar-thumb:hover,
+    .modal-enhancement .modal-body::-webkit-scrollbar-thumb:hover,
+    .modal-box::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
     }
 
     .sheet-tab-bar {
       display: flex;
-      gap: 6px;
+      align-items: center;
+      gap: 8px;
       padding: 10px 18px;
       background: #090e17;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      white-space: nowrap;
-    }
-
-    .sheet-tab-btn {
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #94a3b8;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      cursor: pointer;
-      transition: all 0.15s ease;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
+    .sheet-tab-btn {
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+
     .sheet-tab-btn:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .sheet-tab-btn.active {
       color: #38bdf8;
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(56, 189, 248, 0.18);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
     }
 
     .sheet-tab-btn.active.ork {
       color: #4ade80;
-      background: rgba(34, 197, 94, 0.15);
-      border-color: rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.18);
+      border-color: rgba(34, 197, 94, 0.5);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
     }
 
     .unit-sheet-hero {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 16px 20px;
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 18px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      flex-shrink: 0;
     }
 
     .unit-sheet-avatar {
@@ -957,8 +1016,43 @@
     }
 
     @media (max-width: 640px) {
+      .modal-overlay {
+        padding: 8px;
+      }
+      .modal-box.modal-unit,
+      .modal-box.modal-enhancement {
+        width: 100vw;
+        max-height: calc(100vh - 16px);
+        max-height: calc(100dvh - 16px);
+        border-radius: 10px;
+      }
+      .modal-unit .modal-body,
+      .modal-enhancement .modal-body {
+        padding: 12px 14px 18px 14px;
+        gap: 12px;
+      }
+      .sheet-tab-bar {
+        padding: 8px 10px;
+        gap: 6px;
+      }
+      .sheet-tab-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+      .unit-sheet-hero {
+        padding: 12px;
+        gap: 12px;
+      }
+      .unit-sheet-avatar {
+        width: 52px;
+        height: 52px;
+      }
+      .unit-sheet-name-zh {
+        font-size: 16px;
+      }
       .unit-hud-grid {
         grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
       }
     }
 
@@ -1315,7 +1409,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.4 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.5 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -1692,7 +1786,7 @@
     <div class="sheet-tab-bar" id="unit-modal-tabs">
       <!-- 單位快速切換標籤 -->
     </div>
-    <div class="modal-body" id="unit-modal-body" style="padding:16px 20px;">
+    <div class="modal-body" id="unit-modal-body">
       <!-- 動態渲染單位詳細資料卡 -->
     </div>
   </div>
@@ -1711,7 +1805,7 @@
     <div class="sheet-tab-bar" id="enh-modal-tabs">
       <!-- 強化快速切換標籤 -->
     </div>
-    <div class="modal-body" id="enh-modal-body" style="padding:16px 20px;">
+    <div class="modal-body" id="enh-modal-body">
       <!-- 動態渲染強化詞綴卡 -->
     </div>
   </div>
@@ -2664,6 +2758,16 @@ function renderUnitDatasheetModal() {
           <div class="unit-ability-desc">${a.desc}</div>
         </div>
       `).join('')}
+    </div>
+
+    <!-- 底部操作列 (Footer Action) -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.1);">
+      <a href="${unit.codexLink}" target="_blank" class="btn-wj btn-wj-outline" style="text-decoration:none; font-size:12px; padding:6px 12px;">
+        📖 查閱官方完整數據庫手冊 &rarr;
+      </a>
+      <button class="btn-wj btn-wj-primary" style="font-size:12px; padding:6px 16px;" onclick="closeUnitDatasheetModal()">
+        關閉視窗
+      </button>
     </div>
   `;
 }

@@ -3,7 +3,7 @@
  * 版本: v3.2.0 (PWA 離線支援與快取管理)
  */
 
-const CACHE_NAME = 'wh40k-pwa-v3.2.4';
+const CACHE_NAME = 'wh40k-pwa-v3.2.5';
 
 const PRECACHE_ASSETS = [
   './',
