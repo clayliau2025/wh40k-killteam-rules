@@ -1950,27 +1950,93 @@ body.theme-plague .damage-tracker-bar {
   overflow-x: hidden;
 }
 
+/* ===================================================================
+   行動裝置與 PWA 專屬最佳化 (MOBILE RESPONSIVE & PWA ENHANCEMENTS)
+   =================================================================== */
+
+/* PWA 安全區域 (Safe Area Inset) 支援 (iOS Notch & Android Status Bar) */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+.app-topbar {
+  padding-top: var(--sat);
+  height: calc(52px + var(--sat));
+  padding-left: max(12px, var(--sal));
+  padding-right: max(12px, var(--sar));
+}
+
+.site-footer {
+  padding-bottom: max(24px, calc(16px + var(--sab)));
+}
+
 /* 行動版側邊欄抽屜 (DRAWER ON MOBILE) */
 .sidebar-backdrop {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 190;
 }
 
+/* PWA 安裝按鈕樣式 */
+.btn-pwa-install {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.btn-pwa-install:hover {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  transform: translateY(-1px);
+}
+
+/* 表格水平滑動保護 (防止超出螢幕) */
+.table-responsive,
+.weapon-table-wrap,
+.responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 10px 0;
+  border-radius: 6px;
+}
+
+/* 900px 以下斷點：啟動抽屜模式 */
 @media (max-width: 900px) {
   .mobile-menu-btn {
     display: flex;
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
   }
 
   .app-sidebar {
     position: fixed;
     top: 0; left: 0; bottom: 0;
-    width: 280px;
+    width: min(300px, 86vw);
     transform: translateX(-100%);
-    box-shadow: 12px 0 36px rgba(0, 0, 0, 0.6);
+    box-shadow: 12px 0 36px rgba(0, 0, 0, 0.7);
+    padding-top: var(--sat);
+    padding-bottom: var(--sab);
+    -webkit-overflow-scrolling: touch;
   }
 
   .app-sidebar.mobile-open {
@@ -1980,5 +2046,190 @@ body.theme-plague .damage-tracker-bar {
   .sidebar-backdrop.active {
     display: block;
   }
+
+  .topbar-breadcrumbs {
+    font-size: 12px;
+    max-width: calc(100vw - 110px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
+
+/* 768px 以下：平板直向與手機一般模式 */
+@media (max-width: 768px) {
+  .main-wrapper {
+    margin: 14px auto;
+    padding: 0 12px;
+  }
+
+  .hero-banner {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .topbar-breadcrumbs span:first-child {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 數據卡屬性行在手機螢幕自適應 */
+  .stat-row {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+
+  .stat-box {
+    min-width: 0 !important;
+    padding: 4px 2px !important;
+    text-align: center !important;
+  }
+
+  .stat-box .stat-label {
+    font-size: 7pt !important;
+  }
+
+  .stat-box .stat-val {
+    font-size: 11pt !important;
+  }
+
+  .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* 武器表格文字縮放與滑動支援 */
+  .weapon-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .weapon-table th,
+  .weapon-table td {
+    padding: 5px 6px;
+    font-size: 8pt;
+  }
+}
+
+/* 640px 以下：手機直向微調 (Mobile Portrait) */
+@media (max-width: 640px) {
+  .main-wrapper {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  /* 首頁 Hero 縮減邊距增加顯示面積 */
+  .portal-hero {
+    padding: 18px 14px !important;
+    border-radius: var(--radius-md) !important;
+    margin-bottom: 20px !important;
+  }
+
+  .portal-title {
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .portal-desc {
+    font-size: 12.5px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .hero-wh-logo {
+    height: 36px !important;
+  }
+
+  .hero-kt-logo {
+    height: 34px !important;
+  }
+
+  .edition-tag {
+    padding: 3px 8px !important;
+    font-size: 9.5px !important;
+  }
+
+  .hero-quick-actions {
+    gap: 8px !important;
+  }
+
+  .btn-action {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 10px 14px !important;
+    font-size: 13px !important;
+    box-sizing: border-box !important;
+    min-height: 44px; /* 觸控標準高度 */
+  }
+
+  /* 入口卡片自適應單欄 */
+  .team-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .portal-section-title {
+    font-size: 16px !important;
+    margin: 22px 0 12px 0 !important;
+  }
+
+  .glossary-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* 麵包屑極簡模式：隱藏上層冗長路徑，直指當前頁面 */
+  .topbar-breadcrumbs {
+    font-size: 11.5px;
+    max-width: calc(100vw - 110px);
+  }
+  .topbar-breadcrumbs span:first-child,
+  .topbar-breadcrumbs .bc-sep:first-of-type {
+    display: none;
+  }
+
+  /* 觸控按鈕大小優化 (防誤觸) */
+  button, .topbar-btn, .sub-nav a {
+    min-height: 36px;
+    touch-action: manipulation;
+  }
+
+  /* 對戰助手手機版操作強化 */
+  .wj-container {
+    padding: 10px 10px 40px 10px !important;
+  }
+
+  .wj-header {
+    padding: 14px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .wj-title-group h1 {
+    font-size: 19px !important;
+  }
+
+  .command-grid,
+  .players-hud-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+}
+
 

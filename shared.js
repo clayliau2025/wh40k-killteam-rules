@@ -1,6 +1,6 @@
 /**
  * 戰錘 40K & 殺戮小隊 繁體中文全戰棋情報庫
- * 全站統一導航、側邊欄折疊、抽屜與互動邏輯
+ * 全站統一導航、側邊欄折疊、手機抽屜與 PWA 支援
  */
 
 function toggleNavGroup(btn) {
@@ -25,18 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 2. 側邊欄內部折疊按鈕 (◀)
+  // 2. 側邊欄內部按鈕：手機端為關閉抽屜，桌面端為折疊 (◀)
   if (collapseBtn && sidebar) {
     collapseBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      sidebar.classList.toggle('collapsed');
-      try {
-        localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
-      } catch (err) {}
+      if (window.innerWidth <= 900) {
+        sidebar.classList.remove('mobile-open');
+        if (backdrop) backdrop.classList.remove('active');
+      } else {
+        sidebar.classList.toggle('collapsed');
+        try {
+          localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
+        } catch (err) {}
+      }
     });
 
     try {
-      if (localStorage.getItem('sidebar_collapsed') === 'true') {
+      if (window.innerWidth > 900 && localStorage.getItem('sidebar_collapsed') === 'true') {
         sidebar.classList.add('collapsed');
       }
     } catch (err) {}
@@ -73,11 +78,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. 監聽螢幕寬度改變，若超過 900px 自動關閉手機抽屜
+  // 5. 手機版點擊側邊欄內部的任意連結時，自動關閉抽屜（體驗更流暢）
+  if (sidebar) {
+    const navLinks = sidebar.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) {
+          sidebar.classList.remove('mobile-open');
+          if (backdrop) backdrop.classList.remove('active');
+        }
+      });
+    });
+  }
+
+  // 6. 監聽螢幕寬度改變，若超過 900px 自動關閉手機抽屜
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900 && sidebar) {
       sidebar.classList.remove('mobile-open');
       if (backdrop) backdrop.classList.remove('active');
     }
+  });
+
+  // 7. 註冊 PWA Service Worker (支援離線查閱規則與對戰計分)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => {
+          console.log('[PWA] ServiceWorker 註冊成功，範圍:', reg.scope);
+        })
+        .catch(err => {
+          console.warn('[PWA] ServiceWorker 註冊失敗:', err);
+        });
+    });
+  }
+
+  // 8. PWA 安裝按鈕支援
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const installBtns = document.querySelectorAll('.btn-pwa-install');
+    installBtns.forEach(btn => {
+      btn.style.display = 'inline-flex';
+      btn.addEventListener('click', async () => {
+        if (deferredInstallPrompt) {
+          deferredInstallPrompt.prompt();
+          const choiceResult = await deferredInstallPrompt.userChoice;
+          console.log('[PWA] 安裝選項回饋:', choiceResult.outcome);
+          deferredInstallPrompt = null;
+          btn.style.display = 'none';
+        }
+      });
+    });
   });
 });

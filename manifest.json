@@ -1,0 +1,57 @@
+{
+  "name": "戰錘 40K & KT 繁中情報庫",
+  "short_name": "40K情報庫",
+  "description": "Warhammer 40,000 (11版戰巡隊) 與 Kill Team (3版) 繁體中文規則、特工資料卡與對戰助手",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090e17",
+  "theme_color": "#0f172a",
+  "lang": "zh-TW",
+  "categories": ["games", "reference", "entertainment"],
+  "icons": [
+    {
+      "src": "assets/pwa_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "戰巡 War Journal 助手",
+      "short_name": "戰巡助手",
+      "description": "40K 戰巡隊即時對戰計分與狀態記錄",
+      "url": "./40k_combat_patrol_tracker.html",
+      "icons": [{ "src": "assets/pwa_icon_192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "40K 核心規則庫",
+      "short_name": "核心規則",
+      "description": "40K 完整核心規則 (11版檢索)",
+      "url": "./40k_core_rules.html",
+      "icons": [{ "src": "assets/pwa_icon_192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "殺戮小隊對戰助手",
+      "short_name": "KT助手",
+      "description": "KT 雙人對戰計分儀表板",
+      "url": "./match_tracker.html",
+      "icons": [{ "src": "assets/pwa_icon_192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "阿斯塔特突擊分隊",
+      "short_name": "突擊分隊",
+      "description": "星際戰士戰巡資料卡",
+      "url": "./40k_cp_astartes.html",
+      "icons": [{ "src": "assets/pwa_icon_192.png", "sizes": "192x192" }]
+    }
+  ]
+}
