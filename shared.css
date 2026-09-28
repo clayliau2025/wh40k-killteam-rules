@@ -1824,6 +1824,22 @@ body.theme-plague .damage-tracker-bar {
   display: none;
 }
 
+.app-sidebar.collapsed .nav-item-link,
+.app-sidebar.collapsed .nav-group-header {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.app-sidebar.collapsed .group-header-left {
+  justify-content: center;
+  width: 100%;
+}
+
+.app-sidebar.collapsed .nav-icon {
+  margin: 0;
+  font-size: 18px;
+}
+
 /* 側邊欄底部 */
 .sidebar-footer {
   padding: 12px 16px;

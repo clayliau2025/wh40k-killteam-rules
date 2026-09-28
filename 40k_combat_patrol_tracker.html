@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40K 戰巡對戰助手 (War Journal: Combat Patrol Match Tracker) - 繁中官方規格</title>
-  <link rel="stylesheet" href="shared.css?v=3.2.3">
+  <link rel="stylesheet" href="shared.css?v=3.2.4">
   <style>
     /* ================= 戰巡 War Journal 專屬樣式 ================= */
     body.theme-40k-journal {
@@ -828,6 +828,341 @@
       color: #cbd5e1;
       line-height: 1.4;
     }
+
+    /* 角色資料表與強化詞綴浮層樣式 (BUBBLE MODALS) */
+    .modal-box.modal-unit {
+      max-width: 800px;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-box.modal-enhancement {
+      max-width: 640px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .sheet-tab-bar {
+      display: flex;
+      gap: 6px;
+      padding: 10px 18px;
+      background: #090e17;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+    }
+
+    .sheet-tab-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .sheet-tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sheet-tab-btn.active {
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .sheet-tab-btn.active.ork {
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .unit-sheet-hero {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .unit-sheet-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      flex-shrink: 0;
+    }
+
+    .unit-sheet-title-box {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .unit-sheet-name-zh {
+      font-size: 19px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .unit-sheet-name-en {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+
+    .unit-sheet-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .unit-badge-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+    }
+
+    .unit-badge-warlord {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    /* 7 核心屬性 HUD */
+    .unit-hud-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    @media (max-width: 640px) {
+      .unit-hud-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .unit-hud-box {
+      background: #090e17;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .unit-hud-box:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .unit-hud-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .unit-hud-val {
+      font-size: 17px;
+      font-weight: 900;
+      color: #f1f5f9;
+      font-family: monospace;
+    }
+
+    .hud-insv {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .hud-insv .unit-hud-val {
+      color: #f87171;
+    }
+
+    /* 武器表格 */
+    .unit-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 14px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #090e17;
+    }
+
+    .unit-sheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: center;
+      min-width: 580px;
+    }
+
+    .unit-sheet-table th {
+      background: #1e293b;
+      color: #94a3b8;
+      font-weight: 800;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+    }
+
+    .unit-sheet-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+    }
+
+    .unit-sheet-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .weapon-name-cell {
+      text-align: left;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .weapon-tag-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin: 1px 2px;
+    }
+
+    /* 特殊能力區塊 */
+    .unit-ability-section {
+      margin-top: 14px;
+    }
+
+    .unit-ability-card {
+      background: #090e17;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 3px solid #38bdf8;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+    }
+
+    .unit-ability-card.ork-card {
+      border-left-color: #22c55e;
+    }
+
+    .unit-ability-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .unit-ability-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    /* 附帶強化提示卡 */
+    .unit-attached-enhancement {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-left: 3px solid #f59e0b;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin: 12px 0;
+    }
+
+    /* 強化詞綴互動按鈕 */
+    .enhancement-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 11.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .enhancement-pill-btn:hover {
+      background: rgba(245, 158, 11, 0.28);
+      border-color: #f59e0b;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(245, 158, 11, 0.25);
+    }
+
+    /* 單位列表中點擊卡片提示 */
+    .unit-name-box {
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 3px 6px;
+      margin-left: -6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .unit-name-box:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .unit-name-box:hover .unit-title-text {
+      color: #38bdf8;
+    }
+
+    .unit-card-btn {
+      font-size: 10px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 1px 6px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .unit-name-box:hover .unit-card-btn {
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
   </style>
   <meta name="theme-color" content="#0f172a">
   <meta name="mobile-web-app-capable" content="yes">
@@ -980,7 +1315,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.3 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.4 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -1090,7 +1425,7 @@
           <span class="bunker-badge badge-p1">PLAYER 1</span>
           <div>
             <h2 class="bunker-name" id="p1-name-display">突擊分隊 (阿斯塔特修會)</h2>
-            <div class="bunker-enhancement" id="p1-enhancement-display">統帥：連長 ｜ 強化：劍術大師 (預設)</div>
+            <div class="bunker-enhancement" id="p1-enhancement-display">統帥：連長 ｜ 強化：<span class="enhancement-pill-btn" onclick="openEnhancementModal(1)" title="點擊查看強化詞綴詳情">✨ 劍術大師 (預設) 🔍</span></div>
           </div>
         </div>
         <div id="p1-turn-indicator" style="font-size:12px; font-weight:700; color:#ef4444;">● 先攻方</div>
@@ -1146,7 +1481,7 @@
           <span class="bunker-badge badge-p2">PLAYER 2</span>
           <div>
             <h2 class="bunker-name" id="p2-name-display">硬漢幫 (歐克蠻人)</h2>
-            <div class="bunker-enhancement" id="p2-enhancement-display">統帥：戰爭頭目 ｜ 強化：振奮戰吼 (預設)</div>
+            <div class="bunker-enhancement" id="p2-enhancement-display">統帥：戰爭頭目 ｜ 強化：<span class="enhancement-pill-btn" onclick="openEnhancementModal(2)" title="點擊查看強化詞綴詳情">✨ 振奮戰吼 (預設) 🔍</span></div>
           </div>
         </div>
         <div id="p2-turn-indicator" style="font-size:12px; font-weight:700; color:#94a3b8;">○ 後攻方</div>
@@ -1343,6 +1678,44 @@
     </div>
   </div>
 </div>
+
+<!-- 模態框 4：單位數據卡浮層 (UNIT DATASHEET BUBBLE MODAL) -->
+<div class="modal-overlay" id="modal-unit-datasheet" onclick="handleModalOverlayClick(event, 'modal-unit-datasheet')">
+  <div class="modal-box modal-unit" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span id="unit-modal-faction-badge" class="bunker-badge badge-p1">PLAYER 1</span>
+        <h3 id="unit-modal-title">角色資料表 (Datasheet)</h3>
+      </div>
+      <button class="btn-close-modal" onclick="closeUnitDatasheetModal()">&times;</button>
+    </div>
+    <div class="sheet-tab-bar" id="unit-modal-tabs">
+      <!-- 單位快速切換標籤 -->
+    </div>
+    <div class="modal-body" id="unit-modal-body" style="padding:16px 20px;">
+      <!-- 動態渲染單位詳細資料卡 -->
+    </div>
+  </div>
+</div>
+
+<!-- 模態框 5：強化詞綴浮層 (ENHANCEMENT BUBBLE MODAL) -->
+<div class="modal-overlay" id="modal-enhancement" onclick="handleModalOverlayClick(event, 'modal-enhancement')">
+  <div class="modal-box modal-enhancement" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span id="enh-modal-faction-badge" class="bunker-badge badge-p1">PLAYER 1</span>
+        <h3 id="enh-modal-title">戰巡強化詞綴 (Enhancement)</h3>
+      </div>
+      <button class="btn-close-modal" onclick="closeEnhancementModal()">&times;</button>
+    </div>
+    <div class="sheet-tab-bar" id="enh-modal-tabs">
+      <!-- 強化快速切換標籤 -->
+    </div>
+    <div class="modal-body" id="enh-modal-body" style="padding:16px 20px;">
+      <!-- 動態渲染強化詞綴卡 -->
+    </div>
+  </div>
+</div>
 </main>
 </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
@@ -1435,6 +1808,279 @@ const STRATAGEMS = {
   ]
 };
 
+// ==================== 角色資料表與強化詞綴數據字典 ====================
+const UNIT_DATASHEETS = {
+  // === 阿斯塔特 突擊分隊 (Player 1) ===
+  'c1': {
+    id: 'c1',
+    player: 1,
+    name: '突擊分隊連長',
+    enName: 'Captain [戰帥 WARLORD]',
+    role: '戰帥 / 角色',
+    image: 'assets/cp_astartes/captain.jpg',
+    stats: { m: '6"', t: '4', sv: '3+', insv: '4+', w: '6', ld: '6+', oc: '1' },
+    weapons: [
+      { name: '重型爆矢手槍 (Heavy Bolt Pistol)', type: '遠程', range: '18"', a: '1', bsWs: '2+', s: '4', ap: '-1', d: '1', keywords: ['手槍 PISTOL'] },
+      { name: '大師級動力武器 (Master-crafted Weapon)', type: '近戰', range: 'Melee', a: '6', bsWs: '2+', s: '5', ap: '-2', d: '2', keywords: ['近戰 MELEE'] }
+    ],
+    abilities: [
+      { title: '聖物盾 (Relic Shield)', desc: '該模型的生命值 W+1（已含於 6W 中），並賦予 4+ 特殊豁免 (4++ 特保 / Invulnerable Save)。' },
+      { title: '戰爭大師 (Master of War)', desc: '對手衝鋒階段結束時，若該單位未交戰且位於敵方單位 6" 內，可結算一次反衝鋒（衝鋒骰修正後若大於 6 則視為 6）。' },
+      { title: '誓死效忠 (Oath of Moment)', desc: '己方指揮階段開始時，選定一個敵方單位為誓死目標；己方部隊對該目標進行攻擊時可重擲命中骰。' }
+    ],
+    codexLink: '40k_cp_astartes.html#datasheets-app'
+  },
+  'c2': {
+    id: 'c2',
+    player: 1,
+    name: '突擊分隊智庫員',
+    enName: 'Librarian',
+    role: '靈能者 / 角色',
+    image: 'assets/cp_astartes/librarian.jpg',
+    stats: { m: '6"', t: '4', sv: '3+', insv: '4+', w: '4', ld: '6+', oc: '1' },
+    weapons: [
+      { name: '爆矢手槍 (Bolt Pistol)', type: '遠程', range: '12"', a: '1', bsWs: '3+', s: '4', ap: '0', d: '1', keywords: ['手槍 PISTOL'] },
+      { name: '電襲術 - 電流脈衝 (Electric Pulse)', type: '遠程', range: '24"', a: '2', bsWs: '3+', s: '8', ap: '-2', d: '3', keywords: ['靈能 PSYCHIC'] },
+      { name: '電襲術 - 閃電衝擊 (Chain Lightning)', type: '遠程', range: '24"', a: '3', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['靈能', '爆炸 2 BLAST 2'] },
+      { name: '靈能武器 (Force Weapon)', type: '近戰', range: 'Melee', a: '4', bsWs: '3+', s: '6', ap: '-1', d: '2', keywords: ['靈能 PSYCHIC'] }
+    ],
+    abilities: [
+      { title: '亞空間洞察 (Warp Insight)', desc: '該單位的遠程攻擊完全忽略 BS 減值、命中擲骰 (Hit roll) 減值與致傷擲骰 (Wound roll) 減值。' },
+      { title: '心靈護盾 (Psychic Hood)', desc: '擁有 4+ 特殊豁免 (4++ 特保)，並對靈能攻擊提供額外護禦防護。' }
+    ],
+    codexLink: '40k_cp_astartes.html#datasheets-app'
+  },
+  'c3': {
+    id: 'c3',
+    player: 1,
+    name: '先鋒老兵 (跳躍背包, 5人)',
+    enName: 'Vanguard Veterans with Jump Packs',
+    role: '跳躍步兵 / 菁英',
+    image: 'assets/cp_astartes/vanguard.jpg',
+    stats: { m: '12"', t: '4', sv: '3+', insv: '-', w: '2 (編制5人/共5W)', ld: '6+', oc: '1' },
+    weapons: [
+      { name: '等離子手槍 - 標準 (Plasma Pistol)', type: '遠程', range: '12"', a: '1', bsWs: '3+', s: '7', ap: '-2', d: '1', keywords: ['手槍 PISTOL'] },
+      { name: '等離子手槍 - 過載 (Supercharge)', type: '遠程', range: '12"', a: '1', bsWs: '3+', s: '8', ap: '-3', d: '2', keywords: ['手槍', '危險 HAZARDOUS'] },
+      { name: '重型爆矢手槍 (Heavy Bolt Pistol)', type: '遠程', range: '18"', a: '1', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['手槍 PISTOL'] },
+      { name: '動力武器 (Power Weapon)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '5', ap: '-2', d: '2', keywords: ['近戰 MELEE'] }
+    ],
+    abilities: [
+      { title: '快速反應 (Quick Reaction)', desc: '對手射擊階段，當敵方對該單位射擊結束後，該單位可立即進行一次最多 D6+1" 的常規移動！' },
+      { title: '深入打擊 (Deep Strike)', desc: '具備空降能力，可在增援階段自空中垂直突擊至戰場任意距離敵方 9" 外之位置。' }
+    ],
+    codexLink: '40k_cp_astartes.html#datasheets-app'
+  },
+  'c4': {
+    id: 'c4',
+    player: 1,
+    name: '仲裁者小隊 (Intercessors, 5人)',
+    enName: 'Intercessor Squad',
+    role: '戰線步兵 / 核心',
+    image: 'assets/cp_astartes/intercessors.jpg',
+    stats: { m: '6"', t: '4', sv: '3+', insv: '-', w: '2 (編制5人/共5W)', ld: '6+', oc: '3' },
+    weapons: [
+      { name: '爆矢步槍 (Bolt Rifle)', type: '遠程', range: '24"', a: '2', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['重型 HEAVY', '突擊 ASSAULT'] },
+      { name: '榴彈發射器 - 破片 (Frag)', type: '遠程', range: '24"', a: '2', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['爆炸 1 BLAST 1'] },
+      { name: '榴彈發射器 - 穿甲 (Krak)', type: '遠程', range: '24"', a: '2', bsWs: '3+', s: '5', ap: '-2', d: '3', keywords: ['針對-凶獸/載具 4+'] },
+      { name: '鏈鋸劍 (Astartes Chainsword)', type: '近戰', range: 'Melee', a: '5', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['近戰 MELEE'] },
+      { name: '戰鬥刀和拳頭 (Combat Knife)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '4', ap: '0', d: '1', keywords: ['近戰 MELEE'] }
+    ],
+    abilities: [
+      { title: '堅定防禦者 (Firm Defender)', desc: '在一個敵方單位對該單位進行攻擊時，若每個模型皆位於客觀目標範圍內，針對該單位的所有攻擊 AP-1。' },
+      { title: '戰線目標確保 (OC 3)', desc: '擁有高達 OC 3 的目標控制力，能強勢穩固佔據關鍵陣地。' }
+    ],
+    codexLink: '40k_cp_astartes.html#datasheets-app'
+  },
+  'c5': {
+    id: 'c5',
+    player: 1,
+    name: '突擊分隊蘭德速攻艇',
+    enName: 'Land Speeder (Storm Speeder)',
+    role: '載具 / 快速攻擊',
+    image: 'assets/cp_astartes/landspeeder.jpg',
+    stats: { m: '14"', t: '8', sv: '3+', insv: '-', w: '9', ld: '6+', oc: '2' },
+    weapons: [
+      { name: '多管熱熔 (Multi-melta)', type: '遠程', range: '18"', a: '2', bsWs: '3+', s: '10', ap: '-4', d: 'D6', keywords: ['熱熔 2 MELTA 2'] },
+      { name: '風暴之怒導彈發射器 (Missile)', type: '遠程', range: '48"', a: '1', bsWs: '3+', s: '10', ap: '-3', d: '4', keywords: ['重裝重創打擊'] },
+      { name: '重型焚化槍 (Heavy Flamer)', type: '遠程', range: '12"', a: 'D6', bsWs: '-', s: '5', ap: '-1', d: '1', keywords: ['激流 TORRENT', '無視掩體'] },
+      { name: '裝甲衝撞 (Armoured Ram)', type: '近戰', range: 'Melee', a: '4', bsWs: '3+', s: '4', ap: '0', d: '1', keywords: ['近戰 MELEE'] }
+    ],
+    abilities: [
+      { title: '冰雹打擊標記 (Hailstrike Marking)', desc: '遠程射擊命中敵方後，本回合其他友方單位射擊該目標時，武器穿甲值額外改善 1 (AP 改善 1)！' },
+      { title: '致命毀滅 (Deadly Demise D3)', desc: '此載具被摧毀時，擲骰若為 6，對 6" 內所有單位造成 D3 處致命傷。' }
+    ],
+    codexLink: '40k_cp_astartes.html#datasheets-app'
+  },
+
+  // === 歐克蠻人 硬漢幫 (Player 2) ===
+  'o1': {
+    id: 'o1',
+    player: 2,
+    name: '硬漢幫戰爭頭目',
+    enName: 'Warboss [戰帥 WARLORD]',
+    role: '戰帥 / 角色',
+    image: 'assets/cp_orks/warboss.jpg',
+    stats: { m: '6"', t: '5', sv: '4+', insv: '5+', w: '6', ld: '6+', oc: '1' },
+    weapons: [
+      { name: '自製射槍 (Kustom Shoota)', type: '遠程', range: '18"', a: '4', bsWs: '5+', s: '4', ap: '0', d: '1', keywords: ['速射 2 RAPID FIRE 2'] },
+      { name: '自製砍刀 (Kustom Choppa)', type: '近戰', range: 'Melee', a: '6', bsWs: '2+', s: '8', ap: '-2', d: '2', keywords: ['劈砍 1 CLEAVE 1'] }
+    ],
+    abilities: [
+      { title: '砸個稀巴爛', desc: '近戰階段被選中近戰時，近戰攻擊二選一獲得 [致命一擊 LETHAL HITS]（暴擊命中直接致傷）或 [連擊 1 SUSTAINED HITS 1]（暴擊命中額外產生 1 次命中）。' },
+      { title: 'Waaagh！戰吼', desc: '宣告 Waaagh! 輪次內，前進後可衝鋒、近戰 A+1 S+1，全軍獲得 5+ 特保 (5+ InSv)。' }
+    ],
+    codexLink: '40k_cp_orks.html#datasheets-app'
+  },
+  'o2': {
+    id: 'o2',
+    player: 2,
+    name: '硬漢幫靈能小子',
+    enName: 'Weirdboy',
+    role: '靈能者 / 角色',
+    image: 'assets/cp_orks/weirdboy.jpg',
+    stats: { m: '6"', t: '5', sv: '5+', insv: '-', w: '4', ld: '7+', oc: '1' },
+    weapons: [
+      { name: '綠皮之怒 (Edbanger)', type: '遠程', range: '24"', a: '1', bsWs: '4+', s: '8', ap: '-2', d: 'D6', keywords: ['靈能 PSYCHIC', '致命一擊'] },
+      { name: '靈能手杖 (Weirdboy Stikk)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '6', ap: '-1', d: 'D3', keywords: ['靈能 PSYCHIC'] }
+    ],
+    abilities: [
+      { title: '綠皮躍遷 (Da Jump)', desc: '在指揮階段中，可將自身及所率領之部隊直接傳送轉移至戰場任意距離敵軍 9" 外之位置。' },
+      { title: '歐克神力湧動', desc: '身邊每有 5 隻小子，靈能輸出威力便同步大幅攀升。' }
+    ],
+    codexLink: '40k_cp_orks.html#datasheets-app'
+  },
+  'o3': {
+    id: 'o3',
+    player: 2,
+    name: '硬漢幫戰鬥卡車',
+    enName: 'Trukk [載具/運輸 VEHICLE]',
+    role: '載具 / 專用運輸',
+    image: 'assets/cp_orks/trukk.jpg',
+    stats: { m: '12"', t: '8', sv: '4+', insv: '6+', w: '7', ld: '7+', oc: '2' },
+    weapons: [
+      { name: '大型射槍 (Big Shoota)', type: '遠程', range: '36"', a: '3', bsWs: '5+', s: '5', ap: '0', d: '1', keywords: ['速射 2 RAPID FIRE 2'] },
+      { name: '尖刺撞角 (Spiked Ram)', type: '近戰', range: 'Melee', a: '3', bsWs: '4+', s: '6', ap: '0', d: '1', keywords: ['近戰 MELEE'] }
+    ],
+    abilities: [
+      { title: '敞篷運載 (Firing Deck 12)', desc: '可搭載最多 12 名歐克步兵模型，搭乘之步兵可在卡車移動後於車內向外進行射擊！' },
+      { title: '廢鐵救星 (Careening)', desc: '此卡車被摧毀發生爆炸時，可在引爆前朝任意方向進行 D6" 垂死衝刺！' }
+    ],
+    codexLink: '40k_cp_orks.html#datasheets-app'
+  },
+  'o4': {
+    id: 'o4',
+    player: 2,
+    name: '硬漢幫小子 (Boyz, 10人)',
+    enName: 'Boyz (10 Models)',
+    role: '戰線步兵 / 核心',
+    image: 'assets/cp_orks/boyz.jpg',
+    stats: { m: '6"', t: '5', sv: '5+', insv: '-', w: '1 (編制10人/共10W)', ld: '7+', oc: '2' },
+    weapons: [
+      { name: '劈刀 (Choppa)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '4', ap: '-1', d: '1', keywords: ['近戰 MELEE'] },
+      { name: '射槍 (Slugga)', type: '遠程', range: '12"', a: '1', bsWs: '5+', s: '4', ap: '0', d: '1', keywords: ['手槍 PISTOL'] },
+      { name: '火箭發射筒 (Rokkit Launcha)', type: '遠程', range: '24"', a: 'D3', bsWs: '5+', s: '9', ap: '-2', d: '3', keywords: ['爆炸 BLAST'] }
+    ],
+    abilities: [
+      { title: '小子圍毆 (Get \'Em Boyz)', desc: '該單位完成一次衝鋒後，本階段近戰攻擊的致傷擲骰獲得 +1 修正。' },
+      { title: '人多勢眾 (OC 2)', desc: '龐大的人數規模結合 OC 2 屬性，能強行佔據並爭奪中場據點。' }
+    ],
+    codexLink: '40k_cp_orks.html#datasheets-app'
+  },
+  'o5': {
+    id: 'o5',
+    player: 2,
+    name: '硬漢幫蠻人小子 (10人)',
+    enName: 'Beast Snagga Boyz (10 Models)',
+    role: '戰線步兵 / 菁英',
+    image: 'assets/cp_orks/beast_snagga_boyz.jpg',
+    stats: { m: '6"', t: '5', sv: '5+', insv: '6+', w: '1 (編制10人/共10W)', ld: '7+', oc: '2' },
+    weapons: [
+      { name: '蠻人劈刀 (Choppa)', type: '近戰', range: 'Melee', a: '3', bsWs: '3+', s: '5', ap: '-1', d: '1', keywords: ['近戰 MELEE'] },
+      { name: '蠻人散彈槍 (Slugga)', type: '遠程', range: '12"', a: '1', bsWs: '5+', s: '4', ap: '0', d: '1', keywords: ['手槍 PISTOL'] }
+    ],
+    abilities: [
+      { title: '獵獸好手 (Monster Hunter)', desc: '針對敵方 [載具 VEHICLE] 與 [凶獸 MONSTER] 進行攻擊時，命中擲骰獲得 +1 修正。' },
+      { title: '厚皮韌性 (6+ InSv)', desc: '天生肌肉厚重，自帶 6+ 特殊豁免 (6+ InSv)。' }
+    ],
+    codexLink: '40k_cp_orks.html#datasheets-app'
+  },
+  'o6': {
+    id: 'o6',
+    player: 2,
+    name: '硬漢幫屁精 (Gretchin, 10人)',
+    enName: 'Gretchin (10 Models)',
+    role: '雜役步兵 / 占點',
+    image: 'assets/cp_orks/gretchin.jpg',
+    stats: { m: '6"', t: '2', sv: '6+', insv: '-', w: '1 (編制10人/共10W)', ld: '8+', oc: '2' },
+    weapons: [
+      { name: '爆槍 (Grot Blaster)', type: '遠程', range: '18"', a: '1', bsWs: '4+', s: '3', ap: '0', d: '1', keywords: ['手槍 PISTOL'] },
+      { name: '拾荒匕首 (Scrap Shiv)', type: '近戰', range: 'Melee', a: '1', bsWs: '5+', s: '2', ap: '0', d: '1', keywords: ['近戰 MELEE'] }
+    ],
+    abilities: [
+      { title: '地精災害 (Grot Infestation)', desc: '（每場限一次）該單位被摧毀時，可直接移入戰略預備隊，所有被摧毀模型全數復活並獲得深入打擊特規！' },
+      { title: '翻箱倒櫃偷 CP (Runtherd)', desc: '在己方控制客觀目標時，每輪指揮階段擲 D6，4+ 額外產出 1 點指揮點數 (CP)！' }
+    ],
+    codexLink: '40k_cp_orks.html#datasheets-app'
+  }
+};
+
+const ENHANCEMENT_DATA = {
+  // Astartes Strike Force
+  'p1_master': {
+    id: 'p1_master',
+    key: '劍術大師 (預設)',
+    name: '劍術大師',
+    enName: 'Master of the Blade',
+    type: '預設強化 (DEFAULT)',
+    faction: '阿斯塔特 突擊分隊',
+    factionColor: '#ef4444',
+    target: '升級對象：僅限突擊分隊跳躍背包先鋒老兵小隊單位',
+    rule: '在一個敵方單位結束一次<strong>衝鋒移動</strong>時，如果那個敵方單位與該單位<strong>處於交戰狀態</strong>，那麼直到回合結束前，那個敵方單位近戰攻擊的<strong>致傷擲骰 (Wound roll) -1</strong>！',
+    tactics: '先鋒老兵具備 12" 跳躍移動與 [深入打擊]。當老兵佔領據點面對敵方重裝近戰（如歐克頭目、卡車衝撞）時，這項強化能直接降低敵方致傷率達 16%~33%，是防禦反打的關鍵保命技！',
+    link: '40k_cp_astartes.html#enhancements-app'
+  },
+  'p1_veteran': {
+    id: 'p1_veteran',
+    key: '戰線老兵',
+    name: '戰線老兵',
+    enName: 'Battleline Veteran',
+    type: '替代強化 (ALTERNATIVE)',
+    faction: '阿斯塔特 突擊分隊',
+    factionColor: '#ef4444',
+    target: '升級對象：僅限突擊分隊仲裁者小隊單位',
+    rule: '該單位的爆矢步槍武器獲得 <strong>[速射 1 (Rapid Fire 1)]</strong>（半程 12" 射程內每把步槍攻擊次數增加至 3 次！）。',
+    tactics: '仲裁者小隊本身有 [重型] 與 [突擊]，獲得 [速射 1] 後在 12" 內可傾瀉多達 15 發 AP -1 爆矢彈。若面對歐克小子或屁精群，能一輪射擊清空半數敵軍！',
+    link: '40k_cp_astartes.html#enhancements-app'
+  },
+  // Ork Morbidly Hard Boys
+  'p2_warcry': {
+    id: 'p2_warcry',
+    key: '振奮戰吼 (預設)',
+    name: '振奮戰吼',
+    enName: 'Inspiring Warcry',
+    type: '預設強化 (DEFAULT)',
+    faction: '歐克蠻人 硬漢幫',
+    factionColor: '#22c55e',
+    target: '升級對象：僅限硬漢幫戰爭頭目模型',
+    rule: '（每個單位，每場戰鬥限一次）在己方指揮階段中，您可以使用本技能。若使用，將<strong>最多 D3+2 個被摧毀的護衛模型返還至該單位中</strong>！',
+    tactics: '在第 2 或第 3 戰鬥輪次，當戰爭頭目身邊的小子護衛被火力削弱時立即發動，瞬間復活 3~5 隻小子，迅速拉回人數劣勢並重新搶奪據點 OC 目標控制權！',
+    link: '40k_cp_orks.html#enhancements-app'
+  },
+  'p2_armour': {
+    id: 'p2_armour',
+    key: '額外裝甲',
+    name: '額外裝甲',
+    enName: 'Extra Armour',
+    type: '替代強化 (ALTERNATIVE)',
+    faction: '歐克蠻人 硬漢幫',
+    factionColor: '#22c55e',
+    target: '升級對象：僅限硬漢幫戰鬥卡車單位',
+    rule: '該卡車單位獲得：<br>&bull; <strong>3+ 護甲豁免 (Sv 3+)</strong><br>&bull; <strong>4+ 特殊豁免 (4++ 特保 / InSv 4+)</strong>！',
+    tactics: '將卡車原本 4+/6++ 的脆弱防禦全面升格為金身 4++ 特保！即使面對蘭德速攻艇的 AP -4 多管熱熔或重裝導彈，也能依靠 50% 成功率的特保穩穩接下，確保車內載具兵力安全突擊陣線！',
+    link: '40k_cp_orks.html#enhancements-app'
+  }
+};
+
 // ==================== 初始化與渲染 ====================
 function init() {
   loadFromStorage();
@@ -1446,6 +2092,7 @@ function renderAll() {
   renderScores();
   renderMissionChecklists();
   renderUnits();
+  renderEnhancements();
   renderStatusBar();
 }
 
@@ -1590,8 +2237,9 @@ function renderUnits() {
     if (!u.isDestroyed) p1Alive++;
     return `
       <div class="unit-wound-row ${u.isDestroyed ? 'destroyed' : ''}">
-        <div class="unit-name-box">
-          <span>${u.name}</span>
+        <div class="unit-name-box" onclick="openUnitDatasheet('${u.id}', 1)" title="點擊查看 ${u.name} 角色資料卡">
+          <span class="unit-title-text">${u.name}</span>
+          <span class="unit-card-btn">📋 數據卡</span>
           ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#f87171;">${u.inv}</span>` : ''}
         </div>
         <div class="unit-wound-ctrls">
@@ -1612,8 +2260,9 @@ function renderUnits() {
     if (!u.isDestroyed) p2Alive++;
     return `
       <div class="unit-wound-row ${u.isDestroyed ? 'destroyed' : ''}">
-        <div class="unit-name-box">
-          <span>${u.name}</span>
+        <div class="unit-name-box" onclick="openUnitDatasheet('${u.id}', 2)" title="點擊查看 ${u.name} 角色資料卡">
+          <span class="unit-title-text">${u.name}</span>
+          <span class="unit-card-btn">📋 數據卡</span>
           ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#4ade80;">${u.inv}</span>` : ''}
         </div>
         <div class="unit-wound-ctrls">
@@ -1787,14 +2436,355 @@ function saveSetup() {
   gameState.firstPlayer = parseInt(document.getElementById('setup-first-player').value);
   gameState.battleReady = document.getElementById('setup-battle-ready').checked;
 
-  document.getElementById('p1-enhancement-display').textContent = `統帥：連長 ｜ 強化：${gameState.p1.enhancement}`;
-  document.getElementById('p2-enhancement-display').textContent = `統帥：戰爭頭目 ｜ 強化：${gameState.p2.enhancement}`;
-
   logEvent(`⚙️ 戰前設定已更新：佈局 ${gameState.layout}，P1 強化【${gameState.p1.enhancement}】，P2 強化【${gameState.p2.enhancement}】。`);
   closeSetupModal();
   saveToStorage();
   renderAll();
 }
+
+// ==================== 強化詞綴互動渲染 ====================
+function renderEnhancements() {
+  const p1Disp = document.getElementById('p1-enhancement-display');
+  const p2Disp = document.getElementById('p2-enhancement-display');
+  if (p1Disp) {
+    p1Disp.innerHTML = `統帥：連長 ｜ 強化：<span class="enhancement-pill-btn" onclick="openEnhancementModal(1)" title="點擊查看強化詞綴詳情">✨ ${gameState.p1.enhancement} 🔍</span>`;
+  }
+  if (p2Disp) {
+    p2Disp.innerHTML = `統帥：戰爭頭目 ｜ 強化：<span class="enhancement-pill-btn" onclick="openEnhancementModal(2)" title="點擊查看強化詞綴詳情">✨ ${gameState.p2.enhancement} 🔍</span>`;
+  }
+}
+
+// ==================== 角色資料卡浮層 (UNIT DATASHEET MODAL) ====================
+let currentUnitModalId = 'c1';
+let currentUnitModalPlayer = 1;
+
+function openUnitDatasheet(unitId, player) {
+  currentUnitModalId = unitId;
+  currentUnitModalPlayer = player || (unitId.startsWith('c') ? 1 : 2);
+  renderUnitDatasheetModal();
+  document.getElementById('modal-unit-datasheet').classList.add('active');
+}
+
+function closeUnitDatasheetModal() {
+  document.getElementById('modal-unit-datasheet').classList.remove('active');
+}
+
+function switchUnitTab(unitId, player) {
+  currentUnitModalId = unitId;
+  currentUnitModalPlayer = player;
+  renderUnitDatasheetModal();
+}
+
+function renderUnitDatasheetModal() {
+  const unit = UNIT_DATASHEETS[currentUnitModalId];
+  if (!unit) return;
+
+  const player = currentUnitModalPlayer;
+  const isP1 = player === 1;
+
+  // 1. Faction badge & title
+  const factionBadge = document.getElementById('unit-modal-faction-badge');
+  factionBadge.className = `bunker-badge ${isP1 ? 'badge-p1' : 'badge-p2'}`;
+  factionBadge.textContent = isP1 ? 'PLAYER 1 (阿斯塔特)' : 'PLAYER 2 (歐克蠻人)';
+
+  document.getElementById('unit-modal-title').textContent = `${unit.name} 角色資料卡`;
+
+  // 2. Tabs for all units in this team
+  const tabsContainer = document.getElementById('unit-modal-tabs');
+  const teamUnits = isP1 ? gameState.p1.units : gameState.p2.units;
+  tabsContainer.innerHTML = teamUnits.map(u => {
+    const data = UNIT_DATASHEETS[u.id];
+    const isAct = u.id === currentUnitModalId;
+    return `<button class="sheet-tab-btn ${isAct ? (isP1 ? 'active' : 'active ork') : ''}" onclick="switchUnitTab('${u.id}', ${player})">${data ? data.name : u.name}</button>`;
+  }).join('');
+
+  // 3. Current unit state (curW, isDestroyed)
+  const runtimeUnit = teamUnits.find(u => u.id === currentUnitModalId);
+  const curW = runtimeUnit ? runtimeUnit.curW : unit.stats.w;
+  const maxW = runtimeUnit ? runtimeUnit.maxW : unit.stats.w;
+  const isDestroyed = runtimeUnit ? runtimeUnit.isDestroyed : false;
+
+  // 4. Attached enhancement check
+  let attachedEnhancementHTML = '';
+  if (isP1) {
+    if (unit.id === 'c3' && gameState.p1.enhancement.includes('劍術大師')) {
+      attachedEnhancementHTML = `
+        <div class="unit-attached-enhancement">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
+            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：劍術大師 (預設)</strong>
+            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(1, 'p1_master')">查看詞綴</button>
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+            敵方衝鋒交戰後，該敵方單位本回合近戰致傷擲骰 (Wound roll) -1！
+          </div>
+        </div>
+      `;
+    } else if (unit.id === 'c4' && gameState.p1.enhancement.includes('戰線老兵')) {
+      attachedEnhancementHTML = `
+        <div class="unit-attached-enhancement">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
+            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：戰線老兵 (替代)</strong>
+            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(1, 'p1_veteran')">查看詞綴</button>
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+            爆矢步槍獲得 [速射 1 (Rapid Fire 1)]，半程內每把步槍射擊攻擊次數增至 3 次！
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    if (unit.id === 'o1' && gameState.p2.enhancement.includes('振奮戰吼')) {
+      attachedEnhancementHTML = `
+        <div class="unit-attached-enhancement">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
+            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：振奮戰吼 (預設)</strong>
+            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(2, 'p2_warcry')">查看詞綴</button>
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+            指揮階段（每場限一次），將最多 D3+2 個被摧毀的護衛模型全數返還復活！
+          </div>
+        </div>
+      `;
+    } else if (unit.id === 'o3' && gameState.p2.enhancement.includes('額外裝甲')) {
+      attachedEnhancementHTML = `
+        <div class="unit-attached-enhancement">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
+            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：額外裝甲 (替代)</strong>
+            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(2, 'p2_armour')">查看詞綴</button>
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+            該卡車單位獲得 3+ 護甲豁免 (Sv) 以及 4+ 特殊豁免 (4++ 特保 / InSv)！
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // 5. Render Modal Body
+  const body = document.getElementById('unit-modal-body');
+  body.innerHTML = `
+    <div class="unit-sheet-hero">
+      <img src="${unit.image}" alt="${unit.name}" class="unit-sheet-avatar">
+      <div class="unit-sheet-title-box">
+        <div class="unit-sheet-name-zh">${unit.name}</div>
+        <div class="unit-sheet-name-en">${unit.enName}</div>
+        <div class="unit-sheet-badges">
+          <span class="unit-badge-pill ${unit.role.includes('戰帥') ? 'unit-badge-warlord' : ''}">${unit.role}</span>
+          <span class="unit-badge-pill" style="color:${isDestroyed ? '#94a3b8' : (isP1 ? '#f87171' : '#4ade80')};">
+            ${isDestroyed ? '💥 已戰損 (DESTROYED)' : `❤️ 當前生命：${curW} / ${maxW} W`}
+          </span>
+          <a href="${unit.codexLink}" target="_blank" class="unit-badge-pill" style="text-decoration:none; color:#38bdf8; background:rgba(56,189,248,0.1);">📖 官方數據庫 &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 核心屬性 HUD -->
+    <div class="unit-hud-grid">
+      <div class="unit-hud-box">
+        <div class="unit-hud-label">M (移動)</div>
+        <div class="unit-hud-val" style="color:#38bdf8;">${unit.stats.m}</div>
+      </div>
+      <div class="unit-hud-box">
+        <div class="unit-hud-label">T (韌性)</div>
+        <div class="unit-hud-val" style="color:#f59e0b;">${unit.stats.t}</div>
+      </div>
+      <div class="unit-hud-box">
+        <div class="unit-hud-label">SV (護甲)</div>
+        <div class="unit-hud-val" style="color:#4ade80;">${unit.stats.sv}</div>
+      </div>
+      <div class="unit-hud-box ${unit.stats.insv !== '-' ? 'hud-insv' : ''}">
+        <div class="unit-hud-label">INSV (特保)</div>
+        <div class="unit-hud-val">${unit.stats.insv}</div>
+      </div>
+      <div class="unit-hud-box">
+        <div class="unit-hud-label">W (生命)</div>
+        <div class="unit-hud-val" style="color:#ef4444;">${unit.stats.w}</div>
+      </div>
+      <div class="unit-hud-box">
+        <div class="unit-hud-label">LD (領導)</div>
+        <div class="unit-hud-val" style="color:#c084fc;">${unit.stats.ld}</div>
+      </div>
+      <div class="unit-hud-box">
+        <div class="unit-hud-label">OC (據點)</div>
+        <div class="unit-hud-val" style="color:#eab308;">${unit.stats.oc}</div>
+      </div>
+    </div>
+
+    ${attachedEnhancementHTML}
+
+    <!-- 武器配置表格 -->
+    <div style="margin-top:12px;">
+      <div style="font-size:13px; font-weight:800; color:#f1f5f9; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+        <span>⚔️ 配備武器清單 (Weapons)</span>
+      </div>
+      <div class="unit-table-wrap">
+        <table class="unit-sheet-table">
+          <thead>
+            <tr>
+              <th style="width:24%;">武器名稱</th>
+              <th>類型</th>
+              <th>射程</th>
+              <th>攻擊 A</th>
+              <th>命中 BS/WS</th>
+              <th>力量 S</th>
+              <th>穿甲 AP</th>
+              <th>傷害 D</th>
+              <th style="width:24%;">武器關鍵字</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${unit.weapons.map(w => `
+              <tr>
+                <td class="weapon-name-cell">${w.name}</td>
+                <td><span style="color:${w.type === '近戰' ? '#f87171' : '#38bdf8'}; font-weight:700;">${w.type}</span></td>
+                <td>${w.range}</td>
+                <td><strong>${w.a}</strong></td>
+                <td>${w.bsWs}</td>
+                <td>${w.s}</td>
+                <td><span style="color:${w.ap.startsWith('-') ? '#f87171' : 'inherit'}; font-weight:700;">${w.ap}</span></td>
+                <td><strong>${w.d}</strong></td>
+                <td>${w.keywords.map(k => `<span class="weapon-tag-pill">${k}</span>`).join('')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 專屬特殊能力 -->
+    <div class="unit-ability-section">
+      <div style="font-size:13px; font-weight:800; color:#f1f5f9; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+        <span>🔮 專屬特規與戰略技能 (Abilities)</span>
+      </div>
+      ${unit.abilities.map(a => `
+        <div class="unit-ability-card ${isP1 ? '' : 'ork-card'}">
+          <div class="unit-ability-title">
+            <span>● ${a.title}</span>
+          </div>
+          <div class="unit-ability-desc">${a.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ==================== 強化詞綴浮層 (ENHANCEMENT MODAL) ====================
+let currentEnhPlayer = 1;
+let currentEnhKey = 'p1_master';
+
+function openEnhancementModal(player, specificKey) {
+  currentEnhPlayer = player || 1;
+  if (specificKey) {
+    currentEnhKey = specificKey;
+  } else {
+    // 根據當前選擇的強化決定預設 key
+    if (currentEnhPlayer === 1) {
+      currentEnhKey = gameState.p1.enhancement.includes('戰線老兵') ? 'p1_veteran' : 'p1_master';
+    } else {
+      currentEnhKey = gameState.p2.enhancement.includes('額外裝甲') ? 'p2_armour' : 'p2_warcry';
+    }
+  }
+  renderEnhancementModal();
+  document.getElementById('modal-enhancement').classList.add('active');
+}
+
+function closeEnhancementModal() {
+  document.getElementById('modal-enhancement').classList.remove('active');
+}
+
+function switchEnhancementTab(player, enhKey) {
+  currentEnhPlayer = player;
+  currentEnhKey = enhKey;
+  renderEnhancementModal();
+}
+
+function renderEnhancementModal() {
+  const enh = ENHANCEMENT_DATA[currentEnhKey];
+  if (!enh) return;
+
+  const player = currentEnhPlayer;
+  const isP1 = player === 1;
+
+  // 1. Faction badge & title
+  const factionBadge = document.getElementById('enh-modal-faction-badge');
+  factionBadge.className = `bunker-badge ${isP1 ? 'badge-p1' : 'badge-p2'}`;
+  factionBadge.textContent = isP1 ? 'PLAYER 1 (阿斯塔特 突擊分隊)' : 'PLAYER 2 (歐克蠻人 硬漢幫)';
+
+  document.getElementById('enh-modal-title').textContent = `${enh.name} 強化詳情`;
+
+  // 2. Tabs to toggle between Default and Alternative
+  const tabsContainer = document.getElementById('enh-modal-tabs');
+  const teamOptions = isP1
+    ? [
+        { key: 'p1_master', label: '劍術大師 (預設)' },
+        { key: 'p1_veteran', label: '戰線老兵 (替代)' }
+      ]
+    : [
+        { key: 'p2_warcry', label: '振奮戰吼 (預設)' },
+        { key: 'p2_armour', label: '額外裝甲 (替代)' }
+      ];
+
+  tabsContainer.innerHTML = teamOptions.map(opt => {
+    const isAct = opt.key === currentEnhKey;
+    return `<button class="sheet-tab-btn ${isAct ? (isP1 ? 'active' : 'active ork') : ''}" onclick="switchEnhancementTab(${player}, '${opt.key}')">${opt.label}</button>`;
+  }).join('');
+
+  // Check if currently equipped in game
+  const isCurrentlyEquipped = (isP1 && gameState.p1.enhancement.includes(enh.name)) ||
+                             (!isP1 && gameState.p2.enhancement.includes(enh.name));
+
+  // 3. Render Modal Body
+  const body = document.getElementById('enh-modal-body');
+  body.innerHTML = `
+    <div style="background:#090e17; border:1px solid rgba(255,255,255,0.1); border-left:4px solid ${isP1 ? '#d97706' : '#22c55e'}; border-radius:8px; padding:16px; margin-bottom:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+        <span style="font-size:18px; font-weight:900; color:#ffffff;">${enh.name} <span style="font-size:13px; font-weight:600; color:#94a3b8;">(${enh.enName})</span></span>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:4px; background:${enh.type.includes('預設') ? 'rgba(245,158,11,0.2)' : 'rgba(56,189,248,0.2)'}; color:${enh.type.includes('預設') ? '#fbbf24' : '#38bdf8'}; border:1px solid ${enh.type.includes('預設') ? 'rgba(245,158,11,0.4)' : 'rgba(56,189,248,0.4)'};">${enh.type}</span>
+          ${isCurrentlyEquipped ? '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:4px; background:rgba(34,197,94,0.2); color:#4ade80; border:1px solid rgba(34,197,94,0.4);">✓ 當前裝備中</span>' : ''}
+        </div>
+      </div>
+      <div style="font-size:12.5px; color:#f59e0b; font-weight:700; margin-bottom:12px;">
+        ${enh.target}
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:12px; font-size:13px; color:#f1f5f9; line-height:1.6; margin-bottom:14px;">
+        <strong>【強化規則效果】</strong><br>
+        ${enh.rule}
+      </div>
+      <div style="background:rgba(56,189,248,0.05); border:1px solid rgba(56,189,248,0.2); border-radius:6px; padding:12px; font-size:12px; color:#cbd5e1; line-height:1.5;">
+        <strong style="color:#38bdf8;">💡 官方作戰戰術錦囊：</strong><br>
+        ${enh.tactics}
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <a href="${enh.link}" target="_blank" class="btn-wj btn-wj-outline" style="text-decoration:none; font-size:12px; padding:6px 12px;">
+        📖 前往官方分隊手冊強化總覽 &rarr;
+      </a>
+      <button class="btn-wj btn-wj-primary" style="font-size:12px; padding:6px 14px;" onclick="closeEnhancementModal()">
+        關閉視窗
+      </button>
+    </div>
+  `;
+}
+
+// 模態框背景點擊關閉
+function handleModalOverlayClick(e, modalId) {
+  if (e.target.id === modalId) {
+    document.getElementById(modalId).classList.remove('active');
+  }
+}
+
+// ESC 鍵快速關閉所有彈窗
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeUnitDatasheetModal();
+    closeEnhancementModal();
+    closeSetupModal();
+    closeDeploymentModal();
+    closeStratagemModal();
+  }
+});
 
 // ==================== 日誌與存檔 ====================
 function logEvent(msg) {
@@ -1849,36 +2839,9 @@ function loadFromStorage() {
 // 啟動
 document.addEventListener('DOMContentLoaded', () => {
   init();
-
-  // 側邊欄折疊開關 (桌面端)
-  const collapseBtn = document.getElementById('sidebarCollapseBtn');
-  const sidebar = document.getElementById('appSidebar');
-  if (collapseBtn && sidebar) {
-    collapseBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
-      localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
-    });
-    if (localStorage.getItem('sidebar_collapsed') === 'true') {
-      sidebar.classList.add('collapsed');
-    }
-  }
-
-  // 手機版抽屜開關
-  const mobileBtn = document.getElementById('mobileMenuBtn');
-  const backdrop = document.getElementById('sidebarBackdrop');
-  if (mobileBtn && sidebar && backdrop) {
-    mobileBtn.addEventListener('click', () => {
-      sidebar.classList.add('mobile-open');
-      backdrop.classList.add('active');
-    });
-    backdrop.addEventListener('click', () => {
-      sidebar.classList.remove('mobile-open');
-      backdrop.classList.remove('active');
-    });
-  }
 });
 </script>
 
-<script src="shared.js?v=3.2.3"></script>
+<script src="shared.js?v=3.2.4"></script>
 </body>
 </html>
