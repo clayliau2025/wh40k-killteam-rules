@@ -3,7 +3,7 @@
  * 版本: v3.2.0 (PWA 離線支援與快取管理)
  */
 
-const CACHE_NAME = 'wh40k-pwa-v3.2.6';
+const CACHE_NAME = 'wh40k-pwa-v3.2.7';
 
 const PRECACHE_ASSETS = [
   './',
@@ -18,6 +18,8 @@ const PRECACHE_ASSETS = [
   '40k_cp_orks.html',
   'rule_lite.html',
   'match_tracker.html',
+  'angel_of_death_starter_set_rule.html',
+  'plague_marine_starter_set_rule.html',
   'death_of_angel_web_rule.html',
   'Kommandos.html',
   'plague_marine.html',

@@ -778,7 +778,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.6 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.7 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -840,7 +840,7 @@
           <span class="mode-badge" style="background:#ea580c; color:#fff;">新手入門推薦 / 終極任務</span>
           <h3 style="font-size:15px; margin:4px 0 6px; color:#0f172a;">📦 入門套組模式 (Starter Set)</h3>
           <p style="font-size:12px; color:#64748b; line-height:1.5; margin:0;">
-            依據《入門套組手冊》終極任務「永恆抗爭 (Eternal Struggle)」規則。<strong>固定武器角色卡</strong>、特工自帶特規，<strong>免自選戰團戰術</strong>，<strong>無額外裝備庫</strong>，CP 專用於<strong>指揮重骰 (Command Re-roll)</strong>！
+            依據《入門套組手冊》終極任務「永恆抗爭 (Eternal Struggle)」規則。<strong>固定武器角色卡</strong>、特工自帶特規，<strong>免自選戰團戰術</strong>，<strong>無額外裝備庫</strong>，CP 專用於<strong>指揮重骰 (Command Re-roll)</strong>！雙方各編制 <strong>5 位特工</strong>（星際戰士首領與重火 2 選 1；瘟疫戰士必選頭目其餘 6 選 4）。
           </p>
         </div>
         <!-- 標準對戰模式 -->
@@ -910,8 +910,8 @@
     <!-- 步驟 3：特工挑選與武裝選配 (嚴格規則檢查 / 入門模式固定武裝) -->
     <div class="wizard-step-content" id="stepContent3">
       <h2 style="font-size:18px; margin-bottom:12px; color:#0f172a;">步驟 3：出場特工名冊挑選與武器配置</h2>
-      <div id="step3RuleNotice" style="background:#f1f5f9; border-left:4px solid #0284c7; padding:10px 14px; margin-bottom:16px; font-size:12.5px; color:#334155;">
-        ⚠️ <strong>官方編制規則限制：</strong>死亡天使與瘟疫戰士<strong>必須剛好 6 名</strong>，且<strong>必須恰好 1 名首領特工 (Leader)</strong>。各專家特工上限皆為 1 名。
+      <div id="step3RuleNotice" style="background:#f1f5f9; border-left:4px solid #0284c7; padding:10px 14px; margin-bottom:16px; font-size:12.5px; color:#334155; line-height:1.6;">
+        ⚠️ <strong>官方編制規則限制：</strong>請根據所選模式配置符合規則的出場特工名冊。
       </div>
 
       <div class="grid-2" id="operativesSetupContainer">
@@ -1302,8 +1302,8 @@ const KT_DB_STARTER = {
     name: '死亡天使 (入門版)',
     nameEn: 'Angels of Death (Starter)',
     color: '#991b1b',
-    squadRuleDesc: '剛好挑選 6 名特工 (含 1 名首領特工：連長或軍士)。固定武裝卡片，特工自帶特規。',
-    maxOps: 6,
+    squadRuleDesc: '剛好挑選 5 名特工出戰：連長與軍士 2 選 1，狙擊手與重裝槍手 2 選 1，其餘為 3 名常規戰士。固定武器卡片，特工自帶特規。',
+    maxOps: 5,
     tactics: [
       { name: '爆彈操典', desc: '仲裁者軍士、重裝槍手、常規戰士單次啟動可執行 2 次射擊行動。' },
       { name: '震懾突擊', desc: '連長、突擊仲裁者單次啟動可執行 2 次近戰搏鬥行動。' }
@@ -1410,8 +1410,8 @@ const KT_DB_STARTER = {
     name: '瘟疫戰士 (入門版)',
     nameEn: 'Plague Marines (Starter)',
     color: '#2d5a27',
-    squadRuleDesc: '剛好挑選 6 名特工 (含 1 名冠軍頭目)。固定武裝卡片，全員享有噁心韌性 5+ 減傷。',
-    maxOps: 6,
+    squadRuleDesc: '剛好挑選 5 名特工出戰：必須包含 1 名冠軍頭目，其餘 6 名特工中挑選 4 名出戰。固定武裝卡片，全員享有噁心韌性 5+ 減傷。',
+    maxOps: 5,
     tactics: [
       { name: '噁心韌性', desc: '每當受到傷害時，擲 D6 結果為 5+ 則該點傷害忽略。' },
       { name: '納垢賜福', desc: '冠軍頭目單次啟動期間內可執行 2 次射擊或 2 次近戰搏鬥。' }
@@ -2045,13 +2045,13 @@ function renderStep1FactionLists() {
     // 死亡天使
     html += `<div class="faction-select-card ${p.faction === 'angels' ? 'selected' : ''}" onclick="selectFaction(${pNum}, 'angels')">
       <div style="font-weight:800; color:#991b1b;">🩸 死亡天使 (Angels of Death)</div>
-      <div style="font-size:11.5px; color:#64748b;">${isStarter ? '入門版角色卡 / 7 選 6 名出戰 / 連長或軍士首領' : '阿斯塔特修士 / 自選戰團戰術 / 限 6 名精銳'}</div>
+      <div style="font-size:11.5px; color:#64748b;">${isStarter ? '入門版角色卡 / 7 選 5 名出戰 (首領2選1、重火2選1)' : '阿斯塔特修士 / 自選戰團戰術 / 限 6 名精銳'}</div>
     </div>`;
 
     // 瘟疫戰士
     html += `<div class="faction-select-card ${p.faction === 'plague' ? 'selected' : ''}" onclick="selectFaction(${pNum}, 'plague')">
       <div style="font-weight:800; color:#2d5a27;">☣️ 瘟疫戰士 (Plague Marines)</div>
-      <div style="font-size:11.5px; color:#64748b;">${isStarter ? '入門版角色卡 / 7 選 6 名出戰 / 冠軍首領 / 噁心韌性5+' : '死亡守衛 / 噁心韌性5+減傷 / 限 6 名瘟疫戰士'}</div>
+      <div style="font-size:11.5px; color:#64748b;">${isStarter ? '入門版角色卡 / 7 選 5 名出戰 (必含冠軍頭目，其餘6選4) / 噁心韌性5+' : '死亡守衛 / 噁心韌性5+減傷 / 限 6 名瘟疫戰士'}</div>
     </div>`;
 
     // 特戰小子 (標準模式限定)
@@ -2091,7 +2091,8 @@ function goBackFromStep3() {
 
 function proceedFromStep3() {
   // 檢查編制是否合法
-  const db = matchState.gameMode === 'starter' ? KT_DB_STARTER : KT_DB_FULL;
+  const isStarter = matchState.gameMode === 'starter';
+  const db = isStarter ? KT_DB_STARTER : KT_DB_FULL;
   for (let pNum = 1; pNum <= 2; pNum++) {
     const p = matchState.players[pNum - 1];
     const fData = db[p.faction];
@@ -2105,8 +2106,40 @@ function proceedFromStep3() {
       return;
     }
     if (leaderCount !== 1) {
-      alert(`【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n殺戮小隊必須恰好包含 1 名首領特工 (Leader)！\n目前已選：${leaderCount} 名首領特工。\n請確認已挑選 1 位首領特工。`);
+      if (isStarter && p.faction === 'plague') {
+        alert(`【${p.name} (${fData.name}) 缺少冠軍頭目】\n\n瘟疫戰士入門規則規定：必須選取「瘟疫戰士冠軍頭目 (Plague Marine Champion)」！\n請務必勾選冠軍頭目出戰。`);
+      } else if (isStarter && p.faction === 'angels') {
+        alert(`【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n星際戰士入門規則規定：必須在「星際戰士連長」與「仲裁者軍士」中 2 選 1 挑選剛好 1 位首領！\n目前已選：${leaderCount} 名。\n請調整至剛好 1 位首領。`);
+      } else {
+        alert(`【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n殺戮小隊必須恰好包含 1 名首領特工 (Leader)！\n目前已選：${leaderCount} 名首領特工。\n請確認已挑選 1 位首領特工。`);
+      }
       return;
+    }
+
+    if (isStarter && p.faction === 'angels') {
+      const hasSniper = checked.some(c => c.value === 'st_sm_elim');
+      const hasHeavy = checked.some(c => c.value === 'st_sm_hvy');
+      if (hasSniper && hasHeavy) {
+        alert(`【${p.name} (${fData.name}) 特工選拔衝突】\n\n星際戰士入門規則規定：「殲滅者狙擊手」與「重裝仲裁者槍手」為 2 選 1！\n不可同時派上場，請取消勾選其中一位。`);
+        return;
+      }
+      if (!hasSniper && !hasHeavy) {
+        alert(`【${p.name} (${fData.name}) 缺少重火支援特工】\n\n星際戰士入門規則規定：必須在「殲滅者狙擊手」與「重裝仲裁者槍手」中 2 選 1 挑選一位出戰！\n請勾選其中一位。`);
+        return;
+      }
+    }
+
+    if (isStarter && p.faction === 'plague') {
+      const hasChamp = checked.some(c => c.value === 'st_pm_champ');
+      if (!hasChamp) {
+        alert(`【${p.name} (${fData.name}) 缺少冠軍頭目】\n\n瘟疫戰士入門規則規定：必須選取「瘟疫戰士冠軍頭目」！\n請務必勾選冠軍頭目。`);
+        return;
+      }
+      const otherCount = checked.filter(c => c.value !== 'st_pm_champ').length;
+      if (otherCount !== 4) {
+        alert(`【${p.name} (${fData.name}) 隊員數量錯誤】\n\n瘟疫戰士入門規則規定：除了冠軍頭目外，其餘 6 名特工中必須挑選剛好 4 位隊員出戰！\n目前已選隊員：${otherCount} 名。`);
+        return;
+      }
     }
   }
 
@@ -2222,6 +2255,22 @@ function renderStep3() {
   const isStarter = matchState.gameMode === 'starter';
   const db = isStarter ? KT_DB_STARTER : KT_DB_FULL;
 
+  // 動態更新規則提醒
+  const notice = document.getElementById('step3RuleNotice');
+  if (notice) {
+    if (isStarter) {
+      notice.innerHTML = `📦 <strong>入門套組編制規則：</strong>雙方小隊<strong>各挑選剛好 5 位特工出戰</strong>！<br>
+      • <strong>星際戰士 (死亡天使)：</strong>首領 2 選 1（連長或軍士）、重火支援 2 選 1（狙擊手或重裝槍手）、其餘 3 名常規戰士。<br>
+      • <strong>瘟疫戰士：</strong>必須包含 1 名冠軍頭目，其餘 6 名特工中挑選 4 位出戰。`;
+      notice.style.borderLeftColor = '#ea580c';
+      notice.style.background = '#fff7ed';
+    } else {
+      notice.innerHTML = `⚔️ <strong>官方編制規則限制：</strong>死亡天使與瘟疫戰士<strong>必須剛好 6 名</strong>，特戰小子<strong>必須剛好 10 名</strong>，且<strong>必須恰好 1 名首領特工 (Leader)</strong>。各專家特工上限皆為 1 名。`;
+      notice.style.borderLeftColor = '#0284c7';
+      notice.style.background = '#f1f5f9';
+    }
+  }
+
   // 如果非入門模式，保存步驟 2 戰術
   if (!isStarter) {
     [1, 2].forEach(pNum => {
@@ -2252,29 +2301,62 @@ function renderStep3() {
       <div class="squad-status-bar" id="squadBar_p${pNum}">
         <span class="squad-badge warn" id="badgeCount_p${pNum}">特工配額: 0 / ${maxOps} 名</span>
         <span class="squad-badge err" id="badgeLeader_p${pNum}">首領特工: 0 / 1 名</span>
+        ${isStarter && p.faction === 'angels' ? `<span class="squad-badge warn" id="badgeSpec_p${pNum}">重火支援: 0 / 1 名 (狙擊/重裝 2選1)</span>` : ''}
+        ${isStarter && p.faction === 'plague' ? `<span class="squad-badge warn" id="badgeSpec_p${pNum}">其餘隊員: 0 / 4 名 (6選4)</span>` : ''}
       </div>
 
       <div style="display:flex; flex-direction:column;">`;
 
-    // 智慧預選：恰好 1 首領 + 非首領填滿 maxOps
-    let leaderPrechecked = false;
+    // 智慧預選
     const preCheckedIds = new Set();
-    fData.operatives.forEach(op => {
-      if (op.isLeader && !leaderPrechecked) {
-        preCheckedIds.add(op.id);
-        leaderPrechecked = true;
+    if (isStarter) {
+      if (p.faction === 'angels') {
+        // 星際戰士入門版：連長(1) + 狙擊手(1) + 突擊戰士(1) + 自動爆彈戰士(1) + 爆彈戰士(1) = 5
+        preCheckedIds.add('st_sm_cap');
+        preCheckedIds.add('st_sm_elim');
+        preCheckedIds.add('st_sm_asg');
+        preCheckedIds.add('st_sm_war_auto');
+        preCheckedIds.add('st_sm_war_bolt');
+      } else if (p.faction === 'plague') {
+        // 瘟疫戰士入門版：冠軍頭目(1) + 惡意施瘟者(1) + 轟炸手(1) + 格鬥家(1) + 重裝槍手(1) = 5 (6選4)
+        preCheckedIds.add('st_pm_champ');
+        preCheckedIds.add('st_pm_caster');
+        preCheckedIds.add('st_pm_bomb');
+        preCheckedIds.add('st_pm_fight');
+        preCheckedIds.add('st_pm_hvy');
+      } else {
+        let leaderPrechecked = false;
+        fData.operatives.forEach(op => {
+          if (op.isLeader && !leaderPrechecked) {
+            preCheckedIds.add(op.id);
+            leaderPrechecked = true;
+          }
+        });
+        fData.operatives.forEach(op => {
+          if (!op.isLeader && preCheckedIds.size < maxOps) {
+            preCheckedIds.add(op.id);
+          }
+        });
       }
-    });
-    fData.operatives.forEach(op => {
-      if (!op.isLeader && preCheckedIds.size < maxOps) {
-        preCheckedIds.add(op.id);
-      }
-    });
+    } else {
+      let leaderPrechecked = false;
+      fData.operatives.forEach(op => {
+        if (op.isLeader && !leaderPrechecked) {
+          preCheckedIds.add(op.id);
+          leaderPrechecked = true;
+        }
+      });
+      fData.operatives.forEach(op => {
+        if (!op.isLeader && preCheckedIds.size < maxOps) {
+          preCheckedIds.add(op.id);
+        }
+      });
+    }
 
     fData.operatives.forEach(op => {
       const isPrechecked = preCheckedIds.has(op.id);
 
-      html += `<div class="loadout-row ${isPrechecked ? 'row-selected' : ''}">
+      html += `<div class="loadout-row ${isPrechecked ? 'row-selected' : ''}" id="row_p${pNum}_${op.id}">
         <label style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1;">
           <input type="checkbox" name="p${pNum}_op" value="${op.id}" data-leader="${op.isLeader ? 'true' : 'false'}" data-specialist="${op.isSpecialist ? 'true' : 'false'}" ${isPrechecked ? 'checked' : ''} onchange="handleOperativeToggle(${pNum}, this)">
           <img src="${op.thumb}" style="width:32px; height:32px; object-fit:contain; border-radius:4px; background:#fff; border:1px solid #e2e8f0; flex-shrink:0;" onerror="this.onerror=null; this.src='assets/kt_icon.svg';">
@@ -2283,6 +2365,10 @@ function renderStep3() {
               ${op.name}
               ${op.isLeader ? '<span style="color:#ea580c; font-size:10px; font-weight:800; background:#ffedd5; padding:1px 5px; border-radius:3px; margin-left:4px;">👑 LEADER</span>' : ''}
               ${op.isSpecialist ? '<span style="color:#0284c7; font-size:10px; font-weight:800; background:#e0f2fe; padding:1px 5px; border-radius:3px; margin-left:4px;">★ 專家</span>' : ''}
+              ${isStarter && p.faction === 'angels' && op.isLeader ? '<span style="color:#b45309; font-size:10px; font-weight:700; background:#fef3c7; padding:1px 5px; border-radius:3px; margin-left:4px;">(首領 2選1)</span>' : ''}
+              ${isStarter && p.faction === 'angels' && (op.id === 'st_sm_elim' || op.id === 'st_sm_hvy') ? '<span style="color:#0369a1; font-size:10px; font-weight:700; background:#e0f2fe; padding:1px 5px; border-radius:3px; margin-left:4px;">(重火 2選1)</span>' : ''}
+              ${isStarter && p.faction === 'plague' && op.isLeader ? '<span style="color:#15803d; font-size:10px; font-weight:700; background:#dcfce7; padding:1px 5px; border-radius:3px; margin-left:4px;">(必選頭目)</span>' : ''}
+              ${isStarter && p.faction === 'plague' && !op.isLeader ? '<span style="color:#475569; font-size:10px; font-weight:600; background:#f1f5f9; padding:1px 5px; border-radius:3px; margin-left:4px;">(6選4)</span>' : ''}
             </div>
             <div style="font-size:10.5px; color:#64748b;">HP: <strong>${op.wounds}</strong> | APL: <strong>${op.apl}</strong> | 豁免: <strong>${op.save}</strong> | 移速: <strong>${op.move}</strong></div>
           </div>
@@ -2319,6 +2405,38 @@ function renderStep3() {
 }
 
 function handleOperativeToggle(pNum, checkbox) {
+  const isStarter = matchState.gameMode === 'starter';
+  const p = matchState.players[pNum - 1];
+
+  // 入門模式下星際戰士 2 選 1 自動互斥輔助
+  if (isStarter && checkbox.checked && p.faction === 'angels') {
+    if (checkbox.value === 'st_sm_cap') {
+      const sgt = document.querySelector(`input[name="p${pNum}_op"][value="st_sm_sgt"]`);
+      if (sgt && sgt.checked) {
+        sgt.checked = false;
+        sgt.closest('.loadout-row')?.classList.remove('row-selected');
+      }
+    } else if (checkbox.value === 'st_sm_sgt') {
+      const cap = document.querySelector(`input[name="p${pNum}_op"][value="st_sm_cap"]`);
+      if (cap && cap.checked) {
+        cap.checked = false;
+        cap.closest('.loadout-row')?.classList.remove('row-selected');
+      }
+    } else if (checkbox.value === 'st_sm_elim') {
+      const hvy = document.querySelector(`input[name="p${pNum}_op"][value="st_sm_hvy"]`);
+      if (hvy && hvy.checked) {
+        hvy.checked = false;
+        hvy.closest('.loadout-row')?.classList.remove('row-selected');
+      }
+    } else if (checkbox.value === 'st_sm_hvy') {
+      const elim = document.querySelector(`input[name="p${pNum}_op"][value="st_sm_elim"]`);
+      if (elim && elim.checked) {
+        elim.checked = false;
+        elim.closest('.loadout-row')?.classList.remove('row-selected');
+      }
+    }
+  }
+
   const row = checkbox.closest('.loadout-row');
   if (row) row.classList.toggle('row-selected', checkbox.checked);
   updateSquadCheck(pNum);
@@ -2343,8 +2461,37 @@ function updateSquadCheck(pNum) {
 
   const leaderBadge = document.getElementById(`badgeLeader_p${pNum}`);
   if (leaderBadge) {
-    leaderBadge.innerText = `首領特工: ${leaderCount} / 1 名`;
+    if (isStarter && p.faction === 'angels') {
+      leaderBadge.innerText = `首領特工: ${leaderCount} / 1 名 (連長/軍士 2選1)`;
+    } else if (isStarter && p.faction === 'plague') {
+      leaderBadge.innerText = `冠軍頭目: ${leaderCount} / 1 名 (必選)`;
+    } else {
+      leaderBadge.innerText = `首領特工: ${leaderCount} / 1 名`;
+    }
     leaderBadge.className = leaderCount === 1 ? 'squad-badge ok' : 'squad-badge err';
+  }
+
+  const specBadge = document.getElementById(`badgeSpec_p${pNum}`);
+  if (specBadge) {
+    if (isStarter && p.faction === 'angels') {
+      const hasSniper = checkedBoxes.some(c => c.value === 'st_sm_elim');
+      const hasHeavy = checkedBoxes.some(c => c.value === 'st_sm_hvy');
+      const specCount = (hasSniper ? 1 : 0) + (hasHeavy ? 1 : 0);
+      if (specCount === 1) {
+        specBadge.innerText = `重火支援: 1 / 1 名 (${hasSniper ? '已選狙擊手' : '已選重裝槍手'})`;
+        specBadge.className = 'squad-badge ok';
+      } else if (specCount === 0) {
+        specBadge.innerText = `重火支援: 0 / 1 名 (狙擊/重裝 2選1)`;
+        specBadge.className = 'squad-badge warn';
+      } else {
+        specBadge.innerText = `重火支援: 2 / 1 名 (衝突！不可同時選取)`;
+        specBadge.className = 'squad-badge err';
+      }
+    } else if (isStarter && p.faction === 'plague') {
+      const otherCount = checkedBoxes.filter(c => c.dataset.leader !== 'true').length;
+      specBadge.innerText = `其餘隊員: ${otherCount} / 4 名 (6選4)`;
+      specBadge.className = otherCount === 4 ? 'squad-badge ok' : (otherCount > 4 ? 'squad-badge err' : 'squad-badge warn');
+    }
   }
 }
 
