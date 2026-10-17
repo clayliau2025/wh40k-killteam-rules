@@ -98,6 +98,7 @@ def update_version(new_version):
         
         new_content = re.sub(r'(shared\.(?:css|js)\?v=)[0-9\.]+', rf'\g<1>{new_version}', content)
         new_content = re.sub(r'class="version-badge"[^>]*>v[0-9\.]+[^<]*</span>', f'class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v{new_version} PWA</span>', new_content)
+        new_content = re.sub(r'v[0-9\.]+\s+全站統一更新', f'v{new_version} 全站統一更新', new_content)
         if new_content != content:
             with open(h_path, 'w', encoding='utf-8') as f:
                 f.write(new_content)

@@ -1,0 +1,14 @@
+{
+  "name": "wh40k-killteam-rules",
+  "version": "3.3.6",
+  "description": "Warhammer 40K & Kill Team Rules and Match Tracker Web App",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/smoke.spec.js",
+    "test:features": "playwright test tests/features.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  }
+}

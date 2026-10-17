@@ -146,7 +146,7 @@ function renderModularSidebar() {
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.6 PWA</span>
+        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.7 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -1060,34 +1060,44 @@ const SITE_SEARCH_INDEX = [
     title: '殺戮小隊：行動點數限制 (APL) 與通用行動',
     category: 'KT 規則',
     desc: '每回合特工擁有的行動點數限制 (APL)，可用於一般移動、改向、衝鋒、射擊、肉搏、拾取等行動。',
-    url: 'rule_lite.html#rule-actions',
+    url: 'rule_lite.html#actions',
     keywords: ['apl', '行動點數', '通用行動', '衝鋒', 'charge', 'reposition', '改向', '移動']
   },
   {
     title: '殺戮小隊：隱蔽 (Conceal) 與交戰 (Engage) 指令',
     category: 'KT 規則',
     desc: '特工指令狀態：隱蔽狀態下在有效掩體後無法被選為射擊有效目標；交戰狀態可進行射擊與衝鋒。',
-    url: 'rule_lite.html#rule-orders',
+    url: 'rule_lite.html#orders',
     keywords: ['隱蔽', '交戰', 'conceal', 'engage', '指令', 'order', '視線', '掩體']
   },
   {
-    title: '戰錘40K：戰鬥耗損考驗 (Battle-shock Test)',
+    title: '戰錘40K：戰鬥震懾步驟 (Battle-shock Step)',
     category: '40K 規則',
-    desc: '部隊低於半數實力時必須進行戰鬥耗損考驗，未通過時控點數 (OC) 歸零且無法使用戰略計策。',
-    url: '40k_core_rules.html#battleshock',
-    keywords: ['battleshock', '戰鬥耗損', '士氣', '控點', 'oc', '戰慄']
+    desc: '部隊低於半數實力時必須進行戰鬥震懾擲骰，未通過時控點數 (OC) 歸零且無法使用戰略計策。',
+    url: '40k_core_rules.html#sec-08',
+    keywords: ['battleshock', '戰鬥震懾', '戰鬥耗損', '士氣', '控點', 'oc', '震懾']
   },
   {
     title: '戰錘40K：戰略計策與指揮點數 (Command Points & Stratagems)',
     category: '40K 規則',
-    desc: '指揮重擲、快速射擊、英雄介入、火力掩護等核心戰略計策說明與 CP 消耗方式。',
-    url: '40k_core_rules.html#stratagems',
-    keywords: ['cp', '指揮點數', 'stratagems', '計策', '重擲', '英雄介入', '火力掩護']
+    desc: '指揮重投、迎頭痛擊、英雄介入、火力掩護等核心戰略計策說明與 CP 消耗方式。',
+    url: '40k_core_rules.html#sec-15',
+    keywords: ['cp', '指揮點數', 'stratagems', '計謀', '計策', '重投', '英雄介入', '火力掩護']
   }
 ];
 
 let searchSelectedIndex = -1;
 let currentSearchResults = [];
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 function initGlobalSearch() {
   // 1. 如果頂部導航列已有 actions 容器且尚未放入搜尋按鈕，自動注入搜尋按鈕
@@ -1135,7 +1145,9 @@ function initGlobalSearch() {
   // 3. 全域鍵盤快捷鍵 (Cmd+K / Ctrl+K / '/')
   document.addEventListener('keydown', (e) => {
     const isCmdK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k';
-    const isSlash = e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName);
+    const activeEl = document.activeElement;
+    const isEditing = activeEl && (['INPUT', 'TEXTAREA', 'SELECT'].includes(activeEl.tagName) || activeEl.isContentEditable);
+    const isSlash = e.key === '/' && !isEditing;
     if (isCmdK || isSlash) {
       e.preventDefault();
       toggleGlobalSearch();
@@ -1156,7 +1168,7 @@ function openGlobalSearch() {
   if (input) {
     input.value = '';
     renderSearchResults('');
-    setTimeout(() => input.focus(), 50);
+    input.focus();
   }
 }
 
@@ -1272,8 +1284,8 @@ function updateSelectedSearchItem(items) {
 // ===================================================================
 function initThemeToggle() {
   const savedTheme = localStorage.getItem('kt_theme_mode');
-  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isDark = savedTheme ? savedTheme === 'dark' : systemPrefersDark;
+  // 預設採用淺色主題，避免在深色樣式未完備前因 OS 偏好引發對比破版；僅使用者手動點擊才切換深色
+  const isDark = savedTheme === 'dark';
 
   applyTheme(isDark, false);
 
@@ -1382,4 +1394,5 @@ window.initThemeToggle = initThemeToggle;
 window.toggleThemeMode = toggleThemeMode;
 window.initMobileBottomNav = initMobileBottomNav;
 window.handleMobileBottomMenuClick = handleMobileBottomMenuClick;
+window.escapeHtml = escapeHtml;
 

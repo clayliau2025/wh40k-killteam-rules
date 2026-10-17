@@ -13,3 +13,8 @@ yarn-debug.log*
 
 # Scratch scripts
 scratch/
+
+# Node & Playwright Test Harness
+node_modules/
+playwright-report/
+test-results/
