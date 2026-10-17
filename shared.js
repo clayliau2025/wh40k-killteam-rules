@@ -126,12 +126,12 @@ function renderModularSidebar() {
   });
 
   sidebar.innerHTML = `
-    <div class="sidebar-brand">
-      <a href="index.html" class="sidebar-logo-link">
-        <img src="assets/kt_icon.svg" alt="戰錘戰棋情報庫" class="sidebar-logo" width="28" height="28" decoding="async">
-        <div class="sidebar-brand-text">
-          <span class="brand-title">戰錘戰棋情報庫</span>
-          <span class="brand-sub">40K &amp; KILL TEAM</span>
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo" title="返回首頁總覽">
+        <img src="assets/wh40k_logo.png" alt="戰錘 40K & KT" class="sidebar-logo-img" decoding="async">
+        <div class="sidebar-title-group">
+          <span class="sidebar-brand-name">戰錘 40K &amp; KT</span>
+          <span class="sidebar-brand-sub">繁體中文情報庫</span>
         </div>
       </a>
       <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄" aria-label="收合側邊欄">◀</button>
@@ -146,7 +146,7 @@ function renderModularSidebar() {
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.5 PWA</span>
+        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.6 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>

@@ -2032,49 +2032,86 @@ body.theme-plague .damage-tracker-bar {
 }
 
 /* 側邊欄頂部 Logo 與折疊按鈕 */
-.sidebar-header {
-  padding: 14px 16px;
+.sidebar-header,
+.sidebar-brand {
+  padding: 12px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  height: 60px;
+  height: 62px;
+  background: transparent;
+  gap: 8px;
 }
 
-.sidebar-logo {
+.sidebar-logo,
+.sidebar-logo:visited,
+.sidebar-logo:hover,
+.sidebar-logo:active,
+.sidebar-logo:focus,
+.sidebar-logo-link,
+.sidebar-logo-link:visited,
+.sidebar-logo-link:hover,
+.sidebar-logo-link:active,
+.sidebar-logo-link:focus {
   display: flex;
   align-items: center;
   gap: 10px;
-  text-decoration: none;
-  color: #ffffff;
+  text-decoration: none !important;
+  color: #ffffff !important;
   overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-logo:hover,
+.sidebar-logo-link:hover {
+  opacity: 0.9;
 }
 
 .sidebar-logo-img {
-  height: 30px;
+  height: 32px;
+  max-width: 84px;
   width: auto;
-  filter: brightness(1.8);
+  object-fit: contain;
+  filter: brightness(1.75) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
   flex-shrink: 0;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.sidebar-title-group {
+.sidebar-logo:hover .sidebar-logo-img,
+.sidebar-logo-link:hover .sidebar-logo-img {
+  transform: scale(1.03);
+  filter: brightness(2) drop-shadow(0 2px 8px rgba(56, 189, 248, 0.35));
+}
+
+.sidebar-title-group,
+.sidebar-brand-text {
   display: flex;
   flex-direction: column;
   white-space: nowrap;
+  line-height: 1.25;
 }
 
-.sidebar-brand-name {
-  font-size: 14px;
+.sidebar-brand-name,
+.brand-title {
+  font-size: 14.5px;
   font-weight: 900;
   letter-spacing: 0.5px;
-  color: #ffffff;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-family: var(--font-display, sans-serif);
 }
 
-.sidebar-brand-sub {
-  font-size: 10px;
-  color: #38bdf8;
+.sidebar-brand-sub,
+.brand-sub {
+  font-size: 10.5px;
+  color: #38bdf8 !important;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  text-decoration: none !important;
+  margin-top: 1px;
 }
 
 .sidebar-collapse-btn {
