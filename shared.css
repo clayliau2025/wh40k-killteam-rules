@@ -4324,13 +4324,30 @@ textarea:focus-visible,
    深色模式切換支援 (DARK MODE SUPPORT)
    =================================================================== */
 body.theme-dark-mode {
-  background-color: #0b1120 !important;
-  color: #f8fafc !important;
+  --surface: #1e293b;
+  --surface-ground: #0b1120;
+  --surface-raised: #1e293b;
+  --surface-subtle: #0f172a;
+  --surface-header: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --border-subtle: #1e293b;
+  --theme-bg-body: #0b1120;
+  --theme-bg-card: #1e293b;
+  --theme-border: #334155;
+  --theme-text-main: #f8fafc;
+  --theme-text-muted: #94a3b8;
+  --theme-stat-bg: #0f172a;
+  background-color: var(--surface-ground) !important;
+  color: var(--text-primary) !important;
 }
 
 body.theme-dark-mode .app-main,
 body.theme-dark-mode .app-content,
-body.theme-dark-mode .main-wrapper {
+body.theme-dark-mode .main-wrapper,
+body.theme-dark-mode .container {
   background-color: #0b1120 !important;
   color: #f8fafc !important;
 }
@@ -4355,6 +4372,174 @@ body.theme-dark-mode .side-column {
   color: #f8fafc !important;
 }
 
+/* 數據卡與特工區塊 (DATACARDS & OPERATIVES) */
+body.theme-dark-mode .datacard {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.theme-dark-mode .op-details,
+body.theme-dark-mode .op-keywords {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark-mode .op-ability {
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark-mode .op-ability strong {
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .op-name {
+  color: #ffffff !important;
+}
+
+/* 武器表格與數值 (WEAPON TABLES & STATS) */
+body.theme-dark-mode .weapon-table {
+  background: #1e293b !important;
+}
+
+body.theme-dark-mode .weapon-table th {
+  background: #0f172a !important;
+  color: #cbd5e1 !important;
+  border-bottom-color: #334155 !important;
+}
+
+body.theme-dark-mode .weapon-table td {
+  border-bottom-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark-mode .weapon-table tr:hover {
+  background-color: #243248 !important;
+}
+
+body.theme-dark-mode .weapon-table tr:nth-child(even) {
+  background-color: rgba(15, 23, 42, 0.4) !important;
+}
+
+body.theme-dark-mode .weapon-name-cell {
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .wp-dmg-badge {
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .stat-box {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+body.theme-dark-mode .stat-val {
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .stat-lbl {
+  color: #94a3b8 !important;
+}
+
+/* 標籤與詞綴 (TAGS & BADGES) */
+body.theme-dark-mode .wp-rule-tag,
+body.theme-dark-mode .rule-pill,
+body.theme-dark-mode .rule-badge {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark-mode .wp-rule-tag:hover,
+body.theme-dark-mode .rule-pill:hover,
+body.theme-dark-mode .rule-badge:hover {
+  background: #1e293b !important;
+  border-color: #38bdf8 !important;
+  color: #38bdf8 !important;
+}
+
+/* 計謀、裝備與卡片組件 (PLOYS, EQUIPMENT & CARDS) */
+body.theme-dark-mode .ploy-card,
+body.theme-dark-mode .equip-card,
+body.theme-dark-mode .ue-card,
+body.theme-dark-mode .highlight-card,
+body.theme-dark-mode .stratagem-card,
+body.theme-dark-mode .mission-step-card,
+body.theme-dark-mode .card {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark-mode .ue-header,
+body.theme-dark-mode .strat-head,
+body.theme-dark-mode .card-header {
+  border-bottom-color: #334155 !important;
+}
+
+body.theme-dark-mode .action-box,
+body.theme-dark-mode .commentary-box,
+body.theme-dark-mode .lore-box,
+body.theme-dark-mode .diagram-box {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark-mode .info-callout {
+  background: rgba(30, 58, 138, 0.25) !important;
+  border-left-color: #60a5fa !important;
+  color: #bfdbfe !important;
+}
+
+/* 核心規則與問答 (CORE RULES & FAQ) */
+body.theme-dark-mode .faq-item {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+body.theme-dark-mode .faq-question {
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .faq-answer {
+  background: #0f172a !important;
+  color: #cbd5e1 !important;
+  border-top-color: #334155 !important;
+}
+
+body.theme-dark-mode .rule-subhead-accent {
+  color: #60a5fa !important;
+  border-left-color: #3b82f6 !important;
+}
+
+body.theme-dark-mode .badge-rule-blue {
+  background: rgba(59, 130, 246, 0.2) !important;
+  color: #93c5fd !important;
+}
+
+body.theme-dark-mode .badge-rule-amber {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #fcd34d !important;
+}
+
+body.theme-dark-mode .text-meta,
+body.theme-dark-mode .text-meta-bold {
+  color: #94a3b8 !important;
+}
+
+body.theme-dark-mode .bg-row-alt {
+  background: #162032 !important;
+}
+
+body.theme-dark-mode .chapter-header {
+  background: #1e293b !important;
+  border-left-color: #60a5fa !important;
+}
+
+/* 搜尋浮層 (SEARCH MODAL) */
 body.theme-dark-mode .search-modal-box {
   background: #0f172a;
   border-color: #334155;
@@ -4386,10 +4571,13 @@ body.theme-dark-mode .search-footer-hint {
   color: #94a3b8;
 }
 
-body.theme-dark-mode .ui-modal-box {
+/* 模態彈窗 (UI MODALS) */
+body.theme-dark-mode .ui-modal-box,
+body.theme-dark-mode .modal-content {
   background: #0f172a !important;
   border-color: #334155 !important;
   color: #f8fafc !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
 }
 
 body.theme-dark-mode .ui-modal-header {
@@ -4412,6 +4600,22 @@ body.theme-dark-mode .form-input {
   color: #ffffff !important;
 }
 
+/* 按鈕深色模式 (BUTTONS) */
+body.theme-dark-mode .btn-secondary,
+body.theme-dark-mode .btn-outline {
+  background: #1e293b !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .btn-secondary:hover,
+body.theme-dark-mode .btn-outline:hover {
+  background: #334155 !important;
+  border-color: #64748b !important;
+  color: #ffffff !important;
+}
+
+/* KT 戰鬥對戰助手卡片 (KILL TEAM TRACKER) */
 body.theme-dark-mode .tracker-op-card {
   background: #1e293b !important;
   border-color: #334155 !important;
@@ -4433,5 +4637,55 @@ body.theme-dark-mode .tracker-op-header .stat-label {
 
 body.theme-dark-mode .tracker-op-header .stat-value {
   color: #38bdf8 !important;
+}
+
+/* 40K 戰巡對戰助手 (WAR JOURNAL TRACKER) 深色模式保證 */
+body.theme-dark-mode .bunker-card {
+  background: #0f172a !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.theme-dark-mode .bunker-header {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-dark-mode .bunker-name {
+  color: #ffffff !important;
+}
+
+body.theme-dark-mode .bunker-stats-row {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.theme-dark-mode .battle-bar-card {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-dark-mode .round-nav {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.theme-dark-mode .unit-main-bar {
+  background: rgba(15, 23, 42, 0.6) !important;
+}
+
+body.theme-dark-mode .unit-soldiers-drawer {
+  background: #090e17 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-dark-mode .strat-modal-card {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+body.theme-dark-mode .strat-modal-effect {
+  color: #cbd5e1 !important;
 }
 

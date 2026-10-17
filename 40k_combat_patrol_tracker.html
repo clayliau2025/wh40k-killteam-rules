@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Noto+Sans+TC:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="shared.css?v=3.3.8">
+  <link rel="stylesheet" href="shared.css?v=3.3.9">
   <style>
     /* ================= 戰巡 War Journal 專屬樣式 ================= */
     body.theme-40k-journal {
@@ -1472,6 +1472,275 @@
       background: rgba(56, 189, 248, 0.15);
       border-color: rgba(56, 189, 248, 0.3);
     }
+
+    /* ================= 戰巡 War Journal 淺色模式支援 (LIGHT THEME SUPPORT) ================= */
+    body:not(.theme-dark-mode) .wj-container {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .bunker-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    body:not(.theme-dark-mode) .bunker-header {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .bunker-name {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .bunker-enhancement {
+      color: #64748b;
+    }
+
+    body:not(.theme-dark-mode) .bunker-stats-row {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .stat-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    body:not(.theme-dark-mode) .stat-box-title {
+      color: #64748b;
+    }
+
+    body:not(.theme-dark-mode) .stat-box-value {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .btn-stat-step {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .btn-stat-step:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .battle-bar-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    body:not(.theme-dark-mode) .battle-bar-label {
+      color: #64748b;
+    }
+
+    body:not(.theme-dark-mode) .battle-bar-val {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .round-nav {
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+    }
+
+    body:not(.theme-dark-mode) .round-tab {
+      color: #64748b;
+    }
+
+    body:not(.theme-dark-mode) .round-tab:hover {
+      background: rgba(0, 0, 0, 0.06);
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .round-tab.active {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+    }
+
+    body:not(.theme-dark-mode) .btn-wj-outline {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    body:not(.theme-dark-mode) .btn-wj-outline:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .mission-title-bar h3 {
+      color: #1e293b;
+    }
+
+    body:not(.theme-dark-mode) .mission-lore {
+      color: #64748b;
+      border-left-color: #cbd5e1;
+    }
+
+    body:not(.theme-dark-mode) .scoring-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .scoring-item:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    body:not(.theme-dark-mode) .scoring-item.checked {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
+
+    body:not(.theme-dark-mode) .scoring-desc {
+      color: #1e293b;
+    }
+
+    body:not(.theme-dark-mode) .scoring-timing {
+      color: #64748b;
+    }
+
+    body:not(.theme-dark-mode) .scoring-checkbox {
+      background: #ffffff;
+      border-color: #94a3b8;
+    }
+
+    body:not(.theme-dark-mode) .scoring-item.checked .scoring-checkbox {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+    }
+
+    body:not(.theme-dark-mode) .bunker-actions {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .btn-stratagem-open {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #1e293b;
+    }
+
+    body:not(.theme-dark-mode) .btn-stratagem-open:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .roster-drawer {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    body:not(.theme-dark-mode) .roster-header {
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .roster-header h2 {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .roster-team-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .roster-team-title {
+      color: #1e293b;
+    }
+
+    body:not(.theme-dark-mode) .unit-wound-row {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .unit-name-box {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .unit-main-bar {
+      background: #ffffff;
+    }
+
+    body:not(.theme-dark-mode) .unit-title-text {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .unit-soldiers-drawer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .roster-model-pill {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+
+    body:not(.theme-dark-mode) .unit-stats-pill {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    body:not(.theme-dark-mode) .journal-feed-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    body:not(.theme-dark-mode) .journal-feed-header h3 {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .journal-feed-list {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .feed-entry {
+      color: #334155;
+    }
+
+    body:not(.theme-dark-mode) .modal-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .modal-header {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .modal-header h3 {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .modal-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    body:not(.theme-dark-mode) .strat-modal-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .strat-modal-name {
+      color: #0f172a;
+    }
+
+    body:not(.theme-dark-mode) .strat-modal-effect {
+      color: #334155;
+    }
   </style>
   <meta name="theme-color" content="#0f172a">
   <meta name="mobile-web-app-capable" content="yes">
@@ -1481,7 +1750,7 @@
   <link rel="apple-touch-icon" href="assets/pwa_icon_512.png">
   <link rel="manifest" href="manifest.json">
 </head>
-<body class="theme-40k-core">
+<body class="theme-40k-core theme-40k-journal">
 
 <div class="app-layout">
   <!-- 手機版側邊欄背景遮罩 -->
@@ -1624,7 +1893,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.8 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.9 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -3777,6 +4046,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="shared.js?v=3.3.8"></script>
+<script src="shared.js?v=3.3.9"></script>
 </body>
 </html>

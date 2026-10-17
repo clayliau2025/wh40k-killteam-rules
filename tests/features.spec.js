@@ -110,6 +110,27 @@ test.describe('全站功能與工作流程自動化測試', () => {
     await expect(page.locator('body')).not.toHaveClass(/theme-dark-mode/);
   });
 
+  test('40K 戰巡對戰助手 (War Journal) 支援深淺色無縫切換', async ({ page }) => {
+    await page.goto('/40k_combat_patrol_tracker.html');
+
+    const themeBtn = page.locator('#topbarThemeBtn');
+    await expect(themeBtn).toBeVisible();
+
+    // 初始狀態為預設淺色
+    await expect(page.locator('body')).not.toHaveClass(/theme-dark-mode/);
+    const bunkerCard = page.locator('.bunker-card').first();
+    await expect(bunkerCard).toBeVisible();
+
+    // 切換為深色模式
+    await themeBtn.click();
+    await expect(page.locator('body')).toHaveClass(/theme-dark-mode/);
+    await expect(bunkerCard).toBeVisible();
+
+    // 切換回淺色模式
+    await themeBtn.click();
+    await expect(page.locator('body')).not.toHaveClass(/theme-dark-mode/);
+  });
+
   test('手機專屬底部導覽列 (Mobile Bottom Nav) 在手機視窗下正常互動', async ({ page, isMobile }) => {
     test.skip(!isMobile, '此測試僅針對手機版視窗');
 
@@ -124,5 +145,41 @@ test.describe('全站功能與工作流程自動化測試', () => {
 
     const overlay = page.locator('#globalSearchOverlay');
     await expect(overlay).toHaveClass(/active/);
+  });
+
+  test('全站 14 頁面在深色模式下均可正常渲染且無任何腳本錯誤', async ({ page }) => {
+    const PAGES = [
+      'index.html',
+      'rule_lite.html',
+      'angel_of_death_starter_set_rule.html',
+      'plague_marine_starter_set_rule.html',
+      'death_of_angel_web_rule.html',
+      'Kommandos.html',
+      'plague_marine.html',
+      'universal_equipment.html',
+      'match_tracker.html',
+      '40k_core_rules.html',
+      '40k_combat_patrol_rules.html',
+      '40k_cp_astartes.html',
+      '40k_cp_orks.html',
+      '40k_combat_patrol_tracker.html'
+    ];
+
+    for (const p of PAGES) {
+      const pageErrors = [];
+      page.on('pageerror', err => pageErrors.push(err.message));
+
+      await page.goto('/' + p);
+      await page.evaluate(() => {
+        if (window.applyTheme) {
+          window.applyTheme(true);
+        } else {
+          document.body.classList.add('theme-dark-mode');
+        }
+      });
+
+      await expect(page.locator('body')).toHaveClass(/theme-dark-mode/);
+      expect(pageErrors).toEqual([]);
+    }
   });
 });
