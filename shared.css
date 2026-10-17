@@ -3120,11 +3120,91 @@ body.theme-40k-orks .datacard {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
 }
 
-.nav-item-link .nav-icon {
-  font-size: 16px;
+.nav-item-link .nav-icon,
+.group-header-left .nav-icon {
   width: 20px;
-  text-align: center;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+}
+
+.svg-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.nav-icon .svg-icon,
+.group-header-left .svg-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.sub-bullet {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sub-bullet .svg-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.icon-bullet {
+  width: 6px !important;
+  height: 6px !important;
+  opacity: 0.6;
+}
+
+.icon-arrow {
+  width: 14px !important;
+  height: 14px !important;
+  transition: transform 0.25s ease;
+}
+
+.icon-chevron {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.icon-blood {
+  color: #ef4444;
+}
+
+.icon-ork {
+  color: #22c55e;
+}
+
+.icon-fly {
+  color: #84cc16;
+}
+
+.icon-sun {
+  color: #f59e0b;
+}
+
+.icon-moon {
+  color: #38bdf8;
+}
+
+.sidebar-collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 樹狀分類群組 (Accordion) */

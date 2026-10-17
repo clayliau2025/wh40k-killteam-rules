@@ -182,4 +182,25 @@ test.describe('全站功能與工作流程自動化測試', () => {
       expect(pageErrors).toEqual([]);
     }
   });
+
+  test('側邊欄與頂部工具列全面採用向量 SVG 圖示 (非文字 Emoji)', async ({ page }) => {
+    await page.goto('/index.html');
+
+    // 側邊欄應包含多個 .svg-icon 向量圖示
+    const svgIcons = page.locator('#appSidebar .svg-icon');
+    const count = await svgIcons.count();
+    expect(count).toBeGreaterThan(10);
+
+    // 收合按鈕應使用向量 SVG
+    const collapseSvg = page.locator('#sidebarCollapseBtn svg');
+    await expect(collapseSvg).toBeVisible();
+
+    // 頂部主題按鈕應使用向量 SVG
+    const themeBtnSvg = page.locator('#topbarThemeBtn svg');
+    await expect(themeBtnSvg).toBeVisible();
+
+    // 頂部漢堡選單按鈕應使用向量 SVG
+    const mobileMenuSvg = page.locator('#mobileMenuBtn svg');
+    await expect(mobileMenuSvg).toBeVisible();
+  });
 });

@@ -1,59 +1,111 @@
 /**
  * 戰錘 40K & 殺戮小隊 繁體中文全戰棋情報庫
- * 全站統一導航、側邊欄模組化、折疊抽屜、螢幕常亮、震動觸感與 PWA 支援
+ * 全站統一導航、側邊欄模組化、折疊抽屜、螢幕常亮、震動觸感、SVG 圖示與 PWA 支援
  */
+
+const KT_ICONS = {
+  home: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"/></svg>`,
+  bolt: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  crosshair: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/></svg>`,
+  swords: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="19" x2="11" y2="13"/><line x1="4" y1="20" x2="8" y2="16"/><line x1="3" y1="19" x2="5" y2="21"/></svg>`,
+  shield: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  book: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  blood: `<svg class="svg-icon icon-blood" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+  ork: `<svg class="svg-icon icon-ork" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14l8-7 8 7"/><path d="M7 11v8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-8"/><circle cx="9" cy="15" r="1.5" fill="currentColor"/><circle cx="15" cy="15" r="1.5" fill="currentColor"/><path d="M10 19v-2h4v2"/></svg>`,
+  fly: `<svg class="svg-icon icon-fly" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="7" cy="16" r="3"/><circle cx="17" cy="16" r="3"/><path d="M12 10v3"/><path d="M9.5 14.5l-1 1"/><path d="M14.5 14.5l1 1"/></svg>`,
+  scroll: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h11"/></svg>`,
+  gear: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  sun: `<svg class="svg-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+  moon: `<svg class="svg-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
+  search: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  mobile: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  list: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
+  menu: `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`,
+  chevronLeft: `<svg class="svg-icon icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>`,
+  chevronRight: `<svg class="svg-icon icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
+  chevronDown: `<svg class="svg-icon icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`,
+  bullet: `<svg class="svg-icon icon-bullet" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"/></svg>`
+};
+
+function getIcon(nameOrEmoji) {
+  if (KT_ICONS[nameOrEmoji]) return KT_ICONS[nameOrEmoji];
+  const map = {
+    '🏠': KT_ICONS.home,
+    '⚡': KT_ICONS.bolt,
+    '🎯': KT_ICONS.crosshair,
+    '⚔️': KT_ICONS.swords,
+    '🛡️': KT_ICONS.shield,
+    '📖': KT_ICONS.book,
+    '🩸': KT_ICONS.blood,
+    '🟢': KT_ICONS.ork,
+    '🪓': KT_ICONS.ork,
+    '🪰': KT_ICONS.fly,
+    '📜': KT_ICONS.scroll,
+    '⚙️': KT_ICONS.gear,
+    '☀️': KT_ICONS.sun,
+    '🌙': KT_ICONS.moon,
+    '🔍': KT_ICONS.search,
+    '📲': KT_ICONS.mobile,
+    '📑': KT_ICONS.list,
+    '☰': KT_ICONS.menu,
+    '◀': KT_ICONS.chevronLeft,
+    '▾': KT_ICONS.chevronDown,
+    '•': KT_ICONS.bullet
+  };
+  return map[nameOrEmoji] || nameOrEmoji;
+}
 
 const SITE_NAVIGATION = [
   {
     type: 'link',
     href: 'index.html',
-    icon: '🏠',
+    icon: 'home',
     title: '首頁總覽'
   },
   {
     type: 'group',
     title: '戰錘 40K (核心 & 戰巡)',
-    icon: '⚡',
+    icon: 'bolt',
     items: [
       { href: '40k_core_rules.html', title: '40K 完整核心規則 (11版)', badge: 'APP同步', badgeClass: 'badge-blue' },
       { href: '40k_combat_patrol_rules.html', title: '戰巡核心作戰手冊 (11版)' },
       { href: '40k_combat_patrol_rules.html#mission-flow', title: '官方任務流程 (10步驟)' },
       { href: '40k_combat_patrol_tracker.html', title: '戰巡對戰助手 (War Journal)', badge: 'HOT', badgeClass: 'badge-red' },
       { type: 'label', title: '戰巡隊資料卡 (DATASHEETS)' },
-      { href: '40k_cp_astartes.html', icon: '🩸', title: '突擊分隊 (阿斯塔特)' },
-      { href: '40k_cp_orks.html', icon: '🟢', title: '硬漢幫 (歐克蠻人)' },
-      { href: 'index.html#cp-roster-directory', icon: '📜', title: 'App 全 24 支戰巡名冊' }
+      { href: '40k_cp_astartes.html', icon: 'blood', title: '突擊分隊 (阿斯塔特)' },
+      { href: '40k_cp_orks.html', icon: 'ork', title: '硬漢幫 (歐克蠻人)' },
+      { href: 'index.html#cp-roster-directory', icon: 'scroll', title: 'App 全 24 支戰巡名冊' }
     ]
   },
   {
     type: 'group',
     title: '殺戮小隊 (Kill Team)',
-    icon: '🎯',
+    icon: 'crosshair',
     items: [
       { href: 'rule_lite.html', title: '核心作戰規則 (精簡版)' },
       { href: 'match_tracker.html', title: '殺戮小隊計分助手', badge: 'KT 3版', badgeClass: 'badge-red' },
       { type: 'label', title: '特遣戰隊 (TEAMS)' },
-      { href: 'death_of_angel_web_rule.html', icon: '🩸', title: '死亡天使 (Angels of Death)' },
-      { href: 'angel_of_death_starter_set_rule.html', icon: '🩸', title: '死亡天使 (入門版手冊)' },
-      { href: 'Kommandos.html', icon: '🪓', title: '歐克特戰小子 (Kommandos)' },
-      { href: 'plague_marine.html', icon: '🪰', title: '瘟疫戰士 (Plague Marines)' },
-      { href: 'plague_marine_starter_set_rule.html', icon: '🪰', title: '瘟疫戰士 (入門版手冊)' },
-      { href: 'universal_equipment.html', icon: '⚙️', title: '通用戰術裝備庫' }
+      { href: 'death_of_angel_web_rule.html', icon: 'blood', title: '死亡天使 (Angels of Death)' },
+      { href: 'angel_of_death_starter_set_rule.html', icon: 'blood', title: '死亡天使 (入門版手冊)' },
+      { href: 'Kommandos.html', icon: 'ork', title: '歐克特戰小子 (Kommandos)' },
+      { href: 'plague_marine.html', icon: 'fly', title: '瘟疫戰士 (Plague Marines)' },
+      { href: 'plague_marine_starter_set_rule.html', icon: 'fly', title: '瘟疫戰士 (入門版手冊)' },
+      { href: 'universal_equipment.html', icon: 'gear', title: '通用戰術裝備庫' }
     ]
   },
   {
     type: 'group',
     title: '對戰助手專區',
-    icon: '⚔️',
+    icon: 'swords',
     items: [
-      { href: '40k_combat_patrol_tracker.html', icon: '⚡', title: '40K 戰巡 War Journal 助手', badge: 'HOT', badgeClass: 'badge-red' },
-      { href: 'match_tracker.html', icon: '🎯', title: '殺戮小隊 對戰計分助手' }
+      { href: '40k_combat_patrol_tracker.html', icon: 'bolt', title: '40K 戰巡 War Journal 助手', badge: 'HOT', badgeClass: 'badge-red' },
+      { href: 'match_tracker.html', icon: 'crosshair', title: '殺戮小隊 對戰計分助手' }
     ]
   },
   {
     type: 'link',
     href: 'index.html#weapons-glossary',
-    icon: '📖',
+    icon: 'book',
     title: '特規與武器辭典'
   }
 ];
@@ -79,7 +131,7 @@ function renderModularSidebar() {
       const isTarget = item.href === currentPath || (currentPath === '' && item.href === 'index.html');
       navHtml += `
         <a href="${item.href}" class="nav-item-link ${isTarget ? 'active' : ''}">
-          <span class="nav-icon">${item.icon}</span>
+          <span class="nav-icon">${getIcon(item.icon)}</span>
           <span class="nav-text">${item.title}</span>
         </a>
       `;
@@ -96,7 +148,7 @@ function renderModularSidebar() {
           if (isTarget) isGroupActive = true;
 
           const badgeHtml = sub.badge ? `<span class="sub-badge ${sub.badgeClass || 'badge-blue'}">${sub.badge}</span>` : '';
-          const bullet = sub.icon ? sub.icon : '•';
+          const bullet = sub.icon ? getIcon(sub.icon) : getIcon('bullet');
 
           groupItemsHtml += `
             <a href="${sub.href}" class="sub-nav-link ${isTarget ? 'active' : ''}">
@@ -112,10 +164,10 @@ function renderModularSidebar() {
         <div class="nav-group ${isGroupActive ? 'open' : ''}">
           <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)" aria-expanded="${isGroupActive}">
             <span class="group-header-left">
-              <span class="nav-icon">${item.icon}</span>
+              <span class="nav-icon">${getIcon(item.icon)}</span>
               <span class="nav-text">${item.title}</span>
             </span>
-            <span class="group-arrow">▾</span>
+            <span class="group-arrow">${getIcon('chevronDown')}</span>
           </button>
           <div class="nav-sub-list">
             ${groupItemsHtml}
@@ -134,7 +186,7 @@ function renderModularSidebar() {
           <span class="sidebar-brand-sub">繁體中文情報庫</span>
         </div>
       </a>
-      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄" aria-label="收合側邊欄">◀</button>
+      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄" aria-label="收合側邊欄">${getIcon('chevronLeft')}</button>
     </div>
 
     <div class="sidebar-scrollable">
@@ -146,9 +198,9 @@ function renderModularSidebar() {
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.9 PWA</span>
+        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.10 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
+      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px; gap:6px; display:inline-flex; align-items:center;">${getIcon('mobile')} <span>安裝為桌面/手機 App</span></button>
     </div>
   `;
 }
@@ -161,6 +213,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const backdrop = document.getElementById('sidebarBackdrop');
   const collapseBtn = document.getElementById('sidebarCollapseBtn');
   const menuBtns = document.querySelectorAll('.mobile-menu-btn, .sidebar-toggle-btn, #mobileMenuBtn');
+
+  // 初始化頂部漢堡選單按鈕 SVG 圖示
+  menuBtns.forEach(btn => {
+    btn.innerHTML = getIcon('menu');
+  });
+
+  const updateCollapseIcon = () => {
+    if (collapseBtn && sidebar) {
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      collapseBtn.innerHTML = isCollapsed ? getIcon('chevronRight') : getIcon('chevronLeft');
+      collapseBtn.title = isCollapsed ? '展開側邊欄' : '收合側邊欄';
+    }
+  };
+
   if (collapseBtn && sidebar) {
     collapseBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -169,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (backdrop) backdrop.classList.remove('active');
       } else {
         sidebar.classList.toggle('collapsed');
+        updateCollapseIcon();
         try {
           localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
         } catch (err) {}
@@ -180,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.add('collapsed');
       }
     } catch (err) {}
+    updateCollapseIcon();
   }
 
   // 3. 頂部導航列漢堡按鈕 (☰)：桌面端切換收合，手機端開關抽屜
@@ -568,7 +636,7 @@ function initWpRuleTooltips() {
 
     tooltipEl.innerHTML = `
       <div class="tooltip-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-weight:800; border-bottom:1px solid #334155; padding-bottom:4px;">
-        <span style="display:flex; align-items:center;">🔍 ${found.title} ${gameBadge}</span>
+        <span style="display:flex; align-items:center; gap:6px;">${getIcon('search')} ${found.title} ${gameBadge}</span>
         <button type="button" aria-label="關閉提示" style="font-size:14px; color:#94a3b8; background:transparent; border:none; cursor:pointer; padding:2px 6px; line-height:1;" onclick="event.stopPropagation(); document.getElementById('globalWpTooltip').style.display='none';">✕</button>
       </div>
       <p class="tooltip-desc" style="margin:0; font-size:11.5px; line-height:1.5; color:#cbd5e1;">${found.desc}</p>
@@ -1108,7 +1176,7 @@ function initGlobalSearch() {
     searchBtn.className = 'topbar-search-btn';
     searchBtn.id = 'topbarSearchBtn';
     searchBtn.title = '全站即時搜尋 (⌘K / Ctrl+K / /)';
-    searchBtn.innerHTML = '<span class="search-icon">🔍</span><span>搜尋...</span><kbd>⌘K</kbd>';
+    searchBtn.innerHTML = `<span class="search-icon" style="display:inline-flex; align-items:center;">${getIcon('search')}</span><span>搜尋...</span><kbd>⌘K</kbd>`;
     searchBtn.addEventListener('click', openGlobalSearch);
     topbarActions.prepend(searchBtn);
   }
@@ -1120,13 +1188,13 @@ function initGlobalSearch() {
     overlay.innerHTML = `
       <div class="search-modal-box" onclick="event.stopPropagation()">
         <div class="search-input-header">
-          <span class="search-icon-large">🔍</span>
+          <span class="search-icon-large" style="display:inline-flex; align-items:center;">${getIcon('search')}</span>
           <input type="text" id="globalSearchInput" class="search-main-input" placeholder="搜尋全站規則、陣營、數據卡、武器特性 (支援中英文)..." autocomplete="off" spellcheck="false">
           <span class="search-close-key" onclick="closeGlobalSearch()" style="cursor:pointer;" title="關閉">ESC</span>
         </div>
         <div class="search-results-list" id="searchResultsList"></div>
         <div class="search-footer-hint">
-          <span>💡 支援快捷鍵 <kbd>↑</kbd> <kbd>↓</kbd> 選擇，<kbd>Enter</kbd> 前往，<kbd>ESC</kbd> 退出</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;">${getIcon('bolt')} 支援快捷鍵 <kbd>↑</kbd> <kbd>↓</kbd> 選擇，<kbd>Enter</kbd> 前往，<kbd>ESC</kbd> 退出</span>
           <span id="searchResultCount">共 ${SITE_SEARCH_INDEX.length} 筆項目</span>
         </div>
       </div>
@@ -1219,7 +1287,7 @@ function renderSearchResults(query) {
   if (currentSearchResults.length === 0) {
     listEl.innerHTML = `
       <div style="padding:24px 16px; text-align:center; color:#94a3b8; font-size:13px;">
-        <span style="font-size:24px; display:block; margin-bottom:8px;">🔍</span>
+        <span style="display:flex; justify-content:center; margin-bottom:8px;">${getIcon('search')}</span>
         找不到符合「<strong>${escapeHtml(query)}</strong>」的規則或頁面，請嘗試其他關鍵字。
       </div>
     `;
@@ -1297,8 +1365,8 @@ function initThemeToggle() {
     themeBtn.className = 'topbar-theme-btn';
     themeBtn.id = 'topbarThemeBtn';
     themeBtn.setAttribute('aria-label', '切換深色/淺色主題');
-    themeBtn.title = '切換深色/淺色主題模式';
-    themeBtn.textContent = isDark ? '☀️' : '🌙';
+    themeBtn.title = isDark ? '切換為淺色模式' : '切換為深色模式';
+    themeBtn.innerHTML = isDark ? getIcon('sun') : getIcon('moon');
     themeBtn.addEventListener('click', toggleThemeMode);
     topbarActions.appendChild(themeBtn);
   }
@@ -1321,7 +1389,7 @@ function applyTheme(isDark, showToastFeedback = false) {
 
   const themeBtn = document.getElementById('topbarThemeBtn');
   if (themeBtn) {
-    themeBtn.textContent = isDark ? '☀️' : '🌙';
+    themeBtn.innerHTML = isDark ? getIcon('sun') : getIcon('moon');
     themeBtn.title = isDark ? '切換為淺色模式' : '切換為深色模式';
   }
 
@@ -1331,7 +1399,7 @@ function applyTheme(isDark, showToastFeedback = false) {
   }
 
   if (showToastFeedback && window.showToast) {
-    window.showToast(isDark ? '🌙 已開啟深色模式' : '☀️ 已切換為淺色模式', 'info');
+    window.showToast(isDark ? '已開啟深色模式' : '已切換為淺色模式', 'info');
   }
 }
 
@@ -1352,23 +1420,23 @@ function initMobileBottomNav() {
   nav.setAttribute('aria-label', '手機快速導覽列');
   nav.innerHTML = `
     <a href="index.html" class="bottom-nav-item ${isHome ? 'active' : ''}">
-      <span class="bottom-nav-icon">🏠</span>
+      <span class="bottom-nav-icon">${getIcon('home')}</span>
       <span>首頁</span>
     </a>
     <a href="match_tracker.html" class="bottom-nav-item ${isKT ? 'active' : ''}">
-      <span class="bottom-nav-icon">⚔️</span>
+      <span class="bottom-nav-icon">${getIcon('crosshair')}</span>
       <span>KT 記分</span>
     </a>
     <a href="40k_combat_patrol_tracker.html" class="bottom-nav-item ${is40k ? 'active' : ''}">
-      <span class="bottom-nav-icon">🛡️</span>
+      <span class="bottom-nav-icon">${getIcon('shield')}</span>
       <span>40K 記分</span>
     </a>
     <button type="button" class="bottom-nav-item" onclick="openGlobalSearch()">
-      <span class="bottom-nav-icon">🔍</span>
+      <span class="bottom-nav-icon">${getIcon('search')}</span>
       <span>速查</span>
     </button>
     <button type="button" class="bottom-nav-item" onclick="handleMobileBottomMenuClick()">
-      <span class="bottom-nav-icon">📑</span>
+      <span class="bottom-nav-icon">${getIcon('list')}</span>
       <span>目錄</span>
     </button>
   `;
@@ -1395,4 +1463,6 @@ window.toggleThemeMode = toggleThemeMode;
 window.initMobileBottomNav = initMobileBottomNav;
 window.handleMobileBottomMenuClick = handleMobileBottomMenuClick;
 window.escapeHtml = escapeHtml;
+window.KT_ICONS = KT_ICONS;
+window.getIcon = getIcon;
 
