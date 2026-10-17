@@ -8,7 +8,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>殺戮小隊：雙人對戰助手 (Match Companion & Tracker) — 繁體中文全規則庫</title>
-  <link rel="stylesheet" href="shared.css?v=3.2.4">
+  <meta name="description" content="殺戮小隊 (Kill Team) 繁體中文雙人即時對戰助手，支援入門套組終極任務與標準競賽規格、特工動態 HP 扣減、AP 追蹤與計分儀表板。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Noto+Sans+TC:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="shared.css?v=3.3.5">
   <style>
     /* ================= 對戰助手專屬進階樣式 ================= */
     .wizard-step-content {
@@ -645,7 +649,7 @@
   <aside class="app-sidebar" id="appSidebar">
     <div class="sidebar-header">
       <a href="index.html" class="sidebar-logo">
-        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="sidebar-logo-img">
+        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="sidebar-logo-img" decoding="async">
         <div class="sidebar-title-group">
           <div class="sidebar-brand-name">戰錘 40K & KT</div>
           <div class="sidebar-brand-sub">繁體中文情報庫</div>
@@ -778,7 +782,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.2.7 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.5 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -801,6 +805,17 @@
 
     <div class="app-content">
       <div class="tracker-container">
+
+        <!-- 頁面語意化主標題 (H1) -->
+        <header class="tracker-main-header" style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <h1 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;">
+            <span>🎯 殺戮小隊：雙人對戰助手</span>
+            <span class="site-nav-badge" style="background:#ea580c; font-size:11px;">Match Tracker</span>
+          </h1>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="triggerImportMatchJson()" title="從 JSON 存檔檔案匯入並復原歷史對戰">📂 讀取對戰存檔</button>
+          </div>
+        </header>
 
   <!-- ================= 視圖 A：分步對戰建立精靈 (SETUP WIZARD) ================= -->
   <div id="viewWizard" class="wizard-box">
@@ -856,26 +871,26 @@
       <h2 style="font-size:17px; margin-bottom:12px; color:#0f172a;">👥 雙方陣營與指揮官設定</h2>
       <div class="grid-2">
         <!-- 玩家 1 -->
-        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px;">
+        <div class="ui-card" style="padding:14px; background:#f8fafc;">
           <h3 style="color:#0f172a; margin-bottom:8px; font-size:15px;">🛡️ 玩家 1 (Player 1)</h3>
           <div style="margin-bottom:12px;">
-            <label style="font-weight:700; font-size:12px; color:#475569; display:block; margin-bottom:4px;">指揮官名稱：</label>
-            <input type="text" id="p1Name" value="玩家 1" style="width:100%; padding:6px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
+            <label class="form-label" for="p1Name">指揮官名稱：</label>
+            <input type="text" id="p1Name" value="玩家 1" class="form-input">
           </div>
-          <label style="font-weight:700; font-size:12px; color:#475569; display:block; margin-bottom:6px;">選擇殺戮小隊：</label>
+          <label class="form-label" style="margin-bottom:6px;">選擇殺戮小隊：</label>
           <div style="display:flex; flex-direction:column; gap:8px;" id="p1FactionList">
             <!-- 動態生成陣營卡片 -->
           </div>
         </div>
 
         <!-- 玩家 2 -->
-        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px;">
+        <div class="ui-card" style="padding:14px; background:#f8fafc;">
           <h3 style="color:#0f172a; margin-bottom:8px; font-size:15px;">⚔️ 玩家 2 (Player 2)</h3>
           <div style="margin-bottom:12px;">
-            <label style="font-weight:700; font-size:12px; color:#475569; display:block; margin-bottom:4px;">指揮官名稱：</label>
-            <input type="text" id="p2Name" value="玩家 2" style="width:100%; padding:6px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
+            <label class="form-label" for="p2Name">指揮官名稱：</label>
+            <input type="text" id="p2Name" value="玩家 2" class="form-input">
           </div>
-          <label style="font-weight:700; font-size:12px; color:#475569; display:block; margin-bottom:6px;">選擇殺戮小隊：</label>
+          <label class="form-label" style="margin-bottom:6px;">選擇殺戮小隊：</label>
           <div style="display:flex; flex-direction:column; gap:8px;" id="p2FactionList">
             <!-- 動態生成陣營卡片 -->
           </div>
@@ -883,7 +898,7 @@
       </div>
 
       <div style="margin-top:20px; text-align:right;">
-        <button class="btn-action" onclick="proceedFromStep1()">下一步：前往下一步驟 ➔</button>
+        <button class="btn btn-primary btn-md" onclick="proceedFromStep1()">下一步：前往下一步驟 ➔</button>
       </div>
     </div>
 
@@ -902,8 +917,8 @@
       </div>
 
       <div style="margin-top:20px; display:flex; justify-content:space-between;">
-        <button class="btn-outline" onclick="goToStep(1)">上一步</button>
-        <button class="btn-action" onclick="goToStep(3)">下一步：挑選特工與編制 ➔</button>
+        <button class="btn btn-secondary btn-md" onclick="goToStep(1)">上一步</button>
+        <button class="btn btn-primary btn-md" onclick="goToStep(3)">下一步：挑選特工與編制 ➔</button>
       </div>
     </div>
 
@@ -919,8 +934,8 @@
       </div>
 
       <div style="margin-top:20px; display:flex; justify-content:space-between;">
-        <button class="btn-outline" onclick="goBackFromStep3()">上一步</button>
-        <button class="btn-action" onclick="proceedFromStep3()">下一步：前往下一步驟 ➔</button>
+        <button class="btn btn-secondary btn-md" onclick="goBackFromStep3()">上一步</button>
+        <button class="btn btn-primary btn-md" onclick="proceedFromStep3()">下一步：前往下一步驟 ➔</button>
       </div>
     </div>
 
@@ -941,8 +956,8 @@
       </div>
 
       <div style="margin-top:20px; display:flex; justify-content:space-between;">
-        <button class="btn-outline" onclick="goToStep(3)">上一步</button>
-        <button class="btn-action" onclick="proceedToStep5()">下一步：檢視並開戰 ➔</button>
+        <button class="btn btn-secondary btn-md" onclick="goToStep(3)">上一步</button>
+        <button class="btn btn-primary btn-md" onclick="proceedToStep5()">下一步：檢視並開戰 ➔</button>
       </div>
     </div>
 
@@ -956,8 +971,8 @@
       </div>
 
       <div style="margin-top:24px; display:flex; justify-content:space-between; align-items:center;">
-        <button class="btn-outline" onclick="goBackFromStep5()">上一步</button>
-        <button class="btn-action" style="background:#16a34a; font-size:15px; padding:10px 24px;" onclick="startMatch()">⚡ 正式開始對戰 (START MATCH) ➔</button>
+        <button class="btn btn-secondary btn-md" onclick="goBackFromStep5()">上一步</button>
+        <button class="btn btn-success btn-lg" onclick="startMatch()">⚡ 正式開始對戰 (START MATCH) ➔</button>
       </div>
     </div>
 
@@ -983,11 +998,19 @@
           <div class="tp-step-pill" id="tpStep4" onclick="setTurningPoint(4)">TP 4</div>
         </div>
 
-        <div style="display:flex; gap:8px; align-items:center;">
-          <span id="gameModeBadgeInHud" style="font-size:11px; font-weight:800; padding:4px 8px; border-radius:4px; background:#ea580c; color:#fff;">入門套組模式</span>
-          <button class="btn-action" style="background:#0284c7; padding:6px 12px; font-size:12px;" onclick="toggleRulesDrawer()">📖 核心行動速查</button>
-          <button class="btn-action" style="background:#ea580c; padding:6px 12px; font-size:12px;" onclick="nextTurningPoint()">推進 TP ➔</button>
-          <button class="btn-outline" style="color:#ef4444; border-color:#ef4444; padding:6px 10px; font-size:11.5px;" onclick="confirmResetMatch()">重設對戰</button>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <span id="gameModeBadgeInHud" class="badge badge-warning" style="font-weight:800; padding:4px 8px; font-size:11px;">入門套組模式</span>
+          <button type="button" class="btn btn-secondary btn-sm btn-wake-lock" onclick="toggleWakeLock()" title="開啟螢幕常亮（防止手機自動休眠鎖屏）">
+            <span class="wake-lock-icon">🔆</span> <span class="wake-lock-text">螢幕常亮</span>
+          </button>
+          <button type="button" class="btn btn-ghost btn-sm btn-haptic-toggle" onclick="toggleHaptics()" title="切換操作震動觸感回饋" style="padding:4px 8px; font-size:13px;">
+            📳
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="toggleRulesDrawer()">📖 核心行動速查</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="exportMatchJson()" title="匯出當前對戰狀態為 JSON 存檔檔案">💾 存檔</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="triggerImportMatchJson()" title="從 JSON 檔案匯入並復原對戰紀錄">📂 讀檔</button>
+          <button class="btn btn-primary btn-sm" onclick="nextTurningPoint()">推進 TP ➔</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmResetMatch()">重設對戰</button>
         </div>
       </div>
 
@@ -1183,22 +1206,191 @@
 
 <script>
 
+/* HTML 屬性跳脫函數，防止引號破壞屬性語法 */
+function escapeHtmlAttr(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/* ================= 22 項特殊武器規則正規化辭典 (支援中英文與動態參數解析) ================= */
+const WEAPON_RULES_DEFINITIONS = [
+  {
+    regex: /^(?:射程|Range)\s*(\d+["”]?)/i,
+    title: (m) => `射程 ${m[1]} (Range ${m[1]})`,
+    desc: (m) => `距離限制武器。只有在距離發動特工 ${m[1]} 範圍以內的敵方特工，才能被選為此武器的有效目標。`
+  },
+  {
+    regex: /^(?:洪流|Torrent)\s*(\d+["”]?)/i,
+    title: (m) => `洪流 ${m[1]} (Torrent ${m[1]})`,
+    desc: (m) => `選定主要目標後，可同時選擇距離主要目標 ${m[1]} 範圍內、且不在友軍控制範圍內的任意數量其他可見特工為次要目標，依序分別單獨射擊。`
+  },
+  {
+    regex: /^(?:爆破|爆炸|Blast)\s*(\d+["”]?)/i,
+    title: (m) => `爆破 ${m[1]} (Blast ${m[1]})`,
+    desc: (m) => `射擊主目標後，對距離主目標 ${m[1]} 範圍以內且對其可見的所有次要目標依序單獨結算射擊（次要目標結算時無視隱蔽指令）。`
+  },
+  {
+    regex: /^(?:爆擊穿刺|Piercing\s+Crits)\s*(\d+)/i,
+    title: (m) => `爆擊穿刺 ${m[1]} (Piercing Crits ${m[1]})`,
+    desc: (m) => `唯有你在此次攻擊中保留了「爆擊成功」時，防禦方擲出的防禦骰數量才減少 ${m[1]} 顆。`
+  },
+  {
+    regex: /^(?:穿刺|Piercing)\s*(\d+)/i,
+    title: (m) => `穿刺 ${m[1]} (Piercing ${m[1]})`,
+    desc: (m) => `防禦方擲出的防禦骰數量直接減少 ${m[1]} 顆（例如穿刺 1 減少 1 顆防禦骰）。`
+  },
+  {
+    regex: /^(?:毀滅|Devastating)\s*(\d+)/i,
+    title: (m) => `毀滅 ${m[1]} (Devastating ${m[1]})`,
+    desc: (m) => `你每次保留 1 次爆擊成功時，立即對目標造成 ${m[1]} 點直接傷害。此爆擊骰後續仍可正常進行打擊結算。`
+  },
+  {
+    regex: /^(?:致命|Lethal)\s*(\d+\+?)/i,
+    title: (m) => `致命 ${m[1].includes('+') ? m[1] : m[1] + '+'} (Lethal ${m[1].includes('+') ? m[1] : m[1] + '+'})`,
+    desc: (m) => `擲骰點數大於或等於 ${m[1].includes('+') ? m[1] : m[1] + '+'} 的成功骰直接視為「爆擊成功」（例如 5+ 代表 5 與 6 均為爆擊）。`
+  },
+  {
+    regex: /^(?:受限|限定|Limited)\s*(\d+)(?:次)?/i,
+    title: (m) => `受限 ${m[1]} (Limited ${m[1]})`,
+    desc: (m) => `特工在一場戰鬥中累計使用本武器達到 ${m[1]} 次後，彈藥耗盡，無法再次使用本武器。`
+  },
+  {
+    regex: /^(?:精準|Accurate)\s*(\d+)/i,
+    title: (m) => `精準 ${m[1]} (Accurate ${m[1]})`,
+    desc: (m) => `發動攻擊時，你可以在不擲骰子的情況下，將最多 ${m[1]} 顆攻擊骰直接作為普通成功保留。`
+  },
+  {
+    regex: /^(?:重型|Heavy)(?:\s*\((?:僅奔馳|僅衝刺|Dash only)\))?/i,
+    title: () => '重型 (Heavy)',
+    desc: () => '特工不能在進行過常規移動的啟動或反制中使用此武器，使用此武器後亦不能再執行任何移動。若標注「僅衝刺/奔馳」，則該啟動中僅允許執行衝刺/奔馳移動。'
+  },
+  {
+    regex: /^(?:過熱|Hot)/i,
+    title: () => '過熱 (Hot)',
+    desc: () => '使用本武器射擊後擲 1 顆 D6。若點數小於武器的 Hit 命中值，射手自身受到相當於該點數 × 2 的直接傷害。'
+  },
+  {
+    regex: /^(?:殘暴|Brutal)/i,
+    title: () => '殘暴 (Brutal)',
+    desc: () => '在近戰搏鬥中，你的對手只能使用「爆擊成功」進行招架，無法使用普通成功招架你的任何打擊。'
+  },
+  {
+    regex: /^(?:不息|無休|Ceaseless)/i,
+    title: () => '不息 (Ceaseless)',
+    desc: () => '攻擊擲骰後，你可以挑選一個點數結果（例如所有 1 點或指定點數），並重擲所有該點數的攻擊骰。'
+  },
+  {
+    regex: /^(?:痛擊|Punishing)/i,
+    title: () => '痛擊 (Punishing)',
+    desc: () => '若你在攻擊擲骰中保留了任何爆擊成功，你可以將 1 顆原本失敗的攻擊骰直接轉為普通成功保留。'
+  },
+  {
+    regex: /^(?:無情|Relentless)/i,
+    title: () => '無情 (Relentless)',
+    desc: () => '攻擊擲骰後，你可以重擲該次攻擊骰中的任意數量骰子。'
+  },
+  {
+    regex: /^(?:撕裂|Rending)/i,
+    title: () => '撕裂 (Rending)',
+    desc: () => '若你在此次攻擊中保留了任何爆擊成功，你可以將另外 1 顆普通成功直接升級為爆擊成功。'
+  },
+  {
+    regex: /^(?:飽和|Saturate)/i,
+    title: () => '飽和 (Saturate)',
+    desc: () => '防禦方無法獲得掩體（Cover）帶來的免費保留防禦成功（防禦方必須正常擲出所有防禦骰）。'
+  },
+  {
+    regex: /^(?:索敵|Seek)/i,
+    title: () => '索敵 (Seek)',
+    desc: () => '選擇有效目標時，持有隱蔽指令（Conceal）的特工無法藉由地形獲得掩體判定。'
+  },
+  {
+    regex: /^(?:重創|劇烈|Severe)/i,
+    title: () => '重創 (Severe)',
+    desc: () => '若你本次攻擊擲骰中沒有保留任何爆擊成功，你可以將 1 次普通成功直接替換為爆擊成功。此替換可正常觸發爆擊穿刺或毀滅等爆擊效果。'
+  },
+  {
+    regex: /^(?:震盪|震擊|Shock)/i,
+    title: () => '震盪 (Shock)',
+    desc: () => '在近戰搏鬥中你首次使用爆擊成功進行打擊時，額外棄置對手 1 顆尚未結算的普通成功（若對手無普通成功則棄置其爆擊成功）。'
+  },
+  {
+    regex: /^(?:靜音|無聲|Silent)/i,
+    title: () => '靜音 (Silent)',
+    desc: () => '特工在持有「隱蔽指令 (Conceal)」的狀態下，依然可以使用本武器正常宣告並執行射擊行動。'
+  },
+  {
+    regex: /^(?:擊暈|Stun)/i,
+    title: () => '擊暈 (Stun)',
+    desc: () => '若你保留了任何爆擊成功，被本武器攻擊的目標特工其 APL（行動點上限）屬性立即扣減 1 點，直到其下一次啟動結束為止。'
+  },
+  {
+    regex: /^(?:平衡|Balanced)/i,
+    title: () => '平衡 (Balanced)',
+    desc: () => '發動攻擊擲骰後，你可以重擲其中的 1 顆攻擊骰。'
+  },
+  {
+    regex: /^(?:劇毒|Poison)/i,
+    title: () => '劇毒 (Poison)',
+    desc: () => '攻擊骰造成傷害時，被攻擊目標獲得 1 枚劇毒標記。帶有劇毒標記之特工每次被啟動時，立即承受 1 點傷害。'
+  },
+  {
+    regex: /^(?:淬毒|Toxic)/i,
+    title: () => '淬毒 (Toxic)',
+    desc: () => '攻擊在行動開始前已帶有劇毒標記的敵方特工時，此武器普通傷害與爆擊傷害數值皆 +1。'
+  },
+  {
+    regex: /^(?:自爆|Explosive)/i,
+    title: () => '自爆 (Explosive)',
+    desc: () => '特工自身恆為爆炸中心主目標，無法獲得掩體或隱蔽，爆炸範圍波及周遭所有敵我單位！'
+  }
+];
+
+function resolveWeaponRuleInfo(rawRuleStr) {
+  if (!rawRuleStr) return null;
+  const clean = rawRuleStr.trim();
+  for (const def of WEAPON_RULES_DEFINITIONS) {
+    const match = clean.match(def.regex);
+    if (match) {
+      return {
+        title: def.title(match),
+        desc: def.desc(match)
+      };
+    }
+  }
+  // 遍歷常規字典補充查找
+  for (const [k, v] of Object.entries(WEAPON_RULES_DICT)) {
+    if (clean.includes(k) || (v.nameEn && clean.toLowerCase().includes(v.nameEn.toLowerCase()))) {
+      return {
+        title: `${k} (${v.nameEn})`,
+        desc: v.desc
+      };
+    }
+  }
+  return null;
+}
+
 /* ================= 22 項特殊武器規則辭典 ================= */
 const WEAPON_RULES_DICT = {
-  '精準': { nameEn: 'Accurate x', desc: '你可以在不擲骰子的情況下，將最多 x 顆攻擊骰直接作為「普通成功」保留。' },
+  '射程': { nameEn: 'Range x', desc: '距離限制武器。只有在距離發動特工指定範圍內的敵方特工，才能被選為此武器的有效目標。' },
+  '洪流': { nameEn: 'Torrent x', desc: '選定主要目標後，可同時選擇距離主要目標指定範圍內、且不在友軍控制範圍內的任意數量其他可見特工為次要目標，依序分別單獨射擊。' },
+  '爆破': { nameEn: 'Blast x', desc: '射擊主目標後，對距離主目標指定範圍以內且對其可見的所有次要目標依序單獨結算射擊（無視隱蔽指令）。' },
+  '穿刺': { nameEn: 'Piercing x', desc: '防禦方擲出的防禦骰數量直接減少指定顆數。' },
+  '爆擊穿刺': { nameEn: 'Piercing Crits x', desc: '唯有你保留了爆擊成功時，防禦方擲出的防禦骰數量才減少指定顆數。' },
+  '受限': { nameEn: 'Limited x', desc: '特工在一場戰鬥中累計使用本武器達到指定次數後，彈藥耗盡，無法再次使用本武器。' },
+  '毀滅': { nameEn: 'Devastating x', desc: '你每次保留 1 次爆擊成功時，立即對目標造成指定點數直接傷害。此爆擊骰後續仍可正常進行打擊結算。' },
+  '致命': { nameEn: 'Lethal x+', desc: '點數大於或等於指定門檻的成功骰直接視為「爆擊成功」（例如致命 5+ 代表 5 與 6 均為爆擊）。' },
+  '精準': { nameEn: 'Accurate x', desc: '你可以在不擲骰子的情況下，將最多指定顆數攻擊骰直接作為「普通成功」保留。' },
   '平衡': { nameEn: 'Balanced', desc: '發動攻擊擲攻擊骰後，你可以重擲其中的 1 顆攻擊骰。' },
-  '爆破': { nameEn: 'Blast x', desc: '射擊主目標後，對距離主目標 x 吋以內且對其可見的所有次要目標依序單獨結算射擊（無視隱蔽指令）。' },
   '殘暴': { nameEn: 'Brutal', desc: '在近戰搏鬥中，你的對手只能使用「爆擊成功」進行招架，無法使用普通成功招架你的任何打擊。' },
-  '不息': { nameEn: 'Ceaseless', desc: '攻擊擲骰後，你可以挑選一個點數結果（例如所有 2 點），並重擲所有該點數的攻擊骰。' },
-  '毀滅': { nameEn: 'Devastating x', desc: '你每次保留 1 次爆擊成功時，立即對目標造成 x 點直接傷害。此爆擊骰後續仍可正常進行打擊結算。' },
+  '不息': { nameEn: 'Ceaseless', desc: '攻擊擲骰後，你可以挑選一個點數結果（例如所有指定點數），並重擲所有該點數的攻擊骰。' },
   '重型': { nameEn: 'Heavy', desc: '特工不能在進行過移動的啟動或反制中使用此武器，使用此武器後亦不能再執行任何移動。若標注「重型(僅衝刺)」，則僅允許執行衝刺。' },
   '過熱': { nameEn: 'Hot', desc: '使用本武器後擲 1 顆 D6。若點數小於武器的 Hit 命中值，射手自身受到相當於該點數 × 2 的傷害。' },
-  '致命': { nameEn: 'Lethal x+', desc: '點數大於或等於 x 的成功骰直接視為「爆擊成功」（例如致命 5+ 代表 5 與 6 均為爆擊）。' },
-  '受限': { nameEn: 'Limited x', desc: '特工在一場戰鬥中累計使用本武器達到 x 次後，便耗盡彈藥，無法再次使用本武器。' },
-  '穿刺': { nameEn: 'Piercing x', desc: '防禦方擲出的防禦骰數量直接減少 x 顆（例如穿刺 1 減少 1 顆）。' },
-  '爆擊穿刺': { nameEn: 'Piercing Crits x', desc: '唯有你保留了爆擊成功時，防禦方擲出的防禦骰數量才減少 x 顆。' },
   '痛擊': { nameEn: 'Punishing', desc: '若你在攻擊擲骰中保留了任何爆擊成功，你可以將 1 顆原本失敗的攻擊骰轉為「普通成功」保留。' },
-  '射程': { nameEn: 'Range x', desc: '距離限制武器。只有在活躍特工 x 吋距離內的敵方特工才能被選為有效射擊目標（例如射程 8"）。' },
   '無情': { nameEn: 'Relentless', desc: '攻擊擲骰後，你可以重擲該次攻擊骰中的任意數量骰子。' },
   '撕裂': { nameEn: 'Rending', desc: '若你保留了任何爆擊成功，你可以將另 1 顆「普通成功」升級為「爆擊成功」保留。' },
   '飽和': { nameEn: 'Saturate', desc: '防禦方無法獲得掩護帶來的免費保留防禦成功（防禦方必須正常擲出所有防禦骰）。' },
@@ -1206,8 +1398,7 @@ const WEAPON_RULES_DICT = {
   '重創': { nameEn: 'Severe', desc: '若你本次攻擊擲骰中沒有保留任何爆擊成功，你可以將 1 次普通成功替換為爆擊成功。此替換可正常觸發爆擊穿刺或毀滅效果。' },
   '震盪': { nameEn: 'Shock', desc: '在近戰中你首次使用爆擊成功進行打擊時，額外棄置對手 1 顆尚未結算的普通成功（若對手無普通成功則棄置其爆擊成功）。' },
   '靜音': { nameEn: 'Silent', desc: '特工在持有「隱蔽指令」的狀態下，依然可以使用本武器正常宣告並執行射擊行動。' },
-  '擊暈': { nameEn: 'Stun', desc: '若你保留了任何爆擊成功，被本武器攻擊的特工其 APL（行動點上限）屬性立即減少 1 點，直到目標的下一次啟動結束為止。' },
-  '洪流': { nameEn: 'Torrent x', desc: '選定主要目標後，可同時選擇距離主要目標 x 吋內、且不在友軍控制範圍內的任意數量其他可見特工為次要目標，依序分別單獨射擊。' }
+  '擊暈': { nameEn: 'Stun', desc: '若你保留了任何爆擊成功，被本武器攻擊的特工其 APL（行動點上限）屬性立即減少 1 點，直到目標的下一次啟動結束為止。' }
 };
 
 /* ================= 戰術、特規與特工能力辭典 (TACTICS & ABILITIES GLOSSARY) ================= */
@@ -1220,47 +1411,62 @@ const TACTICS_AND_ABILITIES_DICT = {
   },
   '爆彈操典': {
     nameEn: 'Bolter Discipline',
-    category: '死亡天使特工特殊能力',
+    category: '特工核心能力',
     desc: '此特工在其單次啟動期間內，可以執行兩次「射擊 (Shoot)」行動。'
   },
   '震懾突擊': {
     nameEn: 'Shock Assault',
-    category: '死亡天使特工特殊能力',
+    category: '特工核心能力',
     desc: '此特工在其單次啟動期間內，可以執行兩次「近戰搏鬥 (Fight)」行動。'
-  },
-  '偽裝斗篷': {
-    nameEn: 'Camo Cloak',
-    category: '殲滅者狙擊手特殊能力',
-    desc: '每當敵方特工對此特工執行射擊行動時，若此特工處於掩護（Cover）中，在擲防禦骰步驟時，你可以將最多兩顆防禦骰保留為普通成功（無需投擲），而非原本的一顆。'
   },
   '噁心韌性': {
     nameEn: 'Disgustingly Resilient (5+)',
     category: '瘟疫戰士核心被動特性',
-    desc: '每當有攻擊骰對此特工造成傷害時（包含「毀滅 Devastating」武器規則所造成的傷害），擲一顆 D6：若結果為 5+，該點傷害被完全抵消忽略。'
+    desc: '每當有攻擊骰對此特工造成傷害時（包含「毀滅 Devastating」武器規則所造成的傷害），擲一顆 D6：若結果為 5+，該次造成的傷害減 1 點（最低減至 2 點）。'
+  },
+  '惡意施瘟': {
+    nameEn: 'Plaguecaster',
+    category: '惡意施瘟者特殊能力',
+    desc: '此特工在其單次啟動期間內，可以執行兩次「射擊 (Shoot)」行動，但在同一次啟動中每種遠程武器不可選擇超過一次。'
+  },
+  '轟炸專員': {
+    nameEn: 'Bombardier',
+    category: '瘟疫轟炸手特殊能力',
+    desc: '此特工在其單次啟動期間內，可以執行兩次「射擊 (Shoot)」行動。'
+  },
+  '聖像旗手': {
+    nameEn: 'Icon Bearer',
+    category: '瘟疫扛旗手特殊能力',
+    desc: '在判定目標標記 (Marker) 的控制權歸屬時，將此特工的 APL 屬性直接視為提高 1 點。'
+  },
+  '偽裝斗篷': {
+    nameEn: 'Camo Cloak',
+    category: '殲滅者狙擊手特殊能力 (完整版)',
+    desc: '每當敵方特工對此特工執行射擊行動時，若此特工處於掩護（Cover）中，在擲防禦骰步驟時，你可以將最多兩顆防禦骰保留為普通成功（無需投擲），而非原本的一顆。'
   },
   '納垢賜福': {
     nameEn: 'Blessings of Nurgle',
-    category: '瘟疫冠軍特工特殊能力',
+    category: '瘟疫冠軍特工特殊能力 (完整版)',
     desc: '此特工在其單次啟動期間內，可以執行兩次「射擊 (Shoot)」行動，或兩次「近戰搏鬥 (Fight)」行動。'
   },
   '瘟疫之風': {
     nameEn: 'Plague Wind',
-    category: '惡意施瘟者特殊能力',
+    category: '惡意施瘟者特殊能力 (完整版)',
     desc: '當此特工執行射擊行動時，若目標特工周圍 2 吋內存在其他敵方特工，所有受波及的敵方特工皆額外受到 2 點直接傷害。'
   },
   '毒性爆發': {
     nameEn: 'Virulent Detonation',
-    category: '瘟疫轟炸手特殊能力',
+    category: '瘟疫轟炸手特殊能力 (完整版)',
     desc: '枯萎手榴彈命中時，若產生任何爆擊成功，額外使目標受到暈眩效果（APL 減 1，直至其下次啟動結束）。'
   },
   '近戰狂怒': {
     nameEn: 'Melee Fury',
-    category: '瘟疫格鬥家特殊能力',
+    category: '瘟疫格鬥家特殊能力 (完整版)',
     desc: '此特工發動衝鋒後的近戰搏鬥中，所有普通打擊額外增加 1 點傷害。'
   },
   '納垢聖像': {
     nameEn: 'Icon of Nurgle',
-    category: '瘟疫扛旗手特殊能力',
+    category: '瘟疫扛旗手特殊能力 (完整版)',
     desc: '距離此特工 6 吋以內的友方瘟疫戰士在進行爭奪目標控制時，有效 APL 視為額外 +1。'
   },
 
@@ -1314,7 +1520,7 @@ const KT_DB_STARTER = {
         name: '星際戰士連長',
         nameEn: 'SPACE MARINE CAPTAIN',
         apl: 3, move: '6"', save: '3+', wounds: 15,
-        thumb: 'assets/angels_p13_8_599x690.png',
+        thumb: 'assets/starter/st_sm_captain.png',
         isLeader: true,
         abilities: ['震懾突擊'],
         fixedWeapons: [
@@ -1328,12 +1534,12 @@ const KT_DB_STARTER = {
         name: '仲裁者軍士',
         nameEn: 'INTERCESSOR SERGEANT',
         apl: 3, move: '6"', save: '3+', wounds: 15,
-        thumb: 'assets/angels_p13_10_456x604.png',
+        thumb: 'assets/starter/st_sm_sergeant.png',
         isLeader: true,
         abilities: ['爆彈操典'],
         fixedWeapons: [
-          { name: '爆彈步槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
-          { name: '鏈鋸劍 (近戰)', atk: 5, hit: '3+', dmg: '4 / 5', rules: [] }
+          { name: '爆彈步槍', atk: 4, hit: '2+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
+          { name: '徒手近戰', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] }
         ]
       },
       {
@@ -1341,7 +1547,7 @@ const KT_DB_STARTER = {
         name: '突擊仲裁者戰士',
         nameEn: 'ASSAULT INTERCESSOR WARRIOR',
         apl: 3, move: '6"', save: '3+', wounds: 14,
-        thumb: 'assets/angels_p13_11_418x550.png',
+        thumb: 'assets/starter/st_sm_assault.png',
         isSpecialist: false,
         abilities: ['震懾突擊'],
         fixedWeapons: [
@@ -1354,13 +1560,14 @@ const KT_DB_STARTER = {
         name: '殲滅者狙擊手',
         nameEn: 'ELIMINATOR SNIPER',
         apl: 3, move: '7"', save: '3+', wounds: 12,
-        thumb: 'assets/angels_p14_7_529x614.png',
+        thumb: 'assets/starter/st_sm_eliminator.png',
         isSpecialist: true,
-        abilities: ['偽裝斗篷'],
+        abilities: [],
         fixedWeapons: [
-          { name: '爆彈狙擊步槍 (處決彈)', atk: 4, hit: '2+', dmg: '4 / 5', rules: ['重型', '爆擊穿刺 1'] },
-          { name: '爆彈狙擊步槍 (裂片彈)', atk: 4, hit: '2+', dmg: '3 / 4', rules: ['重型', '爆破 2"'] },
-          { name: '爆彈狙擊步槍 (盲滅彈)', atk: 4, hit: '2+', dmg: '4 / 5', rules: ['重型', '致命 5+'] },
+          { name: '爆彈手槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['射程 8"'] },
+          { name: '爆彈狙擊步槍 (處決彈)', atk: 4, hit: '2+', dmg: '3 / 4', rules: ['重型', '飽和', '靜音', '痛擊'] },
+          { name: '爆彈狙擊步槍 (裂片彈)', atk: 4, hit: '2+', dmg: '2 / 4', rules: ['爆破 1"', '重型', '靜音'] },
+          { name: '爆彈狙擊步槍 (盲滅彈)', atk: 4, hit: '2+', dmg: '3 / 3', rules: ['毀滅 3', '重型', '穿刺 1', '靜音'] },
           { name: '徒手近戰', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] }
         ]
       },
@@ -1369,7 +1576,7 @@ const KT_DB_STARTER = {
         name: '重裝仲裁者槍手',
         nameEn: 'HEAVY INTERCESSOR GUNNER',
         apl: 3, move: '4"', save: '3+', wounds: 18,
-        thumb: 'assets/angels_p14_8_477x553.png',
+        thumb: 'assets/starter/st_sm_heavy_gunner.png',
         isSpecialist: true,
         abilities: ['爆彈操典'],
         fixedWeapons: [
@@ -1383,7 +1590,7 @@ const KT_DB_STARTER = {
         name: '仲裁者戰士 (自動爆彈步槍)',
         nameEn: 'INTERCESSOR WARRIOR (AUTO BOLT RIFLE)',
         apl: 3, move: '6"', save: '3+', wounds: 14,
-        thumb: 'assets/angels_p13_3_456x612.png',
+        thumb: 'assets/starter/st_sm_warrior_2.png',
         isSpecialist: false,
         abilities: ['爆彈操典'],
         fixedWeapons: [
@@ -1396,7 +1603,7 @@ const KT_DB_STARTER = {
         name: '仲裁者戰士 (爆彈步槍)',
         nameEn: 'INTERCESSOR WARRIOR (BOLT RIFLE)',
         apl: 3, move: '6"', save: '3+', wounds: 14,
-        thumb: 'assets/angels_p13_3_456x612.png',
+        thumb: 'assets/starter/st_sm_warrior_1.png',
         isSpecialist: false,
         abilities: ['爆彈操典'],
         fixedWeapons: [
@@ -1413,8 +1620,8 @@ const KT_DB_STARTER = {
     squadRuleDesc: '剛好挑選 5 名特工出戰：必須包含 1 名冠軍頭目，其餘 6 名特工中挑選 4 名出戰。固定武裝卡片，全員享有噁心韌性 5+ 減傷。',
     maxOps: 5,
     tactics: [
-      { name: '噁心韌性', desc: '每當受到傷害時，擲 D6 結果為 5+ 則該點傷害忽略。' },
-      { name: '納垢賜福', desc: '冠軍頭目單次啟動期間內可執行 2 次射擊或 2 次近戰搏鬥。' }
+      { name: '噁心韌性', desc: '每當受到傷害時，擲 D6 結果為 5+ 則該次傷害減 1 點（最低減至 2 點）。' },
+      { name: '震懾突擊', desc: '冠軍頭目、格鬥家單次啟動期間內可執行 2 次近戰搏鬥行動。' }
     ],
     operatives: [
       {
@@ -1422,9 +1629,9 @@ const KT_DB_STARTER = {
         name: '瘟疫戰士冠軍頭目',
         nameEn: 'PLAGUE MARINE CHAMPION',
         apl: 3, move: '5"', save: '3+', wounds: 15,
-        thumb: 'assets/plague_p10_4_621x742.png',
+        thumb: 'assets/starter/st_pm_champion.png',
         isLeader: true,
-        abilities: ['噁心韌性', '納垢賜福'],
+        abilities: ['噁心韌性', '震懾突擊'],
         fixedWeapons: [
           { name: '等離子手槍 (標準)', atk: 4, hit: '3+', dmg: '4 / 6', rules: ['射程 8"', '穿刺 1'] },
           { name: '等離子手槍 (超載)', atk: 4, hit: '3+', dmg: '5 / 6', rules: ['射程 8"', '過熱', '穿刺 1', '重創'] },
@@ -1436,12 +1643,13 @@ const KT_DB_STARTER = {
         name: '惡意施瘟者',
         nameEn: 'MALIGNANT PLAGUECASTER',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p10_5_575x705.png',
+        thumb: 'assets/starter/st_pm_plaguecaster.png',
         isSpecialist: true,
-        abilities: ['噁心韌性', '瘟疫之風'],
+        abilities: ['噁心韌性', '惡意施瘟'],
         fixedWeapons: [
-          { name: '惡疫侵襲', atk: 4, hit: '3+', dmg: '4 / 5', rules: ['洪流 2"', '飽和'] },
-          { name: '腐敗腐蝕杖 (近戰)', atk: 4, hit: '3+', dmg: '4 / 6', rules: ['重創'] }
+          { name: '生命衰變 (Entropy)', atk: 4, hit: '3+', dmg: '3 / 7', rules: ['射程 7"', '飽和', '重創'] },
+          { name: '瘟疫之風 (Plague wind)', atk: 6, hit: '3+', dmg: '2 / 3', rules: ['飽和', '重創', '洪流 2"'] },
+          { name: '腐化法杖 (近戰)', atk: 4, hit: '3+', dmg: '3 / 5', rules: ['重創', '震盪', '擊暈'] }
         ]
       },
       {
@@ -1449,13 +1657,14 @@ const KT_DB_STARTER = {
         name: '瘟疫戰士轟炸手',
         nameEn: 'PLAGUE MARINE BOMBARDIER',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_10_562x930.png',
+        thumb: 'assets/starter/st_pm_bombardier.png',
         isSpecialist: true,
-        abilities: ['噁心韌性', '毒性爆發'],
+        abilities: ['噁心韌性', '轟炸專員'],
         fixedWeapons: [
-          { name: '腐化爆彈槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
-          { name: '枯萎手榴彈', atk: 4, hit: '3+', dmg: '4 / 4', rules: ['爆破 2"', '飽和'] },
-          { name: '瘟疫戰刀 (近戰)', atk: 4, hit: '3+', dmg: '3 / 5', rules: ['重創'] }
+          { name: '枯萎手榴彈 (Blight grenade)', atk: 4, hit: '3+', dmg: '2 / 4', rules: ['射程 6"', '爆破 2"', '受限 1', '飽和', '重創'] },
+          { name: '爆彈槍 (Boltgun)', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] },
+          { name: '破甲手榴彈 (Krak grenade)', atk: 4, hit: '3+', dmg: '4 / 5', rules: ['射程 6"', '穿刺 1', '飽和'] },
+          { name: '徒手近戰', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] }
         ]
       },
       {
@@ -1463,12 +1672,11 @@ const KT_DB_STARTER = {
         name: '瘟疫戰士格鬥家',
         nameEn: 'PLAGUE MARINE FIGHTER',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_8_764x689.png',
+        thumb: 'assets/starter/st_pm_fighter.png',
         isSpecialist: true,
-        abilities: ['噁心韌性', '近戰狂怒'],
+        abilities: ['噁心韌性', '震懾突擊'],
         fixedWeapons: [
-          { name: '巨大瘟疫劈刀 (近戰)', atk: 4, hit: '3+', dmg: '5 / 7', rules: ['殘暴', '致命 5+'] },
-          { name: '瘟疫連枷 (近戰)', atk: 5, hit: '3+', dmg: '4 / 5', rules: ['撕裂', '痛擊'] }
+          { name: '腐化連枷 (Flail of corruption)', atk: 5, hit: '3+', dmg: '4 / 5', rules: ['殘暴', '重創', '震盪'] }
         ]
       },
       {
@@ -1476,12 +1684,12 @@ const KT_DB_STARTER = {
         name: '瘟疫戰士重裝槍手',
         nameEn: 'PLAGUE MARINE HEAVY GUNNER',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_3_847x843.png',
+        thumb: 'assets/starter/st_pm_heavy_gunner.png',
         isSpecialist: true,
         abilities: ['噁心韌性'],
         fixedWeapons: [
-          { name: '枯萎發射器', atk: 5, hit: '3+', dmg: '4 / 6', rules: ['穿刺 1', '重創'] },
-          { name: '瘟疫戰刀 (近戰)', atk: 4, hit: '3+', dmg: '3 / 5', rules: ['重創'] }
+          { name: '瘟疫噴射器 (Plague spewer)', atk: 5, hit: '2+', dmg: '3 / 3', rules: ['射程 8"', '飽和', '重創', '洪流 2"'] },
+          { name: '徒手近戰', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] }
         ]
       },
       {
@@ -1489,12 +1697,12 @@ const KT_DB_STARTER = {
         name: '瘟疫戰士扛旗手',
         nameEn: 'PLAGUE MARINE ICON BEARER',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_9_610x644.png',
+        thumb: 'assets/starter/st_pm_icon_bearer.png',
         isSpecialist: true,
-        abilities: ['噁心韌性', '納垢聖像'],
+        abilities: ['噁心韌性', '聖像旗手'],
         fixedWeapons: [
-          { name: '腐化爆彈槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
-          { name: '絕望聖像 (近戰)', atk: 4, hit: '3+', dmg: '3 / 5', rules: ['重創'] }
+          { name: '爆彈手槍 (Bolt pistol)', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['射程 8"'] },
+          { name: '瘟疫小刀 (Plague knife)', atk: 5, hit: '3+', dmg: '3 / 5', rules: ['重創'] }
         ]
       },
       {
@@ -1502,12 +1710,12 @@ const KT_DB_STARTER = {
         name: '瘟疫戰士常規戰士',
         nameEn: 'PLAGUE MARINE WARRIOR',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_11_516x762.png',
+        thumb: 'assets/starter/st_pm_warrior.png',
         isSpecialist: false,
-        abilities: ['噁心韌性'],
+        abilities: ['噁心韌性', '爆彈操典'],
         fixedWeapons: [
-          { name: '腐化爆彈槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
-          { name: '瘟疫戰刀 (近戰)', atk: 4, hit: '3+', dmg: '3 / 5', rules: ['重創'] }
+          { name: '爆彈槍 (Boltgun)', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] },
+          { name: '瘟疫小刀 (Plague knife)', atk: 4, hit: '3+', dmg: '3 / 5', rules: ['重創'] }
         ]
       }
     ]
@@ -1544,7 +1752,7 @@ const KT_DB_FULL = {
         name: '星際戰士連長',
         nameEn: 'Space Marine Captain',
         apl: 3, move: '6"', save: '3+', wounds: 15,
-        thumb: 'assets/angels_p13_8_599x690.png',
+        thumb: 'assets/starter/st_sm_captain.png',
         isLeader: true,
         abilities: ['震懾突擊'],
         weaponOptions: {
@@ -1564,7 +1772,7 @@ const KT_DB_FULL = {
         name: '仲裁者軍士',
         nameEn: 'Intercessor Sergeant',
         apl: 3, move: '6"', save: '3+', wounds: 15,
-        thumb: 'assets/angels_p13_10_456x604.png',
+        thumb: 'assets/starter/st_sm_sergeant.png',
         isLeader: true,
         abilities: ['爆彈操典'],
         weaponOptions: {
@@ -1584,7 +1792,7 @@ const KT_DB_FULL = {
         name: '突擊仲裁軍士',
         nameEn: 'Assault Intercessor Sgt',
         apl: 3, move: '6"', save: '3+', wounds: 15,
-        thumb: 'assets/angels_p13_11_418x550.png',
+        thumb: 'assets/starter/st_sm_assault.png',
         isLeader: true,
         abilities: ['震懾突擊'],
         weaponOptions: {
@@ -1604,7 +1812,7 @@ const KT_DB_FULL = {
         name: '殲滅者狙擊手',
         nameEn: 'Eliminator Sniper',
         apl: 3, move: '7"', save: '3+', wounds: 12,
-        thumb: 'assets/angels_p14_7_529x614.png',
+        thumb: 'assets/starter/st_sm_eliminator.png',
         isSpecialist: true,
         abilities: ['偽裝斗篷'],
         weaponOptions: {
@@ -1621,7 +1829,7 @@ const KT_DB_FULL = {
         name: '重裝仲裁者槍手',
         nameEn: 'Heavy Intercessor Gunner',
         apl: 3, move: '4"', save: '3+', wounds: 18,
-        thumb: 'assets/angels_p14_8_477x553.png',
+        thumb: 'assets/starter/st_sm_heavy_gunner.png',
         isSpecialist: true,
         abilities: ['爆彈操典'],
         weaponOptions: {
@@ -1637,7 +1845,7 @@ const KT_DB_FULL = {
         name: '仲裁者戰士 (自動步槍)',
         nameEn: 'Intercessor Warrior (Auto)',
         apl: 3, move: '6"', save: '3+', wounds: 14,
-        thumb: 'assets/angels_p13_3_456x612.png',
+        thumb: 'assets/starter/st_sm_warrior_2.png',
         isSpecialist: false,
         abilities: ['爆彈操典'],
         weaponOptions: {
@@ -1652,11 +1860,60 @@ const KT_DB_FULL = {
         name: '仲裁者戰士 (爆彈步槍)',
         nameEn: 'Intercessor Warrior (Bolt)',
         apl: 3, move: '6"', save: '3+', wounds: 14,
-        thumb: 'assets/angels_p13_3_456x612.png',
+        thumb: 'assets/starter/st_sm_warrior_1.png',
         isSpecialist: false,
         abilities: ['爆彈操典'],
         weaponOptions: {
           '爆彈步槍': [
+            { name: '爆彈步槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
+            { name: '徒手近戰', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] }
+          ]
+        }
+      },
+      {
+        id: 'sm_asw',
+        name: '突擊仲裁戰士',
+        nameEn: 'Assault Intercessor Warrior',
+        apl: 3, move: '6"', save: '3+', wounds: 14,
+        thumb: 'assets/starter/st_sm_assault.png',
+        isSpecialist: false,
+        abilities: ['震懾突擊'],
+        weaponOptions: {
+          '重型爆彈手槍 + 鏈鋸劍': [
+            { name: '重型爆彈手槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['射程 8"', '爆擊穿刺 1'] },
+            { name: '鏈鋸劍 (近戰)', atk: 5, hit: '3+', dmg: '4 / 5', rules: ['平衡'] }
+          ]
+        }
+      },
+      {
+        id: 'sm_gren',
+        name: '突擊仲裁擲彈兵',
+        nameEn: 'Assault Intercessor Grenadier',
+        apl: 3, move: '6"', save: '3+', wounds: 14,
+        thumb: 'assets/starter/st_sm_grenadier.png',
+        isSpecialist: true,
+        abilities: ['專精擲彈兵 (破片/破甲手雷 2+ 命中)'],
+        weaponOptions: {
+          '重型爆彈手槍 + 鏈鋸劍 + 手雷': [
+            { name: '重型爆彈手槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['射程 8"', '爆擊穿刺 1'] },
+            { name: '鏈鋸劍 (近戰)', atk: 5, hit: '3+', dmg: '4 / 5', rules: ['平衡'] },
+            { name: '破片手雷 (擲彈)', atk: 4, hit: '2+', dmg: '2 / 4', rules: ['射程 6"', '爆炸 2"'] },
+            { name: '破甲手雷 (擲彈)', atk: 4, hit: '2+', dmg: '4 / 5', rules: ['射程 6"', '穿刺 1'] }
+          ]
+        }
+      },
+      {
+        id: 'sm_gunner',
+        name: '仲裁槍手 (榴彈步槍)',
+        nameEn: 'Intercessor Gunner',
+        apl: 3, move: '6"', save: '3+', wounds: 14,
+        thumb: 'assets/starter/st_sm_gunner.png',
+        isSpecialist: true,
+        abilities: ['爆彈操典', '輔助榴彈發射器'],
+        weaponOptions: {
+          '輔助榴彈槍 + 爆彈步槍': [
+            { name: '輔助榴彈槍 (破片)', atk: 4, hit: '3+', dmg: '2 / 4', rules: ['爆炸 2"'] },
+            { name: '輔助榴彈槍 (破甲)', atk: 4, hit: '3+', dmg: '4 / 5', rules: ['穿刺 1'] },
             { name: '爆彈步槍', atk: 4, hit: '3+', dmg: '3 / 4', rules: ['爆擊穿刺 1'] },
             { name: '徒手近戰', atk: 4, hit: '3+', dmg: '3 / 4', rules: [] }
           ]
@@ -1685,7 +1942,7 @@ const KT_DB_FULL = {
         name: '瘟疫戰士冠軍頭目',
         nameEn: 'Plague Marine Champion',
         apl: 3, move: '5"', save: '3+', wounds: 15,
-        thumb: 'assets/plague_p10_4_621x742.png',
+        thumb: 'assets/starter/st_pm_champion.png',
         isLeader: true,
         abilities: ['噁心韌性', '納垢賜福'],
         weaponOptions: {
@@ -1705,7 +1962,7 @@ const KT_DB_FULL = {
         name: '惡意施瘟者',
         nameEn: 'Malignant Plaguecaster',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p10_5_575x705.png',
+        thumb: 'assets/starter/st_pm_plaguecaster.png',
         isSpecialist: true,
         abilities: ['噁心韌性', '瘟疫之風'],
         weaponOptions: {
@@ -1720,7 +1977,7 @@ const KT_DB_FULL = {
         name: '瘟疫戰士轟炸手',
         nameEn: 'Plague Marine Bombardier',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_10_562x930.png',
+        thumb: 'assets/starter/st_pm_bombardier.png',
         isSpecialist: true,
         abilities: ['噁心韌性', '毒性爆發'],
         weaponOptions: {
@@ -1736,7 +1993,7 @@ const KT_DB_FULL = {
         name: '瘟疫戰士格鬥家',
         nameEn: 'Plague Marine Fighter',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_8_764x689.png',
+        thumb: 'assets/starter/st_pm_fighter.png',
         isSpecialist: true,
         abilities: ['噁心韌性', '近戰狂怒'],
         weaponOptions: {
@@ -1751,7 +2008,7 @@ const KT_DB_FULL = {
         name: '瘟疫戰士重裝槍手',
         nameEn: 'Plague Marine Heavy Gunner',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_3_847x843.png',
+        thumb: 'assets/starter/st_pm_heavy_gunner.png',
         isSpecialist: true,
         abilities: ['噁心韌性'],
         weaponOptions: {
@@ -1766,7 +2023,7 @@ const KT_DB_FULL = {
         name: '瘟疫戰士扛旗手',
         nameEn: 'Plague Marine Icon Bearer',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_9_610x644.png',
+        thumb: 'assets/starter/st_pm_icon_bearer.png',
         isSpecialist: true,
         abilities: ['噁心韌性', '納垢聖像'],
         weaponOptions: {
@@ -1781,7 +2038,7 @@ const KT_DB_FULL = {
         name: '瘟疫戰士常規戰士',
         nameEn: 'Plague Marine Warrior',
         apl: 3, move: '5"', save: '3+', wounds: 14,
-        thumb: 'assets/plague_p11_11_516x762.png',
+        thumb: 'assets/starter/st_pm_warrior.png',
         isSpecialist: false,
         abilities: ['噁心韌性'],
         weaponOptions: {
@@ -1813,7 +2070,7 @@ const KT_DB_FULL = {
         name: '特戰老大',
         nameEn: 'Kommando Nob',
         apl: 2, move: '6"', save: '4+', wounds: 13,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_boss.png',
         isLeader: true,
         abilities: ['蠻力暴擊'],
         weaponOptions: {
@@ -1828,7 +2085,7 @@ const KT_DB_FULL = {
         name: '狙擊小子',
         nameEn: 'Snipa Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_snipa.png',
         isSpecialist: true,
         abilities: ['暗處狙殺'],
         weaponOptions: {
@@ -1843,7 +2100,7 @@ const KT_DB_FULL = {
         name: '火箭小子',
         nameEn: 'Rokkit Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_rokkit.png',
         isSpecialist: true,
         abilities: ['大爆發'],
         weaponOptions: {
@@ -1858,7 +2115,7 @@ const KT_DB_FULL = {
         name: '火燒小子',
         nameEn: 'Burna Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_burna.png',
         isSpecialist: true,
         abilities: ['熱浪炙烤'],
         weaponOptions: {
@@ -1873,7 +2130,7 @@ const KT_DB_FULL = {
         name: '突突小子',
         nameEn: 'Dakka Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_dakka.png',
         isSpecialist: true,
         abilities: ['瘋狂連射'],
         weaponOptions: {
@@ -1888,7 +2145,7 @@ const KT_DB_FULL = {
         name: '劈砍小子',
         nameEn: 'Slasha Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_slasha.png',
         isSpecialist: true,
         abilities: ['雙刀狂斬'],
         weaponOptions: {
@@ -1903,7 +2160,7 @@ const KT_DB_FULL = {
         name: '破障小子',
         nameEn: 'Breacha Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_breacha.png',
         isSpecialist: true,
         abilities: ['碎牆衝撞'],
         weaponOptions: {
@@ -1918,7 +2175,7 @@ const KT_DB_FULL = {
         name: '通訊小子',
         nameEn: 'Comms Boy',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_comms.png',
         isSpecialist: true,
         abilities: ['大聲公指揮'],
         weaponOptions: {
@@ -1933,7 +2190,7 @@ const KT_DB_FULL = {
         name: '常規特戰小子 (A)',
         nameEn: 'Kommando Boy A',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_boy.png',
         isSpecialist: false,
         abilities: ['歐克蠻力'],
         weaponOptions: {
@@ -1948,13 +2205,42 @@ const KT_DB_FULL = {
         name: '常規特戰小子 (B)',
         nameEn: 'Kommando Boy B',
         apl: 2, move: '6"', save: '5+', wounds: 10,
-        thumb: 'assets/kt_icon.svg',
+        thumb: 'assets/starter/st_ork_boy2.png',
         isSpecialist: false,
         abilities: ['歐克蠻力'],
         weaponOptions: {
           '爆彈手槍 + 大砍刀': [
             { name: '爆彈手槍', atk: 4, hit: '4+', dmg: '3 / 4', rules: ['射程 8"'] },
             { name: '大砍刀 (近戰)', atk: 4, hit: '3+', dmg: '4 / 5', rules: [] }
+          ]
+        }
+      },
+      {
+        id: 'ork_squig',
+        name: '特戰炸彈史奎格',
+        nameEn: 'Bomb Squig',
+        apl: 2, move: '6"', save: '5+', wounds: 5,
+        thumb: 'assets/starter/st_ork_squig.png',
+        isSpecialist: true,
+        abilities: ['自爆特規', '轟隆！ (4+ 陣亡免費射擊)', '消耗品牲口'],
+        weaponOptions: {
+          '綁在背上的炸藥 + 獠牙撕咬': [
+            { name: '背上炸藥 (自爆)', atk: 6, hit: '4+', dmg: '4 / 5', rules: ['爆炸 1"', '自爆', '限定 1 次'] },
+            { name: '獠牙撕咬 (近戰)', atk: 3, hit: '4+', dmg: '4 / 5', rules: [] }
+          ]
+        }
+      },
+      {
+        id: 'ork_grot',
+        name: '特戰屁精',
+        nameEn: 'Kommando Grot',
+        apl: 2, move: '6"', save: '5+', wounds: 5,
+        thumb: 'assets/starter/st_ork_grot.png',
+        isSpecialist: true,
+        abilities: ['鬼祟雜種 (掩體中無法被選為射擊目標)', '抓鉤繩槍'],
+        weaponOptions: {
+          '屁精小砍刀': [
+            { name: '屁精小砍刀 (近戰)', atk: 3, hit: '5+', dmg: '1 / 4', rules: [] }
           ]
         }
       }
@@ -2004,6 +2290,18 @@ window.addEventListener('DOMContentLoaded', () => {
     try {
       matchState = JSON.parse(saved);
       if (matchState.active) {
+        // 自動同步特工最新頭像定義（避免被歷史快取舊圖覆蓋）
+        matchState.players.forEach(p => {
+          const fData = matchState.gameMode === 'starter' ? KT_DB_STARTER[p.faction] : KT_DB_FULL[p.faction];
+          if (fData && fData.operatives) {
+            p.operatives.forEach(op => {
+              const found = fData.operatives.find(o => o.id === op.id);
+              if (found && found.thumb) {
+                op.thumb = found.thumb;
+              }
+            });
+          }
+        });
         showMatchView();
         return;
       }
@@ -2102,17 +2400,25 @@ function proceedFromStep3() {
     const leaderCount = checked.filter(c => c.dataset.leader === 'true').length;
 
     if (count !== maxOps) {
-      alert(`【${p.name} (${fData.name}) 特工編制未符合規定】\n\n規則要求該小隊必須挑選剛好 ${maxOps} 名特工！\n目前已選：${count} 名。\n請勾選調整至剛好 ${maxOps} 名特工。`);
+      showModalAlert({
+        title: '⚠️ 特工編制數量未符規定',
+        message: `【${p.name} (${fData.name}) 特工編制未符合規定】\n\n規則要求該小隊必須挑選剛好 ${maxOps} 名特工！\n目前已選：${count} 名。\n請勾選調整至剛好 ${maxOps} 名特工。`
+      });
       return;
     }
     if (leaderCount !== 1) {
+      let leaderMsg = '';
       if (isStarter && p.faction === 'plague') {
-        alert(`【${p.name} (${fData.name}) 缺少冠軍頭目】\n\n瘟疫戰士入門規則規定：必須選取「瘟疫戰士冠軍頭目 (Plague Marine Champion)」！\n請務必勾選冠軍頭目出戰。`);
+        leaderMsg = `【${p.name} (${fData.name}) 缺少冠軍頭目】\n\n瘟疫戰士入門規則規定：必須選取「瘟疫戰士冠軍頭目 (Plague Marine Champion)」！\n請務必勾選冠軍頭目出戰。`;
       } else if (isStarter && p.faction === 'angels') {
-        alert(`【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n星際戰士入門規則規定：必須在「星際戰士連長」與「仲裁者軍士」中 2 選 1 挑選剛好 1 位首領！\n目前已選：${leaderCount} 名。\n請調整至剛好 1 位首領。`);
+        leaderMsg = `【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n星際戰士入門規則規定：必須在「星際戰士連長」與「仲裁者軍士」中 2 選 1 挑選剛好 1 位首領！\n目前已選：${leaderCount} 名。\n請調整至剛好 1 位首領。`;
       } else {
-        alert(`【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n殺戮小隊必須恰好包含 1 名首領特工 (Leader)！\n目前已選：${leaderCount} 名首領特工。\n請確認已挑選 1 位首領特工。`);
+        leaderMsg = `【${p.name} (${fData.name}) 首領特工數量錯誤】\n\n殺戮小隊必須恰好包含 1 名首領特工 (Leader)！\n目前已選：${leaderCount} 名首領特工。\n請確認已挑選 1 位首領特工。`;
       }
+      showModalAlert({
+        title: '⚠️ 首領特工選拔限制',
+        message: leaderMsg
+      });
       return;
     }
 
@@ -2120,11 +2426,17 @@ function proceedFromStep3() {
       const hasSniper = checked.some(c => c.value === 'st_sm_elim');
       const hasHeavy = checked.some(c => c.value === 'st_sm_hvy');
       if (hasSniper && hasHeavy) {
-        alert(`【${p.name} (${fData.name}) 特工選拔衝突】\n\n星際戰士入門規則規定：「殲滅者狙擊手」與「重裝仲裁者槍手」為 2 選 1！\n不可同時派上場，請取消勾選其中一位。`);
+        showModalAlert({
+          title: '⚠️ 特工選拔衝突',
+          message: `【${p.name} (${fData.name}) 特工選拔衝突】\n\n星際戰士入門規則規定：「殲滅者狙擊手」與「重裝仲裁者槍手」為 2 選 1！\n不可同時派上場，請取消勾選其中一位。`
+        });
         return;
       }
       if (!hasSniper && !hasHeavy) {
-        alert(`【${p.name} (${fData.name}) 缺少重火支援特工】\n\n星際戰士入門規則規定：必須在「殲滅者狙擊手」與「重裝仲裁者槍手」中 2 選 1 挑選一位出戰！\n請勾選其中一位。`);
+        showModalAlert({
+          title: '⚠️ 缺少重火支援特工',
+          message: `【${p.name} (${fData.name}) 缺少重火支援特工】\n\n星際戰士入門規則規定：必須在「殲滅者狙擊手」與「重裝仲裁者槍手」中 2 選 1 挑選一位出戰！\n請勾選其中一位。`
+        });
         return;
       }
     }
@@ -2132,12 +2444,18 @@ function proceedFromStep3() {
     if (isStarter && p.faction === 'plague') {
       const hasChamp = checked.some(c => c.value === 'st_pm_champ');
       if (!hasChamp) {
-        alert(`【${p.name} (${fData.name}) 缺少冠軍頭目】\n\n瘟疫戰士入門規則規定：必須選取「瘟疫戰士冠軍頭目」！\n請務必勾選冠軍頭目。`);
+        showModalAlert({
+          title: '⚠️ 缺少冠軍頭目',
+          message: `【${p.name} (${fData.name}) 缺少冠軍頭目】\n\n瘟疫戰士入門規則規定：必須選取「瘟疫戰士冠軍頭目」！\n請務必勾選冠軍頭目。`
+        });
         return;
       }
       const otherCount = checked.filter(c => c.value !== 'st_pm_champ').length;
       if (otherCount !== 4) {
-        alert(`【${p.name} (${fData.name}) 隊員數量錯誤】\n\n瘟疫戰士入門規則規定：除了冠軍頭目外，其餘 6 名特工中必須挑選剛好 4 位隊員出戰！\n目前已選隊員：${otherCount} 名。`);
+        showModalAlert({
+          title: '⚠️ 隊員數量錯誤',
+          message: `【${p.name} (${fData.name}) 隊員數量錯誤】\n\n瘟疫戰士入門規則規定：除了冠軍頭目外，其餘 6 名特工中必須挑選剛好 4 位隊員出戰！\n目前已選隊員：${otherCount} 名。`
+        });
         return;
       }
     }
@@ -2246,7 +2564,7 @@ function limitCheckboxes(checkbox, max) {
   const checked = document.querySelectorAll(`input[name="${checkbox.name}"]:checked`);
   if (checked.length > max) {
     checkbox.checked = false;
-    alert(`此項目上限為 ${max} 項！`);
+    showToast(`此項目上限為 ${max} 項！`, 'warning');
   }
 }
 
@@ -2359,7 +2677,7 @@ function renderStep3() {
       html += `<div class="loadout-row ${isPrechecked ? 'row-selected' : ''}" id="row_p${pNum}_${op.id}">
         <label style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1;">
           <input type="checkbox" name="p${pNum}_op" value="${op.id}" data-leader="${op.isLeader ? 'true' : 'false'}" data-specialist="${op.isSpecialist ? 'true' : 'false'}" ${isPrechecked ? 'checked' : ''} onchange="handleOperativeToggle(${pNum}, this)">
-          <img src="${op.thumb}" style="width:32px; height:32px; object-fit:contain; border-radius:4px; background:#fff; border:1px solid #e2e8f0; flex-shrink:0;" onerror="this.onerror=null; this.src='assets/kt_icon.svg';">
+          <img src="${op.thumb}" alt="${op.name}" style="width:32px; height:32px; object-fit:contain; border-radius:4px; background:#fff; border:1px solid #e2e8f0; flex-shrink:0;" onerror="this.onerror=null; this.src='assets/kt_icon.svg';" decoding="async" loading="lazy">
           <div>
             <div style="font-weight:700; font-size:12.5px; color:#0f172a;">
               ${op.name}
@@ -2370,7 +2688,12 @@ function renderStep3() {
               ${isStarter && p.faction === 'plague' && op.isLeader ? '<span style="color:#15803d; font-size:10px; font-weight:700; background:#dcfce7; padding:1px 5px; border-radius:3px; margin-left:4px;">(必選頭目)</span>' : ''}
               ${isStarter && p.faction === 'plague' && !op.isLeader ? '<span style="color:#475569; font-size:10px; font-weight:600; background:#f1f5f9; padding:1px 5px; border-radius:3px; margin-left:4px;">(6選4)</span>' : ''}
             </div>
-            <div style="font-size:10.5px; color:#64748b;">HP: <strong>${op.wounds}</strong> | APL: <strong>${op.apl}</strong> | 豁免: <strong>${op.save}</strong> | 移速: <strong>${op.move}</strong></div>
+            <div style="font-size:11px; color:#475569; margin-top:3px; display:flex; gap:10px; flex-wrap:wrap;">
+              <span>APL: <strong style="color:#0f172a;">${op.apl}</strong></span>
+              <span>移速: <strong style="color:#0f172a;">${op.move}</strong></span>
+              <span>豁免: <strong style="color:#0f172a;">${op.save}</strong></span>
+              <span>生命 (HP): <strong style="color:#0f172a;">${op.wounds}</strong></span>
+            </div>
           </div>
         </label>`;
 
@@ -2604,11 +2927,11 @@ function toggleEquipCard(event, card, pNum) {
   }
 }
 
-function handleEquipChange(pNum) {
+function handleEquipChange(pNum, ev) {
   const checked = document.querySelectorAll(`input[name="p${pNum}_eq"]:checked`);
   if (checked.length > 4) {
-    event.target.checked = false;
-    alert('殺戮小隊官方規定：每支隊伍裝備配額上限為 4 件！');
+    if (ev && ev.target) ev.target.checked = false;
+    showToast('殺戮小隊官方規定：每支隊伍裝備配額上限為 4 件！', 'warning');
   }
   updateEquipCounters(pNum);
   document.querySelectorAll(`input[name="p${pNum}_eq"]`).forEach(input => {
@@ -2628,14 +2951,41 @@ function updateEquipCounters(pNum) {
 
 function proceedToStep5() {
   if (matchState.gameMode !== 'starter') {
-    for (let pNum = 1; pNum <= 2; pNum++) {
-      const p = matchState.players[pNum - 1];
-      const checked = document.querySelectorAll(`input[name="p${pNum}_eq"]:checked`);
-      if (checked.length !== 4) {
-        if (!confirm(`【${p.name} 裝備配額提醒】\n\n官方規定每支小隊配備 4 件裝備。目前已選 ${checked.length} / 4 件。\n是否仍要以此配置繼續？`)) {
-          return;
+    const p1 = matchState.players[0];
+    const p1Checked = document.querySelectorAll(`input[name="p1_eq"]:checked`);
+    const p2 = matchState.players[1];
+    const p2Checked = document.querySelectorAll(`input[name="p2_eq"]:checked`);
+
+    if (p1Checked.length !== 4) {
+      showConfirmModal({
+        title: '裝備配額提醒',
+        message: `【${p1.name} 裝備配額提醒】\n\n官方規定每支小隊配備 4 件裝備。目前已選 ${p1Checked.length} / 4 件。\n是否仍要以此配置繼續？`,
+        confirmText: '仍要以此配置繼續',
+        cancelText: '返回調整',
+        onConfirm: () => {
+          if (p2Checked.length !== 4) {
+            showConfirmModal({
+              title: '裝備配額提醒',
+              message: `【${p2.name} 裝備配額提醒】\n\n官方規定每支小隊配備 4 件裝備。目前已選 ${p2Checked.length} / 4 件。\n是否仍要以此配置繼續？`,
+              confirmText: '仍要以此配置繼續',
+              cancelText: '返回調整',
+              onConfirm: () => goToStep(5)
+            });
+          } else {
+            goToStep(5);
+          }
         }
-      }
+      });
+      return;
+    } else if (p2Checked.length !== 4) {
+      showConfirmModal({
+        title: '裝備配額提醒',
+        message: `【${p2.name} 裝備配額提醒】\n\n官方規定每支小隊配備 4 件裝備。目前已選 ${p2Checked.length} / 4 件。\n是否仍要以此配置繼續？`,
+        confirmText: '仍要以此配置繼續',
+        cancelText: '返回調整',
+        onConfirm: () => goToStep(5)
+      });
+      return;
     }
   }
   goToStep(5);
@@ -2694,6 +3044,12 @@ function startMatch() {
   matchState.players[0].vp = 0;
   matchState.players[1].cp = 2; // 對戰開始時雙方各有 2CP
   matchState.players[1].vp = 0;
+
+  triggerHaptic('success');
+  // 自動嘗試開啟螢幕常亮，避免對戰途中黑屏
+  if (typeof requestWakeLock === 'function') {
+    requestWakeLock();
+  }
 
   saveState();
   showMatchView();
@@ -2817,14 +3173,14 @@ function renderPhaseWorkflowPanel() {
 
     let cpActionHtml = '';
     if (matchState.cpClaimedInCurrentTp) {
-      cpActionHtml = `<span style="display:inline-flex; align-items:center; gap:4px; background:#065f46; color:#a7f3d0; font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px;">
+      cpActionHtml = `<span class="badge badge-success" style="padding:4px 10px; font-size:11.5px;">
         ✅ 本回合 CP 已發放完畢 (${isTP1 ? '雙方各 +1 CP' : `${initPlayer.name} +1 CP / ${nonInitPlayer.name} +2 CP`})
       </span>`;
     } else {
       if (isTP1) {
-        cpActionHtml = `<button class="btn-action" style="background:#0284c7; padding:4px 10px; font-size:11.5px;" onclick="claimStrategyCP()">💰 領取 TP 1 指揮點數 (雙方各 +1 CP)</button>`;
+        cpActionHtml = `<button class="btn btn-primary btn-sm" onclick="claimStrategyCP()">💰 領取 TP 1 指揮點數 (雙方各 +1 CP)</button>`;
       } else {
-        cpActionHtml = `<button class="btn-action" style="background:#0284c7; padding:4px 10px; font-size:11.5px;" onclick="claimStrategyCP()">💰 依先後攻發放 CP (${initPlayer.name} +1 CP，${nonInitPlayer.name} +2 CP)</button>`;
+        cpActionHtml = `<button class="btn btn-primary btn-sm" onclick="claimStrategyCP()">💰 依先後攻發放 CP (${initPlayer.name} +1 CP，${nonInitPlayer.name} +2 CP)</button>`;
       }
     }
 
@@ -2833,7 +3189,7 @@ function renderPhaseWorkflowPanel() {
         <span>📜 戰略階段引導工作流 (STRATEGY PHASE)</span>
         <span style="font-size:11px; background:#475569; color:#f1f5f9; padding:1px 6px; border-radius:3px;">TP ${matchState.turningPoint}</span>
       </div>
-      <button class="btn-action" style="background:#ea580c; font-size:12px; padding:6px 14px;" onclick="nextPhase()">
+      <button class="btn btn-primary btn-sm" onclick="nextPhase()">
         完成戰略準備，進入交戰階段 ➔
       </button>
     </div>
@@ -2841,7 +3197,7 @@ function renderPhaseWorkflowPanel() {
       <!-- 步驟 1：爭奪先攻權 -->
       <div style="margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <div><strong>步驟 1：爭奪先攻權 (Roll-off)</strong> — 雙方擲 D6，點數高者奪取本回合先攻權：</div>
-        <button class="btn-outline" style="padding:2px 8px; font-size:11px; color:#fbbf24; border-color:#fbbf24;" onclick="rollInitiativeDice()">🎲 擲先攻權對決骰</button>
+        <button class="btn btn-secondary btn-sm" style="color:#fbbf24; border-color:#fbbf24;" onclick="rollInitiativeDice()">🎲 擲先攻權對決骰</button>
         ${matchState.rollOffResults ? `<span style="font-size:11.5px; color:#fef08a;">對決結果：${p1.name} [ <span class="dice-badge">${matchState.rollOffResults.p1}</span> ] vs ${p2.name} [ <span class="dice-badge">${matchState.rollOffResults.p2}</span> ] ➔ <strong>${matchState.initiative === 1 ? p1.name : p2.name} 奪得先攻！</strong></span>` : `<span style="font-size:11px; color:#94a3b8;">(目前先攻：<strong>${matchState.initiative === 1 ? p1.name : p2.name}</strong>，可點擊上方冠冕手動指定)</span>`}
       </div>
 
@@ -2875,7 +3231,7 @@ function renderPhaseWorkflowPanel() {
         <span style="font-size:11px; background:#475569; color:#f1f5f9; padding:1px 6px; border-radius:3px;">先攻方：${matchState.initiative === 1 ? p1.name : p2.name}</span>
       </div>
       <div style="display:flex; gap:8px;">
-        <button class="btn-action" style="background:#16a34a; font-size:12px; padding:6px 14px;" onclick="nextPhase()">
+        <button class="btn btn-success btn-sm" onclick="nextPhase()">
           全員啟動完畢，進入結算階段 ➔
         </button>
       </div>
@@ -2916,7 +3272,7 @@ function renderPhaseWorkflowPanel() {
         <span>🔄 結算重整階段引導 (WRAP-UP PHASE)</span>
         <span style="font-size:11px; background:#475569; color:#f1f5f9; padding:1px 6px; border-radius:3px;">TP ${matchState.turningPoint} 回合結束</span>
       </div>
-      <button class="btn-action" style="background:#059669; font-size:12px; padding:6px 14px;" onclick="nextTurningPoint()">
+      <button class="btn btn-success btn-sm" onclick="nextTurningPoint()">
         ✨ 一鍵重整特工並前進至下個轉折點 ➔
       </button>
     </div>
@@ -2936,13 +3292,26 @@ function setPhase(ph) {
 }
 
 function nextPhase() {
-  if (matchState.phase === 1) {
-    if (!matchState.cpClaimedInCurrentTp) {
-      if (confirm('【戰略階段提醒】本轉折點的指揮點數 (CP) 尚未發放！\n\n是否現在依規則發放 CP 並進入交戰階段？\n（第1回合雙方各+1 CP；後續回合先攻+1 CP / 後攻+2 CP）')) {
+  if (matchState.phase === 1 && !matchState.cpClaimedInCurrentTp) {
+    showConfirmModal({
+      title: '戰略階段 CP 發放提醒',
+      message: '【戰略階段提醒】本轉折點的指揮點數 (CP) 尚未發放！\n\n是否現在依規則發放 CP 並進入交戰階段？\n（第1回合雙方各+1 CP；後續回合先攻+1 CP / 後攻+2 CP）',
+      confirmText: '發放 CP 並進入交戰',
+      cancelText: '不發放直接交戰',
+      onConfirm: () => {
         claimStrategyCP();
+        advancePhase();
+      },
+      onCancel: () => {
+        advancePhase();
       }
-    }
+    });
+    return;
   }
+  advancePhase();
+}
+
+function advancePhase() {
   if (matchState.phase < 3) {
     matchState.phase++;
   } else {
@@ -2955,7 +3324,7 @@ function nextPhase() {
 /* 戰略階段：依先後攻發放指揮點數 (CP) */
 function claimStrategyCP() {
   if (matchState.cpClaimedInCurrentTp) {
-    alert('【提醒】本轉折點的戰略階段指揮點數 (CP) 已經發放完畢！');
+    showToast('【提醒】本轉折點的戰略階段指揮點數 (CP) 已經發放完畢！', 'info');
     return;
   }
   const isTP1 = matchState.turningPoint === 1;
@@ -2967,7 +3336,7 @@ function claimStrategyCP() {
     p2.cp += 1;
     matchState.cpClaimedInCurrentTp = true;
     updateMatchUI();
-    alert(`【第 1 轉折點戰略階段 CP 發放】\n規則：第一轉折點戰略階段雙方各得 1 CP。\n\n${p1.name}：+1 CP (現有 ${p1.cp} CP)\n${p2.name}：+1 CP (現有 ${p2.cp} CP)`);
+    showToast(`【第 1 轉折點戰略階段 CP 發放】\n雙方各得 1 CP\n• ${p1.name}：+1 CP (現有 ${p1.cp} CP)\n• ${p2.name}：+1 CP (現有 ${p2.cp} CP)`, 'success', 4500);
   } else {
     const initPlayer = matchState.initiative === 1 ? p1 : p2;
     const nonInitPlayer = matchState.initiative === 1 ? p2 : p1;
@@ -2975,12 +3344,13 @@ function claimStrategyCP() {
     nonInitPlayer.cp += 2; // 後攻玩家得 2 CP
     matchState.cpClaimedInCurrentTp = true;
     updateMatchUI();
-    alert(`【第 ${matchState.turningPoint} 轉折點戰略階段 CP 發放】\n規則：先攻玩家得 1 CP，後攻玩家得 2 CP。\n\n👑 先攻玩家 (${initPlayer.name})：+1 CP (現有 ${initPlayer.cp} CP)\n🛡️ 後攻玩家 (${nonInitPlayer.name})：+2 CP (現有 ${nonInitPlayer.cp} CP)`);
+    showToast(`【第 ${matchState.turningPoint} 轉折點戰略階段 CP 發放】\n👑 先攻 (${initPlayer.name})：+1 CP (現有 ${initPlayer.cp} CP)\n🛡️ 後攻 (${nonInitPlayer.name})：+2 CP (現有 ${nonInitPlayer.cp} CP)`, 'success', 4500);
   }
 }
 
 /* 戰略階段：先攻擲骰對決 */
 function rollInitiativeDice() {
+  triggerHaptic('dice');
   let r1 = Math.ceil(Math.random() * 6);
   let r2 = Math.ceil(Math.random() * 6);
   while (r1 === r2) {
@@ -2997,12 +3367,14 @@ function rollInitiativeDice() {
 function useCommandReroll(playerNum) {
   const p = matchState.players[playerNum - 1];
   if (p.cp <= 0) {
-    alert(`【${p.name} 指揮點數不足】\n\n宣告「指揮重骰 (Command Re-roll)」需要花費 1 CP。目前 CP 為 0！`);
+    triggerHaptic('warning');
+    showToast(`【${p.name} 指揮點數不足】\n宣告「指揮重骰 (Command Re-roll)」需要花費 1 CP。目前 CP 為 0！`, 'danger', 4000);
     return;
   }
   p.cp--;
+  triggerHaptic('dice');
   updateMatchUI();
-  alert(`🎲 【${p.name} 宣告指揮重骰】\n\n已扣除 1 CP (剩餘 ${p.cp} CP)。\n請重擲你的 1 顆攻擊骰或防禦骰！\n\n⚠️ 提醒：同一顆骰子絕不能被重擲第二次。`);
+  showToast(`🎲 【${p.name} 宣告指揮重骰】\n已扣除 1 CP (剩餘 ${p.cp} CP)。\n請重擲你的 1 顆攻擊骰或防禦骰！\n⚠️ 提醒：同一顆骰子絕不能被重擲第二次。`, 'info', 4500);
 }
 
 /* 渲染特工卡片 */
@@ -3095,11 +3467,13 @@ function renderSingleOperativeCard(op, playerNum) {
           </div>
           ${w.rules && w.rules.length > 0 ? `
             <div class="op-wp-rules-list">
-              ${w.rules.map(r => `
-                <span class="rule-pill-interactive" onclick="showRulePopover(event, '${r}')" onmouseenter="showRulePopover(event, '${r}')" title="檢視 ${r} 規則">
-                  🔍 ${r}
-                </span>
-              `).join('')}
+              ${w.rules.map(r => {
+                const safeR = escapeHtmlAttr(r);
+                return `
+                <span class="rule-pill-interactive" data-rule="${safeR}" onclick="showRulePopover(event, this.getAttribute('data-rule'))" onmouseenter="showRulePopover(event, this.getAttribute('data-rule'))" title="檢視 ${safeR} 規則">
+                  🔍 ${safeR}
+                </span>`;
+              }).join('')}
             </div>
           ` : ''}
         </div>
@@ -3129,15 +3503,17 @@ function renderSingleOperativeCard(op, playerNum) {
 
   return `<div class="${cardClass}">
     <div class="tracker-op-header">
-      <img src="${op.thumb}" class="tracker-op-thumb" onerror="this.onerror=null; this.src='assets/kt_icon.svg';">
+      <img src="${op.thumb}" alt="${op.name}" class="tracker-op-thumb" onerror="this.onerror=null; this.src='assets/kt_icon.svg';" decoding="async" loading="lazy">
       <div class="tracker-op-meta">
         <div class="tracker-op-title">${op.name} ${op.isLeader ? '<span style="color:#ea580c; font-size:10px; font-weight:800; background:#ffedd5; padding:1px 5px; border-radius:3px;">[LEADER]</span>' : ''}</div>
         <div class="tracker-op-sub">${op.nameEn} (玩家 ${playerNum})</div>
         <div style="font-size:11px; color:#475569; margin-top:2px;">配置：<strong>${op.selectedOptionKey || '預設'}</strong></div>
       </div>
-      <div style="text-align:right;">
-        <div style="font-size:10.5px; color:#64748b; font-weight:700;">APL: ${op.apl} | 移速: ${op.move}</div>
-        <div style="font-size:10.5px; color:#64748b; font-weight:700;">豁免: ${op.save}</div>
+      <div class="stat-cluster">
+        <div class="stat-box" title="行動點數 (Action Point Limit)"><span class="stat-label">APL</span><span class="stat-value">${op.apl}</span></div>
+        <div class="stat-box" title="移動距離 (Move)"><span class="stat-label">MOVE</span><span class="stat-value">${op.move}</span></div>
+        <div class="stat-box" title="防禦豁免 (Save)"><span class="stat-label">SAVE</span><span class="stat-value">${op.save}</span></div>
+        <div class="stat-box" title="最大生命值 (Max Wounds)"><span class="stat-label">WOUNDS</span><span class="stat-value">${op.wounds}</span></div>
       </div>
     </div>
 
@@ -3361,21 +3737,13 @@ function showCrPopover(event) {
 function showRulePopover(event, rawRuleStr) {
   if (event && event.stopPropagation) event.stopPropagation();
   const target = event.currentTarget || event.target;
-  let key = rawRuleStr.trim();
-  for (const dictKey of Object.keys(WEAPON_RULES_DICT)) {
-    if (rawRuleStr.includes(dictKey)) {
-      key = dictKey;
-      break;
-    }
-  }
-
-  const def = WEAPON_RULES_DICT[key];
-  if (def) {
+  const info = resolveWeaponRuleInfo(rawRuleStr);
+  if (info) {
     showTacticalPopover(
       target,
-      rawRuleStr,
-      def.nameEn,
-      `<p>${def.desc}</p><div style="font-size:10px; color:#94a3b8; margin-top:6px; border-top:1px dashed #334155; padding-top:4px;">來源：官方 22 項武器特性標準規範。</div>`,
+      info.title,
+      '',
+      `<p>${info.desc}</p><div style="font-size:10px; color:#94a3b8; margin-top:6px; border-top:1px dashed #334155; padding-top:4px;">來源：官方 22 項武器特性標準規範。</div>`,
       '武器特殊規則'
     );
   } else {
@@ -3422,12 +3790,21 @@ function showEquipPopover(event, equipId) {
 function modifyHP(playerNum, opId, amount) {
   const op = matchState.players[playerNum - 1].operatives.find(o => o.id === opId);
   if (op) {
+    const wasAlive = op.currentWounds > 0;
     op.currentWounds = Math.max(0, Math.min(op.wounds, op.currentWounds + amount));
+    if (op.currentWounds === 0 && wasAlive) {
+      triggerHaptic('danger'); // 特工重傷倒下 / 陣亡
+    } else if (amount < 0) {
+      triggerHaptic('medium'); // 受傷扣血
+    } else if (amount > 0) {
+      triggerHaptic('success'); // 醫療回復
+    }
     updateMatchUI();
   }
 }
 
 function rollDamage(playerNum, opId, diceType) {
+  triggerHaptic('dice');
   const roll = diceType === 'D3' ? Math.ceil(Math.random() * 3) : Math.ceil(Math.random() * 6);
   modifyHP(playerNum, opId, -roll);
 }
@@ -3436,6 +3813,7 @@ function resetHP(playerNum, opId) {
   const op = matchState.players[playerNum - 1].operatives.find(o => o.id === opId);
   if (op) {
     op.currentWounds = op.wounds;
+    triggerHaptic('success');
     updateMatchUI();
   }
 }
@@ -3444,6 +3822,7 @@ function toggleOpActivation(playerNum, opId) {
   const op = matchState.players[playerNum - 1].operatives.find(o => o.id === opId);
   if (op) {
     op.isActivated = !op.isActivated;
+    triggerHaptic('light');
     updateMatchUI();
   }
 }
@@ -3452,6 +3831,7 @@ function toggleOpOrder(playerNum, opId) {
   const op = matchState.players[playerNum - 1].operatives.find(o => o.id === opId);
   if (op) {
     op.order = op.order === 'engage' ? 'conceal' : 'engage';
+    triggerHaptic('light');
     updateMatchUI();
   }
 }
@@ -3460,12 +3840,14 @@ function toggleOpOrder(playerNum, opId) {
 function changeCP(playerNum, val) {
   const p = matchState.players[playerNum - 1];
   p.cp = Math.max(0, p.cp + val);
+  triggerHaptic('light');
   updateMatchUI();
 }
 
 function changeVP(playerNum, val) {
   const p = matchState.players[playerNum - 1];
   p.vp = Math.max(0, p.vp + val);
+  triggerHaptic('light');
   updateMatchUI();
 }
 
@@ -3475,7 +3857,7 @@ function setInitiative(playerNum) {
     const newInit = playerNum;
     matchState.players[oldInit - 1].cp += 1;
     matchState.players[newInit - 1].cp = Math.max(0, matchState.players[newInit - 1].cp - 1);
-    alert(`👑 先攻權手動切換至 ${matchState.players[newInit - 1].name}！\n依官方規則已自動重新校正 CP 配額：\n• ${matchState.players[newInit - 1].name} (新先攻)：+1 CP\n• ${matchState.players[oldInit - 1].name} (新後攻)：+2 CP`);
+    showToast(`👑 先攻權手動切換至 ${matchState.players[newInit - 1].name}！\n已重新校正 CP 配額：\n• ${matchState.players[newInit - 1].name} (新先攻)：+1 CP\n• ${matchState.players[oldInit - 1].name} (新後攻)：+2 CP`, 'info', 4500);
   }
   matchState.initiative = playerNum;
   updateMatchUI();
@@ -3494,24 +3876,37 @@ function toggleRulesDrawer() {
 /* 推進轉折點 (Next TP) */
 function nextTurningPoint() {
   if (matchState.turningPoint >= 4) {
-    if (confirm('第四轉折點已結束！是否結算最終戰果？\n\n點擊確定將顯示對戰結算總結。')) {
-      showMatchSummary();
-    }
+    showConfirmModal({
+      title: '第四轉折點結束',
+      message: '第四轉折點已結束！是否結算最終戰果？\n\n點擊確定將顯示對戰結算總結。',
+      confirmText: '🏆 結算戰報',
+      cancelText: '返回對戰',
+      onConfirm: () => {
+        showMatchSummary();
+      }
+    });
     return;
   }
-  if (confirm(`確定推進至第 ${matchState.turningPoint + 1} 轉折點？\n\n系統將自動：\n1. 所有特工重置為「待啟動」\n2. 重置每回合限用裝備\n3. 前進至第 ${matchState.turningPoint + 1} 轉折點戰略階段（將在決定先後攻後分配：先攻 +1 CP，後攻 +2 CP）`)) {
-    matchState.turningPoint++;
-    matchState.phase = 1;
-    matchState.rollOffResults = null;
-    matchState.cpClaimedInCurrentTp = false;
-    matchState.players.forEach(p => {
-      p.operatives.forEach(o => o.isActivated = false);
-      p.equipment.forEach(eq => {
-        if (eq.type === 'turn') eq.used = false;
+  showConfirmModal({
+    title: `推進至第 ${matchState.turningPoint + 1} 轉折點`,
+    message: `確定推進至第 ${matchState.turningPoint + 1} 轉折點？\n\n系統將自動：\n1. 所有特工重置為「待啟動」\n2. 重置每回合限用裝備\n3. 前進至第 ${matchState.turningPoint + 1} 轉折點戰略階段（將在決定先後攻後分配：先攻 +1 CP，後攻 +2 CP）`,
+    confirmText: '確定推進',
+    cancelText: '取消',
+    onConfirm: () => {
+      matchState.turningPoint++;
+      matchState.phase = 1;
+      matchState.rollOffResults = null;
+      matchState.cpClaimedInCurrentTp = false;
+      matchState.players.forEach(p => {
+        p.operatives.forEach(o => o.isActivated = false);
+        p.equipment.forEach(eq => {
+          if (eq.type === 'turn') eq.used = false;
+        });
       });
-    });
-    updateMatchUI();
-  }
+      updateMatchUI();
+      showToast(`已進入第 ${matchState.turningPoint} 轉折點戰略階段！`, 'info');
+    }
+  });
 }
 
 function showMatchSummary() {
@@ -3520,19 +3915,107 @@ function showMatchSummary() {
   const p1Alive = p1.operatives.filter(o => o.currentWounds > 0).length;
   const p2Alive = p2.operatives.filter(o => o.currentWounds > 0).length;
 
-  let winner = '平手 (Tie)';
-  if (p1.vp > p2.vp) winner = `${p1.name} 獲勝！`;
-  else if (p2.vp > p1.vp) winner = `${p2.name} 獲勝！`;
+  let winner = '雙方平手 (Tie)';
+  if (p1.vp > p2.vp) winner = `🏆 ${p1.name} 獲勝！`;
+  else if (p2.vp > p1.vp) winner = `🏆 ${p2.name} 獲勝！`;
 
-  alert(`🏆 對戰結束！戰報總結：\n\n獲勝者：${winner}\n\n${p1.name}：${p1.vp} VP | 存活特工：${p1Alive} 名\n${p2.name}：${p2.vp} VP | 存活特工：${p2Alive} 名\n\n感謝使用殺戮小隊對戰助手！`);
+  showModalAlert({
+    title: '🏆 對戰結束！戰報總結',
+    message: `【最終戰果】\n${winner}\n\n• ${p1.name}：${p1.vp} VP | 存活特工：${p1Alive} 名\n• ${p2.name}：${p2.vp} VP | 存活特工：${p2Alive} 名\n\n感謝使用殺戮小隊對戰助手！`,
+    confirmText: '完成'
+  });
 }
 
 function confirmResetMatch() {
-  if (confirm('確定要結束並重設當前對戰嗎？這將清除本次對戰所有記錄。')) {
-    localStorage.removeItem('kt_match_active_state_v2');
-    location.reload();
+  showConfirmModal({
+    title: '⚠️ 結束並重設當前對戰',
+    message: '確定要結束並重設當前對戰嗎？\n\n這將清除本次對戰所有進度、計分與特工狀態，並返回設定嚮導。',
+    confirmText: '確定重設',
+    cancelText: '取消',
+    isDanger: true,
+    onConfirm: () => {
+      localStorage.removeItem('kt_match_active_state_v2');
+      location.reload();
+    }
+  });
+}
+
+// ===================================================================
+// 對戰存檔 JSON 匯出與匯入 (EXPORT / IMPORT MATCH STATE)
+// ===================================================================
+function exportMatchJson() {
+  if (!matchState || !matchState.active) {
+    if (window.showToast) window.showToast('目前尚無進行中的對戰紀錄可供匯出', 'warning');
+    return;
+  }
+  try {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(matchState, null, 2));
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '') + '_' + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+    const filename = `kt_match_${matchState.gameMode || 'game'}_${dateStr}.json`;
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", filename);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    if (window.showToast) window.showToast(`💾 對戰存檔已成功匯出：${filename}`, 'success');
+    if (window.triggerHaptic) window.triggerHaptic('success');
+  } catch (err) {
+    if (window.showToast) window.showToast('匯出失敗：' + err.message, 'danger');
   }
 }
+
+function triggerImportMatchJson() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json,application/json';
+  input.style.display = 'none';
+  input.onchange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target.result);
+        if (!parsed.players || !Array.isArray(parsed.players) || parsed.players.length !== 2) {
+          if (window.showToast) window.showToast('檔案格式不符，請選擇有效的殺戮小隊對戰 JSON 存檔', 'danger');
+          return;
+        }
+
+        const doImport = () => {
+          matchState = parsed;
+          matchState.active = true;
+          saveState();
+          showMatchView();
+          if (window.showToast) window.showToast('✅ 對戰存檔已成功匯入並復原！', 'success');
+          if (window.triggerHaptic) window.triggerHaptic('success');
+        };
+
+        if (window.showConfirmModal) {
+          showConfirmModal({
+            title: '📂 匯入對戰存檔確認',
+            message: `確定要匯入此對戰存檔嗎？\n\n• 檔案名稱：${file.name}\n• 模式：${parsed.gameMode === 'starter' ? '入門套組模式' : '完整標準模式'}\n• 當前轉折點：TP ${parsed.turningPoint || 1}\n\n注意：當前畫面的對戰狀態將會被取代。`,
+            confirmText: '確定匯入',
+            cancelText: '取消',
+            onConfirm: doImport
+          });
+        } else {
+          doImport();
+        }
+      } catch (err) {
+        if (window.showToast) window.showToast('讀取存檔失敗：檔案內容不是有效的 JSON', 'danger');
+      }
+    };
+    reader.readAsText(file);
+  };
+  document.body.appendChild(input);
+  input.click();
+  input.remove();
+}
+
+window.exportMatchJson = exportMatchJson;
+window.triggerImportMatchJson = triggerImportMatchJson;
 
 </script>
     </div>
@@ -3546,6 +4029,6 @@ function confirmResetMatch() {
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.2.4"></script>
+<script src="shared.js?v=3.3.5"></script>
 </body>
 </html>

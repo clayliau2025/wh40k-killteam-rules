@@ -1,4 +1,5 @@
 {
+  "id": "wh40k-kt-rules-db",
   "name": "戰錘 40K & KT 繁中情報庫",
   "short_name": "40K情報庫",
   "description": "Warhammer 40,000 (11版戰巡隊) 與 Kill Team (3版) 繁體中文規則、特工資料卡與對戰助手",
@@ -18,10 +19,38 @@
       "purpose": "any"
     },
     {
+      "src": "assets/pwa_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "assets/pwa_icon_512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/pwa_screenshot_wide.png",
+      "sizes": "1000x600",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "戰錘 40K & 殺戮小隊 繁體中文全戰棋情報庫"
+    },
+    {
+      "src": "assets/pwa_screenshot_narrow.png",
+      "sizes": "512x1024",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "殺戮小隊雙人對戰即時計分與特工狀態卡"
     }
   ],
   "shortcuts": [

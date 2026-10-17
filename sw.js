@@ -1,15 +1,15 @@
 /**
  * 戰錘 40K & 殺戮小隊 繁中規則庫 Service Worker
- * 版本: v3.2.0 (PWA 離線支援與快取管理)
+ * 版本: v3.3.5 (PWA 離線支援與官方戰隊模型圖快取)
  */
 
-const CACHE_NAME = 'wh40k-pwa-v3.2.7';
+const CACHE_NAME = 'wh40k-pwa-v3.3.5';
 
 const PRECACHE_ASSETS = [
   './',
   'index.html',
-  'shared.css?v=3.2.4',
-  'shared.js?v=3.2.4',
+  'shared.css?v=3.3.5',
+  'shared.js?v=3.3.5',
   'manifest.json',
   '40k_core_rules.html',
   '40k_combat_patrol_rules.html',
@@ -27,7 +27,39 @@ const PRECACHE_ASSETS = [
   'assets/pwa_icon_192.png',
   'assets/pwa_icon_512.png',
   'assets/wh40k_logo.png',
-  'assets/kt_logo.png'
+  'assets/kt_logo.png',
+  'assets/kt_icon.svg',
+  // 星際戰士天使之死 (Space Marines: Angels of Death)
+  'assets/starter/st_sm_captain.png',
+  'assets/starter/st_sm_sergeant.png',
+  'assets/starter/st_sm_assault.png',
+  'assets/starter/st_sm_eliminator.png',
+  'assets/starter/st_sm_heavy_gunner.png',
+  'assets/starter/st_sm_warrior_1.png',
+  'assets/starter/st_sm_warrior_2.png',
+  'assets/starter/st_sm_grenadier.png',
+  'assets/starter/st_sm_gunner.png',
+  // 瘟疫戰士 (Death Guard: Plague Marines)
+  'assets/starter/st_pm_champion.png',
+  'assets/starter/st_pm_plaguecaster.png',
+  'assets/starter/st_pm_bombardier.png',
+  'assets/starter/st_pm_fighter.png',
+  'assets/starter/st_pm_heavy_gunner.png',
+  'assets/starter/st_pm_icon_bearer.png',
+  'assets/starter/st_pm_warrior.png',
+  // 獸人特戰小子 (Ork Kommandos)
+  'assets/starter/st_ork_boss.png',
+  'assets/starter/st_ork_boy.png',
+  'assets/starter/st_ork_boy2.png',
+  'assets/starter/st_ork_breacha.png',
+  'assets/starter/st_ork_burna.png',
+  'assets/starter/st_ork_comms.png',
+  'assets/starter/st_ork_dakka.png',
+  'assets/starter/st_ork_grot.png',
+  'assets/starter/st_ork_rokkit.png',
+  'assets/starter/st_ork_slasha.png',
+  'assets/starter/st_ork_snipa.png',
+  'assets/starter/st_ork_squig.png'
 ];
 
 // 安裝事件：預先快取核心資源
@@ -99,12 +131,12 @@ self.addEventListener('fetch', (event) => {
         })
     );
   } else {
-    // 靜態資源 (CSS, JS, 圖片, 字體)：快取優先 / SWR
+    // 靜態資源 (CSS, JS, 圖片, 字體)：快取優先 / SWR (附離線容錯保護)
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
         const fetchPromise = fetch(request)
           .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
+            if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
               const copy = networkResponse.clone();
               caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
             }
@@ -112,7 +144,18 @@ self.addEventListener('fetch', (event) => {
           })
           .catch(() => null);
 
-        return cachedResponse || fetchPromise;
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        return fetchPromise.then((networkResponse) => {
+          if (networkResponse) return networkResponse;
+          return new Response('離線模式：無法取得未快取之靜態資源', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: new Headers({ 'Content-Type': 'text/plain; charset=utf-8' })
+          });
+        });
       })
     );
   }
