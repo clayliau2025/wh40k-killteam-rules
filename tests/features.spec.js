@@ -203,4 +203,38 @@ test.describe('全站功能與工作流程自動化測試', () => {
     const mobileMenuSvg = page.locator('#mobileMenuBtn svg');
     await expect(mobileMenuSvg).toBeVisible();
   });
+
+  test('全站無障礙無遺漏：表單元件均具備無障礙標籤 (Labels / aria-label) 且 SEO 標籤齊全', async ({ page }) => {
+    // 驗證 40k_combat_patrol_tracker.html 戰前模態框的表單元件均有明確標籤
+    await page.goto('/40k_combat_patrol_tracker.html');
+    await page.evaluate(() => {
+      if (window.openSetupModal) window.openSetupModal();
+    });
+
+    const setupLayout = page.locator('#setup-layout');
+    await expect(page.locator('label[for="setup-layout"]')).toBeVisible();
+
+    const p1Enhance = page.locator('#setup-p1-enhancement');
+    await expect(page.locator('label[for="setup-p1-enhancement"]')).toBeVisible();
+
+    const p2Enhance = page.locator('#setup-p2-enhancement');
+    await expect(page.locator('label[for="setup-p2-enhancement"]')).toBeVisible();
+
+    const firstPlayer = page.locator('#setup-first-player');
+    await expect(page.locator('label[for="setup-first-player"]')).toBeVisible();
+
+    const battleReady = page.locator('#setup-battle-ready');
+    await expect(battleReady).toHaveAttribute('aria-label', /計入戰備塗裝/);
+
+    // 驗證 40k_core_rules.html 搜尋列
+    await page.goto('/40k_core_rules.html');
+    const ruleSearch = page.locator('#ruleSearchInput');
+    await expect(ruleSearch).toHaveAttribute('aria-label', /搜尋與篩選 40K 核心規則/);
+
+    // 驗證 index.html 關鍵字字典搜尋
+    await page.goto('/index.html');
+    const kwSearch = page.locator('#keywordSearch');
+    await expect(kwSearch).toHaveAttribute('aria-label', /搜尋特規與武器辭典關鍵字/);
+  });
 });
+
