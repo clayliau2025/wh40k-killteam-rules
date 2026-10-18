@@ -12,6 +12,8 @@
       "kill_team/**",
       "40K/**",
       "scratch/**",
+      "scripts/**",
+      "assets/raw_pdf_exports/**",
       "server.py"
     ],
     "headers": [
