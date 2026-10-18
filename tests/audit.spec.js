@@ -235,5 +235,44 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     expect(box?.height, '行動端漢堡按鈕高度應至少 44px').toBeGreaterThanOrEqual(44);
   });
 
+  test('Stage G 指標驗證：rule_lite.html 具備完整 7 章節 TOC 目錄、抽屜、閱讀進度條與錨點複製', async ({ page }) => {
+    await page.goto('/rule_lite.html');
+
+    // 1. 閱讀進度條
+    const progressBar = page.locator('#readingProgressBar');
+    await expect(progressBar).toBeAttached();
+
+    // 2. TOC 導航抽屜
+    const tocLinks = page.locator('#tocDrawer .cr-toc-link');
+    const count = await tocLinks.count();
+    expect(count, '抽屜目錄章節數量應為 7').toBe(7);
+
+    // 3. 章節下拉跳轉選單
+    const chapterSelect = page.locator('#liteChapterSelect');
+    await expect(chapterSelect).toBeAttached();
+    const optCount = await chapterSelect.locator('option').count();
+    expect(optCount, '章節下拉選單應包含至少 7 個章節選項').toBeGreaterThanOrEqual(7);
+
+    // 4. 7 個章節區塊均有錨點複製按鈕
+    const anchorBtns = page.locator('.btn-copy-anchor');
+    const anchorBtnCount = await anchorBtns.count();
+    expect(anchorBtnCount, '每個章節 Banner 均應有錨點複製按鈕').toBeGreaterThanOrEqual(7);
+
+    // 5. 抽屜開啟與關閉
+    const toggleBtn = page.locator('#tocDrawerToggle');
+    const drawer = page.locator('#tocDrawer');
+    const closeBtn = page.locator('#tocDrawerClose');
+    await toggleBtn.click();
+    await expect(drawer).toHaveClass(/open/);
+    await closeBtn.click();
+    await expect(drawer).not.toHaveClass(/open/);
+
+    // 6. 下拉選單跳轉
+    await chapterSelect.selectOption('actions');
+    await page.waitForTimeout(300);
+    const hash = await page.evaluate(() => window.location.hash);
+    expect(hash).toBe('#actions');
+  });
+
 });
 

@@ -1850,13 +1850,42 @@ body {
 .card ul,
 .rule-card ol,
 .rule-card ul {
-  padding-left: 24px;
-  margin: 8px 0;
+  padding-left: 28px;
+  margin: 8px 0 12px 0;
+  box-sizing: border-box;
+  list-style-position: outside;
 }
 .card li,
 .rule-card li {
   margin-bottom: 6px;
   line-height: 1.6;
+  padding-left: 2px;
+}
+.rule-phase-card {
+  background: var(--surface-ground, #f8fafc);
+  padding: 14px 16px 14px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--theme-border, #cbd5e1);
+  border-left: 4px solid var(--theme-primary, #ea580c);
+  margin-bottom: 10px;
+}
+.rule-phase-card ul {
+  margin: 8px 0 4px 0 !important;
+  padding-left: 22px !important;
+  list-style-position: outside !important;
+}
+.rule-phase-card li {
+  margin-bottom: 5px;
+  line-height: 1.55;
+}
+.rule-sub-list {
+  margin: 6px 0 6px 0 !important;
+  padding-left: 22px !important;
+  list-style-type: circle !important;
+}
+.rule-sub-list li {
+  margin-bottom: 4px;
+  line-height: 1.5;
 }
 .weapons-grid {
   display: grid;
@@ -2647,6 +2676,396 @@ body.theme-dark-mode .cr-chapter-select {
   color: #ffffff;
   font-family: var(--font-body);
   font-weight: 700;
+}
+
+.section-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.section-en {
+  font-size: 12px;
+  color: var(--text-muted, #94a3b8);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.btn-copy-anchor {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: 8px;
+  opacity: 0.85;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.btn-copy-anchor:hover {
+  background: var(--theme-primary, #ea580c);
+  opacity: 1;
+  border-color: var(--theme-primary, #ea580c);
+}
+
+.btn-copy-anchor.copied {
+  background: #16a34a !important;
+  border-color: #22c55e !important;
+}
+
+/* ================= 全站通用章節目錄 (TOC) & 導航系統 ================= */
+.reading-progress-bar {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--theme-primary, #ea580c), var(--theme-accent, #f59e0b));
+  z-index: 99;
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+}
+
+.cr-control-bar {
+  position: sticky;
+  top: 50px;
+  z-index: 95;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--theme-border, #cbd5e1);
+  border-radius: var(--radius-sm, 4px);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+body.theme-dark-mode .cr-control-bar {
+  background: rgba(15, 23, 42, 0.96);
+  border-color: #334155;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cr-search-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-input-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.cr-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted, #94a3b8);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.cr-search-input {
+  width: 100%;
+  padding: 9px 36px 9px 34px;
+  border: 1.5px solid var(--theme-border, #cbd5e1);
+  border-radius: var(--radius-sm, 4px);
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  background: var(--surface, #ffffff);
+  color: var(--text-primary, #0f172a);
+}
+
+.cr-search-input:focus {
+  border-color: var(--theme-primary, #ea580c);
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+body.theme-dark-mode .cr-search-input {
+  background: var(--surface-subtle, #0f172a);
+  color: var(--text-primary, #f8fafc);
+  border-color: #334155;
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted, #94a3b8);
+  font-size: 14px;
+  cursor: pointer;
+  display: none;
+  padding: 4px;
+}
+
+.search-clear-btn:hover {
+  color: var(--text-primary, #0f172a);
+}
+
+.search-status-bar {
+  display: none;
+  font-size: 12px;
+  color: var(--theme-primary, #ea580c);
+  font-weight: 700;
+  padding: 2px 4px;
+}
+
+.btn-toc-drawer-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 12px;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 700;
+  border-radius: var(--radius-sm, 4px);
+  border: 1px solid var(--theme-border, #cbd5e1);
+  background: var(--surface-subtle, #f1f5f9);
+  color: var(--text-primary, #0f172a);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.btn-toc-drawer-toggle:hover {
+  background: var(--theme-primary, #ea580c);
+  color: #ffffff;
+  border-color: var(--theme-primary, #ea580c);
+}
+
+/* 抽屜式章節目錄 (TOC Drawer) */
+.cr-toc-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+
+.cr-toc-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cr-toc-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  max-width: 85vw;
+  height: 100%;
+  background: var(--surface, #ffffff);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
+  transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cr-toc-drawer.open {
+  right: 0;
+}
+
+body.theme-dark-mode .cr-toc-drawer {
+  background: #0f172a;
+}
+
+.cr-toc-drawer-header {
+  padding: 16px;
+  background: var(--theme-dark, #0f172a);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cr-toc-drawer-title {
+  font-weight: 800;
+  font-size: 14px;
+  font-family: var(--font-display);
+}
+
+.cr-toc-drawer-close {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.cr-toc-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.cr-toc-part-group {
+  margin-bottom: 12px;
+}
+
+.cr-toc-part-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 6px 8px 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cr-toc-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--text-primary, #0f172a);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  line-height: 1.35;
+  border-left: 3px solid transparent;
+}
+
+.cr-toc-link:hover {
+  background: var(--surface-subtle, #f1f5f9);
+  color: var(--theme-primary, #ea580c);
+}
+
+.cr-toc-link.active {
+  background: var(--theme-primary-light, #fff7ed);
+  color: var(--theme-primary, #ea580c);
+  font-weight: 700;
+  border-left: 3px solid var(--theme-primary, #ea580c);
+}
+
+body.theme-dark-mode .cr-toc-link {
+  color: var(--text-secondary, #cbd5e1);
+}
+
+body.theme-dark-mode .cr-toc-link:hover {
+  background: #1e293b;
+  color: var(--theme-primary, #ea580c);
+}
+
+body.theme-dark-mode .cr-toc-link.active {
+  background: rgba(234, 88, 12, 0.15);
+  color: #fdba74;
+}
+
+.cr-toc-link-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-right: 8px;
+  color: var(--text-muted, #94a3b8);
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.cr-toc-link.active .cr-toc-link-num {
+  color: var(--theme-primary, #ea580c);
+}
+
+.cr-toc-link-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 浮動章節目錄按鈕與回到頂部按鈕 */
+.floating-toc-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 76px;
+  height: 42px;
+  padding: 0 14px;
+  background: var(--surface, #ffffff);
+  color: var(--text-primary, #0f172a);
+  border: 1.5px solid var(--theme-border, #cbd5e1);
+  border-radius: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.floating-toc-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.floating-toc-btn:hover {
+  background: var(--theme-primary, #ea580c);
+  color: #ffffff;
+  border-color: var(--theme-primary, #ea580c);
+  transform: translateY(-2px);
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  background: var(--theme-primary, #ea580c);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  cursor: pointer;
+  border: none;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--theme-primary-hover, #c2410c);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.hidden-by-search {
+  display: none !important;
 }
 
 body.theme-40k-astartes .datacard,

@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000：殺戮小隊 簡易規則 (Lite Rules) - 繁體中文標準版</title>
   <meta name="description" content="戰錘 40,000：殺戮小隊 簡易核心規則 (Lite Rules) 繁體中文標準版，快速掌握姿態指令、移動、射擊掩體判定與近戰格鬥結算機制。">
-  <link rel="stylesheet" href="shared.css?v=3.5.3">
+  <link rel="stylesheet" href="shared.css?v=3.5.4">
 
   <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
@@ -22,10 +22,9 @@
 <body class="theme-lite">
 
 <div class="app-layout">
-                        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <!-- 左側側邊欄導航 (SIDEBAR) -->
-    <!-- 全站標準化動態側邊欄 (Single Source of Truth，由 shared.js 自動渲染) -->
   <aside class="app-sidebar" id="appSidebar" aria-label="全站導航側邊欄">
     <noscript>
       <div class="sidebar-header">
@@ -71,6 +70,9 @@
       </div>
     </header>
 
+    <!-- 頂部即時閱讀進度條 (與 40K 核心規則一致) -->
+    <div id="readingProgressBar" class="reading-progress-bar" role="progressbar" aria-label="殺戮小隊規則閱讀進度" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
     <div class="app-content">
       <div class="container" id="top">
         <!-- 標題橫幅 -->
@@ -86,199 +88,321 @@
           <img src="assets/wh40k_logo.png" alt="Warhammer 40,000 Logo" class="hero-art-img no-print" style="max-height: 85px;" decoding="async">
         </header>
 
-        <!-- 快速章節導航跳轉標籤 (與 11 版規則設計語彙一致) -->
-        <div class="cr-parts-nav no-print">
-          <span class="font-badge font-extrabold text-muted mr-1">章節跳轉:</span>
-          <a href="#setup" class="part-pill" data-target="setup">Ⅰ. 戰鬥前置設定</a>
-          <a href="#orders" class="part-pill" data-target="orders">Ⅱ. 特工指令與反制</a>
-          <a href="#flow" class="part-pill" data-target="flow">Ⅲ. 轉折點戰鬥流程</a>
-          <a href="#actions" class="part-pill" data-target="actions">Ⅳ. 六大基礎行動</a>
-          <a href="#concepts" class="part-pill" data-target="concepts">Ⅴ. 控制範圍與掩護</a>
-          <a href="#combat" class="part-pill" data-target="combat">Ⅵ. 射擊與格鬥序列</a>
-          <a href="#weapons" class="part-pill" data-target="weapons">Ⅶ. 22項特殊武器規則</a>
+        <!-- STICKY 即時搜尋與導航控制列 (與 40K 核心規則設計語彙一致) -->
+        <div class="cr-control-bar no-print" id="crControlBar">
+          <div class="cr-search-row">
+            <div class="search-input-wrap">
+              <span class="cr-search-icon" aria-hidden="true">🔍</span>
+              <input type="text" id="ruleSearchInput" class="cr-search-input" aria-label="搜尋殺戮小隊簡易規則" placeholder="即時搜尋規則、行動、特性、或英文術語 (例如: 隱蔽, Conceal, 衝鋒, Charge, 重型, Heavy)...">
+              <button type="button" class="search-clear-btn" id="searchClearBtn" title="清除搜尋">✕</button>
+            </div>
+          </div>
+
+          <div class="search-status-bar" id="searchStatusBar"></div>
+
+          <!-- 章節分類導航標籤 -->
+          <div class="cr-parts-nav">
+            <span class="font-badge font-extrabold text-muted mr-1">章節跳轉:</span>
+            <a href="#setup" class="part-pill" data-target="setup">Ⅰ. 戰鬥準備</a>
+            <a href="#orders" class="part-pill" data-target="orders">Ⅱ. 特工指令</a>
+            <a href="#flow" class="part-pill" data-target="flow">Ⅲ. 回合流程</a>
+            <a href="#actions" class="part-pill" data-target="actions">Ⅳ. 基礎行動</a>
+            <a href="#concepts" class="part-pill" data-target="concepts">Ⅴ. 控制與掩護</a>
+            <a href="#combat" class="part-pill" data-target="combat">Ⅵ. 戰鬥序列</a>
+            <a href="#weapons" class="part-pill" data-target="weapons">Ⅶ. 武器特則</a>
+          </div>
+
+          <!-- 章節下拉選單與完整目錄抽屜按鈕 -->
+          <div class="cr-mobile-jump-row">
+            <label for="liteChapterSelect" class="font-xs font-bold text-muted d-none">章節跳轉:</label>
+            <select id="liteChapterSelect" class="cr-chapter-select" aria-label="選擇章節快速跳轉">
+              <option value="">-- 快速跳轉至指定章節 (7大核心模組) --</option>
+              <option value="setup">01. 戰鬥前置設定 (Set Up)</option>
+              <option value="orders">02. 特工指令與反制機制 (Orders &amp; Counteract)</option>
+              <option value="flow">03. 轉折點戰鬥流程 (Battle Flow)</option>
+              <option value="actions">04. 六大基礎行動 (Basic Actions)</option>
+              <option value="concepts">05. 控制範圍、可見度與掩護 (Control Range &amp; Cover)</option>
+              <option value="combat">06. 射擊與近戰搏鬥序列 (Combat Sequences)</option>
+              <option value="weapons">07. 22項特殊武器規則 (Special Weapon Rules)</option>
+            </select>
+            <button type="button" class="btn-toc-drawer-toggle" id="tocDrawerToggle" aria-label="切換章節目錄抽屜" title="開啟完整目錄">📑 目錄</button>
+          </div>
         </div>
 
-        <!-- 快速章節跳轉下拉選單 (與 11 版規則一致) -->
-        <div class="cr-mobile-jump-row no-print" style="margin-bottom: 16px;">
-          <label for="liteChapterSelect" class="font-xs font-bold text-muted d-none">章節跳轉:</label>
-          <select id="liteChapterSelect" class="cr-chapter-select" aria-label="選擇章節快速跳轉">
-            <option value="">-- 快速跳轉至指定章節 (7大核心模組) --</option>
-            <option value="setup">01. 戰鬥前置設定 (Set Up)</option>
-            <option value="orders">02. 特工指令與反制機制 (Orders & Counteract)</option>
-            <option value="flow">03. 轉折點戰鬥流程 (Battle Flow)</option>
-            <option value="actions">04. 六大基礎行動 (Basic Actions)</option>
-            <option value="concepts">05. 控制範圍與掩護 (Engagement Range & Cover)</option>
-            <option value="combat">06. 射擊與格鬥序列 (Shooting & Fight Sequence)</option>
-            <option value="weapons">07. 22項特殊武器規則 (Special Weapon Rules)</option>
-          </select>
+        <div class="cr-layout-wrapper">
+          <main class="cr-main-content">
+
+            <!-- SECTION 1: 01. 戰鬥前置設定 -->
+            <section class="rule-section-block" id="setup" data-section-name="01. 戰鬥前置設定 SET UP">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>01. 戰鬥前置設定</span>
+                  <span class="section-en">(SET UP)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('setup', this)" title="複製章節連結" aria-label="複製章節 setup 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 01</span>
+              </div>
+
+              <div class="card" data-search-content="戰鬥前置設定 佈置殺戮區 選擇空投區 部署特工 隱蔽指令 先攻權 Drop Zone Set Up">
+                <div class="card-title">戰鬥前置設定 (Set Up)</div>
+                <p>每位玩家挑選一支殺戮小隊，並備齊對應的 Citadel 模型（特工）、線上規則、一塊殺戮區（Killzone，標準尺寸為 30" × 22" 棋盤與地形）、英吋測量工具、10 顆六面骰 (D6)，以及各類標記。</p>
+                <ol>
+                  <li><strong>佈置殺戮區：</strong>隨機決定一名玩家擁有<strong>先攻權（Initiative）</strong>。</li>
+                  <li><strong>選擇空投區：</strong>擁有先攻權的玩家從任務地圖選擇空投區（Drop Zone）。若不使用任務地圖，該玩家選擇殺戮區的一邊，對側即為對手陣營。每位玩家的空投區為距離自身殺戮區邊緣 3 吋以內的區域。</li>
+                  <li><strong>部署特工：</strong>由先攻玩家開始，雙方輪流部署自身小隊三分之一（小數點無條件進位）的模型。部署特工時必須完全位於自身空投區內，且初始必須賦予<strong>隱蔽指令（Conceal order）</strong>（在旁放置對應標記）。</li>
+                </ol>
+              </div>
+            </section>
+
+            <!-- SECTION 2: 02. 特工指令與反制機制 -->
+            <section class="rule-section-block" id="orders" data-section-name="02. 特工指令與反制機制 ORDERS & COUNTERACT">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>02. 特工指令與反制機制</span>
+                  <span class="section-en">(ORDERS &amp; COUNTERACT)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('orders', this)" title="複製章節連結" aria-label="複製章節 orders 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 02</span>
+              </div>
+
+              <div class="card" data-search-content="特工指令 交戰指令 Engage Order 隱蔽指令 Conceal Order 掩護 反制行動 Counteract 姿態">
+                <div class="card-title">特工指令與反制機制 (Orders &amp; Counteract)</div>
+                <p><strong>交戰指令 (Engage Order)：</strong><br>持有交戰指令的特工可照常執行所有行動與反制行動。</p>
+                <p><strong>隱蔽指令 (Conceal Order)：</strong><br>持有隱蔽指令的特工在<strong>掩護（Cover）</strong>後無法被選為有效射擊目標，但該特工無法宣告執行射擊或衝鋒行動。</p>
+                <div class="diagram-box">
+                  <strong>反制行動 (Counteract)：</strong><br>
+                  若你的所有特工均已待機（Expended），而對手尚有未啟動特工時，輪到你啟動特工的時機，可挑選一名帶有<strong>交戰指令</strong>且已待機的友方特工執行<strong>反制</strong>：免費進行一項 1AP 的行動。每名特工每轉折點（Turning Point）限反制一次，且反制中的移動距離不得超過 2 吋。
+                </div>
+              </div>
+            </section>
+
+            <!-- SECTION 3: 03. 轉折點戰鬥流程 -->
+            <section class="rule-section-block" id="flow" data-section-name="03. 轉折點戰鬥流程 BATTLE FLOW">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>03. 轉折點戰鬥流程</span>
+                  <span class="section-en">(BATTLE FLOW)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('flow', this)" title="複製章節連結" aria-label="複製章節 flow 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 03</span>
+              </div>
+
+              <div class="card" data-search-content="戰鬥流程 轉折點 Turning Points 戰略階段 Strategy Phase 交戰階段 Firefight Phase 戰略策略 Ploys 就緒 Ready 待機 Expended 指揮重擲 Command Re-roll">
+                <div class="card-title">戰鬥流程 (Battle Flow)</div>
+                <p>除非任務另有說明，一場戰鬥共持續 <strong>4 個轉折點 (Turning Points)</strong>。每個轉折點包含<strong>戰略階段</strong>與<strong>交戰階段</strong>。</p>
+                
+                <div class="rule-phase-card">
+                  <strong style="color: var(--theme-primary-hover); font-size:14px; font-family: var(--font-display);">1. 戰略階段 (Strategy Phase)</strong>
+                  <ul>
+                    <li>雙方各擲一顆 D6：點數高者決定誰獲得本轉折點<strong>先攻權</strong>；若點數持平，由當前未持有先攻權的玩家決定先攻權。</li>
+                    <li>對戰開始時雙方各有 2CP。第一轉折點戰略階段各得 1CP；隨後每個戰略階段，先攻玩家得 1CP，後攻玩家得 2CP。計謀（Ploy）每次使用耗費 1CP。</li>
+                    <li>將所有友方特工翻至<strong>就緒面 (Ready)</strong>。</li>
+                    <li>從先攻玩家開始，交替使用<strong>戰略策略 (Strategy Ploys)</strong>或選擇<strong>跳過（Pass）</strong>，直到雙方連續跳過為止。每個戰略策略每轉折點限用一次。</li>
+                  </ul>
+                </div>
+
+                <div class="rule-phase-card">
+                  <strong style="color: var(--theme-primary-hover); font-size:14px; font-family: var(--font-display);">2. 交戰階段 (Firefight Phase)</strong>
+                  <ul>
+                    <li>由先攻玩家開始，雙方輪流啟動一名處於就緒狀態的友方特工。</li>
+                    <li><strong>啟動流程：</strong>先為特工選擇指令（交戰指令或隱蔽指令），接著消耗行動點 (AP) 執行各項行動（總耗費不能超過其 APL 屬性）。除非規則另有說明，同一啟動內<strong>不能重複執行相同的行動</strong>。</li>
+                    <li>行動結束後將特工指令標記翻至<strong>待機面 (Expended)</strong>。所有特工皆待機後該轉折點結束。</li>
+                    <li><strong>交戰策略 (Firefight Ploys)：</strong>本階段可消耗 CP 使用交戰策略。例如通用策略<strong>指揮重擲 (Command Re-roll)</strong>：耗費 1CP，在你擲出攻擊骰或防禦骰後，可重擲其中 1 顆骰子。</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECTION 4: 04. 六大基礎行動 -->
+            <section class="rule-section-block" id="actions" data-section-name="04. 六大基礎行動 BASIC ACTIONS">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>04. 六大基礎行動</span>
+                  <span class="section-en">(BASIC ACTIONS)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('actions', this)" title="複製章節連結" aria-label="複製章節 actions 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 04</span>
+              </div>
+
+              <div class="card" data-search-content="特工基礎行動 換位 Reposition 衝刺 Dash 衝鋒 Charge 撤退 Fall Back 射擊 Shoot 近戰搏鬥 Fight AP 行動點">
+                <div class="card-title">特工基礎行動 (Actions)</div>
+                <ul style="list-style-type: none; padding-left: 0; margin: 0;">
+                  <li style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-subtle);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;"><strong>換位 (Reposition)</strong> <span class="cost-badge">1 AP</span></div>
+                    移動距離不超過其 Move 數值。移動過程中任何部位均不可進入敵方特工的控制範圍（Control Range）。特工不能在敵方控制範圍內執行此行動，亦不可與衝鋒或撤退在同一次啟動內重複執行。
+                  </li>
+                  <li style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-subtle);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;"><strong>衝刺 (Dash)</strong> <span class="cost-badge">1 AP</span></div>
+                    規則與換位相同，但最大移動距離固定為 <strong>3 吋</strong>，且過程不可攀爬。不可在敵方控制範圍內執行，不可與衝鋒在同一次啟動內重複執行。
+                  </li>
+                  <li style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-subtle);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;"><strong>衝鋒 (Charge)</strong> <span class="cost-badge">1 AP</span></div>
+                    規則與換位相同，但移動距離為 <strong>Move + 2 吋</strong>。特工可以進入敵方控制範圍，且<strong>必須</strong>在敵方特工的控制範圍內結束移動。僅限擁有<strong>交戰指令</strong>的特工執行；若處於隱蔽指令、已在敵方控制範圍內、或已執行過換位/衝刺/撤退時不可執行。
+                  </li>
+                  <li style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-subtle);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;"><strong>撤退 (Fall Back)</strong> <span class="cost-badge">2 AP</span></div>
+                    允許特工脫離交戰，但結束移動時<strong>不能</strong>停留在任何敵方特工的控制範圍內。只有在特工處於敵方控制範圍內時才能宣告執行。
+                  </li>
+                  <li style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-subtle);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;"><strong>射擊 (Shoot)</strong> <span class="cost-badge">1 AP</span></div>
+                    選擇一把配備的遠程武器，對有效目標發動遠程攻擊。特工處於隱蔽指令（除非武器具備靜音特性）或處於敵方控制範圍內時無法執行射擊。
+                  </li>
+                  <li style="margin-bottom: 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;"><strong>近戰搏鬥 (Fight)</strong> <span class="cost-badge">1 AP</span></div>
+                    選擇一把配備的近戰武器，與其控制範圍內的敵方特工展開近身對決。僅限特工控制範圍內存在敵方特工時才能宣告執行。
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- SECTION 5: 05. 控制範圍、可見度與掩護 -->
+            <section class="rule-section-block" id="concepts" data-section-name="05. 控制範圍、可見度與掩護 CONTROL RANGE & COVER">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>05. 控制範圍、可見度與掩護</span>
+                  <span class="section-en">(CONTROL RANGE &amp; COVER)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('concepts', this)" title="複製章節連結" aria-label="複製章節 concepts 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 05</span>
+              </div>
+
+              <div class="card" data-search-content="控制範圍 Control Range 可見度 Visible 有效目標 Valid Target 掩護 Cover 負傷狀態 Damage Injury 受傷 Wounded 重傷 Injured">
+                <div class="card-title">控制範圍、可見度與掩護</div>
+                <p><strong>控制範圍 (Control Range)：</strong><br>特工<strong>可見</strong>且距離其底盤 <strong>1 吋以內</strong>的空間。控制範圍是互惠的，任一方判定成立即視為彼此皆處於對方的控制範圍內。</p>
+                
+                <p><strong>可見度 (Visible) 與有效目標 (Valid Target)：</strong></p>
+                <ul>
+                  <li>從特工頭部朝目標任何部位（不含底盤）能拉出一條無阻礙直線即為<strong>可見</strong>。</li>
+                  <li>目標為<strong>交戰指令</strong>：只要對攻擊者可見即為有效目標。</li>
+                  <li>目標為<strong>隱蔽指令</strong>：必須對攻擊者可見且<strong>未處於掩護（Cover）中</strong>才算有效目標。</li>
+                </ul>
+
+                <p><strong>掩護 (Cover)：</strong><br>在目標特工 1 吋控制範圍內存在遮擋視線的地形障礙。<strong>例外：</strong>若兩名特工相距在 <strong>2 吋以內</strong>，因距離過近無法藏匿，目標永遠不算處於掩護中。</p>
+
+                <p><strong>負傷狀態 (Damage &amp; Injury)：</strong><br>特工生命值低於起始值為<strong>受傷 (Wounded)</strong>；生命值低於起始生命值一半時為<strong>重傷 (Injured)</strong>（移動力 Move -2 吋，且武器 Hit 命中要求惡化 1 點）。生命值歸 0 則失去戰鬥能力並移出殺戮區。</p>
+              </div>
+            </section>
+
+            <!-- SECTION 6: 06. 射擊與近戰搏鬥序列 -->
+            <section class="rule-section-block" id="combat" data-section-name="06. 射擊與近戰搏鬥序列 COMBAT SEQUENCES">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>06. 射擊與近戰搏鬥序列</span>
+                  <span class="section-en">(COMBAT SEQUENCES)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('combat', this)" title="複製章節連結" aria-label="複製章節 combat 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 06</span>
+              </div>
+
+              <div class="card" style="margin-bottom: 14px;" data-search-content="射擊序列 Shoot Sequence 選擇武器 選定目標 擲攻擊骰 擲防禦骰 格擋分配 結算傷害 爆擊 Normal Critical">
+                <div class="card-title">射擊序列 (Shoot Sequence)</div>
+                <ol>
+                  <li><strong>選擇武器：</strong>攻擊方挑選特工的一把遠程武器。</li>
+                  <li><strong>選定目標：</strong>選定一名有效目標（且目標控制範圍內無任何友軍特工）。</li>
+                  <li><strong>擲攻擊骰：</strong>投擲等同於武器 Atk 數值的 D6。點數大於等於 Hit 數值視為成功；6 恆為爆擊成功，1 恆為失敗。</li>
+                  <li><strong>擲防禦骰：</strong>防守方擲 3 顆 D6。點數大於等於目標 Save 數值為成功。<strong>若防守方處於掩護中，可直接將 1 顆防禦骰作為普通成功保留，免擲該骰。</strong></li>
+                  <li><strong>格擋分配：</strong>防守方分配成功骰進行格擋：
+                    <ul class="rule-sub-list">
+                      <li>1 個普通成功可抵消對手 1 個普通成功。</li>
+                      <li>2 個普通成功可抵消對手 1 個爆擊成功。</li>
+                      <li>1 個爆擊成功可抵消對手 1 個普通成功或 1 個爆擊成功。</li>
+                    </ul>
+                  </li>
+                  <li><strong>結算傷害：</strong>未被格擋的攻擊骰造成傷害：普通成功造成第一數值傷害（Normal Dmg），爆擊成功造成第二數值傷害（Critical Dmg）。</li>
+                </ol>
+              </div>
+
+              <div class="card" data-search-content="近戰搏鬥序列 Fight Sequence 宣告近戰 挑選近戰武器 雙方擲骰 輪流決議骰子 打擊 Strike 招架 Block">
+                <div class="card-title">近戰搏鬥序列 (Fight Sequence)</div>
+                <ol>
+                  <li><strong>宣告近戰：</strong>選擇控制範圍內的一名敵軍特工展開搏鬥（對方將同時參與對決與反擊）。</li>
+                  <li><strong>挑選近戰武器：</strong>雙方各選定一項配備的近戰武器。</li>
+                  <li><strong>雙方擲骰：</strong>雙方同時投擲等同於各自武器 Atk 數值的攻擊骰，比對各自 Hit 門檻保留成功骰（6 恆為爆擊成功）。</li>
+                  <li><strong>輪流決議骰子：</strong>由攻擊方開始，雙方交替分配各自保留的未結算成功骰，每次可選擇<strong>打擊 (Strike)</strong> 或 <strong>招架 (Block)</strong>：
+                    <ul class="rule-sub-list">
+                      <li><strong>打擊 (Strike)：</strong>對目標造成武器傷害（普通打擊造成普通傷害，爆擊打擊造成爆擊傷害）。</li>
+                      <li><strong>招架 (Block)：</strong>消耗此骰，抵消對手 1 顆尚未結算的成功骰（普通招架普通；爆擊可招架普通或爆擊）。</li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+            </section>
+
+            <!-- SECTION 7: 07. 22項特殊武器規則 -->
+            <section class="rule-section-block" id="weapons" data-section-name="07. 22項特殊武器規則 WEAPON RULES">
+              <div class="section-banner">
+                <div class="section-banner-title">
+                  <span>07. 22項特殊武器規則</span>
+                  <span class="section-en">(WEAPON RULES)</span>
+                  <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('weapons', this)" title="複製章節連結" aria-label="複製章節 weapons 錨點連結">🔗 複製錨點</button>
+                </div>
+                <span class="section-badge">CHAPTER 07</span>
+              </div>
+
+              <div class="card" data-search-content="武器規則與特性 Weapon Rules 精準 平衡 爆破 殘暴 不息 毀滅 重型 過熱 致命 受限 穿刺 痛擊 射程 無情 撕裂 飽和 追蹤 重創 震盪 靜音 暈眩 洪流">
+                <div class="card-title">22 項武器規則與特性 (Weapon Rules)</div>
+                <div class="weapons-grid">
+                  <div class="weapon-item" data-search-content="精準 Accurate"><strong>精準 x (Accurate x)：</strong>可直接將最多 x 顆攻擊骰作為普通成功保留，無需投擲。</div>
+                  <div class="weapon-item" data-search-content="平衡 Balanced"><strong>平衡 (Balanced)：</strong>攻擊時可重擲其中 1 顆攻擊骰。</div>
+                  <div class="weapon-item" data-search-content="爆破 Blast"><strong>爆破 x (Blast x)：</strong>攻擊主目標後，對主目標 x 吋距離內且可見的次要目標依序單獨結算射擊（無視隱蔽指令）。</div>
+                  <div class="weapon-item" data-search-content="殘暴 Brutal"><strong>殘暴 (Brutal)：</strong>防守方在近戰中只能使用爆擊成功進行招架。</div>
+                  <div class="weapon-item" data-search-content="不息 Ceaseless"><strong>不息 (Ceaseless)：</strong>可選擇一個點數結果，重擲該次攻擊中所有該點數的骰子（例如重擲所有 2 點）。</div>
+                  <div class="weapon-item" data-search-content="毀滅 Devastating"><strong>毀滅 x (Devastating x)：</strong>每保留 1 個爆擊成功，立即對目標造成 x 點直接傷害（該骰後續仍可正常結算）。</div>
+                  <div class="weapon-item" data-search-content="重型 Heavy"><strong>重型 (Heavy)：</strong>在執行過移動的啟動或反制中不可使用；使用此武器後該次啟動中不可移動。若為「重型(僅限衝刺)」，則僅允許執行衝刺。</div>
+                  <div class="weapon-item" data-search-content="過熱 Hot"><strong>過熱 (Hot)：</strong>使用後擲 1 顆 D6，若小於武器 Hit 命中值，射手受到等於該點數 × 2 的傷害。</div>
+                  <div class="weapon-item" data-search-content="致命 Lethal"><strong>致命 x+ (Lethal x+)：</strong>擲出大於等於 x 的成功骰直接視為爆擊成功（例如致命 5+）。</div>
+                  <div class="weapon-item" data-search-content="受限 Limited"><strong>受限 x (Limited x)：</strong>整場戰鬥中累計使用達 x 次後便無法再次使用。</div>
+                  <div class="weapon-item" data-search-content="穿刺 Piercing"><strong>穿刺 x (Piercing x)：</strong>防守方擲骰時減少 x 顆防禦骰（「爆擊穿刺 x」則需產生爆擊成功才觸發）。</div>
+                  <div class="weapon-item" data-search-content="痛擊 Punishing"><strong>痛擊 (Punishing)：</strong>若保留任何爆擊成功，可將 1 顆失敗骰轉為普通成功保留。</div>
+                  <div class="weapon-item" data-search-content="射程 Range"><strong>射程 x (Range x)：</strong>僅能以距離活躍特工 x 吋以內的特工為有效目標。</div>
+                  <div class="weapon-item" data-search-content="無情 Relentless"><strong>無情 (Relentless)：</strong>可重擲該次攻擊中任意數量的攻擊骰。</div>
+                  <div class="weapon-item" data-search-content="撕裂 Rending"><strong>撕裂 (Rending)：</strong>若保留任何爆擊成功，可將另 1 顆普通成功轉為爆擊成功保留。</div>
+                  <div class="weapon-item" data-search-content="飽和 Saturate"><strong>飽和 (Saturate)：</strong>防守方無法保留掩護帶來的免費防禦成功。</div>
+                  <div class="weapon-item" data-search-content="追蹤 Seek"><strong>追蹤 (Seek)：</strong>判定有效目標時，隱蔽特工無法藉由地形取得掩護判定（「追蹤輕型」則僅限輕型掩體）。</div>
+                  <div class="weapon-item" data-search-content="重創 Severe"><strong>重創 (Severe)：</strong>若本次攻擊未保留任何爆擊成功，可將 1 顆普通成功轉為爆擊成功。</div>
+                  <div class="weapon-item" data-search-content="震盪 Shock"><strong>震盪 (Shock)：</strong>近戰中首次使用爆擊成功打擊時，額外棄置對手 1 顆未結算的普通成功（若無普通成功則棄置爆擊成功）。</div>
+                  <div class="weapon-item" data-search-content="靜音 Silent"><strong>靜音 (Silent)：</strong>特工在隱蔽指令下依然可以使用此武器執行射擊行動。</div>
+                  <div class="weapon-item" data-search-content="暈眩 Stun"><strong>暈眩 (Stun)：</strong>若保留任何爆擊成功，目標特工的 APL 數值 -1 直至其下次啟動結束。</div>
+                  <div class="weapon-item" data-search-content="洪流 Torrent"><strong>洪流 x (Torrent x)：</strong>選定主目標後，可同時對距離主目標 x 吋內的任意數量可見有效目標依序單獨結算射擊。</div>
+                </div>
+              </div>
+            </section>
+
+          </main>
         </div>
 
-  <div class="grid">
-    <!-- 戰前佈置 -->
-    <div class="card" id="setup">
-      <div class="card-title">戰鬥前置設定 (Set Up)</div>
-      <p>每位玩家挑選一支殺戮小隊，並備齊對應的 Citadel 模型（特工）、線上規則、一塊殺戮區（Killzone，標準尺寸為 30" × 22" 棋盤與地形）、英吋測量工具、10 顆六面骰 (D6)，以及各類標記。</p>
-      <ol>
-        <li><strong>佈置殺戮區：</strong>隨機決定一名玩家擁有<strong>先攻權（Initiative）</strong>。</li>
-        <li><strong>選擇空投區：</strong>擁有先攻權的玩家從任務地圖選擇空投區（Drop Zone）。若不使用任務地圖，該玩家選擇殺戮區的一邊，對側即為對手陣營。每位玩家的空投區為距離自身殺戮區邊緣 3 吋以內的區域。</li>
-        <li><strong>部署特工：</strong>由先攻玩家開始，雙方輪流部署自身小隊三分之一（小數點無條件進位）的模型。部署特工時必須完全位於自身空投區內，且初始必須賦予<strong>隱蔽指令（Conceal order）</strong>（在旁放置對應標記）。</li>
-      </ol>
-    </div>
-
-    <!-- 姿態指令與反制機制 -->
-    <div class="card" id="orders">
-      <div class="card-title">特工指令與反制機制 (Orders & Counteract)</div>
-      <p><strong>交戰指令 (Engage Order)：</strong><br>持有交戰指令的特工可照常執行所有行動與反制行動。</p>
-      <p><strong>隱蔽指令 (Conceal Order)：</strong><br>持有隱蔽指令的特工在<strong>掩護（Cover）</strong>後無法被選為有效射擊目標，但該特工無法宣告執行射擊或衝鋒行動。</p>
-      <div class="diagram-box">
-        <strong>反制行動 (Counteract)：</strong><br>
-        若你的所有特工均已待機（Expended），而對手尚有未啟動特工時，輪到你啟動特工的時機，可挑選一名帶有<strong>交戰指令</strong>且已待機的友方特工執行<strong>反制</strong>：免費進行一項 1AP 的行動。每名特工每轉折點（Turning Point）限反制一次，且反制中的移動距離不得超過 2 吋。
+        <div class="footer-note">
+          <p>© Games Workshop Limited 2024 / 戰錘 40,000：殺戮小隊 簡易對戰規則速查手冊 (Kill Team 3rd Edition Traditional Chinese Edition)</p>
+        </div>
       </div>
     </div>
 
-    <!-- 戰鬥流程 -->
-    <div class="card full-width" id="flow">
-      <div class="card-title">戰鬥流程 (Battle Flow)</div>
-      <p>除非任務另有說明，一場戰鬥共持續 <strong>4 個轉折點 (Turning Points)</strong>。每個轉折點包含<strong>戰略階段</strong>與<strong>交戰階段</strong>。</p>
-      
-      <div class="grid" style="gap: 12px; margin-top: 8px;">
-        <div style="background: var(--surface-ground); padding: 10px 12px; border-radius: 4px; border: 1px solid var(--theme-border); border-left: 4px solid var(--theme-primary);">
-          <strong style="color: var(--theme-primary-hover); font-size:14px; font-family: var(--font-display);">1. 戰略階段 (Strategy Phase)</strong>
-          <ul style="margin-top: 6px;">
-            <li>雙方各擲一顆 D6：點數高者決定誰獲得本轉折點<strong>先攻權</strong>；若點數持平，由當前未持有先攻權的玩家決定先攻權。</li>
-            <li>對戰開始時雙方各有 2CP。第一轉折點戰略階段各得 1CP；隨後每個戰略階段，先攻玩家得 1CP，後攻玩家得 2CP。計謀（Ploy）每次使用耗費 1CP。</li>
-            <li>將所有友方特工翻至<strong>就緒面 (Ready)</strong>。</li>
-            <li>從先攻玩家開始，交替使用<strong>戰略策略 (Strategy Ploys)</strong>或選擇<strong>跳過（Pass）</strong>，直到雙方連續跳過為止。每個戰略策略每轉折點限用一次。</li>
-          </ul>
-        </div>
-        <div style="background: var(--surface-ground); padding: 10px 12px; border-radius: 4px; border: 1px solid var(--theme-border); border-left: 4px solid var(--theme-primary);">
-          <strong style="color: var(--theme-primary-hover); font-size:14px; font-family: var(--font-display);">2. 交戰階段 (Firefight Phase)</strong>
-          <ul style="margin-top: 6px;">
-            <li>由先攻玩家開始，雙方輪流啟動一名處於就緒狀態的友方特工。</li>
-            <li><strong>啟動流程：</strong>先為特工選擇指令（交戰指令或隱蔽指令），接著消耗行動點 (AP) 執行各項行動（總耗費不能超過其 APL 屬性）。除非規則另有說明，同一啟動內<strong>不能重複執行相同的行動</strong>。</li>
-            <li>行動結束後將特工指令標記翻至<strong>待機面 (Expended)</strong>。所有特工皆待機後該轉折點結束。</li>
-            <li><strong>交戰策略 (Firefight Ploys)：</strong>本階段可消耗 CP 使用交戰策略。例如通用策略<strong>指揮重擲 (Command Re-roll)</strong>：耗費 1CP，在你擲出攻擊骰或防禦骰後，可重擲其中 1 顆骰子。</li>
-          </ul>
-        </div>
+    <!-- 抽屜式目錄 (TOC Drawer) -->
+    <div class="cr-toc-drawer-overlay" id="tocDrawerOverlay"></div>
+    <aside class="cr-toc-drawer" id="tocDrawer" aria-label="殺戮小隊規則章節目錄">
+      <div class="cr-toc-drawer-header">
+        <div class="cr-toc-drawer-title">📑 規則章節目錄 (7大核心模組)</div>
+        <button type="button" class="cr-toc-drawer-close" id="tocDrawerClose" aria-label="關閉目錄">✕</button>
       </div>
-    </div>
+      <nav class="cr-toc-drawer-body" id="tocDrawerBody">
+        <div class="cr-toc-part-group">
+          <div class="cr-toc-part-title">殺戮小隊 核心作戰規則</div>
+          <a href="#setup" class="cr-toc-link" data-target="setup"><span class="cr-toc-link-num">01</span><span class="cr-toc-link-text">戰鬥前置設定 Set Up</span></a>
+          <a href="#orders" class="cr-toc-link" data-target="orders"><span class="cr-toc-link-num">02</span><span class="cr-toc-link-text">特工指令與反制 Orders &amp; Counteract</span></a>
+          <a href="#flow" class="cr-toc-link" data-target="flow"><span class="cr-toc-link-num">03</span><span class="cr-toc-link-text">轉折點戰鬥流程 Battle Flow</span></a>
+          <a href="#actions" class="cr-toc-link" data-target="actions"><span class="cr-toc-link-num">04</span><span class="cr-toc-link-text">六大基礎行動 Basic Actions</span></a>
+          <a href="#concepts" class="cr-toc-link" data-target="concepts"><span class="cr-toc-link-num">05</span><span class="cr-toc-link-text">控制範圍與掩護 Control &amp; Cover</span></a>
+          <a href="#combat" class="cr-toc-link" data-target="combat"><span class="cr-toc-link-num">06</span><span class="cr-toc-link-text">射擊與近戰序列 Combat Sequences</span></a>
+          <a href="#weapons" class="cr-toc-link" data-target="weapons"><span class="cr-toc-link-num">07</span><span class="cr-toc-link-text">22項特殊武器規則 Weapon Rules</span></a>
+        </div>
+      </nav>
+    </aside>
 
-    <!-- 基礎行動列表 -->
-    <div class="card" id="actions">
-      <div class="card-title">特工基礎行動 (Actions)</div>
-      <ul style="list-style-type: none; padding-left: 0;">
-        <li style="margin-bottom: 8px;">
-          <div style="display:flex; justify-content:space-between;"><strong>換位 (Reposition)</strong> <span class="cost-badge">1 AP</span></div>
-          移動距離不超過其 Move 數值。移動過程中任何部位均不可進入敵方特工的控制範圍（Control Range）。特工不能在敵方控制範圍內執行此行動，亦不可與衝鋒或撤退在同一次啟動內重複執行。
-        </li>
-        <li style="margin-bottom: 8px;">
-          <div style="display:flex; justify-content:space-between;"><strong>衝刺 (Dash)</strong> <span class="cost-badge">1 AP</span></div>
-          規則與換位相同，但最大移動距離固定為 <strong>3 吋</strong>，且過程不可攀爬。不可在敵方控制範圍內執行，不可與衝鋒在同一次啟動內重複執行。
-        </li>
-        <li style="margin-bottom: 8px;">
-          <div style="display:flex; justify-content:space-between;"><strong>衝鋒 (Charge)</strong> <span class="cost-badge">1 AP</span></div>
-          規則與換位相同，但移動距離為 <strong>Move + 2 吋</strong>。特工可以進入敵方控制範圍，且<strong>必須</strong>在敵方特工的控制範圍內結束移動。僅限擁有<strong>交戰指令</strong>的特工執行；若處於隱蔽指令、已在敵方控制範圍內、或已執行過換位/衝刺/撤退時不可執行。
-        </li>
-        <li style="margin-bottom: 8px;">
-          <div style="display:flex; justify-content:space-between;"><strong>撤退 (Fall Back)</strong> <span class="cost-badge">2 AP</span></div>
-          允許特工脫離交戰，但結束移動時<strong>不能</strong>停留在任何敵方特工的控制範圍內。只有在特工處於敵方控制範圍內時才能宣告執行。
-        </li>
-        <li style="margin-bottom: 8px;">
-          <div style="display:flex; justify-content:space-between;"><strong>射擊 (Shoot)</strong> <span class="cost-badge">1 AP</span></div>
-          選擇一把配備的遠程武器，對有效目標發動遠程攻擊。特工處於隱蔽指令（除非武器具備靜音特性）或處於敵方控制範圍內時無法執行射擊。
-        </li>
-        <li>
-          <div style="display:flex; justify-content:space-between;"><strong>近戰搏鬥 (Fight)</strong> <span class="cost-badge">1 AP</span></div>
-          選擇一把配備的近戰武器，與其控制範圍內的敵方特工展開近身對決。僅限特工控制範圍內存在敵方特工時才能宣告執行。
-        </li>
-      </ul>
-    </div>
+    <!-- 回到頂部按鈕 -->
+    <a href="#top" class="back-to-top" id="backToTop" title="回到頂部" aria-label="回到頁面頂部">▲</a>
 
-    <!-- 核心判定概念 -->
-    <div class="card" id="concepts">
-      <div class="card-title">控制範圍、可見度與掩護</div>
-      <p><strong>控制範圍 (Control Range)：</strong><br>特工<strong>可見</strong>且距離其底盤 <strong>1 吋以內</strong>的空間。控制範圍是互惠的，任一方判定成立即視為彼此皆處於對方的控制範圍內。</p>
-      
-      <p><strong>可見度 (Visible) 與有效目標 (Valid Target)：</strong></p>
-      <ul>
-        <li>從特工頭部朝目標任何部位（不含底盤）能拉出一條無阻礙直線即為<strong>可見</strong>。</li>
-        <li>目標為<strong>交戰指令</strong>：只要對攻擊者可見即為有效目標。</li>
-        <li>目標為<strong>隱蔽指令</strong>：必須對攻擊者可見且<strong>未處於掩護（Cover）中</strong>才算有效目標。</li>
-      </ul>
-
-      <p><strong>掩護 (Cover)：</strong><br>在目標特工 1 吋控制範圍內存在遮擋視線的地形障礙。<strong>例外：</strong>若兩名特工相距在 <strong>2 吋以內</strong>，因距離過近無法藏匿，目標永遠不算處於掩護中。</p>
-
-      <p><strong>負傷狀態 (Damage & Injury)：</strong><br>特工生命值低於起始值為<strong>受傷 (Wounded)</strong>；生命值低於起始生命值一半時為<strong>重傷 (Injured)</strong>（移動力 Move -2 吋，且武器 Hit 命中要求惡化 1 點）。生命值歸 0 則失去戰鬥能力並移出殺戮區。</p>
-    </div>
-
-    <!-- 射擊結算流程 -->
-    <div class="card" id="combat">
-      <div class="card-title">射擊序列 (Shoot Sequence)</div>
-      <ol>
-        <li><strong>選擇武器：</strong>攻擊方挑選特工的一把遠程武器。</li>
-        <li><strong>選定目標：</strong>選定一名有效目標（且目標控制範圍內無任何友軍特工）。</li>
-        <li><strong>擲攻擊骰：</strong>投擲等同於武器 Atk 數值的 D6。點數大於等於 Hit 數值視為成功；6 恆為爆擊成功，1 恆為失敗。</li>
-        <li><strong>擲防禦骰：</strong>防守方擲 3 顆 D6。點數大於等於目標 Save 數值為成功。<strong>若防守方處於掩護中，可直接將 1 顆防禦骰作為普通成功保留，免擲該骰。</strong></li>
-        <li><strong>格擋分配：</strong>防守方分配成功骰進行格擋：
-          <br>• 1 個普通成功可抵消對手 1 個普通成功。
-          <br>• 2 個普通成功可抵消對手 1 個爆擊成功。
-          <br>• 1 個爆擊成功可抵消對手 1 個普通成功或 1 個爆擊成功。
-        </li>
-        <li><strong>結算傷害：</strong>未被格擋的攻擊骰造成傷害：普通成功造成第一數值傷害（Normal Dmg），爆擊成功造成第二數值傷害（Critical Dmg）。</li>
-      </ol>
-    </div>
-
-    <!-- 近戰格鬥流程 -->
-    <div class="card">
-      <div class="card-title">近戰搏鬥序列 (Fight Sequence)</div>
-      <ol>
-        <li><strong>宣告近戰：</strong>選擇控制範圍內的一名敵軍特工展開搏鬥（對方將同時參與對決與反擊）。</li>
-        <li><strong>挑選近戰武器：</strong>雙方各選定一項配備的近戰武器。</li>
-        <li><strong>雙方擲骰：</strong>雙方同時投擲等同於各自武器 Atk 數值的攻擊骰，比對各自 Hit 門檻保留成功骰（6 恆為爆擊成功）。</li>
-        <li><strong>輪流決議骰子：</strong>由攻擊方開始，雙方交替分配各自保留的未結算成功骰，每次可選擇<strong>打擊 (Strike)</strong> 或 <strong>招架 (Block)</strong>：
-          <br>• <strong>打擊 (Strike)：</strong>對目標造成武器傷害（普通打擊造成普通傷害，爆擊打擊造成爆擊傷害）。
-          <br>• <strong>招架 (Block)：</strong>消耗此骰，抵消對手 1 顆尚未結算的成功骰（普通招架普通；爆擊可招架普通或爆擊）。
-        </li>
-      </ol>
-    </div>
-
-    <!-- 特殊武器規則 -->
-    <div class="card full-width" id="weapons">
-      <div class="card-title">22 項武器規則與特性 (Weapon Rules)</div>
-      <div class="weapons-grid">
-        <div class="weapon-item"><strong>精準 x (Accurate x)：</strong>可直接將最多 x 顆攻擊骰作為普通成功保留，無需投擲。</div>
-        <div class="weapon-item"><strong>平衡 (Balanced)：</strong>攻擊時可重擲其中 1 顆攻擊骰。</div>
-        <div class="weapon-item"><strong>爆破 x (Blast x)：</strong>攻擊主目標後，對主目標 x 吋距離內且可見的次要目標依序單獨結算射擊（無視隱蔽指令）。</div>
-        <div class="weapon-item"><strong>殘暴 (Brutal)：</strong>防守方在近戰中只能使用爆擊成功進行招架。</div>
-        <div class="weapon-item"><strong>不息 (Ceaseless)：</strong>可選擇一個點數結果，重擲該次攻擊中所有該點數的骰子（例如重擲所有 2 點）。</div>
-        <div class="weapon-item"><strong>毀滅 x (Devastating x)：</strong>每保留 1 個爆擊成功，立即對目標造成 x 點直接傷害（該骰後續仍可正常結算）。</div>
-        <div class="weapon-item"><strong>重型 (Heavy)：</strong>在執行過移動的啟動或反制中不可使用；使用此武器後該次啟動中不可移動。若為「重型(僅限衝刺)」，則僅允許執行衝刺。</div>
-        <div class="weapon-item"><strong>過熱 (Hot)：</strong>使用後擲 1 顆 D6，若小於武器 Hit 命中值，射手受到等於該點數 × 2 的傷害。</div>
-        <div class="weapon-item"><strong>致命 x+ (Lethal x+)：</strong>擲出大於等於 x 的成功骰直接視為爆擊成功（例如致命 5+）。</div>
-        <div class="weapon-item"><strong>受限 x (Limited x)：</strong>整場戰鬥中累計使用達 x 次後便無法再次使用。</div>
-        <div class="weapon-item"><strong>穿刺 x (Piercing x)：</strong>防守方擲骰時減少 x 顆防禦骰（「爆擊穿刺 x」則需產生爆擊成功才觸發）。</div>
-        <div class="weapon-item"><strong>痛擊 (Punishing)：</strong>若保留任何爆擊成功，可將 1 顆失敗骰轉為普通成功保留。</div>
-        <div class="weapon-item"><strong>射程 x (Range x)：</strong>僅能以距離活躍特工 x 吋以內的特工為有效目標。</div>
-        <div class="weapon-item"><strong>無情 (Relentless)：</strong>可重擲該次攻擊中任意數量的攻擊骰。</div>
-        <div class="weapon-item"><strong>撕裂 (Rending)：</strong>若保留任何爆擊成功，可將另 1 顆普通成功轉為爆擊成功保留。</div>
-        <div class="weapon-item"><strong>飽和 (Saturate)：</strong>防守方無法保留掩護帶來的免費防禦成功。</div>
-        <div class="weapon-item"><strong>追蹤 (Seek)：</strong>判定有效目標時，隱蔽特工無法藉由地形取得掩護判定（「追蹤輕型」則僅限輕型掩體）。</div>
-        <div class="weapon-item"><strong>重創 (Severe)：</strong>若本次攻擊未保留任何爆擊成功，可將 1 顆普通成功轉為爆擊成功。</div>
-        <div class="weapon-item"><strong>震盪 (Shock)：</strong>近戰中首次使用爆擊成功打擊時，額外棄置對手 1 顆未結算的普通成功（若無普通成功則棄置爆擊成功）。</div>
-        <div class="weapon-item"><strong>靜音 (Silent)：</strong>特工在隱蔽指令下依然可以使用此武器執行射擊行動。</div>
-        <div class="weapon-item"><strong>暈眩 (Stun)：</strong>若保留任何爆擊成功，目標特工的 APL 數值 -1 直至其下次啟動結束。</div>
-        <div class="weapon-item"><strong>洪流 x (Torrent x)：</strong>選定主目標後，可同時對距離主目標 x 吋內的任意數量可見有效目標依序單獨結算射擊。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-note">
-    <p>© Games Workshop Limited 2024 / 戰錘 40,000：殺戮小隊 簡易對戰規則速查手冊 (Kill Team 3rd Edition Traditional Chinese Edition)</p>
-  </div>
-</div>
-
-
-    </div>
+    <!-- 浮動目錄導航按鈕 -->
+    <button type="button" class="floating-toc-btn" id="floatingTocBtn" aria-label="開啟章節目錄" title="快速跳轉章節"><span>📑</span> 目錄</button>
 
     <footer class="site-footer no-print">
       <div class="site-footer-content">
@@ -289,12 +413,136 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.5.3"></script>
+<script src="shared.js?v=3.5.4"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const pills = Array.from(document.querySelectorAll('.part-pill[data-target]'));
-    const cards = pills.map(p => document.getElementById(p.getAttribute('data-target'))).filter(Boolean);
+    // 1. 複製錨點網址
+    window.copySectionAnchor = function(anchorId, btn) {
+      const url = window.location.origin + window.location.pathname + '#' + anchorId;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showCopied(btn);
+        }).catch(() => {
+          fallbackCopy(url, btn);
+        });
+      } else {
+        fallbackCopy(url, btn);
+      }
+    };
+
+    function showCopied(btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ 已複製！';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+
+    function fallbackCopy(text, btn) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showCopied(btn);
+    }
+
+    // 2. 頂部平滑閱讀進度條
+    const readingBar = document.getElementById('readingProgressBar');
+    function updateReadingProgress() {
+      if (!readingBar) return;
+      const winScroll = window.scrollY || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = height > 0 ? Math.min(100, Math.max(0, (winScroll / height) * 100)) : 0;
+      readingBar.style.width = progress + '%';
+      readingBar.setAttribute('aria-valuenow', Math.round(progress));
+    }
+
+    // 3. 即時搜尋過濾功能
+    const searchInput = document.getElementById('ruleSearchInput');
+    const searchClearBtn = document.getElementById('searchClearBtn');
+    const searchStatusBar = document.getElementById('searchStatusBar');
+    const sectionBlocks = Array.from(document.querySelectorAll('.rule-section-block'));
+
+    function performSearch() {
+      const query = (searchInput?.value || '').trim().toLowerCase();
+      if (!query) {
+        if (searchClearBtn) searchClearBtn.style.display = 'none';
+        if (searchStatusBar) searchStatusBar.style.display = 'none';
+        sectionBlocks.forEach(sec => sec.classList.remove('hidden-by-search'));
+        document.querySelectorAll('.weapon-item').forEach(w => w.classList.remove('hidden-by-search'));
+        return;
+      }
+
+      if (searchClearBtn) searchClearBtn.style.display = 'block';
+      let matchCount = 0;
+
+      sectionBlocks.forEach(sec => {
+        const secText = (sec.getAttribute('data-section-name') || '').toLowerCase();
+        const contentText = (sec.textContent || '').toLowerCase();
+        const isMatch = secText.includes(query) || contentText.includes(query);
+        if (isMatch) {
+          sec.classList.remove('hidden-by-search');
+          matchCount++;
+        } else {
+          sec.classList.add('hidden-by-search');
+        }
+      });
+
+      // 武器特定子項目過濾
+      if (query) {
+        document.querySelectorAll('.weapon-item').forEach(item => {
+          const itemText = (item.textContent || '').toLowerCase();
+          if (itemText.includes(query)) {
+            item.classList.remove('hidden-by-search');
+          } else {
+            item.classList.add('hidden-by-search');
+          }
+        });
+      }
+
+      if (searchStatusBar) {
+        searchStatusBar.style.display = 'block';
+        searchStatusBar.textContent = `找到 ${matchCount} 個相符章節 (關鍵字: "${query}")`;
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', performSearch);
+    }
+    if (searchClearBtn) {
+      searchClearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        performSearch();
+        searchInput.focus();
+      });
+    }
+
+    // 快捷鍵 '/' 聚焦搜尋框, Esc 清除
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput?.focus();
+        searchInput?.select();
+      }
+      if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        performSearch();
+        searchInput.blur();
+      }
+    });
+
+    // 4. 章節跳轉 Select 與抽屜 (Drawer) 控制
     const chapterSelect = document.getElementById('liteChapterSelect');
+    const drawerToggle = document.getElementById('tocDrawerToggle');
+    const drawerOverlay = document.getElementById('tocDrawerOverlay');
+    const drawer = document.getElementById('tocDrawer');
+    const drawerClose = document.getElementById('tocDrawerClose');
+    const floatingTocBtn = document.getElementById('floatingTocBtn');
+    const backToTop = document.getElementById('backToTop');
 
     if (chapterSelect) {
       chapterSelect.addEventListener('change', (e) => {
@@ -308,25 +556,85 @@
       });
     }
 
+    function openDrawer() {
+      if (drawer && drawerOverlay) {
+        drawer.classList.add('open');
+        drawerOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeDrawer() {
+      if (drawer && drawerOverlay) {
+        drawer.classList.remove('open');
+        drawerOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (drawerToggle) drawerToggle.addEventListener('click', openDrawer);
+    if (floatingTocBtn) floatingTocBtn.addEventListener('click', openDrawer);
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+    // 抽屜內點擊連結自動收合
+    document.querySelectorAll('#tocDrawer .cr-toc-link').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
+    // 5. Scrollspy 滾動位置偵測與同步高亮
+    const pills = Array.from(document.querySelectorAll('.part-pill[data-target]'));
+    const tocLinks = document.querySelectorAll('#tocDrawer .cr-toc-link');
+    let activeSectionId = '';
+
     function onScroll() {
-      const scrollPos = window.scrollY + 120;
+      updateReadingProgress();
+
+      const scrollPos = window.scrollY + 130;
       let currentId = '';
-      for (let i = 0; i < cards.length; i++) {
-        if (cards[i].offsetTop <= scrollPos) {
-          currentId = cards[i].id;
+
+      for (let i = 0; i < sectionBlocks.length; i++) {
+        const sec = sectionBlocks[i];
+        if (sec.offsetTop <= scrollPos) {
+          currentId = sec.id;
         } else {
           break;
         }
       }
-      pills.forEach(p => {
-        if (p.getAttribute('data-target') === currentId) {
-          p.classList.add('active');
-        } else {
-          p.classList.remove('active');
+
+      if (currentId && currentId !== activeSectionId) {
+        activeSectionId = currentId;
+
+        pills.forEach(p => {
+          if (p.getAttribute('data-target') === currentId) {
+            p.classList.add('active');
+          } else {
+            p.classList.remove('active');
+          }
+        });
+
+        tocLinks.forEach(link => {
+          if (link.getAttribute('data-target') === currentId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+
+        if (chapterSelect && chapterSelect.value !== currentId) {
+          chapterSelect.value = currentId;
         }
-      });
-      if (chapterSelect && currentId && chapterSelect.value !== currentId) {
-        chapterSelect.value = currentId;
+      }
+
+      // 浮動目錄按鈕與回到頂部按鈕顯隱
+      if (window.scrollY > 250) {
+        if (backToTop) backToTop.classList.add('visible');
+        if (floatingTocBtn) floatingTocBtn.classList.add('visible');
+      } else {
+        if (backToTop) backToTop.classList.remove('visible');
+        if (floatingTocBtn) floatingTocBtn.classList.remove('visible');
       }
     }
 
