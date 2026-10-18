@@ -157,5 +157,66 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     }
   });
 
+  test('Stage E 指標驗證：40k_core_rules.html 具備完整 27 章節 TOC 目錄、閱讀進度條與錨點複製', async ({ page }) => {
+    await page.goto('/40k_core_rules.html');
+
+    // 1. 閱讀進度條
+    const progressBar = page.locator('#readingProgressBar');
+    await expect(progressBar).toBeAttached();
+
+    // 2. 桌面與抽屜 TOC 導航項目
+    const tocLinks = page.locator('#crTocSidebar .cr-toc-link');
+    const count = await tocLinks.count();
+    expect(count, '桌面目錄章節數量應為 27').toBe(27);
+
+    // 3. 行動端章節跳轉選單
+    const chapterSelect = page.locator('#mobileChapterSelect');
+    await expect(chapterSelect).toBeAttached();
+    const optCount = await chapterSelect.locator('option').count();
+    expect(optCount, '章節下拉選單應包含至少 27 個章節選項').toBeGreaterThanOrEqual(27);
+
+    // 4. 27 個章節區塊均有錨點複製按鈕
+    const anchorBtns = page.locator('.btn-copy-anchor');
+    const anchorBtnCount = await anchorBtns.count();
+    expect(anchorBtnCount, '每個章節 Banner 均應有錨點複製按鈕').toBeGreaterThanOrEqual(27);
+
+    // 5. 滾動頁面驗證閱讀進度條與 Scrollspy
+    await page.evaluate(() => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({ top: maxScroll * 0.5, behavior: 'instant' });
+    });
+    await page.waitForTimeout(100);
+    const progressWidth = await progressBar.evaluate(el => parseFloat(el.style.width || '0'));
+    expect(progressWidth, '滾動至半途時閱讀進度應 > 20%').toBeGreaterThan(20);
+
+    // 6. 點擊 TOC 項目觸發跳轉與高亮 (區分桌面側欄與行動端下拉)
+    const isDesktop = (page.viewportSize()?.width || 0) >= 1200;
+    if (isDesktop) {
+      const targetLink = page.locator('#crTocSidebar .cr-toc-link[data-target="sec-05"]');
+      await targetLink.click();
+    } else {
+      await chapterSelect.selectOption('sec-05');
+    }
+    await page.waitForTimeout(300);
+    const hash = await page.evaluate(() => window.location.hash);
+    expect(hash).toBe('#sec-05');
+  });
+
+  test('Stage E 指標驗證：行動版 TOC 抽屜開啟與關閉功能', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/40k_core_rules.html');
+
+    const toggleBtn = page.locator('#tocDrawerToggle');
+    const drawer = page.locator('#tocDrawer');
+    const closeBtn = page.locator('#tocDrawerClose');
+
+    await expect(toggleBtn).toBeVisible();
+    await toggleBtn.click();
+    await expect(drawer).toHaveClass(/open/);
+
+    await closeBtn.click();
+    await expect(drawer).not.toHaveClass(/open/);
+  });
+
 });
 

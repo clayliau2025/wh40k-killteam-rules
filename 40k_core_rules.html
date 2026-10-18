@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000 第 11 版：完整核心規則 (Core Rules) 繁體中文全檢索情報庫</title>
   <meta name="description" content="官方戰錘 40,000 第 11 版完整核心規則庫，繁體中文全檢索系統，收錄全部 25 個核心章節、10 個通用核心計謀、40 項核心與武器技能、官方規則註解、以及 66 項官方常見問答 (FAQ) 與最新平衡勘誤。">
-  <link rel="stylesheet" href="shared.css?v=3.4.5">
+  <link rel="stylesheet" href="shared.css?v=3.5.0">
   <style>
     /* ================= 40K 核心規則專用視覺樣式 ================= */
     body.theme-40k-core {
@@ -819,6 +819,300 @@
       color: var(--color-blue-900) !important;
     }
 
+
+    /* ================= 階段 E：40K 核心規則目錄 (TOC) & Scrollspy 專用樣式 ================= */
+    .reading-progress-bar {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-blue-500), var(--color-sky-400));
+      z-index: 99;
+      pointer-events: none;
+      transition: width 0.08s ease-out;
+    }
+
+    .cr-layout-wrapper {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      position: relative;
+      width: 100%;
+    }
+
+    .cr-main-content {
+      flex: 1 1 0%;
+      min-width: 0;
+    }
+
+    /* 桌面版右側固定目錄 (Desktop Sticky TOC) */
+    .cr-toc-sidebar {
+      width: 270px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 130px;
+      max-height: calc(100vh - 150px);
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--theme-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      z-index: 80;
+    }
+
+    @media (min-width: 1200px) {
+      .cr-toc-sidebar {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .cr-toc-header {
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-blue-900) 100%);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--theme-border);
+      flex-shrink: 0;
+    }
+
+    .cr-toc-header-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      font-size: var(--font-size-sm);
+      font-family: var(--font-display);
+      letter-spacing: 0.5px;
+    }
+
+    .cr-toc-count-badge {
+      font-size: var(--font-size-badge);
+      background: rgba(255, 255, 255, 0.18);
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .cr-toc-body {
+      overflow-y: auto;
+      padding: 10px 8px;
+      max-height: calc(100vh - 215px);
+      scrollbar-width: thin;
+    }
+
+    .cr-toc-part-group {
+      margin-bottom: 12px;
+    }
+
+    .cr-toc-part-title {
+      font-size: var(--font-size-badge);
+      font-weight: 800;
+      color: var(--color-slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 6px 8px 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cr-toc-link {
+      display: flex;
+      align-items: center;
+      padding: 6px 10px;
+      margin-bottom: 2px;
+      border-radius: 4px;
+      font-size: var(--font-size-xs);
+      color: var(--color-slate-700);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      line-height: 1.35;
+      border-left: 3px solid transparent;
+    }
+
+    .cr-toc-link:hover {
+      background: var(--surface-subtle);
+      color: var(--color-blue-600);
+    }
+
+    .cr-toc-link.active {
+      background: var(--color-blue-50);
+      color: var(--color-blue-700);
+      font-weight: 700;
+      border-left: 3px solid var(--color-blue-600);
+    }
+
+    .cr-toc-link-num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      margin-right: 6px;
+      color: var(--color-slate-400);
+      flex-shrink: 0;
+      font-size: var(--font-size-badge);
+    }
+
+    .cr-toc-link.active .cr-toc-link-num {
+      color: var(--color-blue-600);
+    }
+
+    .cr-toc-link-text {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 行動端快速跳轉與選單控制列 */
+    .cr-mobile-jump-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--surface-subtle);
+    }
+
+    .cr-chapter-select {
+      flex: 1;
+      padding: 7px 10px;
+      font-size: var(--font-size-xs);
+      border: 1.5px solid var(--theme-border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--color-slate-700);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .cr-chapter-select:focus {
+      border-color: var(--color-blue-600);
+    }
+
+    .btn-toc-drawer-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--theme-border);
+      background: var(--surface-subtle);
+      color: var(--color-blue-900);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .btn-toc-drawer-toggle:hover {
+      background: var(--color-blue-600);
+      color: var(--color-white);
+    }
+
+    /* 行動版抽屜式目錄 (Mobile TOC Drawer) */
+    .cr-toc-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .cr-toc-drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cr-toc-drawer {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      max-width: 85vw;
+      height: 100%;
+      background: var(--surface);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25);
+      transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cr-toc-drawer.open {
+      right: 0;
+    }
+
+    .cr-toc-drawer-header {
+      padding: 16px;
+      background: var(--theme-dark);
+      color: var(--color-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cr-toc-drawer-title {
+      font-weight: 800;
+      font-size: var(--font-size-md);
+      font-family: var(--font-display);
+    }
+
+    .cr-toc-drawer-close {
+      background: none;
+      border: none;
+      color: var(--color-white);
+      font-size: var(--font-size-lg);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .cr-toc-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+    }
+
+    /* 錨點複製按鈕 */
+    .btn-copy-anchor {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--color-white);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: var(--font-size-xs);
+      cursor: pointer;
+      margin-left: 8px;
+      opacity: 0.85;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .btn-copy-anchor:hover {
+      background: var(--color-blue-600);
+      opacity: 1;
+      border-color: var(--color-blue-500);
+    }
+
+    .btn-copy-anchor.copied {
+      background: var(--color-green-600) !important;
+      border-color: var(--color-green-500) !important;
+    }
+
+    /* 錨點滾動邊距 */
+    .rule-section-block, .chapter-header {
+      scroll-margin-top: 140px;
+    }
+
   </style>
   <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
@@ -992,6 +1286,8 @@
         <button type="button" class="btn-pwa-install" id="pwaInstallBtn" title="安裝此網站至手機主畫面桌面">📲 安裝 App</button>
       </div>
     </header>
+    <!-- 頂部即時閱讀進度指示條 (Reading Progress Bar) -->
+    <div id="readingProgressBar" class="reading-progress-bar" role="progressbar" aria-label="核心規則閱讀進度" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 
     <div class="app-content">
       <div class="container" id="top">
@@ -1043,9 +1339,60 @@
             <a href="#sec-25" class="part-pill">Ⅵ. 召集軍隊 (25)</a>
             <a href="#sec-faq" class="part-pill">Ⅶ. FAQ 與勘誤 (66項)</a>
           </div>
+          <!-- 行動端與快速章節跳轉列 -->
+          <div class="cr-mobile-jump-row">
+            <label for="mobileChapterSelect" class="font-xs font-bold text-muted d-none">章節跳轉:</label>
+            <select id="mobileChapterSelect" class="cr-chapter-select" aria-label="選擇章節快速跳轉">
+              <option value="">-- 快速跳轉至指定章節 (27章) --</option>
+              <optgroup label="Ⅰ. 基礎與核心概念">
+                <option value="sec-01">01. 核心概念 (Core Concepts)</option>
+                <option value="sec-02">02. 資料表 (Datasheets)</option>
+                <option value="sec-03">03. 移動 (Movement)</option>
+                <option value="sec-04">04. 進行攻擊 (Making Attacks)</option>
+                <option value="sec-05">05. 攻擊流程 (Attack Sequence)</option>
+                <option value="sec-06">06. 其他概念 (Other Concepts)</option>
+              </optgroup>
+              <optgroup label="Ⅱ. 戰鬥輪次與各階段流程">
+                <option value="sec-07">07. 戰鬥輪次 (Battle Rounds)</option>
+                <option value="sec-08">08. 指揮階段 (Command Phase)</option>
+                <option value="sec-09">09. 移動階段 (Movement Phase)</option>
+                <option value="sec-10">10. 射擊階段 (Shooting Phase)</option>
+                <option value="sec-11">11. 衝鋒階段 (Charge Phase)</option>
+                <option value="sec-12">12. 近戰階段 (Fight Phase)</option>
+              </optgroup>
+              <optgroup label="Ⅲ. 戰場地形、目標與戰術計謀">
+                <option value="sec-13">13. 地形 (Terrain Features)</option>
+                <option value="sec-14">14. 目標 (Objective Markers)</option>
+                <option value="sec-15">15. 計謀 (Stratagems)</option>
+                <option value="sec-16">16. 行動 (Actions)</option>
+              </optgroup>
+              <optgroup label="Ⅳ. 進階單位與作戰規則">
+                <option value="sec-17">17. 兇獸和載具 (Monsters and Vehicles)</option>
+                <option value="sec-18">18. 運輸工具 (Transports)</option>
+                <option value="sec-19">19. 聯合單位 (Attached Units &amp; Leaders)</option>
+                <option value="sec-20">20. 戰略預備隊 (Strategic Reserves)</option>
+                <option value="sec-21">21. 飛行和迸發 (Fly &amp; Aircraft)</option>
+                <option value="sec-22">22. 其他規則和技能 (Other Rules &amp; Abilities)</option>
+                <option value="sec-23">23. 飛行器 (Aircraft)</option>
+              </optgroup>
+              <optgroup label="Ⅴ. 核心技能與武器特徵">
+                <option value="sec-24">24. 核心技能 (Core Abilities)</option>
+              </optgroup>
+              <optgroup label="Ⅵ. 召集軍隊">
+                <option value="sec-25">25. 召集軍隊 (Mustering Your Army)</option>
+              </optgroup>
+              <optgroup label="Ⅶ. 官方規則註解與常見問答">
+                <option value="sec-commentary">通用規則更新 (Rules Commentary)</option>
+                <option value="sec-faq">常見問答 FAQ (66項) 與勘誤</option>
+              </optgroup>
+            </select>
+            <button type="button" class="btn-toc-drawer-toggle" id="tocDrawerToggle" aria-label="切換章節目錄抽屜" title="開啟完整目錄">📑 目錄</button>
+          </div>
         </div>
 
-        <div id="part-1" class="chapter-header">
+        <div class="cr-layout-wrapper">
+          <main class="cr-main-content">
+            <div id="part-1" class="chapter-header">
           <h2 class="chapter-title">Ⅰ. 基礎與核心概念 (BASIC & CORE CONCEPTS)</h2>
           <p class="chapter-sub">包含軍隊構成、資料表讀法、移動、攻擊流程與基本概念</p>
         </div>
@@ -1056,7 +1403,7 @@
         <div class="section-banner-title">
           <span>01. 核心概念</span>
           <span class="section-en">(CORE CONCEPTS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-01', this)" title="複製章節連結" aria-label="複製章節 sec-01 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 01</span>
       </div>
     
@@ -1408,7 +1755,7 @@
         <div class="section-banner-title">
           <span>02. 資料表</span>
           <span class="section-en">(DATASHEETS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-02', this)" title="複製章節連結" aria-label="複製章節 sec-02 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 02</span>
       </div>
     
@@ -1617,7 +1964,7 @@
         <div class="section-banner-title">
           <span>03. 移動</span>
           <span class="section-en">(MOVEMENT)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-03', this)" title="複製章節連結" aria-label="複製章節 sec-03 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 03</span>
       </div>
     
@@ -1791,7 +2138,7 @@
         <div class="section-banner-title">
           <span>04. 進行攻擊</span>
           <span class="section-en">(MAKING ATTACKS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-04', this)" title="複製章節連結" aria-label="複製章節 sec-04 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 04</span>
       </div>
     
@@ -1965,7 +2312,7 @@
         <div class="section-banner-title">
           <span>05. 攻擊流程</span>
           <span class="section-en">(ATTACK SEQUENCE)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-05', this)" title="複製章節連結" aria-label="複製章節 sec-05 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 05</span>
       </div>
     
@@ -2296,7 +2643,7 @@
         <div class="section-banner-title">
           <span>06. 其他概念</span>
           <span class="section-en">(OTHER CONCEPTS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-06', this)" title="複製章節連結" aria-label="複製章節 sec-06 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 06</span>
       </div>
     
@@ -2402,7 +2749,7 @@
         <div class="section-banner-title">
           <span>07. 戰鬥輪次</span>
           <span class="section-en">(BATTLE ROUNDS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-07', this)" title="複製章節連結" aria-label="複製章節 sec-07 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 07</span>
       </div>
     
@@ -2472,7 +2819,7 @@
         <div class="section-banner-title">
           <span>08. 指揮階段</span>
           <span class="section-en">(COMMAND PHASE)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-08', this)" title="複製章節連結" aria-label="複製章節 sec-08 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 08</span>
       </div>
     
@@ -2567,7 +2914,7 @@
         <div class="section-banner-title">
           <span>09. 移動階段</span>
           <span class="section-en">(MOVEMENT PHASE)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-09', this)" title="複製章節連結" aria-label="複製章節 sec-09 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 09</span>
       </div>
     
@@ -2686,7 +3033,7 @@
         <div class="section-banner-title">
           <span>10. 射擊階段</span>
           <span class="section-en">(SHOOTING PHASE)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-10', this)" title="複製章節連結" aria-label="複製章節 sec-10 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 10</span>
       </div>
     
@@ -2755,7 +3102,7 @@
         <div class="section-banner-title">
           <span>11. 衝鋒階段</span>
           <span class="section-en">(CHARGE PHASE)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-11', this)" title="複製章節連結" aria-label="複製章節 sec-11 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 11</span>
       </div>
     
@@ -2821,7 +3168,7 @@
         <div class="section-banner-title">
           <span>12. 近戰階段</span>
           <span class="section-en">(FIGHT PHASE)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-12', this)" title="複製章節連結" aria-label="複製章節 sec-12 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 12</span>
       </div>
     
@@ -2974,7 +3321,7 @@
         <div class="section-banner-title">
           <span>13. 地形</span>
           <span class="section-en">(TERRAIN FEATURES)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-13', this)" title="複製章節連結" aria-label="複製章節 sec-13 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 13</span>
       </div>
     
@@ -3178,7 +3525,7 @@
         <div class="section-banner-title">
           <span>14. 目標</span>
           <span class="section-en">(OBJECTIVE MARKERS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-14', this)" title="複製章節連結" aria-label="複製章節 sec-14 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 14</span>
       </div>
     
@@ -3245,7 +3592,7 @@
         <div class="section-banner-title">
           <span>15. 計謀</span>
           <span class="section-en">(STRATAGEMS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-15', this)" title="複製章節連結" aria-label="複製章節 sec-15 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 15</span>
       </div>
     <div class="stratagems-grid">
@@ -3460,7 +3807,7 @@
         <div class="section-banner-title">
           <span>16. 行動</span>
           <span class="section-en">(ACTIONS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-16', this)" title="複製章節連結" aria-label="複製章節 sec-16 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 16</span>
       </div>
     
@@ -3513,7 +3860,7 @@
         <div class="section-banner-title">
           <span>17. 兇獸和載具</span>
           <span class="section-en">(MONSTERS AND VEHICLES)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-17', this)" title="複製章節連結" aria-label="複製章節 sec-17 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 17</span>
       </div>
     
@@ -3569,7 +3916,7 @@
         <div class="section-banner-title">
           <span>18. 運輸工具</span>
           <span class="section-en">(TRANSPORTS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-18', this)" title="複製章節連結" aria-label="複製章節 sec-18 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 18</span>
       </div>
     
@@ -3644,7 +3991,7 @@
         <div class="section-banner-title">
           <span>19. 聯合單位</span>
           <span class="section-en">(ATTACHED UNITS & LEADERS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-19', this)" title="複製章節連結" aria-label="複製章節 sec-19 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 19</span>
       </div>
     
@@ -3724,7 +4071,7 @@
         <div class="section-banner-title">
           <span>20. 戰略預備隊</span>
           <span class="section-en">(STRATEGIC RESERVES)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-20', this)" title="複製章節連結" aria-label="複製章節 sec-20 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 20</span>
       </div>
     
@@ -3790,7 +4137,7 @@
         <div class="section-banner-title">
           <span>21. 飛行和迸發</span>
           <span class="section-en">(FLY & AIRCRAFT)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-21', this)" title="複製章節連結" aria-label="複製章節 sec-21 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 21</span>
       </div>
     
@@ -3851,7 +4198,7 @@
         <div class="section-banner-title">
           <span>22. 其他規則和技能</span>
           <span class="section-en">(OTHER RULES & ABILITIES)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-22', this)" title="複製章節連結" aria-label="複製章節 sec-22 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 22</span>
       </div>
     
@@ -3919,7 +4266,7 @@
         <div class="section-banner-title">
           <span>23. 飛行器</span>
           <span class="section-en">(AIRCRAFT)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-23', this)" title="複製章節連結" aria-label="複製章節 sec-23 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 23</span>
       </div>
     
@@ -3964,7 +4311,7 @@
         <div class="section-banner-title">
           <span>24. 核心技能</span>
           <span class="section-en">(CORE & WEAPON ABILITIES)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-24', this)" title="複製章節連結" aria-label="複製章節 sec-24 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 24</span>
       </div>
     <div class="abilities-grid">
@@ -4735,7 +5082,7 @@
         <div class="section-banner-title">
           <span>25. 召集軍隊</span>
           <span class="section-en">(MUSTERING YOUR ARMY)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-25', this)" title="複製章節連結" aria-label="複製章節 sec-25 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 25</span>
       </div>
     
@@ -4820,7 +5167,7 @@
         <div class="section-banner-title">
           <span>通用規則更新</span>
           <span class="section-en">(RULES COMMENTARY & FAQS)</span>
-        </div>
+         <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-commentary', this)" title="複製章節連結" aria-label="複製章節 sec-commentary 錨點連結">🔗 複製錨點</button></div>
         <span class="section-badge">CHAPTER 26</span>
       </div>
     
@@ -4841,6 +5188,7 @@
         <div class="section-banner-title">
           <span>官方常見問答 (FAQ) 與最新規則勘誤 (ERRATA)</span>
           <span class="section-en">(OFFICIAL FAQ & ERRATA)</span>
+          <button type="button" class="btn-copy-anchor" onclick="copySectionAnchor('sec-faq', this)" title="複製章節連結" aria-label="複製章節 sec-faq 錨點連結">🔗 複製錨點</button>
         </div>
         <span class="section-badge badge-warning-faq">66 項官方解答</span>
       </div>
@@ -5598,15 +5946,133 @@
       </div>
     </section>
 
+          </main><!-- /.cr-main-content -->
+        <!-- 桌面版右側固定目錄 (Desktop Sticky TOC Sidebar) -->
+        <aside class="cr-toc-sidebar" id="crTocSidebar" aria-label="核心規則章節目錄">
+          <div class="cr-toc-header">
+            <span class="cr-toc-header-title"><span>📑</span> 規則章節目錄</span>
+            <span class="cr-toc-count-badge">27 章</span>
+          </div>
+          <nav class="cr-toc-body" id="crTocNav">
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅰ. 基礎與核心概念</div>
+        <a href="#sec-01" class="cr-toc-link" data-target="sec-01"><span class="cr-toc-link-num">01</span><span class="cr-toc-link-text">核心概念 Core Concepts</span></a>
+        <a href="#sec-02" class="cr-toc-link" data-target="sec-02"><span class="cr-toc-link-num">02</span><span class="cr-toc-link-text">資料表 Datasheets</span></a>
+        <a href="#sec-03" class="cr-toc-link" data-target="sec-03"><span class="cr-toc-link-num">03</span><span class="cr-toc-link-text">移動 Movement</span></a>
+        <a href="#sec-04" class="cr-toc-link" data-target="sec-04"><span class="cr-toc-link-num">04</span><span class="cr-toc-link-text">進行攻擊 Making Attacks</span></a>
+        <a href="#sec-05" class="cr-toc-link" data-target="sec-05"><span class="cr-toc-link-num">05</span><span class="cr-toc-link-text">攻擊流程 Attack Sequence</span></a>
+        <a href="#sec-06" class="cr-toc-link" data-target="sec-06"><span class="cr-toc-link-num">06</span><span class="cr-toc-link-text">其他概念 Other Concepts</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅱ. 戰鬥輪次與階段流程</div>
+        <a href="#sec-07" class="cr-toc-link" data-target="sec-07"><span class="cr-toc-link-num">07</span><span class="cr-toc-link-text">戰鬥輪次 Battle Rounds</span></a>
+        <a href="#sec-08" class="cr-toc-link" data-target="sec-08"><span class="cr-toc-link-num">08</span><span class="cr-toc-link-text">指揮階段 Command Phase</span></a>
+        <a href="#sec-09" class="cr-toc-link" data-target="sec-09"><span class="cr-toc-link-num">09</span><span class="cr-toc-link-text">移動階段 Movement Phase</span></a>
+        <a href="#sec-10" class="cr-toc-link" data-target="sec-10"><span class="cr-toc-link-num">10</span><span class="cr-toc-link-text">射擊階段 Shooting Phase</span></a>
+        <a href="#sec-11" class="cr-toc-link" data-target="sec-11"><span class="cr-toc-link-num">11</span><span class="cr-toc-link-text">衝鋒階段 Charge Phase</span></a>
+        <a href="#sec-12" class="cr-toc-link" data-target="sec-12"><span class="cr-toc-link-num">12</span><span class="cr-toc-link-text">近戰階段 Fight Phase</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅲ. 戰場地形與計謀</div>
+        <a href="#sec-13" class="cr-toc-link" data-target="sec-13"><span class="cr-toc-link-num">13</span><span class="cr-toc-link-text">地形 Terrain Features</span></a>
+        <a href="#sec-14" class="cr-toc-link" data-target="sec-14"><span class="cr-toc-link-num">14</span><span class="cr-toc-link-text">目標 Objective Markers</span></a>
+        <a href="#sec-15" class="cr-toc-link" data-target="sec-15"><span class="cr-toc-link-num">15</span><span class="cr-toc-link-text">計謀 Stratagems</span></a>
+        <a href="#sec-16" class="cr-toc-link" data-target="sec-16"><span class="cr-toc-link-num">16</span><span class="cr-toc-link-text">行動 Actions</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅳ. 進階單位與作戰規則</div>
+        <a href="#sec-17" class="cr-toc-link" data-target="sec-17"><span class="cr-toc-link-num">17</span><span class="cr-toc-link-text">兇獸和載具 Monsters &amp; Vehicles</span></a>
+        <a href="#sec-18" class="cr-toc-link" data-target="sec-18"><span class="cr-toc-link-num">18</span><span class="cr-toc-link-text">運輸工具 Transports</span></a>
+        <a href="#sec-19" class="cr-toc-link" data-target="sec-19"><span class="cr-toc-link-num">19</span><span class="cr-toc-link-text">聯合單位 Attached Units</span></a>
+        <a href="#sec-20" class="cr-toc-link" data-target="sec-20"><span class="cr-toc-link-num">20</span><span class="cr-toc-link-text">戰略預備隊 Strategic Reserves</span></a>
+        <a href="#sec-21" class="cr-toc-link" data-target="sec-21"><span class="cr-toc-link-num">21</span><span class="cr-toc-link-text">飛行和迸發 Fly &amp; Aircraft</span></a>
+        <a href="#sec-22" class="cr-toc-link" data-target="sec-22"><span class="cr-toc-link-num">22</span><span class="cr-toc-link-text">其他規則 Other Rules</span></a>
+        <a href="#sec-23" class="cr-toc-link" data-target="sec-23"><span class="cr-toc-link-num">23</span><span class="cr-toc-link-text">飛行器 Aircraft</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅴ. 核心技能與武器特徵</div>
+        <a href="#sec-24" class="cr-toc-link" data-target="sec-24"><span class="cr-toc-link-num">24</span><span class="cr-toc-link-text">核心技能 Core Abilities</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅵ. 召集軍隊</div>
+        <a href="#sec-25" class="cr-toc-link" data-target="sec-25"><span class="cr-toc-link-num">25</span><span class="cr-toc-link-text">召集軍隊 Mustering Army</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅶ. 官方規則註解與常見問答</div>
+        <a href="#sec-commentary" class="cr-toc-link" data-target="sec-commentary"><span class="cr-toc-link-num">26</span><span class="cr-toc-link-text">通用規則更新 Commentary</span></a>
+        <a href="#sec-faq" class="cr-toc-link" data-target="sec-faq"><span class="cr-toc-link-num">27</span><span class="cr-toc-link-text">常見問答 FAQ (66項)</span></a>
+      </div>
+          </nav>
+        </aside>
+        </div><!-- /.cr-layout-wrapper -->
       </div><!-- /.container -->
     </div><!-- /.app-content -->
   </div><!-- /.app-main -->
 </div><!-- /.app-layout -->
 
+<!-- 行動版抽屜式目錄 (Mobile TOC Drawer) -->
+<div class="cr-toc-drawer-overlay" id="tocDrawerOverlay"></div>
+<aside class="cr-toc-drawer" id="tocDrawer" aria-label="行動端規則章節目錄">
+  <div class="cr-toc-drawer-header">
+    <div class="cr-toc-drawer-title">📑 規則章節目錄 (27章)</div>
+    <button type="button" class="cr-toc-drawer-close" id="tocDrawerClose" aria-label="關閉目錄">✕</button>
+  </div>
+  <nav class="cr-toc-drawer-body" id="tocDrawerBody">
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅰ. 基礎與核心概念</div>
+        <a href="#sec-01" class="cr-toc-link" data-target="sec-01"><span class="cr-toc-link-num">01</span><span class="cr-toc-link-text">核心概念 Core Concepts</span></a>
+        <a href="#sec-02" class="cr-toc-link" data-target="sec-02"><span class="cr-toc-link-num">02</span><span class="cr-toc-link-text">資料表 Datasheets</span></a>
+        <a href="#sec-03" class="cr-toc-link" data-target="sec-03"><span class="cr-toc-link-num">03</span><span class="cr-toc-link-text">移動 Movement</span></a>
+        <a href="#sec-04" class="cr-toc-link" data-target="sec-04"><span class="cr-toc-link-num">04</span><span class="cr-toc-link-text">進行攻擊 Making Attacks</span></a>
+        <a href="#sec-05" class="cr-toc-link" data-target="sec-05"><span class="cr-toc-link-num">05</span><span class="cr-toc-link-text">攻擊流程 Attack Sequence</span></a>
+        <a href="#sec-06" class="cr-toc-link" data-target="sec-06"><span class="cr-toc-link-num">06</span><span class="cr-toc-link-text">其他概念 Other Concepts</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅱ. 戰鬥輪次與階段流程</div>
+        <a href="#sec-07" class="cr-toc-link" data-target="sec-07"><span class="cr-toc-link-num">07</span><span class="cr-toc-link-text">戰鬥輪次 Battle Rounds</span></a>
+        <a href="#sec-08" class="cr-toc-link" data-target="sec-08"><span class="cr-toc-link-num">08</span><span class="cr-toc-link-text">指揮階段 Command Phase</span></a>
+        <a href="#sec-09" class="cr-toc-link" data-target="sec-09"><span class="cr-toc-link-num">09</span><span class="cr-toc-link-text">移動階段 Movement Phase</span></a>
+        <a href="#sec-10" class="cr-toc-link" data-target="sec-10"><span class="cr-toc-link-num">10</span><span class="cr-toc-link-text">射擊階段 Shooting Phase</span></a>
+        <a href="#sec-11" class="cr-toc-link" data-target="sec-11"><span class="cr-toc-link-num">11</span><span class="cr-toc-link-text">衝鋒階段 Charge Phase</span></a>
+        <a href="#sec-12" class="cr-toc-link" data-target="sec-12"><span class="cr-toc-link-num">12</span><span class="cr-toc-link-text">近戰階段 Fight Phase</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅲ. 戰場地形與計謀</div>
+        <a href="#sec-13" class="cr-toc-link" data-target="sec-13"><span class="cr-toc-link-num">13</span><span class="cr-toc-link-text">地形 Terrain Features</span></a>
+        <a href="#sec-14" class="cr-toc-link" data-target="sec-14"><span class="cr-toc-link-num">14</span><span class="cr-toc-link-text">目標 Objective Markers</span></a>
+        <a href="#sec-15" class="cr-toc-link" data-target="sec-15"><span class="cr-toc-link-num">15</span><span class="cr-toc-link-text">計謀 Stratagems</span></a>
+        <a href="#sec-16" class="cr-toc-link" data-target="sec-16"><span class="cr-toc-link-num">16</span><span class="cr-toc-link-text">行動 Actions</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅳ. 進階單位與作戰規則</div>
+        <a href="#sec-17" class="cr-toc-link" data-target="sec-17"><span class="cr-toc-link-num">17</span><span class="cr-toc-link-text">兇獸和載具 Monsters &amp; Vehicles</span></a>
+        <a href="#sec-18" class="cr-toc-link" data-target="sec-18"><span class="cr-toc-link-num">18</span><span class="cr-toc-link-text">運輸工具 Transports</span></a>
+        <a href="#sec-19" class="cr-toc-link" data-target="sec-19"><span class="cr-toc-link-num">19</span><span class="cr-toc-link-text">聯合單位 Attached Units</span></a>
+        <a href="#sec-20" class="cr-toc-link" data-target="sec-20"><span class="cr-toc-link-num">20</span><span class="cr-toc-link-text">戰略預備隊 Strategic Reserves</span></a>
+        <a href="#sec-21" class="cr-toc-link" data-target="sec-21"><span class="cr-toc-link-num">21</span><span class="cr-toc-link-text">飛行和迸發 Fly &amp; Aircraft</span></a>
+        <a href="#sec-22" class="cr-toc-link" data-target="sec-22"><span class="cr-toc-link-num">22</span><span class="cr-toc-link-text">其他規則 Other Rules</span></a>
+        <a href="#sec-23" class="cr-toc-link" data-target="sec-23"><span class="cr-toc-link-num">23</span><span class="cr-toc-link-text">飛行器 Aircraft</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅴ. 核心技能與武器特徵</div>
+        <a href="#sec-24" class="cr-toc-link" data-target="sec-24"><span class="cr-toc-link-num">24</span><span class="cr-toc-link-text">核心技能 Core Abilities</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅵ. 召集軍隊</div>
+        <a href="#sec-25" class="cr-toc-link" data-target="sec-25"><span class="cr-toc-link-num">25</span><span class="cr-toc-link-text">召集軍隊 Mustering Army</span></a>
+      </div>
+      <div class="cr-toc-part-group">
+        <div class="cr-toc-part-title">Ⅶ. 官方規則註解與常見問答</div>
+        <a href="#sec-commentary" class="cr-toc-link" data-target="sec-commentary"><span class="cr-toc-link-num">26</span><span class="cr-toc-link-text">通用規則更新 Commentary</span></a>
+        <a href="#sec-faq" class="cr-toc-link" data-target="sec-faq"><span class="cr-toc-link-num">27</span><span class="cr-toc-link-text">常見問答 FAQ (66項)</span></a>
+      </div>
+  </nav>
+</aside>
+
 <!-- 回到頂部按鈕 -->
 <a href="#top" class="back-to-top" id="backToTop" title="回到頂部">▲</a>
 
-<script src="shared.js?v=3.4.5"></script>
+<script src="shared.js?v=3.5.0"></script>
 <script>
   // ================= 核心規則即時搜尋與折疊控制 =================
   document.addEventListener('DOMContentLoaded', () => {
@@ -5703,6 +6169,147 @@
         searchInput.blur();
       }
     });
+
+
+    // ================= 階段 E：目錄 (TOC)、Scrollspy 與閱讀進度條控制 =================
+    // 1. 複製錨點網址
+    window.copySectionAnchor = function(anchorId, btn) {
+      const url = window.location.origin + window.location.pathname + '#' + anchorId;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showCopied(btn);
+        }).catch(() => {
+          fallbackCopy(url, btn);
+        });
+      } else {
+        fallbackCopy(url, btn);
+      }
+    };
+
+    function showCopied(btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ 已複製！';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+
+    function fallbackCopy(text, btn) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showCopied(btn);
+    }
+
+    // 2. 頂部平滑閱讀進度條
+    const readingBar = document.getElementById('readingProgressBar');
+    function updateReadingProgress() {
+      if (!readingBar) return;
+      const winScroll = window.scrollY || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = height > 0 ? Math.min(100, Math.max(0, (winScroll / height) * 100)) : 0;
+      readingBar.style.width = progress + '%';
+      readingBar.setAttribute('aria-valuenow', Math.round(progress));
+    }
+
+    // 3. 行動端章節跳轉 Select 與 Drawer 控制
+    const chapterSelect = document.getElementById('mobileChapterSelect');
+    const drawerToggle = document.getElementById('tocDrawerToggle');
+    const drawerOverlay = document.getElementById('tocDrawerOverlay');
+    const drawer = document.getElementById('tocDrawer');
+    const drawerClose = document.getElementById('tocDrawerClose');
+
+    if (chapterSelect) {
+      chapterSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (!val) return;
+        const target = document.getElementById(val);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.pushState(null, '', '#' + val);
+        }
+      });
+    }
+
+    function openDrawer() {
+      if (drawer && drawerOverlay) {
+        drawer.classList.add('open');
+        drawerOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeDrawer() {
+      if (drawer && drawerOverlay) {
+        drawer.classList.remove('open');
+        drawerOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (drawerToggle) drawerToggle.addEventListener('click', openDrawer);
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+    // 抽屜內點擊連結自動收合
+    document.querySelectorAll('#tocDrawer .cr-toc-link').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
+    // 4. Scrollspy 滾動位置偵測與高亮
+    const tocLinks = document.querySelectorAll('.cr-toc-link');
+    const sectionBlocks = Array.from(document.querySelectorAll('.rule-section-block'));
+    let activeSectionId = '';
+
+    function onScroll() {
+      updateReadingProgress();
+
+      // 計算各 section 距頂部距離
+      const scrollPos = window.scrollY + 160;
+      let currentId = '';
+
+      for (let i = 0; i < sectionBlocks.length; i++) {
+        const sec = sectionBlocks[i];
+        if (sec.offsetTop <= scrollPos) {
+          currentId = sec.id;
+        } else {
+          break;
+        }
+      }
+
+      if (currentId && currentId !== activeSectionId) {
+        activeSectionId = currentId;
+
+        // 更新 TOC active class
+        tocLinks.forEach(link => {
+          if (link.getAttribute('data-target') === currentId) {
+            link.classList.add('active');
+            // 如果是在右側桌面 TOC，確保在視野中
+            if (link.closest('#crTocSidebar')) {
+              link.scrollIntoView({ block: 'nearest' });
+            }
+          } else {
+            link.classList.remove('active');
+          }
+        });
+
+        // 同步行動端下拉選單值
+        if (chapterSelect && chapterSelect.value !== currentId) {
+          chapterSelect.value = currentId;
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // 初始化執行一次
+    onScroll();
 
     // 回到頂部按鈕顯隱
     window.addEventListener('scroll', () => {
