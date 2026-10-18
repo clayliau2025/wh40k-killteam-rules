@@ -9,12 +9,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40K 戰巡對戰助手 (War Journal: Combat Patrol Match Tracker) - 繁中官方規格</title>
   <meta name="description" content="戰錘 40K 戰巡對戰助手 (War Journal: Combat Patrol Match Tracker)，官方 App 規格打造之雙人計分儀表板，支援主要任務、CP 管理與即時戰報記錄。">
-  <link rel="stylesheet" href="shared.css?v=3.4.2">
+  <link rel="stylesheet" href="shared.css?v=3.4.3">
   <style>
     /* ================= 戰巡 War Journal 專屬樣式 ================= */
     body.theme-40k-journal {
-      background-color: #0b1120;
-      color: #f1f5f9;
+      background-color: var(--color-body-dark);
+      color: var(--surface-subtle);
       font-family: var(--font-body);
       min-height: 100vh;
       display: flex;
@@ -31,7 +31,7 @@
 
     /* 頂部標題看板 */
     .wj-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #172554 100%);
+      background: linear-gradient(135deg, var(--theme-dark) 0%, var(--color-indigo-950) 50%, var(--color-blue-950) 100%);
       border: 1px solid rgba(59, 130, 246, 0.3);
       border-radius: 12px;
       padding: 20px 24px;
@@ -58,7 +58,7 @@
       font-size:24px;
       font-weight: 900;
       letter-spacing: 0.5px;
-      color: #ffffff;
+      color: var(--color-white);
       margin: 0 0 6px 0;
       display: flex;
       align-items: center;
@@ -68,7 +68,7 @@
     .wj-title-group p {
       margin: 0;
       font-size:13px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
     }
 
     .wj-actions {
@@ -93,33 +93,33 @@
     }
 
     .btn-wj-primary {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--color-blue-600), var(--color-blue-700));
+      color: var(--color-white);
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
     }
     .btn-wj-primary:hover {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      background: linear-gradient(135deg, var(--color-blue-500), var(--color-blue-600));
       transform: translateY(-1px);
     }
 
     .btn-wj-outline {
       background: rgba(255, 255, 255, 0.08);
-      color: #cbd5e1;
+      color: var(--theme-border);
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
     .btn-wj-outline:hover {
       background: rgba(255, 255, 255, 0.15);
-      color: #ffffff;
+      color: var(--color-white);
     }
 
     .btn-wj-danger {
       background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
+      color: var(--color-red-400);
       border: 1px solid rgba(239, 68, 68, 0.3);
     }
     .btn-wj-danger:hover {
       background: rgba(239, 68, 68, 0.25);
-      color: #ffffff;
+      color: var(--color-white);
     }
 
     /* 戰場佈局與概況條 */
@@ -142,7 +142,7 @@
 
     .battle-bar-label {
       font-size:11px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 2px;
@@ -151,7 +151,7 @@
     .battle-bar-val {
       font-size:16px;
       font-weight: 700;
-      color: #f8fafc;
+      color: var(--surface-ground);
     }
 
     /* 輪次選擇導航標籤 */
@@ -173,7 +173,7 @@
       padding: 10px 12px;
       background: transparent;
       border: none;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-weight: 700;
       font-size:13px;
       border-radius: 6px;
@@ -193,17 +193,17 @@
 
     .round-tab:hover {
       background: rgba(255, 255, 255, 0.06);
-      color: #e2e8f0;
+      color: var(--border-subtle);
     }
 
     .round-tab.active {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--color-blue-600), var(--color-blue-700));
+      color: var(--color-white);
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
     }
 
     .round-tab.completed {
-      border-bottom: 2px solid #22c55e;
+      border-bottom: 2px solid var(--color-green-500);
     }
 
     /* 雙方對戰儀表板 (2欄) */
@@ -222,7 +222,7 @@
 
     /* 玩家指揮堡壘卡片 */
     .bunker-card {
-      background: #0f172a;
+      background: var(--theme-dark);
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       overflow: hidden;
@@ -232,11 +232,11 @@
     }
 
     .bunker-p1 {
-      border-top: 4px solid #ef4444;
+      border-top: 4px solid var(--color-red-500);
     }
 
     .bunker-p2 {
-      border-top: 4px solid #22c55e;
+      border-top: 4px solid var(--color-green-500);
     }
 
     .bunker-header {
@@ -264,26 +264,26 @@
 
     .badge-p1 {
       background: rgba(239, 68, 68, 0.2);
-      color: #f87171;
+      color: var(--color-red-400);
       border: 1px solid rgba(239, 68, 68, 0.4);
     }
 
     .badge-p2 {
       background: rgba(34, 197, 94, 0.2);
-      color: #4ade80;
+      color: var(--color-green-400);
       border: 1px solid rgba(34, 197, 94, 0.4);
     }
 
     .bunker-name {
       font-size:18px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--color-white);
       margin: 0;
     }
 
     .bunker-enhancement {
       font-size:12px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       margin-top: 2px;
     }
 
@@ -307,7 +307,7 @@
 
     .stat-box-title {
       font-size:11px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -319,7 +319,7 @@
       font-weight: 900;
       font-family: var(--font-display);
       line-height: 1;
-      color: #ffffff;
+      color: var(--color-white);
     }
 
     .stat-ctrl-btns {
@@ -335,7 +335,7 @@
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
+      color: var(--color-white);
       font-weight: 800;
       font-size:14px;
       cursor: pointer;
@@ -364,7 +364,7 @@
     .mission-title-bar h3 {
       font-size:14px;
       font-weight: 800;
-      color: #cbd5e1;
+      color: var(--theme-border);
       margin: 0;
       display: flex;
       align-items: center;
@@ -373,7 +373,7 @@
 
     .mission-lore {
       font-size:12px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-style: italic;
       margin-bottom: 12px;
       line-height: 1.4;
@@ -414,13 +414,13 @@
       width: 18px;
       height: 18px;
       border-radius: 4px;
-      border: 2px solid #64748b;
+      border: 2px solid var(--color-slate-500);
       margin-top: 2px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
+      color: var(--color-white);
       font-weight: 800;
       font-size:12px;
       background: rgba(0, 0, 0, 0.2);
@@ -428,8 +428,8 @@
     }
 
     .scoring-item.checked .scoring-checkbox {
-      background: #2563eb;
-      border-color: #3b82f6;
+      background: var(--color-blue-600);
+      border-color: var(--color-blue-500);
     }
 
     .scoring-text-group {
@@ -438,14 +438,14 @@
 
     .scoring-desc {
       font-size:13px;
-      color: #e2e8f0;
+      color: var(--border-subtle);
       font-weight: 600;
       line-height: 1.35;
     }
 
     .scoring-timing {
       font-size:11px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       margin-top: 3px;
     }
 
@@ -456,7 +456,7 @@
       padding: 2px 8px;
       border-radius: 4px;
       background: rgba(234, 179, 8, 0.2);
-      color: #facc15;
+      color: var(--color-yellow-400);
       border: 1px solid rgba(234, 179, 8, 0.4);
       white-space: nowrap;
     }
@@ -476,7 +476,7 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 6px;
-      color: #ffffff;
+      color: var(--color-white);
       font-size:13px;
       font-weight: 700;
       cursor: pointer;
@@ -492,7 +492,7 @@
 
     /* 單位存活與生命狀態看板 (ROSTER & WOUNDS) */
     .roster-drawer {
-      background: #0f172a;
+      background: var(--theme-dark);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       padding: 20px;
@@ -511,7 +511,7 @@
     .roster-header h2 {
       font-size:18px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--color-white);
       margin: 0;
       display: flex;
       align-items: center;
@@ -541,7 +541,7 @@
       font-size:14px;
       font-weight: 800;
       margin-bottom: 10px;
-      color: #cbd5e1;
+      color: var(--theme-border);
       display: flex;
       justify-content: space-between;
     }
@@ -575,7 +575,7 @@
 
     .unit-wound-row.destroyed .unit-title-text {
       text-decoration: line-through;
-      color: #94a3b8;
+      color: var(--color-slate-400);
     }
 
     .unit-main-bar {
@@ -590,7 +590,7 @@
     .unit-name-box {
       font-size:13px;
       font-weight: 700;
-      color: #f1f5f9;
+      color: var(--surface-subtle);
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -604,7 +604,7 @@
       cursor: pointer;
     }
     .unit-name-title-line:hover .unit-title-text {
-      color: #38bdf8;
+      color: var(--color-sky-400);
     }
 
     .unit-badges-line {
@@ -616,7 +616,7 @@
 
     .unit-stats-pill {
       font-size:11px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       background: rgba(255, 255, 255, 0.08);
       padding: 1px 5px;
       border-radius: 3px;
@@ -626,7 +626,7 @@
     .roster-model-pill {
       font-size:11px;
       font-weight: 700;
-      color: #cbd5e1;
+      color: var(--theme-border);
       background: rgba(255, 255, 255, 0.06);
       padding: 1px 6px;
       border-radius: 4px;
@@ -636,14 +636,14 @@
     .roster-wound-pill {
       font-size:11px;
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--color-sky-400);
       background: rgba(56, 189, 248, 0.1);
       padding: 1px 6px;
       border-radius: 4px;
       border: 1px solid rgba(56, 189, 248, 0.25);
     }
     .roster-wound-pill.ork {
-      color: #4ade80;
+      color: var(--color-green-400);
       background: rgba(34, 197, 94, 0.1);
       border-color: rgba(34, 197, 94, 0.25);
     }
@@ -658,7 +658,7 @@
     .btn-expand-unit {
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.35);
-      color: #38bdf8;
+      color: var(--color-sky-400);
       font-size:11px;
       font-weight: 700;
       padding: 4px 8px;
@@ -669,27 +669,27 @@
     }
     .btn-expand-unit:hover {
       background: rgba(56, 189, 248, 0.25);
-      color: #ffffff;
+      color: var(--color-white);
     }
     .btn-expand-unit.active {
-      background: #38bdf8;
-      color: #0f172a;
-      border-color: #38bdf8;
+      background: var(--color-sky-400);
+      color: var(--theme-dark);
+      border-color: var(--color-sky-400);
     }
 
     .btn-expand-unit.ork {
       background: rgba(34, 197, 94, 0.12);
       border-color: rgba(34, 197, 94, 0.35);
-      color: #4ade80;
+      color: var(--color-green-400);
     }
     .btn-expand-unit.ork:hover {
       background: rgba(34, 197, 94, 0.25);
-      color: #ffffff;
+      color: var(--color-white);
     }
     .btn-expand-unit.ork.active {
-      background: #4ade80;
-      color: #0f172a;
-      border-color: #4ade80;
+      background: var(--color-green-400);
+      color: var(--theme-dark);
+      border-color: var(--color-green-400);
     }
 
     .btn-wound-tick {
@@ -697,7 +697,7 @@
       height: 26px;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
+      color: var(--color-white);
       border-radius: 4px;
       font-weight: 800;
       cursor: pointer;
@@ -715,13 +715,13 @@
     .wound-display {
       font-size:13px;
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--color-sky-400);
       min-width: 44px;
       text-align: center;
       font-family: var(--font-display);
     }
     .wound-display.ork {
-      color: #4ade80;
+      color: var(--color-green-400);
     }
 
     /* 士兵展開詳細區塊 (SOLDIER BREAKDOWN DRAWER) */
@@ -740,7 +740,7 @@
       justify-content: space-between;
       align-items: center;
       font-size:11px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       flex-wrap: wrap;
       gap: 6px;
     }
@@ -774,13 +774,13 @@
     }
     .soldier-card.dead .soldier-name {
       text-decoration: line-through;
-      color: #94a3b8;
+      color: var(--color-slate-400);
     }
 
     .soldier-name {
       font-size:12px;
       font-weight: 700;
-      color: #f1f5f9;
+      color: var(--surface-subtle);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -807,7 +807,7 @@
     .horde-soldier-btn {
       background: rgba(34, 197, 94, 0.12);
       border: 1px solid rgba(34, 197, 94, 0.35);
-      color: #4ade80;
+      color: var(--color-green-400);
       border-radius: 5px;
       padding: 6px 4px;
       font-size:11px;
@@ -822,19 +822,19 @@
     }
     .horde-soldier-btn:hover {
       background: rgba(34, 197, 94, 0.25);
-      border-color: #4ade80;
+      border-color: var(--color-green-400);
     }
     .horde-soldier-btn.dead {
       background: rgba(239, 68, 68, 0.08);
       border-color: rgba(239, 68, 68, 0.25);
-      color: #f87171;
+      color: var(--color-red-400);
       opacity: 0.45;
       text-decoration: line-through;
     }
 
     /* War Journal 戰報日誌饋流 (BATTLE LOG) */
     .journal-feed-card {
-      background: #0f172a;
+      background: var(--theme-dark);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       padding: 20px;
@@ -850,7 +850,7 @@
     .journal-feed-header h3 {
       font-size:16px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--color-white);
       margin: 0;
       display: flex;
       align-items: center;
@@ -871,7 +871,7 @@
 
     .feed-entry {
       font-size:13px;
-      color: #cbd5e1;
+      color: var(--theme-border);
       padding: 4px 6px;
       border-radius: 4px;
       display: flex;
@@ -881,7 +881,7 @@
 
     .feed-time {
       font-size:12px;
-      color: #64748b;
+      color: var(--color-slate-500);
       font-family: monospace;
     }
 
@@ -903,7 +903,7 @@
     }
 
     .modal-box {
-      background: #0f172a;
+      background: var(--theme-dark);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 14px;
       width: 100%;
@@ -928,26 +928,26 @@
       justify-content: space-between;
       align-items: center;
       flex-shrink: 0;
-      background: #0f172a;
+      background: var(--theme-dark);
     }
 
     .modal-header h3 {
       font-size:18px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--color-white);
       margin: 0;
     }
 
     .btn-close-modal {
       background: transparent;
       border: none;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-size:24px;
       cursor: pointer;
       line-height: 1;
       padding: 4px;
     }
-    .btn-close-modal:hover { color: #ffffff; }
+    .btn-close-modal:hover { color: var(--color-white); }
 
     .modal-body {
       padding: 20px;
@@ -970,7 +970,7 @@
     .form-label {
       font-size:13px;
       font-weight: 700;
-      color: #cbd5e1;
+      color: var(--theme-border);
     }
 
     .form-select, .form-input {
@@ -978,13 +978,13 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 9px 12px;
       border-radius: 6px;
-      color: #ffffff;
+      color: var(--color-white);
       font-size:14px;
       font-family: inherit;
     }
     .form-select:focus, .form-input:focus {
       outline: none;
-      border-color: #3b82f6;
+      border-color: var(--color-blue-500);
     }
 
     .modal-footer {
@@ -1027,27 +1027,27 @@
     .strat-modal-name {
       font-size:14px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--color-white);
     }
 
     .strat-modal-cost {
       font-size:11px;
       font-weight: 800;
-      background: #dc2626;
-      color: #ffffff;
+      background: var(--color-danger);
+      color: var(--color-white);
       padding: 2px 7px;
       border-radius: 4px;
     }
 
     .strat-modal-timing {
       font-size:11px;
-      color: #f59e0b;
+      color: var(--color-amber-500);
       font-weight: 600;
     }
 
     .strat-modal-effect {
       font-size:12px;
-      color: #cbd5e1;
+      color: var(--theme-border);
       line-height: 1.4;
     }
 
@@ -1104,7 +1104,7 @@
     .modal-unit .modal-body::-webkit-scrollbar-thumb:hover,
     .modal-enhancement .modal-body::-webkit-scrollbar-thumb:hover,
     .modal-box::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
+      background: var(--color-sky-400);
     }
 
     .sheet-tab-bar {
@@ -1112,7 +1112,7 @@
       align-items: center;
       gap: 8px;
       padding: 10px 18px;
-      background: #090e17;
+      background: var(--color-ground-dark);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -1125,7 +1125,7 @@
       border-radius: 6px;
       font-size:12px;
       font-weight: 700;
-      color: #cbd5e1;
+      color: var(--theme-border);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
       cursor: pointer;
@@ -1136,19 +1136,19 @@
     }
 
     .sheet-tab-btn:hover {
-      color: #ffffff;
+      color: var(--color-white);
       background: rgba(255, 255, 255, 0.12);
     }
 
     .sheet-tab-btn.active {
-      color: #38bdf8;
+      color: var(--color-sky-400);
       background: rgba(56, 189, 248, 0.18);
       border-color: rgba(56, 189, 248, 0.5);
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
     }
 
     .sheet-tab-btn.active.ork {
-      color: #4ade80;
+      color: var(--color-green-400);
       background: rgba(34, 197, 94, 0.18);
       border-color: rgba(34, 197, 94, 0.5);
       box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
@@ -1184,7 +1184,7 @@
     .unit-sheet-name-zh {
       font-size:18px;
       font-weight: 900;
-      color: #ffffff;
+      color: var(--color-white);
       line-height: 1.2;
       margin-bottom: 3px;
     }
@@ -1192,7 +1192,7 @@
     .unit-sheet-name-en {
       font-size:12px;
       font-weight: 600;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       margin-bottom: 6px;
     }
 
@@ -1210,12 +1210,12 @@
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
+      color: var(--border-subtle);
     }
 
     .unit-badge-warlord {
       background: rgba(245, 158, 11, 0.2);
-      color: #fbbf24;
+      color: var(--color-amber-400);
       border-color: rgba(245, 158, 11, 0.4);
     }
 
@@ -1269,7 +1269,7 @@
     }
 
     .unit-hud-box {
-      background: #090e17;
+      background: var(--color-ground-dark);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       padding: 8px 4px;
@@ -1285,7 +1285,7 @@
     .unit-hud-label {
       font-size:11px;
       font-weight: 800;
-      color: #64748b;
+      color: var(--color-slate-500);
       letter-spacing: 0.5px;
       text-transform: uppercase;
       margin-bottom: 2px;
@@ -1294,7 +1294,7 @@
     .unit-hud-val {
       font-size:18px;
       font-weight: 900;
-      color: #f1f5f9;
+      color: var(--surface-subtle);
       font-family: monospace;
     }
 
@@ -1304,7 +1304,7 @@
     }
 
     .hud-insv .unit-hud-val {
-      color: #f87171;
+      color: var(--color-red-400);
     }
 
     /* 武器表格 */
@@ -1315,7 +1315,7 @@
       margin: 14px 0;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: #090e17;
+      background: var(--color-ground-dark);
     }
 
     .unit-sheet-table {
@@ -1327,8 +1327,8 @@
     }
 
     .unit-sheet-table th {
-      background: #1e293b;
-      color: #94a3b8;
+      background: var(--color-slate-800);
+      color: var(--color-slate-400);
       font-weight: 800;
       padding: 8px 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -1338,7 +1338,7 @@
     .unit-sheet-table td {
       padding: 9px 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: #cbd5e1;
+      color: var(--theme-border);
     }
 
     .unit-sheet-table tr:hover td {
@@ -1348,7 +1348,7 @@
     .weapon-name-cell {
       text-align: left;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--color-white);
     }
 
     .weapon-tag-pill {
@@ -1358,7 +1358,7 @@
       padding: 1px 6px;
       border-radius: 4px;
       background: rgba(56, 189, 248, 0.12);
-      color: #38bdf8;
+      color: var(--color-sky-400);
       border: 1px solid rgba(56, 189, 248, 0.25);
       margin: 1px 2px;
     }
@@ -1369,22 +1369,22 @@
     }
 
     .unit-ability-card {
-      background: #090e17;
+      background: var(--color-ground-dark);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-left: 3px solid #38bdf8;
+      border-left: 3px solid var(--color-sky-400);
       border-radius: 6px;
       padding: 10px 14px;
       margin-bottom: 8px;
     }
 
     .unit-ability-card.ork-card {
-      border-left-color: #22c55e;
+      border-left-color: var(--color-green-500);
     }
 
     .unit-ability-title {
       font-size:13px;
       font-weight: 800;
-      color: #f1f5f9;
+      color: var(--surface-subtle);
       margin-bottom: 4px;
       display: flex;
       align-items: center;
@@ -1393,7 +1393,7 @@
 
     .unit-ability-desc {
       font-size:12px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       line-height: 1.5;
     }
 
@@ -1401,7 +1401,7 @@
     .unit-attached-enhancement {
       background: rgba(245, 158, 11, 0.08);
       border: 1px solid rgba(245, 158, 11, 0.3);
-      border-left: 3px solid #f59e0b;
+      border-left: 3px solid var(--color-amber-500);
       border-radius: 6px;
       padding: 12px 14px;
       margin: 12px 0;
@@ -1413,7 +1413,7 @@
       align-items: center;
       gap: 4px;
       background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
+      color: var(--color-amber-400);
       border: 1px solid rgba(245, 158, 11, 0.35);
       padding: 2px 8px;
       border-radius: 6px;
@@ -1426,8 +1426,8 @@
 
     .enhancement-pill-btn:hover {
       background: rgba(245, 158, 11, 0.28);
-      border-color: #f59e0b;
-      color: #ffffff;
+      border-color: var(--color-amber-500);
+      color: var(--color-white);
       transform: translateY(-1px);
       box-shadow: 0 3px 8px rgba(245, 158, 11, 0.25);
     }
@@ -1450,13 +1450,13 @@
     }
 
     .unit-name-box:hover .unit-title-text {
-      color: #38bdf8;
+      color: var(--color-sky-400);
     }
 
     .unit-card-btn {
       font-size:12px;
       font-weight: 700;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.12);
       padding: 1px 6px;
@@ -1465,281 +1465,324 @@
     }
 
     .unit-name-box:hover .unit-card-btn {
-      color: #38bdf8;
+      color: var(--color-sky-400);
       background: rgba(56, 189, 248, 0.15);
       border-color: rgba(56, 189, 248, 0.3);
     }
 
     /* ================= 戰巡 War Journal 淺色模式支援 (LIGHT THEME SUPPORT) ================= */
     body:not(.theme-dark-mode) .wj-container {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .bunker-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     }
 
     body:not(.theme-dark-mode) .bunker-header {
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .bunker-name {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .bunker-enhancement {
-      color: #64748b;
+      color: var(--color-slate-500);
     }
 
     body:not(.theme-dark-mode) .bunker-stats-row {
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .stat-box {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--color-white);
+      border: 1px solid var(--border-subtle);
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     body:not(.theme-dark-mode) .stat-box-title {
-      color: #64748b;
+      color: var(--color-slate-500);
     }
 
     body:not(.theme-dark-mode) .stat-box-value {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .btn-stat-step {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      color: #0f172a;
+      background: var(--surface-subtle);
+      border: 1px solid var(--theme-border);
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .btn-stat-step:hover {
-      background: #e2e8f0;
-      color: #0f172a;
+      background: var(--border-subtle);
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .battle-bar-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--color-white);
+      border: 1px solid var(--border-subtle);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
     body:not(.theme-dark-mode) .battle-bar-label {
-      color: #64748b;
+      color: var(--color-slate-500);
     }
 
     body:not(.theme-dark-mode) .battle-bar-val {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .round-nav {
-      background: #e2e8f0;
-      border: 1px solid #cbd5e1;
+      background: var(--border-subtle);
+      border: 1px solid var(--theme-border);
     }
 
     body:not(.theme-dark-mode) .round-tab {
-      color: #64748b;
+      color: var(--color-slate-500);
     }
 
     body:not(.theme-dark-mode) .round-tab:hover {
       background: rgba(0, 0, 0, 0.06);
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .round-tab.active {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--color-blue-600), var(--color-blue-700));
+      color: var(--color-white);
     }
 
     body:not(.theme-dark-mode) .btn-wj-outline {
-      background: #ffffff;
-      color: #334155;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      color: var(--color-slate-700);
+      border: 1px solid var(--theme-border);
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     body:not(.theme-dark-mode) .btn-wj-outline:hover {
-      background: #f1f5f9;
-      color: #0f172a;
+      background: var(--surface-subtle);
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .mission-title-bar h3 {
-      color: #1e293b;
+      color: var(--color-slate-800);
     }
 
     body:not(.theme-dark-mode) .mission-lore {
-      color: #64748b;
-      border-left-color: #cbd5e1;
+      color: var(--color-slate-500);
+      border-left-color: var(--theme-border);
     }
 
     body:not(.theme-dark-mode) .scoring-item {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .scoring-item:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
+      background: var(--surface-subtle);
+      border-color: var(--theme-border);
     }
 
     body:not(.theme-dark-mode) .scoring-item.checked {
-      background: #eff6ff;
-      border-color: #93c5fd;
+      background: var(--color-blue-50);
+      border-color: var(--color-blue-300);
     }
 
     body:not(.theme-dark-mode) .scoring-desc {
-      color: #1e293b;
+      color: var(--color-slate-800);
     }
 
     body:not(.theme-dark-mode) .scoring-timing {
-      color: #64748b;
+      color: var(--color-slate-500);
     }
 
     body:not(.theme-dark-mode) .scoring-checkbox {
-      background: #ffffff;
-      border-color: #94a3b8;
+      background: var(--color-white);
+      border-color: var(--color-slate-400);
     }
 
     body:not(.theme-dark-mode) .scoring-item.checked .scoring-checkbox {
-      background: #2563eb;
-      border-color: #2563eb;
-      color: #ffffff;
+      background: var(--color-blue-600);
+      border-color: var(--color-blue-600);
+      color: var(--color-white);
     }
 
     body:not(.theme-dark-mode) .bunker-actions {
-      background: #f8fafc;
-      border-top: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border-top: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .btn-stratagem-open {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      color: #1e293b;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
+      color: var(--color-slate-800);
     }
 
     body:not(.theme-dark-mode) .btn-stratagem-open:hover {
-      background: #f1f5f9;
-      color: #0f172a;
+      background: var(--surface-subtle);
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .roster-drawer {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     }
 
     body:not(.theme-dark-mode) .roster-header {
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .roster-header h2 {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .roster-team-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .roster-team-title {
-      color: #1e293b;
+      color: var(--color-slate-800);
     }
 
     body:not(.theme-dark-mode) .unit-wound-row {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--color-white);
+      border: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .unit-name-box {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .unit-main-bar {
-      background: #ffffff;
+      background: var(--color-white);
     }
 
     body:not(.theme-dark-mode) .unit-title-text {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .unit-soldiers-drawer {
-      background: #f8fafc;
-      border-top: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border-top: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .roster-model-pill {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      color: #334155;
+      background: var(--surface-subtle);
+      border: 1px solid var(--theme-border);
+      color: var(--color-slate-700);
     }
 
     body:not(.theme-dark-mode) .unit-stats-pill {
-      background: #f1f5f9;
-      color: #475569;
+      background: var(--surface-subtle);
+      color: var(--color-slate-600);
     }
 
     body:not(.theme-dark-mode) .journal-feed-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     }
 
     body:not(.theme-dark-mode) .journal-feed-header h3 {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .journal-feed-list {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .feed-entry {
-      color: #334155;
+      color: var(--color-slate-700);
     }
 
     body:not(.theme-dark-mode) .modal-box {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .modal-header {
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
-      color: #0f172a;
+      background: var(--surface-ground);
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .modal-header h3 {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .modal-footer {
-      background: #f8fafc;
-      border-top: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border-top: 1px solid var(--border-subtle);
     }
 
     body:not(.theme-dark-mode) .strat-modal-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      color: #0f172a;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .strat-modal-name {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     body:not(.theme-dark-mode) .strat-modal-effect {
-      color: #334155;
+      color: var(--color-slate-700);
     }
+
+    /* --- 巡邏隊對戰助手語意化元件類別 (Semantic Components) --- */
+    .btn-icon-sm {
+      width: 20px;
+      height: 20px;
+      font-size: var(--font-size-badge);
+      padding: 0;
+    }
+    .badge-pill-sm {
+      padding: 2px 8px;
+      font-size: var(--font-size-badge);
+    }
+    .desc-text-sm {
+      font-size: var(--font-size-xs);
+      color: var(--color-slate-300);
+      line-height: 1.4;
+    }
+    .flex-between-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .w-quarter {
+      width: 24%;
+    }
+    .enhancement-box {
+      background: var(--color-ground-dark);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .popover-rule-footer {
+      font-size: var(--font-size-xs);
+      color: var(--color-slate-400);
+      margin-top: 6px;
+      border-top: 1px dashed var(--color-slate-700);
+      padding-top: 4px;
+    }
+
   </style>
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1887,12 +1930,12 @@
       </nav>
     </div>
 
-    <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+    <div class="sidebar-footer d-flex flex-col gap-1 items-stretch">
+      class="d-flex justify-between items-center w-full">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.2 PWA</span>
+        <span class="version-badge font-badge">v3.4.2 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
+      <button type="button" class="btn-pwa-install sidebar-pwa-btn w-full justify-center font-badge">📲 安裝為桌面/手機 App</button>
     </div>
   </aside>
 
@@ -1920,7 +1963,7 @@
     <div class="wj-title-group">
       <h1>
         <span>⚔️ WAR JOURNAL：戰巡對戰助手</span>
-        <span class="site-nav-badge" style="background:#2563eb; font-size:11px;">官方 App 規格</span>
+        <span class="site-nav-badge font-badge">官方 App 規格</span>
       </h1>
       <p>專為《戰錘 40,000》第 11 版 Combat Patrol 打造之即時互動戰記系統。支援官方專屬主要任務計分、CP 管理、戰略計謀調用與單位陣亡監控。</p>
     </div>
@@ -1946,15 +1989,15 @@
         <div class="battle-bar-label">戰場部署佈局 (Deployment)</div>
         <div class="battle-bar-val" id="bar-layout-name">佈局 A (44" &times; 30")</div>
       </div>
-      <button class="btn-wj btn-wj-outline" style="padding:4px 8px; font-size:11px;" onclick="showDeploymentModal()">查看地圖</button>
+      <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="showDeploymentModal()">查看地圖</button>
     </div>
 
     <div class="battle-bar-card">
       <div>
         <div class="battle-bar-label">先攻方 (First Turn)</div>
-        <div class="battle-bar-val" id="bar-first-player" style="color:#60a5fa;">Player 1 (阿斯塔特)</div>
+        <div class="battle-bar-val text-sky" id="bar-first-player">Player 1 (阿斯塔特)</div>
       </div>
-      <button class="btn-wj btn-wj-outline" style="padding:4px 8px; font-size:11px;" onclick="rollForFirstTurn()">🎲 拼骰</button>
+      <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="rollForFirstTurn()">🎲 拼骰</button>
     </div>
 
     <div class="battle-bar-card">
@@ -1968,7 +2011,7 @@
     <div class="battle-bar-card">
       <div>
         <div class="battle-bar-label">對戰狀態 (Game Status)</div>
-        <div class="battle-bar-val" id="bar-current-round" style="color:#f59e0b;">第 1 戰鬥輪次中</div>
+        <div class="battle-bar-val text-amber" id="bar-current-round">第 1 戰鬥輪次中</div>
       </div>
       <span class="dropdown-badge badge-hot" id="bar-status-badge">ROUNDS 1/5</span>
     </div>
@@ -2011,14 +2054,14 @@
             <div class="bunker-enhancement" id="p1-enhancement-display">統帥：連長 ｜ 強化：<span class="enhancement-pill-btn" onclick="openEnhancementModal(1)" title="點擊查看強化詞綴詳情">✨ 劍術大師 (預設) 🔍</span></div>
           </div>
         </div>
-        <div id="p1-turn-indicator" style="font-size:12px; font-weight:700; color:#ef4444;">● 先攻方</div>
+        <div id="p1-turn-indicator" class="font-xs font-bold text-danger">● 先攻方</div>
       </div>
 
       <!-- 分數與 CP -->
       <div class="bunker-stats-row">
         <div class="stat-box">
           <div class="stat-box-title">總勝利點數 (VP)</div>
-          <div class="stat-box-value" id="p1-vp-display" style="color:#ef4444;">10</div>
+          <div class="stat-box-value text-danger" id="p1-vp-display">10</div>
           <div class="stat-ctrl-btns">
             <button class="btn-stat-step" onclick="changeVP(1, -1)">-</button>
             <button class="btn-stat-step" onclick="changeVP(1, 1)">+</button>
@@ -2026,7 +2069,7 @@
         </div>
         <div class="stat-box">
           <div class="stat-box-title">指揮點數 (CP)</div>
-          <div class="stat-box-value" id="p1-cp-display" style="color:#38bdf8;">1</div>
+          <div class="stat-box-value text-sky" id="p1-cp-display">1</div>
           <div class="stat-ctrl-btns">
             <button class="btn-stat-step" onclick="changeCP(1, -1)">-</button>
             <button class="btn-stat-step" onclick="changeCP(1, 1)">+</button>
@@ -2067,14 +2110,14 @@
             <div class="bunker-enhancement" id="p2-enhancement-display">統帥：戰爭頭目 ｜ 強化：<span class="enhancement-pill-btn" onclick="openEnhancementModal(2)" title="點擊查看強化詞綴詳情">✨ 振奮戰吼 (預設) 🔍</span></div>
           </div>
         </div>
-        <div id="p2-turn-indicator" style="font-size:12px; font-weight:700; color:#94a3b8;">○ 後攻方</div>
+        <div id="p2-turn-indicator" class="font-xs font-bold text-muted">○ 後攻方</div>
       </div>
 
       <!-- 分數與 CP -->
       <div class="bunker-stats-row">
         <div class="stat-box">
           <div class="stat-box-title">總勝利點數 (VP)</div>
-          <div class="stat-box-value" id="p2-vp-display" style="color:#22c55e;">10</div>
+          <div class="stat-box-value text-success" id="p2-vp-display">10</div>
           <div class="stat-ctrl-btns">
             <button class="btn-stat-step" onclick="changeVP(2, -1)">-</button>
             <button class="btn-stat-step" onclick="changeVP(2, 1)">+</button>
@@ -2082,7 +2125,7 @@
         </div>
         <div class="stat-box">
           <div class="stat-box-title">指揮點數 (CP)</div>
-          <div class="stat-box-value" id="p2-cp-display" style="color:#38bdf8;">1</div>
+          <div class="stat-box-value text-sky" id="p2-cp-display">1</div>
           <div class="stat-ctrl-btns">
             <button class="btn-stat-step" onclick="changeCP(2, -1)">-</button>
             <button class="btn-stat-step" onclick="changeCP(2, 1)">+</button>
@@ -2121,7 +2164,7 @@
       <h2>
         <span>🛡️ 雙方部隊存活與生命值監控 (Roster & Wounds)</span>
       </h2>
-      <span style="font-size:12px; color:#94a3b8;">生命值歸零時自動標記戰損，並觸發擊殺得分紀錄</span>
+      <span class="font-xs text-muted">生命值歸零時自動標記戰損，並觸發擊殺得分紀錄</span>
     </div>
 
     <div class="roster-grid">
@@ -2129,7 +2172,7 @@
       <div class="roster-team-card">
         <div class="roster-team-title">
           <span>突擊分隊編制 (5 單位)</span>
-          <span id="p1-alive-count" style="color:#ef4444;">5 / 5 存活</span>
+          <span id="p1-alive-count" class="text-danger">5 / 5 存活</span>
         </div>
         <div class="unit-wound-list" id="p1-unit-list">
           <!-- 動態渲染 P1 單位 -->
@@ -2140,7 +2183,7 @@
       <div class="roster-team-card">
         <div class="roster-team-title">
           <span>硬漢幫編制 (6 單位)</span>
-          <span id="p2-alive-count" style="color:#22c55e;">6 / 6 存活</span>
+          <span id="p2-alive-count" class="text-success">6 / 6 存活</span>
         </div>
         <div class="unit-wound-list" id="p2-unit-list">
           <!-- 動態渲染 P2 單位 -->
@@ -2213,7 +2256,7 @@
           <input type="checkbox" id="setup-battle-ready" aria-label="計入戰備塗裝標準 (+10 VP Battle Ready Army Modifier)" checked>
           <span>計入戰備塗裝標準 (+10 VP Battle Ready Army Modifier)</span>
         </label>
-        <span style="font-size:11px; color:#94a3b8;">依照官方手冊：模型涂裝至戰備級標準可各獲 10 VP 獎勵。初學者可自由取消。</span>
+        <span class="font-badge text-muted">依照官方手冊：模型涂裝至戰備級標準可各獲 10 VP 獎勵。初學者可自由取消。</span>
       </div>
     </div>
     <div class="modal-footer">
@@ -2231,7 +2274,7 @@
       <button class="btn-close-modal" onclick="closeDeploymentModal()">&times;</button>
     </div>
     <div class="modal-body" style="text-align:center;">
-      <p style="font-size:13px; color:#94a3b8; margin:0 0 10px 0;">
+      <p class="font-sm text-muted mb-2">
         戰場規格：44 英吋 &times; 30 英吋。包含客觀目標標記點、進攻方/防守方部署邊界與推薦地形模型放置位置。
       </p>
       <img id="map-modal-img" src="assets/40k_rules/82e08cef-90a9-4fb7-920e-4f8d05e151c4.jpg" alt="Combat Patrol Layout Map" style="max-width:100%; height:auto; border-radius:8px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 8px 24px rgba(0,0,0,0.5);" decoding="async" loading="lazy">
@@ -2252,7 +2295,7 @@
       <button class="btn-close-modal" onclick="closeStratagemModal()">&times;</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:12px; color:#94a3b8; margin:0 0 10px 0;">
+      <p class="font-xs text-muted mb-2">
         點擊計謀卡片將自動從當前玩家扣除相應 CP，並在 War Journal 記錄使用事件。注意：粉碎衝擊、炸藥與迅速入場在戰巡模式中已被官方禁用。
       </p>
       <div class="strat-grid-modal" id="strat-modal-list">
@@ -2821,7 +2864,7 @@ const ENHANCEMENT_DATA = {
     enName: 'Master of the Blade',
     type: '預設強化 (DEFAULT)',
     faction: '阿斯塔特 突擊分隊',
-    factionColor: '#ef4444',
+    factionColor: 'var(--color-red-500)',
     target: '升級對象：僅限突擊分隊跳躍背包先鋒老兵小隊單位',
     rule: '在一個敵方單位結束一次<strong>衝鋒移動</strong>時，如果那個敵方單位與該單位<strong>處於交戰狀態</strong>，那麼直到回合結束前，那個敵方單位近戰攻擊的<strong>致傷擲骰 (Wound roll) -1</strong>！',
     tactics: '先鋒老兵具備 12" 跳躍移動與 [深入打擊]。當老兵佔領據點面對敵方重裝近戰（如歐克頭目、卡車衝撞）時，這項強化能直接降低敵方致傷率達 16%~33%，是防禦反打的關鍵保命技！',
@@ -2834,7 +2877,7 @@ const ENHANCEMENT_DATA = {
     enName: 'Battleline Veteran',
     type: '替代強化 (ALTERNATIVE)',
     faction: '阿斯塔特 突擊分隊',
-    factionColor: '#ef4444',
+    factionColor: 'var(--color-red-500)',
     target: '升級對象：僅限突擊分隊仲裁者小隊單位',
     rule: '該單位的爆矢步槍武器獲得 <strong>[速射 1 (Rapid Fire 1)]</strong>（半程 12" 射程內每把步槍攻擊次數增加至 3 次！）。',
     tactics: '仲裁者小隊本身有 [重型] 與 [突擊]，獲得 [速射 1] 後在 12" 內可傾瀉多達 15 發 AP -1 爆矢彈。若面對歐克小子或屁精群，能一輪射擊清空半數敵軍！',
@@ -2848,7 +2891,7 @@ const ENHANCEMENT_DATA = {
     enName: 'Inspiring Warcry',
     type: '預設強化 (DEFAULT)',
     faction: '歐克蠻人 硬漢幫',
-    factionColor: '#22c55e',
+    factionColor: 'var(--color-green-500)',
     target: '升級對象：僅限硬漢幫戰爭頭目模型',
     rule: '（每個單位，每場戰鬥限一次）在己方指揮階段中，您可以使用本技能。若使用，將<strong>最多 D3+2 個被摧毀的護衛模型返還至該單位中</strong>！',
     tactics: '在第 2 或第 3 戰鬥輪次，當戰爭頭目身邊的小子護衛被火力削弱時立即發動，瞬間復活 3~5 隻小子，迅速拉回人數劣勢並重新搶奪據點 OC 目標控制權！',
@@ -2861,7 +2904,7 @@ const ENHANCEMENT_DATA = {
     enName: 'Extra Armour',
     type: '替代強化 (ALTERNATIVE)',
     faction: '歐克蠻人 硬漢幫',
-    factionColor: '#22c55e',
+    factionColor: 'var(--color-green-500)',
     target: '升級對象：僅限硬漢幫戰鬥卡車單位',
     rule: '該卡車單位獲得：<br>&bull; <strong>3+ 護甲豁免 (Sv 3+)</strong><br>&bull; <strong>4+ 特殊豁免 (4++ 特保 / InSv 4+)</strong>！',
     tactics: '將卡車原本 4+/6++ 的脆弱防禦全面升格為金身 4++ 特保！即使面對蘭德速攻艇的 AP -4 多管熱熔或重裝導彈，也能依靠 50% 成功率的特保穩穩接下，確保車內載具兵力安全突擊陣線！',
@@ -2912,7 +2955,7 @@ function renderMissionChecklists() {
   const p1List = document.getElementById('p1-scoring-list');
   if (r === 1) {
     p1List.innerHTML = `
-      <div style="font-size:13px; color:#94a3b8; padding:8px 0;">
+      <div class="font-sm text-muted py-2">
         ⚠️ 第 1 輪次為部隊佔位階段，主要任務計分於<strong>第 2 戰鬥輪次指揮階段</strong>正式開啟！
       </div>`;
   } else {
@@ -2965,7 +3008,7 @@ function renderMissionChecklists() {
     `;
   } else {
     p2HTML += `
-      <div style="font-size:12px; color:#94a3b8; margin-bottom:6px;">
+      <div class="font-xs text-muted mb-1">
         💡 目標控制得分於第 2 輪開始；但【消滅敵軍】在任意輪次皆可計分！
       </div>`;
   }
@@ -3186,10 +3229,10 @@ function renderSoldiersHTML(player, unit) {
   if (unit.modelCount >= 10 && unit.modelW === 1) {
     return `
       <div style="grid-column: 1 / -1; display:flex; gap:6px; flex-wrap:wrap; margin-bottom:4px;">
-        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 1)">-1 傷亡</button>
-        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 3)">-3 傷亡</button>
-        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 5)">-5 傷亡</button>
-        <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="batchHordeCasualties(${player}, '${unit.id}', 999)">全體回滿</button>
+        <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="batchHordeCasualties(${player}, '${unit.id}', 1)">-1 傷亡</button>
+        <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="batchHordeCasualties(${player}, '${unit.id}', 3)">-3 傷亡</button>
+        <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="batchHordeCasualties(${player}, '${unit.id}', 5)">-5 傷亡</button>
+        <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="batchHordeCasualties(${player}, '${unit.id}', 999)">全體回滿</button>
       </div>
       ${unit.models.map((m, idx) => {
         const isDead = m.curW === 0;
@@ -3217,14 +3260,14 @@ function renderSoldiersHTML(player, unit) {
         <div class="soldier-card ${isDead ? 'dead' : ''}">
           <div style="min-width:0; flex:1;">
             <div class="soldier-name">${isDead ? '💀 ' : '🪖 '}${m.name}</div>
-            <div style="font-size:12px; color:${isDead ? '#f87171' : '#94a3b8'};">
+            <div style="font-size:12px; color:${isDead ? 'var(--color-red-400)' : 'var(--color-slate-400)'};">
               ${isDead ? '已陣亡 (Casualty)' : `生命值：${m.curW} / ${m.maxW} W`}
             </div>
           </div>
           <div class="soldier-wound-track">
             ${heartsHTML}
-            <button class="btn-wound-tick" style="width:20px; height:20px; font-size:11px; padding:0;" onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, -1)">-</button>
-            <button class="btn-wound-tick" style="width:20px; height:20px; font-size:11px; padding:0;" onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, 1)">+</button>
+            <button class="btn-wound-tick"  onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, -1)">-</button>
+            <button class="btn-wound-tick"  onclick="adjustModelWound(${player}, '${unit.id}', ${idx}, 1)">+</button>
             <button class="btn-wj btn-wj-outline" style="padding:1px 5px; font-size:12px;" onclick="toggleModelDead(${player}, '${unit.id}', ${idx})">
               ${isDead ? '復活' : '陣亡'}
             </button>
@@ -3248,13 +3291,13 @@ function renderSoldiersHTML(player, unit) {
   return `
     <div style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:8px;">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-        <span style="font-size:12px; font-weight:700; color:#ffffff;">${m.name} 狀態槽</span>
+        <span class="font-xs font-bold text-white">${m.name} 狀態槽</span>
         <div style="display:flex; align-items:center; gap:4px;">
           ${heartsHTML}
         </div>
       </div>
       <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
-        <div style="width:${pct}%; height:100%; background:${pct > 50 ? (isP1 ? '#38bdf8' : '#4ade80') : (pct > 25 ? '#f59e0b' : '#ef4444')}; transition:width 0.2s;"></div>
+        <div style="width:${pct}%; height:100%; background:${pct > 50 ? (isP1 ? 'var(--color-sky-400)' : 'var(--color-green-400)') : (pct > 25 ? 'var(--color-amber-500)' : 'var(--color-red-500)')}; transition:width 0.2s;"></div>
       </div>
     </div>
   `;
@@ -3277,7 +3320,7 @@ function renderUnits() {
             <div class="unit-name-title-line" onclick="openUnitDatasheet('${u.id}', 1)" title="點擊查看 ${u.name} 角色資料卡">
               <span class="unit-title-text">${u.name}</span>
               <span class="unit-card-btn">📋 數據卡</span>
-              ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#f87171;">${u.inv}</span>` : ''}
+              ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:var(--color-red-400);">${u.inv}</span>` : ''}
             </div>
             <div class="unit-badges-line">
               ${isSquad ? `
@@ -3296,7 +3339,7 @@ function renderUnits() {
             <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(1, '${u.id}', -1)` : `adjustModelWound(1, '${u.id}', 0, -1)`}" title="扣除 1 點傷害">-</button>
             <span class="wound-display">${u.curW} / ${u.maxW} W</span>
             <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(1, '${u.id}', 1)` : `adjustModelWound(1, '${u.id}', 0, 1)`}" title="回復 1 點生命">+</button>
-            <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroyUnit(1, '${u.id}')">
+            <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="toggleDestroyUnit(1, '${u.id}')">
               ${u.isDestroyed ? '復活' : '戰損'}
             </button>
           </div>
@@ -3306,7 +3349,7 @@ function renderUnits() {
           <div class="unit-soldiers-drawer">
             <div class="soldiers-drawer-header">
               <span>🪖 ${isSquad ? '小隊士兵獨立血量監控 (40K 規則：依單一模型分配傷害)' : '模型生命監控槽'}</span>
-              <span style="color:#38bdf8;">${isSquad ? `每名士兵 ${u.modelW}W × ${u.modelCount}人 = 全隊 ${u.maxW}W` : `單一模型 (${u.maxW}W)`}</span>
+              <span class="text-sky">${isSquad ? `每名士兵 ${u.modelW}W × ${u.modelCount}人 = 全隊 ${u.maxW}W` : `單一模型 (${u.maxW}W)`}</span>
             </div>
             <div class="soldiers-grid ${u.modelCount >= 10 ? 'horde-grid' : ''}">
               ${renderSoldiersHTML(1, u)}
@@ -3334,7 +3377,7 @@ function renderUnits() {
             <div class="unit-name-title-line" onclick="openUnitDatasheet('${u.id}', 2)" title="點擊查看 ${u.name} 角色資料卡">
               <span class="unit-title-text">${u.name}</span>
               <span class="unit-card-btn">📋 數據卡</span>
-              ${u.inv !== '-' ? `<span class="unit-stats-pill" style="color:#4ade80;">${u.inv}</span>` : ''}
+              ${u.inv !== '-' ? `<span class="unit-stats-pill" class="text-success">${u.inv}</span>` : ''}
             </div>
             <div class="unit-badges-line">
               ${isSquad ? `
@@ -3353,7 +3396,7 @@ function renderUnits() {
             <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(2, '${u.id}', -1)` : `adjustModelWound(2, '${u.id}', 0, -1)`}" title="扣除 1 點傷害">-</button>
             <span class="wound-display ork">${u.curW} / ${u.maxW} W</span>
             <button class="btn-wound-tick" onclick="${isSquad ? `adjustUnitQuick(2, '${u.id}', 1)` : `adjustModelWound(2, '${u.id}', 0, 1)`}" title="回復 1 點生命">+</button>
-            <button class="btn-wj btn-wj-outline" style="padding:2px 6px; font-size:11px;" onclick="toggleDestroyUnit(2, '${u.id}')">
+            <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="toggleDestroyUnit(2, '${u.id}')">
               ${u.isDestroyed ? '復活' : '戰損'}
             </button>
           </div>
@@ -3363,7 +3406,7 @@ function renderUnits() {
           <div class="unit-soldiers-drawer">
             <div class="soldiers-drawer-header">
               <span>🪖 ${isSquad ? '小隊士兵獨立血量監控 (40K 規則：依單一模型分配傷害)' : '模型生命監控槽'}</span>
-              <span style="color:#4ade80;">${isSquad ? `每名士兵 ${u.modelW}W × ${u.modelCount}人 = 全隊 ${u.maxW}W` : `單一模型 (${u.maxW}W)`}</span>
+              <span class="text-success">${isSquad ? `每名士兵 ${u.modelW}W × ${u.modelCount}人 = 全隊 ${u.maxW}W` : `單一模型 (${u.maxW}W)`}</span>
             </div>
             <div class="soldiers-grid ${u.modelCount >= 10 ? 'horde-grid' : ''}">
               ${renderSoldiersHTML(2, u)}
@@ -3440,7 +3483,7 @@ function openStratagemModal(player) {
   box.innerHTML = list.map(s => `
     <div class="strat-modal-card" onclick="useStratagem('${s.name}', ${s.cost})">
       <div class="strat-modal-top">
-        <span class="strat-modal-name">${s.name} <span style="font-size:11px; font-weight:normal; color:#94a3b8;">[${s.type}]</span></span>
+        <span class="strat-modal-name">${s.name} <span style="font-size:11px; font-weight:normal; color:var(--color-slate-400);">[${s.type}]</span></span>
         <span class="strat-modal-cost">${s.cost} CP</span>
       </div>
       <div class="strat-modal-timing">時機：${s.timing}</div>
@@ -3583,10 +3626,10 @@ function renderUnitDatasheetModal() {
       attachedEnhancementHTML = `
         <div class="unit-attached-enhancement">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
-            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：劍術大師 (預設)</strong>
-            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(1, 'p1_master')">查看詞綴</button>
+            <strong class="text-amber">⚡ 當前部隊裝備強化：劍術大師 (預設)</strong>
+            <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="openEnhancementModal(1, 'p1_master')">查看詞綴</button>
           </div>
-          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+          <div class="desc-text-sm">
             敵方衝鋒交戰後，該敵方單位本回合近戰致傷擲骰 (Wound roll) -1！
           </div>
         </div>
@@ -3595,10 +3638,10 @@ function renderUnitDatasheetModal() {
       attachedEnhancementHTML = `
         <div class="unit-attached-enhancement">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
-            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：戰線老兵 (替代)</strong>
-            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(1, 'p1_veteran')">查看詞綴</button>
+            <strong class="text-amber">⚡ 當前部隊裝備強化：戰線老兵 (替代)</strong>
+            <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="openEnhancementModal(1, 'p1_veteran')">查看詞綴</button>
           </div>
-          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+          <div class="desc-text-sm">
             爆矢步槍獲得 [速射 1 (Rapid Fire 1)]，半程內每把步槍射擊攻擊次數增至 3 次！
           </div>
         </div>
@@ -3609,10 +3652,10 @@ function renderUnitDatasheetModal() {
       attachedEnhancementHTML = `
         <div class="unit-attached-enhancement">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
-            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：振奮戰吼 (預設)</strong>
-            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(2, 'p2_warcry')">查看詞綴</button>
+            <strong class="text-amber">⚡ 當前部隊裝備強化：振奮戰吼 (預設)</strong>
+            <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="openEnhancementModal(2, 'p2_warcry')">查看詞綴</button>
           </div>
-          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+          <div class="desc-text-sm">
             指揮階段（每場限一次），將最多 D3+2 個被摧毀的護衛模型全數返還復活！
           </div>
         </div>
@@ -3621,10 +3664,10 @@ function renderUnitDatasheetModal() {
       attachedEnhancementHTML = `
         <div class="unit-attached-enhancement">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
-            <strong style="color:#fbbf24;">⚡ 當前部隊裝備強化：額外裝甲 (替代)</strong>
-            <button class="btn-wj btn-wj-outline" style="padding:2px 8px; font-size:11px;" onclick="openEnhancementModal(2, 'p2_armour')">查看詞綴</button>
+            <strong class="text-amber">⚡ 當前部隊裝備強化：額外裝甲 (替代)</strong>
+            <button class="btn-wj btn-wj-outline" class="badge-pill-sm" onclick="openEnhancementModal(2, 'p2_armour')">查看詞綴</button>
           </div>
-          <div style="font-size:12px; color:#cbd5e1; line-height:1.4;">
+          <div class="desc-text-sm">
             該卡車單位獲得 3+ 護甲豁免 (Sv) 以及 4+ 特殊豁免 (4++ 特保 / InSv)！
           </div>
         </div>
@@ -3642,13 +3685,13 @@ function renderUnitDatasheetModal() {
         <div class="unit-sheet-name-en">${unit.enName}</div>
         <div class="unit-sheet-badges">
           <span class="unit-badge-pill ${unit.role.includes('戰帥') ? 'unit-badge-warlord' : ''}">${unit.role}</span>
-          <span class="unit-badge-pill" style="color:#cbd5e1; background:rgba(255,255,255,0.06);">
+          <span class="unit-badge-pill" style="color:var(--theme-border); background:rgba(255,255,255,0.06);">
             ${unit.modelCount > 1 ? `👥 小隊編制：${unit.modelCount} 人（每名士兵 ${unit.modelW}W / 小隊總生命 ${unit.modelCount * unit.modelW}W）` : `👤 單一模型 (${unit.modelW}W)`}
           </span>
-          <span class="unit-badge-pill" style="color:${isDestroyed ? '#94a3b8' : (isP1 ? '#f87171' : '#4ade80')};">
+          <span class="unit-badge-pill" style="color:${isDestroyed ? 'var(--color-slate-400)' : (isP1 ? 'var(--color-red-400)' : 'var(--color-green-400)')};">
             ${isDestroyed ? '💥 全隊已戰損 (DESTROYED)' : (unit.modelCount > 1 ? `❤️ 當前存活：${aliveModels} / ${unit.modelCount} 人 (${curW} / ${maxW} W)` : `❤️ 當前生命：${curW} / ${maxW} W`)}
           </span>
-          <a href="${unit.codexLink}" target="_blank" class="unit-badge-pill" style="text-decoration:none; color:#38bdf8; background:rgba(56,189,248,0.1);">📖 官方數據庫 &rarr;</a>
+          <a href="${unit.codexLink}" target="_blank" class="unit-badge-pill" style="text-decoration:none; color:var(--color-sky-400); background:rgba(56,189,248,0.1);">📖 官方數據庫 &rarr;</a>
         </div>
       </div>
     </div>
@@ -3657,15 +3700,15 @@ function renderUnitDatasheetModal() {
     <div class="unit-hud-grid">
       <div class="unit-hud-box">
         <div class="unit-hud-label">M (移動)</div>
-        <div class="unit-hud-val" style="color:#38bdf8;">${unit.stats.m}</div>
+        <div class="unit-hud-val" class="text-sky">${unit.stats.m}</div>
       </div>
       <div class="unit-hud-box">
         <div class="unit-hud-label">T (韌性)</div>
-        <div class="unit-hud-val" style="color:#f59e0b;">${unit.stats.t}</div>
+        <div class="unit-hud-val" style="color:var(--color-amber-500);">${unit.stats.t}</div>
       </div>
       <div class="unit-hud-box">
         <div class="unit-hud-label">SV (護甲)</div>
-        <div class="unit-hud-val" style="color:#4ade80;">${unit.stats.sv}</div>
+        <div class="unit-hud-val" class="text-success">${unit.stats.sv}</div>
       </div>
       <div class="unit-hud-box ${unit.stats.insv !== '-' ? 'hud-insv' : ''}">
         <div class="unit-hud-label">INSV (特保)</div>
@@ -3673,15 +3716,15 @@ function renderUnitDatasheetModal() {
       </div>
       <div class="unit-hud-box">
         <div class="unit-hud-label">W (單兵生命)</div>
-        <div class="unit-hud-val" style="color:#ef4444;">${unit.stats.w}</div>
+        <div class="unit-hud-val" class="text-danger">${unit.stats.w}</div>
       </div>
       <div class="unit-hud-box">
         <div class="unit-hud-label">LD (領導)</div>
-        <div class="unit-hud-val" style="color:#c084fc;">${unit.stats.ld}</div>
+        <div class="unit-hud-val" style="color:var(--color-purple-400);">${unit.stats.ld}</div>
       </div>
       <div class="unit-hud-box">
         <div class="unit-hud-label">OC (據點)</div>
-        <div class="unit-hud-val" style="color:#eab308;">${unit.stats.oc}</div>
+        <div class="unit-hud-val" style="color:var(--color-yellow-500);">${unit.stats.oc}</div>
       </div>
     </div>
 
@@ -3689,14 +3732,14 @@ function renderUnitDatasheetModal() {
 
     <!-- 武器配置表格 -->
     <div style="margin-top:12px;">
-      <div style="font-size:13px; font-weight:800; color:#f1f5f9; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+      <div style="font-size:13px; font-weight:800; color:var(--surface-subtle); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
         <span>⚔️ 配備武器清單 (Weapons)</span>
       </div>
       <div class="unit-table-wrap">
         <table class="unit-sheet-table">
           <thead>
             <tr>
-              <th style="width:24%;">武器名稱</th>
+              <th class="w-quarter">武器名稱</th>
               <th>類型</th>
               <th>射程</th>
               <th>攻擊 A</th>
@@ -3704,19 +3747,19 @@ function renderUnitDatasheetModal() {
               <th>力量 S</th>
               <th>穿甲 AP</th>
               <th>傷害 D</th>
-              <th style="width:24%;">武器關鍵字</th>
+              <th class="w-quarter">武器關鍵字</th>
             </tr>
           </thead>
           <tbody>
             ${unit.weapons.map(w => `
               <tr>
                 <td class="weapon-name-cell">${w.name}</td>
-                <td><span style="color:${w.type === '近戰' ? '#f87171' : '#38bdf8'}; font-weight:700;">${w.type}</span></td>
+                <td><span style="color:${w.type === '近戰' ? 'var(--color-red-400)' : 'var(--color-sky-400)'}; font-weight:700;">${w.type}</span></td>
                 <td>${w.range}</td>
                 <td><strong>${w.a}</strong></td>
                 <td>${w.bsWs}</td>
                 <td>${w.s}</td>
-                <td><span style="color:${w.ap.startsWith('-') ? '#f87171' : 'inherit'}; font-weight:700;">${w.ap}</span></td>
+                <td><span style="color:${w.ap.startsWith('-') ? 'var(--color-red-400)' : 'inherit'}; font-weight:700;">${w.ap}</span></td>
                 <td><strong>${w.d}</strong></td>
                 <td>${w.keywords.map(k => `<span class="weapon-tag-pill">${k}</span>`).join('')}</td>
               </tr>
@@ -3728,7 +3771,7 @@ function renderUnitDatasheetModal() {
 
     <!-- 專屬特殊能力 -->
     <div class="unit-ability-section">
-      <div style="font-size:13px; font-weight:800; color:#f1f5f9; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+      <div style="font-size:13px; font-weight:800; color:var(--surface-subtle); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
         <span>🔮 專屬特規與戰略技能 (Abilities)</span>
       </div>
       ${unit.abilities.map(a => `
@@ -3821,23 +3864,23 @@ function renderEnhancementModal() {
   // 3. Render Modal Body
   const body = document.getElementById('enh-modal-body');
   body.innerHTML = `
-    <div style="background:#090e17; border:1px solid rgba(255,255,255,0.1); border-left:4px solid ${isP1 ? '#d97706' : '#22c55e'}; border-radius:8px; padding:16px; margin-bottom:16px;">
+    <div style="background:var(--color-ground-dark); border:1px solid rgba(255,255,255,0.1); border-left:4px solid ${isP1 ? 'var(--color-amber-600)' : 'var(--color-green-500)'}; border-radius:8px; padding:16px; margin-bottom:16px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
-        <span style="font-size:18px; font-weight:900; color:#ffffff;">${enh.name} <span style="font-size:13px; font-weight:600; color:#94a3b8;">(${enh.enName})</span></span>
+        <span class="font-lg font-extrabold text-white">${enh.name} <span class="font-sm font-weight:600; color:var(--color-slate-400);">(${enh.enName})</span></span>
         <div style="display:flex; gap:6px; align-items:center;">
-          <span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:4px; background:${enh.type.includes('預設') ? 'rgba(245,158,11,0.2)' : 'rgba(56,189,248,0.2)'}; color:${enh.type.includes('預設') ? '#fbbf24' : '#38bdf8'}; border:1px solid ${enh.type.includes('預設') ? 'rgba(245,158,11,0.4)' : 'rgba(56,189,248,0.4)'};">${enh.type}</span>
-          ${isCurrentlyEquipped ? '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:4px; background:rgba(34,197,94,0.2); color:#4ade80; border:1px solid rgba(34,197,94,0.4);">✓ 當前裝備中</span>' : ''}
+          <span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:4px; background:${enh.type.includes('預設') ? 'rgba(245,158,11,0.2)' : 'rgba(56,189,248,0.2)'}; color:${enh.type.includes('預設') ? 'var(--color-amber-400)' : 'var(--color-sky-400)'}; border:1px solid ${enh.type.includes('預設') ? 'rgba(245,158,11,0.4)' : 'rgba(56,189,248,0.4)'};">${enh.type}</span>
+          ${isCurrentlyEquipped ? '<span style="font-size:11px; font-weight:800; padding:2px 8px; border-radius:4px; background:rgba(34,197,94,0.2); color:var(--color-green-400); border:1px solid rgba(34,197,94,0.4);">✓ 當前裝備中</span>' : ''}
         </div>
       </div>
-      <div style="font-size:13px; color:#f59e0b; font-weight:700; margin-bottom:12px;">
+      <div class="font-sm font-bold text-amber mb-3">
         ${enh.target}
       </div>
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:12px; font-size:13px; color:#f1f5f9; line-height:1.6; margin-bottom:14px;">
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:12px; font-size:13px; color:var(--surface-subtle); line-height:1.6; margin-bottom:14px;">
         <strong>【強化規則效果】</strong><br>
         ${enh.rule}
       </div>
-      <div style="background:rgba(56,189,248,0.05); border:1px solid rgba(56,189,248,0.2); border-radius:6px; padding:12px; font-size:12px; color:#cbd5e1; line-height:1.5;">
-        <strong style="color:#38bdf8;">💡 官方作戰戰術錦囊：</strong><br>
+      <div style="background:rgba(56,189,248,0.05); border:1px solid rgba(56,189,248,0.2); border-radius:6px; padding:12px; font-size:12px; color:var(--theme-border); line-height:1.5;">
+        <strong class="text-sky">💡 官方作戰戰術錦囊：</strong><br>
         ${enh.tactics}
       </div>
     </div>
@@ -4043,6 +4086,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="shared.js?v=3.4.2"></script>
+<script src="shared.js?v=3.4.3"></script>
 </body>
 </html>

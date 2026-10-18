@@ -367,9 +367,15 @@
   --color-sky-100: #e0f2fe;
   --color-sky-50:  #f0f9ff;
 
+  --color-blue-950: #172554;
+  --color-blue-700: #1d4ed8;
   --color-blue-600: #2563eb;
+  --color-blue-500: #3b82f6;
+  --color-blue-400: #60a5fa;
   --color-blue-300: #93c5fd;
   --color-blue-50:  #eff6ff;
+
+  --color-indigo-950: #1e1b4b;
 
   --color-emerald-800: #065f46;
   --color-emerald-700: #047857;
@@ -385,6 +391,7 @@
   --color-green-700: #15803d;
   --color-green-600: #16a34a;
   --color-green-500: #22c55e;
+  --color-green-400: #4ade80;
 
   --color-red-950: #450a0a;
   --color-red-900: #7f1d1d;
@@ -392,9 +399,12 @@
   --color-red-700: #b91c1c;
   --color-red-600: #dc2626;
   --color-red-500: #ef4444;
+  --color-red-400: #f87171;
   --color-red-200: #fecaca;
   --color-red-100: #fee2e2;
   --color-red-50:  #fff5f5;
+
+  --color-purple-400: #c084fc;
 
   --color-amber-900: #78350f;
   --color-amber-800: #92400e;
@@ -405,6 +415,12 @@
   --color-amber-200: #fde68a;
   --color-amber-100: #fef3c7;
   --color-amber-50:  #fef08a;
+
+  --color-yellow-500: #eab308;
+  --color-yellow-400: #facc15;
+
+  --color-ground-dark: #090e17;
+  --color-body-dark: #0b1120;
 
   /* 陣營特色色彩 (Faction Colors) */
   --faction-angels: #991b1b;

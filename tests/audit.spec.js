@@ -123,5 +123,13 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     expect(hexMatches.length, `match_tracker.html 不應有寫死色碼，實測為 ${hexMatches.length}`).toBe(0);
   });
 
+  test('Stage D 指標驗證：40k_combat_patrol_tracker.html 行內樣式 < 60 且 0 寫死色碼', async () => {
+    const content = fs.readFileSync('40k_combat_patrol_tracker.html', 'utf-8');
+    const inlineMatches = content.match(/\bstyle\s*=\s*["']/g) || [];
+    const hexMatches = content.match(/#(?:[0-9a-fA-F]{3}){1,2}\b/g) || [];
+    expect(inlineMatches.length, `40k_combat_patrol_tracker.html 行內樣式數應小於 60，實測為 ${inlineMatches.length}`).toBeLessThan(60);
+    expect(hexMatches.length, `40k_combat_patrol_tracker.html 不應有寫死色碼，實測為 ${hexMatches.length}`).toBe(0);
+  });
+
 });
 
