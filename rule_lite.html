@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000：殺戮小隊 簡易規則 (Lite Rules) - 繁體中文標準版</title>
   <meta name="description" content="戰錘 40,000：殺戮小隊 簡易核心規則 (Lite Rules) 繁體中文標準版，快速掌握姿態指令、移動、射擊掩體判定與近戰格鬥結算機制。">
-  <link rel="stylesheet" href="shared.css?v=3.5.1">
+  <link rel="stylesheet" href="shared.css?v=3.5.2">
 
   <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
@@ -72,33 +72,31 @@
     </header>
 
     <div class="app-content">
-      <!-- 快速章節選單 -->
-<div class="sub-nav no-print">
-  <div class="sub-nav-container">
-    <span style="color:var(--color-slate-500); font-weight:700; padding:3px 0;">快速跳轉：</span>
-    <a href="#setup">戰鬥前置設定</a>
-    <a href="#orders">特工指令與反制</a>
-    <a href="#flow">轉折點戰鬥流程</a>
-    <a href="#actions">六大基礎行動</a>
-    <a href="#concepts">控制範圍與掩護</a>
-    <a href="#combat">射擊與格鬥序列</a>
-    <a href="#weapons">22項特殊武器規則</a>
-  </div>
-</div>
+      <div class="container" id="top">
+        <!-- 標題橫幅 -->
+        <header class="lite-header">
+          <div class="title-group">
+            <h2>Warhammer 40,000</h2>
+            <h1>KILL TEAM LITE RULES</h1>
+            <span class="subtitle-badge">殺戮小隊 簡易規則 (3rd Edition / 2024 最新繁中標準版)</span>
+            <p class="intro-p">
+              《殺戮小隊》是一款設定在第 41 千年黑暗未來中的微縮模型戰術對決遊戲。兩支各自由菁英特工組成的殺戮小隊互相廝殺、爭奪目標以奪取最終勝利。此處呈現的規則已自《殺戮小隊核心規則手冊》濃縮簡化，專為快速入門對戰與規則速查設計。
+            </p>
+          </div>
+          <img src="assets/wh40k_logo.png" alt="Warhammer 40,000 Logo" class="hero-art-img no-print" style="max-height: 85px;" decoding="async">
+        </header>
 
-<div class="container">
-  <!-- 標題橫幅 -->
-  <header class="lite-header">
-    <div class="title-group">
-      <h2>Warhammer 40,000</h2>
-      <h1>KILL TEAM LITE RULES</h1>
-      <span class="subtitle-badge">殺戮小隊 簡易規則 (3rd Edition / 2024 最新繁中標準版)</span>
-      <p class="intro-p">
-        《殺戮小隊》是一款設定在第 41 千年黑暗未來中的微縮模型戰術對決遊戲。兩支各自由菁英特工組成的殺戮小隊互相廝殺、爭奪目標以奪取最終勝利。此處呈現的規則已自《殺戮小隊核心規則手冊》濃縮簡化，專為快速入門對戰與規則速查設計。
-      </p>
-    </div>
-    <img src="assets/wh40k_logo.png" alt="Warhammer 40,000 Logo" class="hero-art-img no-print" style="max-height: 85px;" decoding="async">
-  </header>
+        <!-- 快速章節導航跳轉標籤 (與 11 版規則設計語彙一致) -->
+        <div class="cr-parts-nav no-print">
+          <span class="font-badge font-extrabold text-muted mr-1">章節跳轉:</span>
+          <a href="#setup" class="part-pill" data-target="setup">Ⅰ. 戰鬥前置設定</a>
+          <a href="#orders" class="part-pill" data-target="orders">Ⅱ. 特工指令與反制</a>
+          <a href="#flow" class="part-pill" data-target="flow">Ⅲ. 轉折點戰鬥流程</a>
+          <a href="#actions" class="part-pill" data-target="actions">Ⅳ. 六大基礎行動</a>
+          <a href="#concepts" class="part-pill" data-target="concepts">Ⅴ. 控制範圍與掩護</a>
+          <a href="#combat" class="part-pill" data-target="combat">Ⅵ. 射擊與格鬥序列</a>
+          <a href="#weapons" class="part-pill" data-target="weapons">Ⅶ. 22項特殊武器規則</a>
+        </div>
 
   <div class="grid">
     <!-- 戰前佈置 -->
@@ -276,6 +274,34 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.5.1"></script>
+<script src="shared.js?v=3.5.2"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const pills = Array.from(document.querySelectorAll('.part-pill[data-target]'));
+    const cards = pills.map(p => document.getElementById(p.getAttribute('data-target'))).filter(Boolean);
+
+    function onScroll() {
+      const scrollPos = window.scrollY + 120;
+      let currentId = '';
+      for (let i = 0; i < cards.length; i++) {
+        if (cards[i].offsetTop <= scrollPos) {
+          currentId = cards[i].id;
+        } else {
+          break;
+        }
+      }
+      pills.forEach(p => {
+        if (p.getAttribute('data-target') === currentId) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  });
+</script>
 </body>
 </html>

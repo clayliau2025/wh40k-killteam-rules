@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000 第 11 版：完整核心規則 (Core Rules) 繁體中文全檢索情報庫</title>
   <meta name="description" content="官方戰錘 40,000 第 11 版完整核心規則庫，繁體中文全檢索系統，收錄全部 25 個核心章節、10 個通用核心計謀、40 項核心與武器技能、官方規則註解、以及 66 項官方常見問答 (FAQ) 與最新平衡勘誤。">
-  <link rel="stylesheet" href="shared.css?v=3.5.1">
+  <link rel="stylesheet" href="shared.css?v=3.5.2">
   <style>
     /* ================= 40K 核心規則專用視覺樣式 ================= */
     body.theme-40k-core {
@@ -140,7 +140,7 @@
       position: relative;
     }
 
-    .search-icon {
+    .cr-search-icon {
       position: absolute;
       left: 12px;
       top: 50%;
@@ -781,6 +781,49 @@
       transform: translateY(-2px);
     }
 
+    /* 浮動章節目錄按鈕 (特別適用於窄螢幕與行動端隨時跳轉) */
+    .floating-toc-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 76px;
+      height: 42px;
+      padding: 0 14px;
+      background: var(--surface);
+      color: var(--color-blue-900);
+      border: 1.5px solid var(--theme-border);
+      border-radius: 21px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      z-index: 100;
+      cursor: pointer;
+    }
+
+    .floating-toc-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .floating-toc-btn:hover {
+      background: var(--color-blue-600);
+      color: var(--color-white);
+      border-color: var(--color-blue-600);
+      transform: translateY(-2px);
+    }
+
+    @media (min-width: 1200px) {
+      .floating-toc-btn {
+        display: none !important;
+      }
+    }
+
     /* 核心規則專屬表格與問答區塊 */
     .wound-matrix-box {
       margin: 10px 0;
@@ -851,8 +894,8 @@
       width: 270px;
       flex-shrink: 0;
       position: sticky;
-      top: 130px;
-      max-height: calc(100vh - 150px);
+      top: 64px;
+      max-height: calc(100vh - 80px);
       display: none;
       background: var(--surface);
       border: 1px solid var(--theme-border);
@@ -1205,7 +1248,7 @@
         <div class="cr-control-bar" id="crControlBar">
           <div class="cr-search-row">
             <div class="search-input-wrap">
-              <span class="search-icon" aria-hidden="true">🔍</span>
+              <span class="cr-search-icon" aria-hidden="true">🔍</span>
               <input type="text" id="ruleSearchInput" class="cr-search-input" aria-label="搜尋與篩選 40K 核心規則" placeholder="即時搜尋規則、技能、計謀、或英文術語 (例如: 深入打擊, Deep Strike, 掩體, Overwatch, 致命一擊, Tank Shock)...">
               <button class="search-clear-btn" id="searchClearBtn" title="清除搜尋">✕</button>
             </div>
@@ -1536,8 +1579,8 @@
                         <span class="sub-rule-toggle">▾</span>
                       </summary>
                       <div class="rule-sub-body"><p>在一次擲骰或測試自動成功，或自動透過/命中/致傷時，不要進行擲骰，直接前往那次擲骰流程的下一個步驟並視作擲骰結果滿足需要的數值。任何需要特定擲骰數值或結果才能觸發的效果不會被觸發。</p>
-<p><b>示例</b>：<i>如果一次<b>命中擲骰</b>自動成功，那麼直接前往攻擊流程的致傷擲骰步驟。這樣的<b>命中擲骰</b>不是<b>暴擊命中</b>。</p>
-<p></i><b>示例</b>：<i>如果一次<b>致傷擲骰</b>自動成功，那麼直接前往攻擊流程的豁免擲骰步驟。這樣的<b>致傷擲骰</b>不是<b>暴擊致傷</b>。</i></p></div>
+<p><b>示例</b>：<i>如果一次<b>命中擲骰</b>自動成功，那麼直接前往攻擊流程的致傷擲骰步驟。這樣的<b>命中擲骰</b>不是<b>暴擊命中</b>。</i></p>
+<p><b>示例</b>：<i>如果一次<b>致傷擲骰</b>自動成功，那麼直接前往攻擊流程的豁免擲骰步驟。這樣的<b>致傷擲骰</b>不是<b>暴擊致傷</b>。</i></p></div>
                     </details>
                     
                     <details class="rule-sub-rule" open>
@@ -1690,8 +1733,8 @@
 <p>遊戲中的許多規則都會對數值、屬性或其他型別的擲骰進行修改。這類規則被稱為修正，一個被修改過的數值被稱為被修正規則（例如被修正屬性、被修正擲骰、被修正數值等）。</p>
 <p>最為常見的一種修正是對屬性、擲骰或其他數值進行的 +1 或者 -1。</p>
 <p>如果規則對一個屬性進行 +1，那麼屬性會提升“+”號後方的數值。</p>
-<p><b>示例：</b> <i>“這件武器的<b>AP</b> +1"會使一個數值為 -2 的 <b>AP</b> 屬性變為 -3。</p>
-<p></i>如果規則對一個屬性進行 -1，那麼屬性會劣化“-”號後方的數值。</p>
+<p><b>示例：</b> <i>“這件武器的<b>AP</b> +1"會使一個數值為 -2 的 <b>AP</b> 屬性變為 -3。</i></p>
+<p>如果規則對一個屬性進行 -1，那麼屬性會劣化“-”號後方的數值。</p>
 <p><b>示例：</b> <i>“該單位的<b>SV</b> -1"會使一個數值為 3+ 的 <b>Sv</b> 屬性變為 4+</i></p>
 <p><b>適用修正</b></p>
 <p>該部分內容將展示對規則進行的不同修正。所有修正都是可疊加的。</p>
@@ -1723,8 +1766,8 @@
                       <div class="rule-sub-body"><p>一些規則能夠允許玩家、武器、模型或者單位忽略修正。在使用這類規則時，適用以下規則：</p>
 <p>除非有其他明確規定，這個規則允許您忽略對單位的擲骰，以及對單位的資料和武器屬性的修正。</p>
 <p>在一個規則提及您“可以”忽略對指定擲骰或屬性的修正時，您可以選擇忽略所有那些修正，或者只選擇忽略其中一部分。例如，您可以在忽略負面修正的同時依舊選擇讓具有增益效果的修正生效。</p>
-<p><b>示例：</b> <i>您的單位擁有可以忽略屬性修正的效果，並且同時受到了 <b>M</b> +2" 和 <b>M</b> -2" 效果的影響。您可以選擇忽略 <b>M</b> -2" 的效果，讓單位只受到 <b>M</b> 屬性 +2" 的修正效果的影響。</p>
-<p></i><b>示例：</b> <i>一個正在進行遠端攻擊的單位擁有可以忽略擲骰修正的效果，並且同時受到了<b>命中擲骰</b> +1 和<b>命中擲骰</b> -1 效果的影響。您可以選擇忽略<b>命中擲骰</b> -1 的效果，讓這次攻擊只受到<b>命中擲骰</b> +1 的修正效果的影響。</i></p></div>
+<p><b>示例：</b> <i>您的單位擁有可以忽略屬性修正的效果，並且同時受到了 <b>M</b> +2" 和 <b>M</b> -2" 效果的影響。您可以選擇忽略 <b>M</b> -2" 的效果，讓單位只受到 <b>M</b> 屬性 +2" 的修正效果的影響。</i></p>
+<p><b>示例：</b> <i>一個正在進行遠端攻擊的單位擁有可以忽略擲骰修正的效果，並且同時受到了<b>命中擲骰</b> +1 和<b>命中擲骰</b> -1 效果的影響。您可以選擇忽略<b>命中擲骰</b> -1 的效果，讓這次攻擊只受到<b>命中擲骰</b> +1 的修正效果的影響。</i></p></div>
                     </details>
                     
                     <details class="rule-sub-rule" open>
@@ -3395,7 +3438,7 @@
 <li>那個模型被一個或多個<b>嚴密地形模型</b>遮擋，使其對攻擊單位<b>不完全可見</b>。</li>
 <li>那個模型所屬的單位沒有在沒有在當前回合和上一個回合中進行過遠端攻擊。</li></ul>
 <p>當一個模型處於<b>潛伏</b>時，那個模型的<b>偵測範圍</b>減少 3"。</p>
-<p><b>設計者注：</b> <i>那些在當前回合和上一個回合中進行過遠端攻擊的單位無法處於<b>潛伏</b>，無論是否有任何技能允許其在進行射擊後處於<b>躲藏</b>。</p></div>
+<p><b>設計者注：</b> <i>那些在當前回合和上一個回合中進行過遠端攻擊的單位無法處於<b>潛伏</b>，無論是否有任何技能允許其在進行射擊後處於<b>躲藏</b>。</i></p></div>
                     </details>
                     
                     <h3 class="rule-subhead-accent">
@@ -3918,7 +3961,7 @@
                 <span class="rule-code-badge">19.03</span>
               </div>
             <p>一個<b>聯合</b>單位擁有組成它的所有單位的關鍵詞。因此，任何對這些關鍵詞生效的規則都將對<b>聯合</b>單位生效。請注意，<b>聯合</b>單位中的模型不會獲得自身沒有的關鍵詞以及單位中其他模型的關鍵詞。請謹記，攻擊的物件是單位，並非模型。</p>
-<p><b>示例</b>：一個<b>聯合</b>單位中包含了一個擁有<b>靈能者</b>關鍵詞的<b>領袖</b>模型。只要這個模型是那個單位的一部份，那個單位擁有<b>靈能者</b>關鍵詞，就算<b>護衛</b>單位中的模型沒有這個關鍵詞。如果這個單位受到了一次擁有<b>[針對靈能者 4+]</b>技能的武器的攻擊，那麼一次未修正結果為 4+ 的<b>致傷擲骰</b>會對這個單位造成暴擊致傷，就算這次攻擊本身沒有被分配至那個<b>領袖</b>模型。</i></p></div>
+<p><b>示例</b>：<i>一個<b>聯合</b>單位中包含了一個擁有<b>靈能者</b>關鍵詞的<b>領袖</b>模型。只要這個模型是那個單位的一部份，那個單位擁有<b>靈能者</b>關鍵詞，就算<b>護衛</b>單位中的模型沒有這個關鍵詞。如果這個單位受到了一次擁有<b>[針對靈能者 4+]</b>技能的武器的攻擊，那麼一次未修正結果為 4+ 的<b>致傷擲骰</b>會對這個單位造成暴擊致傷，就算這次攻擊本身沒有被分配至那個<b>領袖</b>模型。</i></p></div>
             <div class="rule-card" data-search-content="聯合單位的技能">
               <div class="rule-card-header">
                 <span>聯合單位的技能</span>
@@ -4282,7 +4325,7 @@
                 </div>
               </div>
               <div class="ability-body">
-                <p>這類技能總是會以<k>[針對“X” Y+]<k>的形式出現。每次使用<b>[針對]</b>武器進行攻擊時，如果目標擁有<b>“X”</b>處的關鍵詞，那麼未修正結果為 <b>Y+</b> 的<b>致傷擲骰</b>將造成<b>暴擊致傷</b>。<b>示例</b>：<i>一次對<b>載具</b>單位進行的攻擊使用了<k>[針對載具 4+]</k>武器，未修正結果為 4+ 的<b>致傷擲骰</b>會造成一次暴擊致傷。在使用<k>[針對靈能者 2+]</k>武器對<k>靈能者</k>單位進行攻擊時，未修正結果為 2+ 的<b>致傷擲骰</b>會造成<b>暴擊致傷</b>。</i></p>
+                <p>這類技能總是會以<k>[針對“X” Y+]</k>的形式出現。每次使用<b>[針對]</b>武器進行攻擊時，如果目標擁有<b>“X”</b>處的關鍵詞，那麼未修正結果為 <b>Y+</b> 的<b>致傷擲骰</b>將造成<b>暴擊致傷</b>。<b>示例</b>：<i>一次對<b>載具</b>單位進行的攻擊使用了<k>[針對載具 4+]</k>武器，未修正結果為 4+ 的<b>致傷擲骰</b>會造成一次暴擊致傷。在使用<k>[針對靈能者 2+]</k>武器對<k>靈能者</k>單位進行攻擊時，未修正結果為 2+ 的<b>致傷擲骰</b>會造成<b>暴擊致傷</b>。</i></p>
               </div>
             </div>
             
@@ -4321,7 +4364,7 @@
             </div>
             
             <div class="ability-card" data-search-content="[劈砍] [CLEAVE] &lt;p&gt;這類技能總是會以&lt;k&gt;[劈砍 X]&lt;/k&gt;的形式出現。每當您為一件&lt;k&gt;[劈砍]&lt;/k&gt;武器收集&lt;b&gt;攻擊骰&lt;/b&gt;時，如果您為那件武器的所有攻擊都只選擇了一個目標，那麼在選擇目標步驟中，目標單位每存在五個模型（向下取整），就新增 X 數量的額外&lt;b&gt;攻擊骰&lt;/b&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;示例&lt;/b&gt;：&lt;i&gt;如果一件 A 屬性為 3 的&lt;k&gt;[劈砍 1]&lt;/k&gt;武器對包含了 16 個模型的單位進行攻擊，那麼您將為那件武器收集額外三枚&lt;b&gt;攻擊骰&lt;/b&gt;（總共六枚）。&lt;i&gt;&lt;/p&gt;">
+&lt;p&gt;&lt;b&gt;示例&lt;/b&gt;：&lt;i&gt;如果一件 A 屬性為 3 的&lt;k&gt;[劈砍 1]&lt;/k&gt;武器對包含了 16 個模型的單位進行攻擊，那麼您將為那件武器收集額外三枚&lt;b&gt;攻擊骰&lt;/b&gt;（總共六枚）。&lt;/i&gt;&lt;/p&gt;">
               <div class="ability-header">
                 <div>
                   <div class="ability-title">[劈砍] <span class="text-meta">([CLEAVE])</span></div>
@@ -4333,7 +4376,7 @@
               </div>
               <div class="ability-body">
                 <p>這類技能總是會以<k>[劈砍 X]</k>的形式出現。每當您為一件<k>[劈砍]</k>武器收集<b>攻擊骰</b>時，如果您為那件武器的所有攻擊都只選擇了一個目標，那麼在選擇目標步驟中，目標單位每存在五個模型（向下取整），就新增 X 數量的額外<b>攻擊骰</b>。</p>
-<p><b>示例</b>：<i>如果一件 A 屬性為 3 的<k>[劈砍 1]</k>武器對包含了 16 個模型的單位進行攻擊，那麼您將為那件武器收集額外三枚<b>攻擊骰</b>（總共六枚）。<i></p>
+<p><b>示例</b>：<i>如果一件 A 屬性為 3 的<k>[劈砍 1]</k>武器對包含了 16 個模型的單位進行攻擊，那麼您將為那件武器收集額外三枚<b>攻擊骰</b>（總共六枚）。</i></p>
               </div>
             </div>
             
@@ -4513,7 +4556,7 @@
                 </div>
               </div>
               <div class="ability-body">
-                <p>在己方射擊階段中，每次使用<k>[重型]</k>武器進行攻擊時，如果攻擊單位滿足以下<u>所有</u>條件，那麼<b>命中擲骰</b>的結果增加 1 點：<ul><li>那個單位<b>不處於交戰狀態</b>。</li><li>那個單位不是在本回閤中被部署至戰場的。</li><li>在本回閤中，那個單位中沒有模型移動超過 3"。</li></p>
+                <p>在己方射擊階段中，每次使用<k>[重型]</k>武器進行攻擊時，如果攻擊單位滿足以下<u>所有</u>條件，那麼<b>命中擲骰</b>的結果增加 1 點：</p><ul><li>那個單位<b>不處於交戰狀態</b>。</li><li>那個單位不是在本回閤中被部署至戰場的。</li><li>在本回閤中，那個單位中沒有模型移動超過 3"。</li></ul>
               </div>
             </div>
             
@@ -5032,7 +5075,7 @@
               </div>
             <p>您將在這個步驟選擇自己軍隊中的<b>分遣隊</b>、單位、<k>統帥</k>以及<b>強化</b>。您還需要將<b>領袖</b>和<b>輔助</b>單位與其他單位組成聯合單位。</p>
 <p>在編制軍隊名冊時：</p>
-<ul><li>您軍隊的數值不能超過上方對應戰鬥規模表格中的數值限制（25.03）。例如，在一場入侵規模的戰鬥中，您所新增的<b>分遣隊</b>所消耗的總分遣隊點數不能超過 2 DP。<ul><li>沒有任何單位（包括<b>聯合</b>單位）能夠擁有超過一個<b>強化</b>。</li><li>您的軍隊名冊必須遵循所有被納入軍隊中的規則和單位的條件限制。</li></ul>
+<ul><li>您軍隊的數值不能超過上方對應戰鬥規模表格中的數值限制（25.03）。例如，在一場入侵規模的戰鬥中，您所新增的<b>分遣隊</b>所消耗的總分遣隊點數不能超過 2 DP。<ul><li>沒有任何單位（包括<b>聯合</b>單位）能夠擁有超過一個<b>強化</b>。</li><li>您的軍隊名冊必須遵循所有被納入軍隊中的規則和單位的條件限制。</li></ul></li></ul>
 <p><b>選擇分遣隊</b></p>
 <p>您可以使用分遣隊點數（DP）來選擇軍隊中的<b>分遣隊</b>。您只能選擇自己的<b>軍隊陣營</b>可用的<b>分遣隊</b>。它們每個都將給予您不同的軍隊決策。您選擇同一個<b>分遣隊</b>的次數不能超過一次。將您選擇的<b>分遣隊</b>記錄在軍隊名冊上。</p>
 <p>請注意，一些<b>分遣隊</b>會列有您的軍隊必須或者不能包含的單位或其他<b>分遣隊</b>；您在使用選擇的<b>分遣隊</b>組建軍隊時必須遵循所有的這類規則限制。</p>
@@ -5519,7 +5562,7 @@
     
           <details class="faq-item" data-search-content="問：對沖鋒擲骰的修正（或者對沖鋒擲骰最大距離的修正，例如飛向天空）如何影響對沖鋒目標的選擇？ 答：一個衝鋒單位只能將位於其&lt;b&gt;衝鋒擲骰&lt;/b&gt;&lt;b&gt;最大範圍內&lt;/b&gt;的單位選擇成為&lt;b&gt;衝鋒目標&lt;/b&gt;，這包括任何修正。因此，如果這樣的修正是在選擇了&lt;b&gt;衝鋒目標&lt;/b&gt;之後發生的，並且導致&lt;b&gt;衝鋒目標&lt;/b&gt;不再位於衝鋒的&lt;b&gt;最大距離&lt;/b&gt;內，那麼衝鋒單位必須選擇新的目標（參照“目標不再有效或可行”，04.03.03）。
 
-&lt;b&gt;示例：&lt;/b&gt;&lt;i&gt;一個單位的&lt;b&gt;衝鋒擲骰&lt;/b&gt;為 7&quot;，並且那個單位資料表上的技能使其&lt;b&gt;衝鋒擲骰&lt;/b&gt;結果增加 1 點：這次衝鋒的&lt;b&gt;最大距離&lt;/b&gt;為 8&quot;，因此您可以在單位的 8&quot; 內選擇&lt;b&gt;衝鋒目標&lt;/b&gt;。&lt;i&gt;
+&lt;b&gt;示例：&lt;/b&gt;&lt;i&gt;一個單位的&lt;b&gt;衝鋒擲骰&lt;/b&gt;為 7&quot;，並且那個單位資料表上的技能使其&lt;b&gt;衝鋒擲骰&lt;/b&gt;結果增加 1 點：這次衝鋒的&lt;b&gt;最大距離&lt;/b&gt;為 8&quot;，因此您可以在單位的 8&quot; 內選擇&lt;b&gt;衝鋒目標&lt;/b&gt;。&lt;/i&gt;
 
 &lt;b&gt;示例：&lt;/b&gt;&lt;i&gt;一個&lt;k&gt;飛行&lt;/k&gt;單位的&lt;b&gt;衝鋒擲骰&lt;/b&gt;結果為 9&quot;，並且這個單位選擇&lt;b&gt;飛向天空&lt;/b&gt;；因此這次衝鋒的&lt;b&gt;最大距離&lt;/b&gt;為 7&quot;（9&quot; 減去&lt;b&gt;飛向天空&lt;/b&gt;的 2&quot;），因此您可以在單位的 7&quot; 內選擇&lt;b&gt;衝鋒目標&lt;/b&gt;。&lt;/i&gt;">
             <summary class="faq-q">
@@ -5529,7 +5572,7 @@
             <div class="faq-a">
               <b class="faq-answer-label">官方解答：</b>
               <p>答：一個衝鋒單位只能將位於其<b>衝鋒擲骰</b><b>最大範圍內</b>的單位選擇成為<b>衝鋒目標</b>，這包括任何修正。因此，如果這樣的修正是在選擇了<b>衝鋒目標</b>之後發生的，並且導致<b>衝鋒目標</b>不再位於衝鋒的<b>最大距離</b>內，那麼衝鋒單位必須選擇新的目標（參照“目標不再有效或可行”，04.03.03）。</p>
-<p><b>示例：</b><i>一個單位的<b>衝鋒擲骰</b>為 7"，並且那個單位資料表上的技能使其<b>衝鋒擲骰</b>結果增加 1 點：這次衝鋒的<b>最大距離</b>為 8"，因此您可以在單位的 8" 內選擇<b>衝鋒目標</b>。<i></p>
+<p><b>示例：</b><i>一個單位的<b>衝鋒擲骰</b>為 7"，並且那個單位資料表上的技能使其<b>衝鋒擲骰</b>結果增加 1 點：這次衝鋒的<b>最大距離</b>為 8"，因此您可以在單位的 8" 內選擇<b>衝鋒目標</b>。</i></p>
 <p><b>示例：</b><i>一個<k>飛行</k>單位的<b>衝鋒擲骰</b>結果為 9"，並且這個單位選擇<b>飛向天空</b>；因此這次衝鋒的<b>最大距離</b>為 7"（9" 減去<b>飛向天空</b>的 2"），因此您可以在單位的 7" 內選擇<b>衝鋒目標</b>。</i></p>
             </div>
           </details>
@@ -5960,8 +6003,10 @@
 
 <!-- 回到頂部按鈕 -->
 <a href="#top" class="back-to-top" id="backToTop" title="回到頂部">▲</a>
+<!-- 浮動章節目錄按鈕 (窄螢幕與行動端隨時開啟目錄) -->
+<button type="button" class="floating-toc-btn" id="floatingTocBtn" aria-label="開啟章節目錄" title="快速跳轉章節"><span>📑</span> 目錄</button>
 
-<script src="shared.js?v=3.5.1"></script>
+<script src="shared.js?v=3.5.2"></script>
 <script>
   // ================= 核心規則即時搜尋與折疊控制 =================
   document.addEventListener('DOMContentLoaded', () => {
@@ -6141,7 +6186,10 @@
       }
     }
 
+    const floatingTocBtn = document.getElementById('floatingTocBtn');
+
     if (drawerToggle) drawerToggle.addEventListener('click', openDrawer);
+    if (floatingTocBtn) floatingTocBtn.addEventListener('click', openDrawer);
     if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
     if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
 
@@ -6180,9 +6228,13 @@
         tocLinks.forEach(link => {
           if (link.getAttribute('data-target') === currentId) {
             link.classList.add('active');
-            // 如果是在右側桌面 TOC，確保在視野中
+            // 如果是在右側桌面 TOC，僅滾動 TOC 內部容器，絕不呼叫 window-bubbling scrollIntoView
             if (link.closest('#crTocSidebar')) {
-              link.scrollIntoView({ block: 'nearest' });
+              const body = link.closest('.cr-toc-body');
+              if (body) {
+                const targetScroll = link.offsetTop - body.offsetTop - 50;
+                body.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
+              }
             }
           } else {
             link.classList.remove('active');
@@ -6200,12 +6252,14 @@
     // 初始化執行一次
     onScroll();
 
-    // 回到頂部按鈕顯隱
+    // 回到頂部與浮動目錄按鈕顯隱
     window.addEventListener('scroll', () => {
       if (window.scrollY > 400) {
         backToTop.classList.add('visible');
+        if (floatingTocBtn) floatingTocBtn.classList.add('visible');
       } else {
         backToTop.classList.remove('visible');
+        if (floatingTocBtn) floatingTocBtn.classList.remove('visible');
       }
     });
   });
