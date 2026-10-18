@@ -9,11 +9,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000 第 11 版：完整核心規則 (Core Rules) 繁體中文全檢索情報庫</title>
   <meta name="description" content="官方戰錘 40,000 第 11 版完整核心規則庫，繁體中文全檢索系統，收錄全部 25 個核心章節、10 個通用核心計謀、40 項核心與武器技能、官方規則註解、以及 66 項官方常見問答 (FAQ) 與最新平衡勘誤。">
-  <link rel="stylesheet" href="shared.css?v=3.4.3">
+  <link rel="stylesheet" href="shared.css?v=3.4.4">
   <style>
     /* ================= 40K 核心規則專用視覺樣式 ================= */
     body.theme-40k-core {
-      background-color: #f8fafc;
+      background-color: var(--surface-ground);
       font-size:13px;
       line-height: 1.5;
     }
@@ -28,12 +28,12 @@
 
     /* 頂部標題 Hero */
     .cr-header {
-      background: linear-gradient(135deg, #091326 0%, #1e3a8a 60%, #172554 100%);
-      border-left: 8px solid #3b82f6;
+      background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-blue-900) 60%, var(--color-blue-950) 100%);
+      border-left: 8px solid var(--color-blue-500);
       border-radius: var(--radius-md);
       padding: 24px 28px;
       margin-bottom: 20px;
-      color: #ffffff;
+      color: var(--color-white);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -56,7 +56,7 @@
     .title-group h2 {
       font-size:12px;
       letter-spacing: 3px;
-      color: #93c5fd;
+      color: var(--color-blue-300);
       text-transform: uppercase;
       font-family: var(--font-display);
       margin-bottom: 4px;
@@ -66,7 +66,7 @@
       font-size:32px;
       font-weight: 900;
       letter-spacing: 1px;
-      color: #ffffff;
+      color: var(--color-white);
       text-transform: uppercase;
       line-height: 1.15;
       margin: 2px 0 8px 0;
@@ -84,8 +84,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #2563eb;
-      color: #ffffff;
+      background: var(--color-blue-600);
+      color: var(--color-white);
       font-weight: 800;
       font-size:12px;
       padding: 3px 10px;
@@ -96,17 +96,17 @@
     }
 
     .edition-pill-gold {
-      background: #d97706;
+      background: var(--color-amber-600);
       box-shadow: 0 2px 8px rgba(217, 119, 6, 0.35);
     }
 
     .edition-pill-cyan {
-      background: #0891b2;
+      background: var(--color-cyan-600);
       box-shadow: 0 2px 8px rgba(8, 145, 178, 0.35);
     }
 
     .intro-p {
-      color: #cbd5e1;
+      color: var(--theme-border);
       font-size:12px;
       line-height: 1.6;
       max-width: 840px;
@@ -119,7 +119,7 @@
       z-index: 95;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(10px);
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--theme-border);
       border-radius: var(--radius-sm);
       padding: 12px 16px;
       margin-bottom: 20px;
@@ -145,7 +145,7 @@
       left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: #64748b;
+      color: var(--color-slate-500);
       font-size:14px;
       pointer-events: none;
     }
@@ -153,18 +153,18 @@
     .cr-search-input {
       width: 100%;
       padding: 9px 36px 9px 34px;
-      border: 1.5px solid #cbd5e1;
+      border: 1.5px solid var(--theme-border);
       border-radius: var(--radius-sm);
       font-size:13px;
       outline: none;
       box-sizing: border-box;
       transition: all 0.2s ease;
-      background: #ffffff;
-      color: #0f172a;
+      background: var(--color-white);
+      color: var(--theme-dark);
     }
 
     .cr-search-input:focus {
-      border-color: #2563eb;
+      border-color: var(--color-blue-600);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
@@ -175,7 +175,7 @@
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-size:14px;
       cursor: pointer;
       display: none;
@@ -183,7 +183,7 @@
     }
 
     .search-clear-btn:hover {
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     .cr-btn-group {
@@ -197,9 +197,9 @@
       font-size:12px;
       font-weight: 700;
       border-radius: var(--radius-sm);
-      border: 1px solid #cbd5e1;
-      background: #f8fafc;
-      color: #334155;
+      border: 1px solid var(--theme-border);
+      background: var(--surface-ground);
+      color: var(--color-slate-700);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -208,8 +208,8 @@
     }
 
     .cr-btn:hover {
-      background: #e2e8f0;
-      color: #0f172a;
+      background: var(--border-subtle);
+      color: var(--theme-dark);
     }
 
     /* 章節分類導航標籤 */
@@ -218,7 +218,7 @@
       flex-wrap: wrap;
       gap: 6px;
       padding-top: 4px;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid var(--surface-subtle);
     }
 
     .part-pill {
@@ -227,8 +227,8 @@
       padding: 4px 10px;
       border-radius: 4px;
       text-decoration: none;
-      background: #f1f5f9;
-      color: #1e3a8a;
+      background: var(--surface-subtle);
+      color: var(--color-blue-900);
       transition: all 0.15s ease;
       display: inline-flex;
       align-items: center;
@@ -236,24 +236,24 @@
     }
 
     .part-pill:hover, .part-pill.active {
-      background: #2563eb;
-      color: #ffffff;
+      background: var(--color-blue-600);
+      color: var(--color-white);
     }
 
     .search-status-bar {
       display: none;
       font-size:12px;
-      color: #2563eb;
+      color: var(--color-blue-600);
       font-weight: 700;
       padding: 2px 4px;
     }
 
     /* 章節標題 Banner */
     .section-banner {
-      background: #0f172a;
-      color: #ffffff;
+      background: var(--theme-dark);
+      color: var(--color-white);
       padding: 12px 18px;
-      border-left: 6px solid #2563eb;
+      border-left: 6px solid var(--color-blue-600);
       border-radius: var(--radius-sm);
       font-size:18px;
       font-weight: 900;
@@ -276,7 +276,7 @@
 
     .section-en {
       font-size:12px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-weight: 600;
       letter-spacing: 1px;
     }
@@ -285,8 +285,8 @@
       font-size:12px;
       padding: 2px 8px;
       border-radius: 3px;
-      background: #2563eb;
-      color: #ffffff;
+      background: var(--color-blue-600);
+      color: var(--color-white);
       font-family: var(--font-body);
       font-weight: 700;
       flex-shrink: 0;
@@ -294,8 +294,8 @@
 
     /* 規則容器 Card */
     .rule-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       border-radius: var(--radius-sm);
       padding: 18px 20px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -306,10 +306,10 @@
     .rule-card-header {
       font-size:16px;
       font-weight: 800;
-      color: #1e3a8a;
+      color: var(--color-blue-900);
       margin-bottom: 12px;
       padding-bottom: 8px;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 2px solid var(--border-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -319,8 +319,8 @@
 
     .rule-code-badge {
       font-size:11px;
-      background: #e2e8f0;
-      color: #334155;
+      background: var(--border-subtle);
+      color: var(--color-slate-700);
       font-family: var(--font-display);
       font-weight: 800;
       padding: 2px 8px;
@@ -330,7 +330,7 @@
 
     .rule-card p {
       margin-bottom: 10px;
-      color: #334155;
+      color: var(--color-slate-700);
       line-height: 1.6;
     }
 
@@ -346,7 +346,7 @@
     .rule-card li, .rule-sub-body li {
       margin-bottom: 6px;
       line-height: 1.55;
-      color: #334155;
+      color: var(--color-slate-700);
     }
 
     /* 規則步驟樣式 (Steps & Examples) */
@@ -357,14 +357,14 @@
       margin: 16px 0 8px 0;
       font-size:14px;
       font-weight: 800;
-      color: #1e3a8a;
+      color: var(--color-blue-900);
       padding-bottom: 4px;
-      border-bottom: 1px dashed #cbd5e1;
+      border-bottom: 1px dashed var(--theme-border);
     }
 
     .step-badge {
-      background: #2563eb;
-      color: #ffffff;
+      background: var(--color-blue-600);
+      color: var(--color-white);
       font-size:11px;
       font-weight: 800;
       padding: 2px 8px;
@@ -376,7 +376,7 @@
     }
 
     .step-title {
-      color: #0f172a;
+      color: var(--theme-dark);
       font-family: var(--font-display);
       font-size:16px;
       letter-spacing: 0.5px;
@@ -390,36 +390,36 @@
     .rule-bullet-list li {
       margin-bottom: 6px;
       line-height: 1.6;
-      color: #334155;
+      color: var(--color-slate-700);
     }
 
     .rule-weapon-item {
-      background: #f1f5f9;
-      border-left: 3px solid #3b82f6;
+      background: var(--surface-subtle);
+      border-left: 3px solid var(--color-blue-500);
       padding: 6px 12px;
       margin: 6px 0;
       border-radius: 0 4px 4px 0;
       font-size:12px;
-      color: #1e293b;
+      color: var(--color-slate-800);
       font-weight: 600;
     }
 
     .rule-numbered-item {
       margin: 8px 0;
       line-height: 1.6;
-      color: #334155;
+      color: var(--color-slate-700);
     }
 
     .rule-numbered-item .item-num {
       font-weight: 800;
-      color: #2563eb;
+      color: var(--color-blue-600);
       margin-right: 4px;
     }
 
     .rule-substep-item {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-left: 3px solid #64748b;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--color-slate-500);
       padding: 6px 12px;
       margin: 6px 0;
       border-radius: 0 4px 4px 0;
@@ -428,7 +428,7 @@
 
     .substep-tag {
       font-weight: 800;
-      color: #1e3a8a;
+      color: var(--color-blue-900);
       margin-right: 6px;
     }
 
@@ -436,11 +436,11 @@
     strong em, em strong {
       font-style: normal;
       font-weight: 800;
-      color: #1d4ed8;
-      background: #eff6ff;
+      color: var(--color-blue-700);
+      background: var(--color-blue-50);
       padding: 1px 5px;
       border-radius: 3px;
-      border: 1px solid #bfdbfe;
+      border: 1px solid var(--color-blue-200);
       margin: 0 1px;
       display: inline-block;
       line-height: 1.3;
@@ -448,8 +448,8 @@
 
     /* 子規則折疊 Accordion */
     .rule-sub-rule {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
       margin: 12px 0;
       overflow: hidden;
@@ -457,15 +457,15 @@
     }
 
     .rule-sub-rule[open] {
-      border-color: #93c5fd;
-      background: #ffffff;
+      border-color: var(--color-blue-300);
+      background: var(--color-white);
       box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
     }
 
     .rule-sub-summary {
       padding: 10px 14px;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--theme-dark);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -473,8 +473,8 @@
       user-select: none;
       list-style: none;
       font-size:14px;
-      background: #f1f5f9;
-      border-left: 4px solid #3b82f6;
+      background: var(--surface-subtle);
+      border-left: 4px solid var(--color-blue-500);
     }
 
     .rule-sub-summary::-webkit-details-marker {
@@ -489,38 +489,38 @@
 
     .sub-rule-toggle {
       font-size:12px;
-      color: #64748b;
+      color: var(--color-slate-500);
       transition: transform 0.2s ease;
     }
 
     .rule-sub-rule[open] .sub-rule-toggle {
       transform: rotate(180deg);
-      color: #2563eb;
+      color: var(--color-blue-600);
     }
 
     .rule-sub-body {
       padding: 14px 16px;
-      border-top: 1px solid #e2e8f0;
-      color: #334155;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--color-slate-700);
       font-size:13px;
       line-height: 1.6;
     }
 
     /* 關鍵字與特徵 Tag <k> */
     k {
-      background: #e0f2fe;
-      color: #0369a1;
+      background: var(--color-sky-100);
+      color: var(--color-sky-700);
       padding: 1px 6px;
       border-radius: 3px;
       font-weight: 700;
-      border: 1px solid #bae6fd;
+      border: 1px solid var(--color-sky-200);
       font-size: 11px;
       display: inline-block;
       margin: 0 1px;
     }
 
     appref {
-      color: #2563eb;
+      color: var(--color-blue-600);
       font-weight: 700;
     }
 
@@ -532,33 +532,33 @@
       font-size:12px;
       border-radius: 4px;
       overflow: hidden;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--theme-border);
     }
 
     .rule-card th, .rule-card td, .rule-sub-body th, .rule-sub-body td {
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--theme-border);
       padding: 8px 12px;
       text-align: left;
     }
 
     .rule-card th, .rule-sub-body th {
-      background: #1e293b;
-      color: #ffffff;
+      background: var(--color-slate-800);
+      color: var(--color-white);
       font-weight: 800;
     }
 
     .rule-card tr:nth-child(even), .rule-sub-body tr:nth-child(even) {
-      background: #f8fafc;
+      background: var(--surface-ground);
     }
 
     /* 官方圖解容器 */
     .rule-diagram-container {
       margin: 16px 0;
       text-align: center;
-      background: #0f172a;
+      background: var(--theme-dark);
       border-radius: var(--radius-sm);
       padding: 12px;
-      border: 1px solid #334155;
+      border: 1px solid var(--color-slate-700);
     }
 
     .rule-diagram-img {
@@ -570,7 +570,7 @@
     }
 
     .rule-diagram-caption {
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-size:11px;
       margin-top: 8px;
     }
@@ -584,9 +584,9 @@
     }
 
     .stratagem-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-top: 4px solid #2563eb;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
+      border-top: 4px solid var(--color-blue-600);
       border-radius: var(--radius-sm);
       padding: 16px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -599,19 +599,19 @@
       align-items: center;
       margin-bottom: 8px;
       padding-bottom: 6px;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 2px solid var(--border-subtle);
     }
 
     .strat-name {
       font-size:18px;
       font-weight: 900;
-      color: #0f172a;
+      color: var(--theme-dark);
       font-family: var(--font-display);
     }
 
     .strat-cp {
-      background: #dc2626;
-      color: #ffffff;
+      background: var(--color-danger);
+      color: var(--color-white);
       font-size:13px;
       font-weight: 900;
       padding: 2px 8px;
@@ -628,17 +628,17 @@
 
     .strat-label {
       font-weight: 800;
-      color: #1e3a8a;
+      color: var(--color-blue-900);
       display: inline-block;
       min-width: 52px;
     }
 
     .strat-restriction {
-      background: #fffbeb;
-      border-left: 3px solid #d97706;
+      background: var(--color-amber-lightest);
+      border-left: 3px solid var(--color-amber-600);
       padding: 6px 10px;
       font-size:12px;
-      color: #92400e;
+      color: var(--color-amber-800);
       border-radius: 2px;
       margin-top: 8px;
     }
@@ -652,9 +652,9 @@
     }
 
     .ability-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-left: 4px solid #0284c7;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
+      border-left: 4px solid var(--color-sky-600);
       border-radius: var(--radius-sm);
       padding: 14px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -666,29 +666,29 @@
       align-items: center;
       margin-bottom: 8px;
       padding-bottom: 4px;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .ability-title {
       font-size:16px;
       font-weight: 800;
-      color: #0369a1;
+      color: var(--color-sky-700);
       font-family: var(--font-display);
     }
 
     .ability-badge {
       font-size:11px;
       font-weight: 800;
-      background: #e0f2fe;
-      color: #0369a1;
+      background: var(--color-sky-100);
+      color: var(--color-sky-700);
       padding: 2px 6px;
       border-radius: 3px;
     }
 
     /* 勘誤與 FAQ */
     .errata-box {
-      background: #fef2f2;
-      border: 1.5px solid #f87171;
+      background: var(--color-red-50);
+      border: 1.5px solid var(--color-red-400);
       border-radius: var(--radius-sm);
       padding: 14px 16px;
       margin-bottom: 14px;
@@ -696,7 +696,7 @@
 
     .errata-title {
       font-weight: 800;
-      color: #991b1b;
+      color: var(--color-red-800);
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -705,8 +705,8 @@
     }
 
     .faq-item {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       border-radius: 6px;
       margin-bottom: 8px;
       overflow: hidden;
@@ -715,31 +715,31 @@
     .faq-q {
       padding: 10px 14px;
       font-weight: 800;
-      color: #1e3a8a;
+      color: var(--color-blue-900);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #f8fafc;
+      background: var(--surface-ground);
       font-size:13px;
     }
 
     .faq-item[open] .faq-q {
-      background: #eff6ff;
-      border-bottom: 1px solid #dbeafe;
+      background: var(--color-blue-50);
+      border-bottom: 1px solid var(--color-blue-100);
     }
 
     .faq-a {
       padding: 12px 16px;
-      color: #334155;
+      color: var(--color-slate-700);
       font-size:12px;
       line-height: 1.55;
     }
 
     /* 搜尋高亮與狀態 */
     mark.highlight {
-      background: #fef08a;
-      color: #0f172a;
+      background: var(--color-amber-50);
+      color: var(--theme-dark);
       padding: 0 2px;
       border-radius: 2px;
       font-weight: 700;
@@ -756,8 +756,8 @@
       right: 24px;
       width: 42px;
       height: 42px;
-      background: #2563eb;
-      color: #ffffff;
+      background: var(--color-blue-600);
+      color: var(--color-white);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -777,11 +777,50 @@
     }
 
     .back-to-top:hover {
-      background: #1d4ed8;
+      background: var(--color-blue-700);
       transform: translateY(-2px);
     }
+
+    /* 核心規則專屬表格與問答區塊 */
+    .wound-matrix-box {
+      margin: 10px 0;
+      background: var(--surface-ground);
+      border: 1px solid var(--theme-border);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+    }
+    .wound-matrix-title {
+      font-weight: 800;
+      font-size: var(--font-size-sm);
+      color: var(--color-blue-900);
+      margin-bottom: 6px;
+    }
+    .wound-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: var(--font-size-xs);
+    }
+    .wound-matrix-header {
+      background: var(--color-slate-800);
+      color: var(--color-white);
+    }
+    .banner-warning {
+      border-left-color: var(--color-amber-600) !important;
+    }
+    .badge-warning-faq {
+      background: var(--color-amber-600) !important;
+    }
+    .faq-card-header {
+      color: var(--color-amber-700) !important;
+      border-bottom-color: var(--color-amber-200) !important;
+    }
+    .rules-card-blue-header {
+      color: var(--color-blue-900) !important;
+    }
+
   </style>
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -929,12 +968,12 @@
       </nav>
     </div>
 
-    <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+    <div class="sidebar-footer d-flex flex-col gap-1 items-stretch">
+      <div class="d-flex justify-between items-center w-full">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.3 PWA</span>
+        <span class="version-badge font-badge">v3.4.3 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
+      <button type="button" class="btn-pwa-install sidebar-pwa-btn w-full justify-center font-badge">📲 安裝為桌面/手機 App</button>
     </div>
   </aside>
 
@@ -995,7 +1034,7 @@
 
           <!-- 分類導航跳轉標籤 -->
           <div class="cr-parts-nav">
-            <span style="font-size:11px; font-weight:800; color:#64748b; margin-right:4px;">章節跳轉:</span>
+            <span class="font-badge font-extrabold text-muted mr-1">章節跳轉:</span>
             <a href="#part-1" class="part-pill">Ⅰ. 核心概念 (01-06)</a>
             <a href="#part-2" class="part-pill">Ⅱ. 戰鬥輪次 (07-12)</a>
             <a href="#part-3" class="part-pill">Ⅲ. 地形與計謀 (13-16)</a>
@@ -1980,10 +2019,10 @@
                 <span class="rule-code-badge">05.02</span>
               </div>
             
-                <div style="margin: 10px 0; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px;">
-                  <div style="font-weight: 800; font-size:13px; color: #1e3a8a; margin-bottom: 6px;">致傷判定速查表 (S vs T Wound Matrix)</div>
-                  <table style="width: 100%; border-collapse: collapse; text-align: center; font-size:12px;">
-                    <tr style="background: #1e293b; color: #fff;">
+                <div class="wound-matrix-box">
+                  <div class="wound-matrix-title">致傷判定速查表 (S vs T Wound Matrix)</div>
+                  <table class="wound-matrix-table">
+                    <tr class="wound-matrix-header">
                       <th>力量 (S) 與 堅韌 (T) 對比</th>
                       <th>成功致傷骰值</th>
                       <th>說明</th>
@@ -4798,17 +4837,17 @@
 <p>突擊脫離移動(18.07),而不是常規的脫離移動。</p></div></section>
     <!-- SECTION FAQ & ERRATA -->
     <section class="rule-section-block" id="sec-faq" data-section-name="常見問答 FAQ 規則勘誤 ERRATA">
-      <div class="section-banner" style="border-left-color: #d97706;">
+      <div class="section-banner banner-warning">
         <div class="section-banner-title">
           <span>官方常見問答 (FAQ) 與最新規則勘誤 (ERRATA)</span>
           <span class="section-en">(OFFICIAL FAQ & ERRATA)</span>
         </div>
-        <span class="section-badge" style="background: #d97706;">66 項官方解答</span>
+        <span class="section-badge badge-warning-faq">66 項官方解答</span>
       </div>
 
       <!-- 最新官方勘誤重點 -->
       <div class="rule-card">
-        <div class="rule-card-header" style="color: #b45309; border-bottom-color: #fde68a;">
+        <div class="rule-card-header faq-card-header">
           <span>⚠️ 官方核心規則最新勘誤修訂 (Latest Errata Updates)</span>
           <span class="rule-code-badge badge-rule-amber">BALANCE UPDATE</span>
         </div>
@@ -4873,11 +4912,11 @@
 
       <!-- 官方常見問答 Q&A -->
       <div class="rule-card">
-        <div class="rule-card-header" style="color: #1e3a8a;">
+        <div class="rule-card-header rules-card-blue-header">
           <span>❓ 官方常見問題解答清單 (Frequently Asked Questions - 59 Q&As)</span>
           <span class="rule-code-badge">APP 官方即時判定</span>
         </div>
-        <p style="color: #64748b; font-size:12px; margin-bottom: 14px;">
+        <p class="font-xs text-muted mb-3">
           以下為官方《Warhammer 40,000》應用程式收錄之所有核心規則常見疑問官方裁定，可使用上方搜尋列快速檢索問題或關鍵字：
         </p>
         <div class="faq-list">
@@ -5567,7 +5606,7 @@
 <!-- 回到頂部按鈕 -->
 <a href="#top" class="back-to-top" id="backToTop" title="回到頂部">▲</a>
 
-<script src="shared.js?v=3.4.3"></script>
+<script src="shared.js?v=3.4.4"></script>
 <script>
   // ================= 核心規則即時搜尋與折疊控制 =================
   document.addEventListener('DOMContentLoaded', () => {
