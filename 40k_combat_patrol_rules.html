@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000 第 11 版：巡邏特遣隊 (Combat Patrol) 繁體中文核心作戰手冊</title>
   <meta name="description" content="戰錘 40,000 第 11 版巡邏特遣隊 (Combat Patrol) 繁體中文核心作戰手冊，涵蓋軍力建構、10 步驟任務流程、次要目標與標準戰場部署佈局。">
-  <link rel="stylesheet" href="shared.css?v=3.4.4">
+  <link rel="stylesheet" href="shared.css?v=3.4.5">
 
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -162,7 +162,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.4 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.5 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -270,10 +270,10 @@
         <span>階段一：指揮階段 (Command Phase)</span>
         <span class="step-number">1</span>
       </div>
-      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:#334155;">
+      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:var(--color-slate-700);">
         <li><strong>獲得指揮點 (Command Point)：</strong>每名玩家在自己的指揮階段開始時獲得 <strong>1 CP</strong>。</li>
         <li><strong>戰場震撼檢定 (Battle-shock Test)：</strong>凡是目前人數「<strong>低於起始人數一半（半損 Below Half-strength）</strong>」的單位，必須擲 2D6。
-          <ul style="padding-left:16px; margin-top:4px; color:#475569;">
+          <ul style="padding-left:16px; margin-top:4px; color:var(--color-slate-600);">
             <li>擲骰結果 &ge; 該單位領導力 (LD)：<strong>通過檢定</strong>。</li>
             <li>擲骰結果 &lt; 該單位領導力 (LD)：<strong>陷入戰場震撼 (Battleshocked)</strong>！直至下一指揮階段前，該單位 <strong>OC 歸零</strong>，且<strong>無法受惠於任何作戰計策 (Stratagems)</strong>，撤退時必須通過亡命檢定。</li>
           </ul>
@@ -287,7 +287,7 @@
         <span>階段二：移動階段 (Movement Phase)</span>
         <span class="step-number">2</span>
       </div>
-      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:#334155;">
+      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:var(--color-slate-700);">
         <li><strong>普通移動 (Normal Move)：</strong>最多移動 M" 英吋。不得進入敵方連繫範圍 (Engagement Range 1")。</li>
         <li><strong>前進奔跑 (Advance)：</strong>移動 M" + D6" 英吋。本回合內<strong>無法射擊（除非持疾馳 Assault 武器）</strong>且<strong>無法宣告衝鋒</strong>。</li>
         <li><strong>撤退 (Fall Back)：</strong>已處於交戰狀態的單位脫離近戰。撤退後本回合<strong>無法射擊與衝鋒</strong>。</li>
@@ -301,7 +301,7 @@
         <span>階段三：射擊階段 (Shooting Phase)</span>
         <span class="step-number">3</span>
       </div>
-      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:#334155;">
+      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:var(--color-slate-700);">
         <li><strong>選定射擊單位：</strong>該單位所有武器必須在擲骰前<strong>同時宣告分派目標</strong>。處於近戰中的單位無法射擊（除非為手槍 Pistol 或凶獸/載具 Big Guns Never Tire）。</li>
         <li><strong>命中判定 (Hit Roll)：</strong>擲 D6，結果 &ge; 武器技能 (BS) 即命中。擲出未修正的 6 為<strong>爆擊命中 (Critical Hit)</strong>。</li>
         <li><strong>受傷判定 (Wound Roll)：</strong>比較武器力量 (S) 與目標堅韌度 (T)（詳見下方受傷對照表）。擲出未修正的 6 為<strong>爆擊受傷 (Critical Wound)</strong>。</li>
@@ -315,7 +315,7 @@
         <span>階段四：衝鋒階段 (Charge Phase)</span>
         <span class="step-number">4</span>
       </div>
-      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:#334155;">
+      <ul style="padding-left:18px; line-height:1.7; font-size:12px; color:var(--color-slate-700);">
         <li><strong>宣告衝鋒目標：</strong>挑選 12" 範圍內的敵方單位。已奔跑 (Advance)、撤退或已處於交戰的單位無法衝鋒。</li>
         <li><strong>擲骰衝鋒距離：</strong>擲 <strong>2D6</strong>。總點數為本次可衝鋒的最大英吋數。</li>
         <li><strong>成功條件：</strong>衝鋒模型必須能夠移動進入目標單位的 1" 交戰範圍（Engagement Range），且若可能的話進入<strong>底盤接觸 (Base-to-Base)</strong>。若距離不足以接觸任何目標單位，則<strong>衝鋒失敗</strong>，模型原地不動！</li>
@@ -330,18 +330,18 @@
       </div>
       <div class="grid-2">
         <div>
-          <strong style="color:#1e3a8a;">1. 突擊優先交戰 (Fights First)：</strong>
-          <p style="font-size:12px; color:#475569; margin-top:2px;">
+          <strong style="color:var(--color-blue-900);">1. 突擊優先交戰 (Fights First)：</strong>
+          <p style="font-size:12px; color:var(--color-slate-600); margin-top:2px;">
             本回合<strong>成功發動衝鋒</strong>的單位，以及擁有「突擊優先」特規的單位，享有優先交戰權！由主動方玩家先挑選一個衝鋒單位攻擊，接著雙方交替進行。
           </p>
-          <strong style="color:#1e3a8a; margin-top:8px; display:inline-block;">2. 剩餘單位交戰 (Remaining Combats)：</strong>
-          <p style="font-size:12px; color:#475569; margin-top:2px;">
+          <strong style="color:var(--color-blue-900); margin-top:8px; display:inline-block;">2. 剩餘單位交戰 (Remaining Combats)：</strong>
+          <p style="font-size:12px; color:var(--color-slate-600); margin-top:2px;">
             當所有突擊優先單位攻擊完畢後，由<strong>非主動回合玩家 (守方)</strong> 開始，雙方輪流挑選 1 個處於交戰範圍內的單位戰鬥。
           </p>
         </div>
         <div>
-          <strong style="color:#1e3a8a;">3. 單位交戰三步驟：</strong>
-          <ol style="font-size:12px; color:#334155; padding-left:16px; line-height:1.6; margin-top:2px;">
+          <strong style="color:var(--color-blue-900);">3. 單位交戰三步驟：</strong>
+          <ol style="font-size:12px; color:var(--color-slate-700); padding-left:16px; line-height:1.6; margin-top:2px;">
             <li><strong>移入接觸 (Pile-in)：</strong>每名模型最多移動 3"，必須朝向最近的敵方模型靠近。</li>
             <li><strong>進行近戰肉搏：</strong>擲 WS 命中 &rarr; S vs T 受傷 &rarr; 敵方存救 &rarr; 計算肉搏傷害。</li>
             <li><strong>整頓收攏 (Consolidate)：</strong>交戰完畢後，每名模型最多移動 3"，必須朝向最近敵方模型或客觀目標移動。</li>
@@ -400,10 +400,10 @@
     <span class="section-badge">STRATAGEMS (APP VERIFIED)</span>
   </div>
 
-  <div class="info-callout" style="border-left-color: #ef4444; background: #fff5f5; margin-bottom: 18px;">
-    <strong style="color: #b91c1c;">⚠️ 官方 App 戰巡隊規則特別限制（禁用計謀）：</strong><br>
+  <div class="info-callout" style="border-left-color: var(--color-red-500); background: var(--color-red-50); margin-bottom: 18px;">
+    <strong style="color: var(--color-red-700);">⚠️ 官方 App 戰巡隊規則特別限制（禁用計謀）：</strong><br>
     戰鬥巡邏遊戲模擬的是兩支小規模部隊之間的快速戰術交鋒，因此無法獲得大型正規軍隊擁有的重裝後勤支援。在進行戰巡隊遊戲時，以下 3 項核心計謀<strong>無法使用</strong>：
-    <span style="display: inline-block; margin-left: 6px; font-weight: 700; color: #991b1b;">
+    <span style="display: inline-block; margin-left: 6px; font-weight: 700; color: var(--faction-angels);">
       🚫 1. 粉碎衝擊 (Tank Shock) ｜ 🚫 2. 炸藥 (Grenades) ｜ 🚫 3. 迅速入場 (Rapid Ingress)
     </span>
   </div>
@@ -525,26 +525,26 @@
       </div>
 
       <!-- 官方三大佈局地圖展示 -->
-      <div style="background:#0f172a; padding:16px; border-radius:8px; color:#ffffff;">
+      <div style="background:var(--theme-dark); padding:16px; border-radius:8px; color:var(--color-white);">
         <div style="font-size:14px; font-weight:800; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
           <span>🗺️ 官方 App 實機三大部署地圖 (Deployment Layouts)</span>
-          <span style="font-size:12px; color:#94a3b8; font-weight:normal;">44" &times; 30" 桌面規範</span>
+          <span style="font-size:12px; color:var(--color-slate-400); font-weight:normal;">44" &times; 30" 桌面規範</span>
         </div>
         <div class="grid-3" style="margin:0;">
           <div style="text-align:center; background:rgba(255,255,255,0.05); padding:10px; border-radius:6px;">
-            <div style="font-weight:700; color:#60a5fa; margin-bottom:6px;">佈局 A (D6 擲出 1-2)</div>
+            <div style="font-weight:700; color:var(--color-blue-400); margin-bottom:6px;">佈局 A (D6 擲出 1-2)</div>
             <img src="assets/40k_rules/82e08cef-90a9-4fb7-920e-4f8d05e151c4.jpg" alt="Layout A" style="max-width:100%; height:auto; border-radius:4px; border:1px solid rgba(255,255,255,0.1);" decoding="async" loading="lazy">
-            <div style="font-size:12px; color:#94a3b8; margin-top:6px;">角對角斜向部署，中央無人區交鋒</div>
+            <div style="font-size:12px; color:var(--color-slate-400); margin-top:6px;">角對角斜向部署，中央無人區交鋒</div>
           </div>
           <div style="text-align:center; background:rgba(255,255,255,0.05); padding:10px; border-radius:6px;">
-            <div style="font-weight:700; color:#34d399; margin-bottom:6px;">佈局 B (D6 擲出 3-4)</div>
+            <div style="font-weight:700; color:var(--color-emerald-400); margin-bottom:6px;">佈局 B (D6 擲出 3-4)</div>
             <img src="assets/40k_rules/8354aea5-9750-498b-a227-9d1875e9db85.jpg" alt="Layout B" style="max-width:100%; height:auto; border-radius:4px; border:1px solid rgba(255,255,255,0.1);" decoding="async" loading="lazy">
-            <div style="font-size:12px; color:#94a3b8; margin-top:6px;">長邊橫切推進，雙方底線防禦陣地</div>
+            <div style="font-size:12px; color:var(--color-slate-400); margin-top:6px;">長邊橫切推進，雙方底線防禦陣地</div>
           </div>
           <div style="text-align:center; background:rgba(255,255,255,0.05); padding:10px; border-radius:6px;">
-            <div style="font-weight:700; color:#fbbf24; margin-bottom:6px;">佈局 C (D6 擲出 5-6)</div>
+            <div style="font-weight:700; color:var(--color-amber-400); margin-bottom:6px;">佈局 C (D6 擲出 5-6)</div>
             <img src="assets/40k_rules/346a8c02-f2b2-4e25-9592-280c63cf46f3.jpg" alt="Layout C" style="max-width:100%; height:auto; border-radius:4px; border:1px solid rgba(255,255,255,0.1);" decoding="async" loading="lazy">
-            <div style="font-size:12px; color:#94a3b8; margin-top:6px;">長距縱向接戰，考驗前鋒與機動單位</div>
+            <div style="font-size:12px; color:var(--color-slate-400); margin-top:6px;">長距縱向接戰，考驗前鋒與機動單位</div>
           </div>
         </div>
       </div>
@@ -552,16 +552,16 @@
       <!-- 步驟 4-10 -->
       <div class="grid-2" style="margin:0;">
         <div class="mission-step-card">
-          <strong style="color:#1e3a8a; font-size:14px;">04. 決定攻防方 ＆ 05. 宣布戰鬥編隊</strong>
-          <ul style="font-size:12px; color:#475569; margin-top:6px; padding-left:16px; line-height:1.6;">
+          <strong style="color:var(--color-blue-900); font-size:14px;">04. 決定攻防方 ＆ 05. 宣布戰鬥編隊</strong>
+          <ul style="font-size:12px; color:var(--color-slate-600); margin-top:6px; padding-left:16px; line-height:1.6;">
             <li><strong>拼骰攻防：</strong>勝者決定誰是進攻方，誰是防守方。</li>
             <li><strong>秘密記錄編隊：</strong>記錄哪些單位在運輸載具中、哪些在戰略預備隊（總數不得超過半數）、領袖與護衛聯合、以及在 <strong>2 個可選強化 (Enhancements)</strong> 中挑選哪一個，隨後同時揭曉！</li>
           </ul>
         </div>
 
         <div class="mission-step-card">
-          <strong style="color:#1e3a8a; font-size:14px;">06. 部署軍隊 ＆ 07. 決定先手第一回合</strong>
-          <ul style="font-size:12px; color:#475569; margin-top:6px; padding-left:16px; line-height:1.6;">
+          <strong style="color:var(--color-blue-900); font-size:14px;">06. 部署軍隊 ＆ 07. 決定先手第一回合</strong>
+          <ul style="font-size:12px; color:var(--color-slate-600); margin-top:6px; padding-left:16px; line-height:1.6;">
             <li><strong>防守方先佈：</strong>由防守方開始交替部署單位（模型必須完全處於部署區內）。</li>
             <li><strong>先攻拼骰：</strong>雙方擲骰，獲勝者執行第一回合。</li>
             <li><strong>戰前規則結算：</strong>從先攻方開始輪流結算戰前規則。</li>
@@ -570,8 +570,8 @@
       </div>
 
       <div class="mission-step-card">
-        <strong style="color:#1e3a8a; font-size:14px;">08~10. 開始戰鬥五輪次、計分與決出勝者</strong>
-        <p style="font-size:12px; color:#475569; margin-top:4px; line-height:1.6;">
+        <strong style="color:var(--color-blue-900); font-size:14px;">08~10. 開始戰鬥五輪次、計分與決出勝者</strong>
+        <p style="font-size:12px; color:var(--color-slate-600); margin-top:4px; line-height:1.6;">
           戰鬥標準進行 <strong>5 個戰鬥輪次 (5 Battle Rounds)</strong>。每位玩家透過各自戰巡隊的<strong>專屬主要任務 (Primary Mission)</strong> 獲得勝利點數（單輪上限 15 VP，全場任務上限 45 VP）。第 5 輪結束時總 VP 最高者獲勝！
           <br><strong>🎨 戰備涂裝獎勵：</strong>若全隊模型皆涂裝至戰備級標準，額外獲得 <strong>10 VP</strong> 獎勵（新手友善練習賽可忽略）。
         </p>
@@ -585,31 +585,31 @@
     <span class="section-badge">INTERACTIVE APP</span>
   </div>
 
-  <div class="rule-card" style="margin-bottom:30px; border-top: 4px solid #2563eb;">
+  <div class="rule-card" style="margin-bottom:30px; border-top: 4px solid var(--color-blue-600);">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
       <div>
-        <h3 style="margin:0; font-size:18px; color:#1e293b;">⚡ 40K 戰巡對戰助手 (Combat Patrol War Journal) 現已上線！</h3>
-        <p style="margin:4px 0 0 0; font-size:12px; color:#64748b;">
+        <h3 style="margin:0; font-size:18px; color:var(--color-slate-800);">⚡ 40K 戰巡對戰助手 (Combat Patrol War Journal) 現已上線！</h3>
+        <p style="margin:4px 0 0 0; font-size:12px; color:var(--color-slate-500);">
           我們已將官方 App 內的 War Journal 對戰記錄系統完整獨立移植為互動式 WebApp，支援輪次切換、主要任務勾選自動算分、CP 計謀扣除與單位傷亡面板。
         </p>
       </div>
-      <a href="40k_combat_patrol_tracker.html" class="btn-action" style="background:#2563eb; font-weight:800; font-size:14px; padding:10px 18px; border-radius:6px; text-decoration:none; color:#ffffff; box-shadow:0 4px 12px rgba(37,99,235,0.4);">
+      <a href="40k_combat_patrol_tracker.html" class="btn-action" style="background:var(--color-blue-600); font-weight:800; font-size:14px; padding:10px 18px; border-radius:6px; text-decoration:none; color:var(--color-white); box-shadow:0 4px 12px rgba(37,99,235,0.4);">
         ⚔️ 開啟 40K 戰巡對戰助手 ➔
       </a>
     </div>
 
     <div class="grid-2">
-      <div style="background:#f1f5f9; padding:12px; border-radius:6px;">
-        <strong style="color:#1e3a8a;">📱 戰巡專屬主要任務自動載入：</strong>
-        <p style="font-size:12px; color:#475569; margin-top:4px;">
+      <div style="background:var(--surface-subtle); padding:12px; border-radius:6px;">
+        <strong style="color:var(--color-blue-900);">📱 戰巡專屬主要任務自動載入：</strong>
+        <p style="font-size:12px; color:var(--color-slate-600); margin-top:4px;">
           助手會自動載入阿斯塔特【為了戰團的榮耀】（控制目標 &ge; 對手 5VP，控制 2+ 非領地目標 10VP）與歐克蠻人【痛揍他們！】（控制非領地目標 5VP，佔領敵家 5VP，擊殺敵軍 5VP），勾選即可實時統計並防呆。
         </p>
       </div>
-      <div style="background:#f1f5f9; padding:12px; border-radius:6px;">
-        <strong style="color:#1e3a8a;">🛡️ 兩大 11 版最新戰巡隊手冊直達：</strong>
+      <div style="background:var(--surface-subtle); padding:12px; border-radius:6px;">
+        <strong style="color:var(--color-blue-900);">🛡️ 兩大 11 版最新戰巡隊手冊直達：</strong>
         <div style="display:flex; gap:10px; margin-top:8px;">
-          <a href="40k_cp_astartes.html" class="btn-action" style="background:#b91c1c; font-size:11px; padding:6px 12px; border-radius:4px; text-decoration:none; color:#fff;">🩸 突擊分隊手冊 ➔</a>
-          <a href="40k_cp_orks.html" class="btn-action" style="background:#15803d; font-size:11px; padding:6px 12px; border-radius:4px; text-decoration:none; color:#fff;">🟢 硬漢幫手冊 ➔</a>
+          <a href="40k_cp_astartes.html" class="btn-action" style="background:var(--color-red-700); font-size:11px; padding:6px 12px; border-radius:4px; text-decoration:none; color:var(--color-white);">🩸 突擊分隊手冊 ➔</a>
+          <a href="40k_cp_orks.html" class="btn-action" style="background:var(--color-green-700); font-size:11px; padding:6px 12px; border-radius:4px; text-decoration:none; color:var(--color-white);">🟢 硬漢幫手冊 ➔</a>
         </div>
       </div>
     </div>
@@ -621,7 +621,7 @@
       <div class="site-footer-content">
         <p><strong>戰錘 40,000：巡邏特遣隊 (Combat Patrol 11th Edition) 繁體中文全規則情報庫</strong></p>
         <p style="margin-top:4px;">本網站所有規則、專有名詞對照依據 Games Workshop 官方 40K 11th Edition 最新巡邏特遣隊規則與官方 App 實機數據庫整理編譯。</p>
-        <p style="margin-top:4px; font-size:12px; color:#64748b;">
+        <p style="margin-top:4px; font-size:12px; color:var(--color-slate-500);">
           Warhammer 40,000, Combat Patrol, Adeptus Astartes, Orks 及所有相關商標與圖案均為 Games Workshop Limited 之註冊商標或版權所有，本站僅供華語戰棋愛好者社團學習、推廣與非商業交流使用。
         </p>
       </div>
@@ -629,6 +629,6 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.4.4"></script>
+<script src="shared.js?v=3.4.5"></script>
 </body>
 </html>

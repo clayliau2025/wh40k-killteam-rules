@@ -10,8 +10,8 @@
   <meta charset="UTF-8">
   <title>殺戮小隊：死亡天使 規則手冊 (無贅字高清晰大字版)</title>
   <meta name="description" content="殺戮小隊：死亡天使 (Angels of Death) 繁體中文完整規則手冊，收錄全部特工裝備配置、戰團戰術、戰略計謀與交戰協議。">
-<link rel="stylesheet" href="shared.css?v=3.4.4">
-  <meta name="theme-color" content="#0f172a">
+<link rel="stylesheet" href="shared.css?v=3.4.5">
+  <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -162,7 +162,7 @@
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.4 PWA</span>
+        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.5 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
     </div>
@@ -187,7 +187,7 @@
       <!-- 快速章節選單 -->
 <div class="sub-nav no-print">
   <div class="sub-nav-container">
-    <span style="color:#94a3b8; font-weight:700; padding:3px 0;">快速跳轉：</span>
+    <span style="color:var(--color-slate-400); font-weight:700; padding:3px 0;">快速跳轉：</span>
     <a href="#roster">戰隊名冊</a>
     <a href="#chapter-tactics">戰團戰術</a>
     <a href="#strategy-ploys">戰略策略</a>
@@ -218,16 +218,16 @@
     <div class="header-banner">
       <div class="header-title">
         <span>殺戮小隊：死亡天使 (ANGELS OF DEATH) 戰隊手冊</span>
-        <span style="font-size:12px; color: #991b1b;">A4 直式列印專用版</span>
+        <span style="font-size:12px; color: var(--faction-angels);">A4 直式列印專用版</span>
       </div>
       <div class="header-sub">ADEPTUS ASTARTES — 帝國阿斯塔特修會戰團精銳殺戮小隊</div>
     </div>
 
     <div class="grid-2">
       <!-- 戰隊組建名冊 -->
-      <div class="strat-card" id="roster" style="border-left-color: #991b1b;">
+      <div class="strat-card" id="roster" style="border-left-color: var(--faction-angels);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#991b1b;">戰隊組建名冊 (OPERATIVES)</span>
+          <span class="strat-name" style="color:var(--faction-angels);">戰隊組建名冊 (OPERATIVES)</span>
           <span class="strat-cost">總計 6 名特工</span>
         </div>
         <div class="rule-desc">
@@ -251,9 +251,9 @@
 
       <!-- 陣營核心能力 -->
       <div>
-        <div class="strat-card" id="faction-rules" style="border-left-color: #991b1b;">
+        <div class="strat-card" id="faction-rules" style="border-left-color: var(--faction-angels);">
           <div class="strat-head">
-            <span class="strat-name" style="color:#991b1b;">陣營特規：阿斯塔特 (ASTARTES)</span>
+            <span class="strat-name" style="color:var(--faction-angels);">陣營特規：阿斯塔特 (ASTARTES)</span>
             <span class="strat-cost">核心被動</span>
           </div>
           <div class="rule-desc">
@@ -267,12 +267,12 @@
         </div>
 
         <div class="grid-2">
-          <div class="strat-card" style="border-left-color: #b45309;">
+          <div class="strat-card" style="border-left-color: var(--color-amber-700);">
             <div class="strat-head"><span class="strat-name">作戰原型</span></div>
             <div class="rule-desc" style="font-size:12px;">安全警戒 (SECURITY)<br>搜尋與摧毀 (SEEK & DESTROY)</div>
           </div>
-          <div class="strat-card" style="border-left-color: #475569;">
-            <div class="strat-head"><span class="strat-name" style="color:#475569;">爆彈武器定義</span></div>
+          <div class="strat-card" style="border-left-color: var(--color-slate-600);">
+            <div class="strat-head"><span class="strat-name" style="color:var(--color-slate-600);">爆彈武器定義</span></div>
             <div class="rule-desc" style="font-size:12px;">武器名稱包含「<strong>bolt</strong>」字樣之遠程武器。</div>
           </div>
         </div>
@@ -345,7 +345,7 @@
     <div class="header-banner">
       <div class="header-title">
         <span>阿斯塔特修會戰鬥策略卡冊 (TACTICAL PLOYS)</span>
-        <span style="font-size:12px; color: #991b1b;">策略花費：各 1 CP</span>
+        <span style="font-size:12px; color: var(--faction-angels);">策略花費：各 1 CP</span>
       </div>
     </div>
 
@@ -408,9 +408,9 @@
     <div class="section-header" style="margin-top: 8px;">交戰策略 (FIREFIGHT PLOYS) — 交戰階段宣告使用</div>
     <div class="grid-2">
       <!-- ADJUST DOCTRINE -->
-      <div class="strat-card" style="border-left-color: #ef4444;">
+      <div class="strat-card" style="border-left-color: var(--color-red-500);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#b91c1c;">即時變換操典 (ADJUST DOCTRINE)</span>
+          <span class="strat-name" style="color:var(--color-red-700);">即時變換操典 (ADJUST DOCTRINE)</span>
           <span class="strat-cost">1 CP</span>
         </div>
         <div class="lore-box">急促的語音鏈路指令，宣告作戰重心的瞬時轉換。</div>
@@ -420,9 +420,9 @@
       </div>
 
       <!-- TRANSHUMAN PHYSIOLOGY -->
-      <div class="strat-card" style="border-left-color: #ef4444;">
+      <div class="strat-card" style="border-left-color: var(--color-red-500);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#b91c1c;">超人生理構造 (TRANSHUMAN PHYSIOLOGY)</span>
+          <span class="strat-name" style="color:var(--color-red-700);">超人生理構造 (TRANSHUMAN PHYSIOLOGY)</span>
           <span class="strat-cost">1 CP</span>
         </div>
         <div class="lore-box">基因改造的強化器官，能硬生抵禦致死打擊。</div>
@@ -432,9 +432,9 @@
       </div>
 
       <!-- SHOCK ASSAULT -->
-      <div class="strat-card" style="border-left-color: #ef4444;">
+      <div class="strat-card" style="border-left-color: var(--color-red-500);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#b91c1c;">震懾衝鋒突擊 (SHOCK ASSAULT)</span>
+          <span class="strat-name" style="color:var(--color-red-700);">震懾衝鋒突擊 (SHOCK ASSAULT)</span>
           <span class="strat-cost">1 CP</span>
         </div>
         <div class="lore-box">鏈鋸劍咆哮與身軀的猛烈撞擊，是敵軍防線的喪鐘。</div>
@@ -448,9 +448,9 @@
       </div>
 
       <!-- WRATH OF VENGEANCE -->
-      <div class="strat-card" style="border-left-color: #ef4444;">
+      <div class="strat-card" style="border-left-color: var(--color-red-500);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#b91c1c;">復仇之怒 (WRATH OF VENGEANCE)</span>
+          <span class="strat-name" style="color:var(--color-red-700);">復仇之怒 (WRATH OF VENGEANCE)</span>
           <span class="strat-cost">1 CP</span>
         </div>
         <div class="lore-box">戰友受創激發戰團怒火，催生超越極限的戰力。</div>
@@ -473,10 +473,10 @@
     <div class="section-header" id="equipment">陣營專屬裝備 (FACTION EQUIPMENT)</div>
     <div class="grid-2">
       <!-- PURITY SEALS -->
-      <div class="equip-card" style="border-left-color: #2563eb;">
+      <div class="equip-card" style="border-left-color: var(--color-blue-600);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#1d4ed8;">純潔印記 (PURITY SEALS)</span>
-          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+          <span class="strat-name" style="color:var(--color-blue-700);">純潔印記 (PURITY SEALS)</span>
+          <span class="strat-cost" style="border-color:var(--color-blue-600); color:var(--color-blue-600);">裝備道具</span>
         </div>
         <div class="lore-box">由戰團牧師加持的誓約羊皮紙，激勵佩戴者奮戰不息。</div>
         <div class="rule-desc">
@@ -485,10 +485,10 @@
       </div>
 
       <!-- CHAPTER RELIQUARIES -->
-      <div class="equip-card" style="border-left-color: #2563eb;">
+      <div class="equip-card" style="border-left-color: var(--color-blue-600);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#1d4ed8;">戰團聖物匣 (CHAPTER RELIQUARIES)</span>
-          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+          <span class="strat-name" style="color:var(--color-blue-700);">戰團聖物匣 (CHAPTER RELIQUARIES)</span>
+          <span class="strat-cost" style="border-color:var(--color-blue-600); color:var(--color-blue-600);">裝備道具</span>
         </div>
         <div class="lore-box">裝裱著陣亡英雄骸骨的聖匣，提醒戰士恪守誓言。</div>
         <div class="rule-desc">
@@ -498,10 +498,10 @@
       </div>
 
       <!-- TILTING SHIELDS -->
-      <div class="equip-card" style="border-left-color: #2563eb;">
+      <div class="equip-card" style="border-left-color: var(--color-blue-600);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#1d4ed8;">近戰胸盾 (TILTING SHIELDS)</span>
-          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+          <span class="strat-name" style="color:var(--color-blue-700);">近戰胸盾 (TILTING SHIELDS)</span>
+          <span class="strat-cost" style="border-color:var(--color-blue-600); color:var(--color-blue-600);">裝備道具</span>
         </div>
         <div class="lore-box">胸口的小型騎兵盾能彈開刀劍，化解近身致命威脅。</div>
         <div class="rule-desc">
@@ -510,10 +510,10 @@
       </div>
 
       <!-- AUSPEX -->
-      <div class="equip-card" style="border-left-color: #2563eb;">
+      <div class="equip-card" style="border-left-color: var(--color-blue-600);">
         <div class="strat-head">
-          <span class="strat-name" style="color:#1d4ed8;">鳥卜掃描儀 (AUSPEX)</span>
-          <span class="strat-cost" style="border-color:#2563eb; color:#2563eb;">裝備道具</span>
+          <span class="strat-name" style="color:var(--color-blue-700);">鳥卜掃描儀 (AUSPEX)</span>
+          <span class="strat-cost" style="border-color:var(--color-blue-600); color:var(--color-blue-600);">裝備道具</span>
         </div>
         <div class="lore-box">多光譜陣列與熱成像儀，輕易穿透掩體鎖定敵影。</div>
         <div class="rule-desc">
@@ -1216,7 +1216,7 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.4.4"></script>
+<script src="shared.js?v=3.4.5"></script>
 </body>
 
 </html>

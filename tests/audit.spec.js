@@ -139,5 +139,23 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     expect(hexMatches.length, `40k_core_rules.html 不應有寫死色碼，實測為 ${hexMatches.length}`).toBe(0);
   });
 
+  test('Stage D 指標驗證：index.html 行內樣式 < 60 且 0 寫死色碼', async () => {
+    const content = fs.readFileSync('index.html', 'utf-8');
+    const inlineMatches = content.match(/\bstyle\s*=\s*["']/g) || [];
+    const hexMatches = content.match(/#(?:[0-9a-fA-F]{3}){1,2}\b/g) || [];
+    expect(inlineMatches.length, `index.html 行內樣式數應小於 60，實測為 ${inlineMatches.length}`).toBeLessThan(60);
+    expect(hexMatches.length, `index.html 不應有寫死色碼，實測為 ${hexMatches.length}`).toBe(0);
+  });
+
+  test('Stage D 指標驗證：全站 14 頁面 HTML 檔案中 0 寫死色碼且每頁行內樣式 < 100', async () => {
+    for (const p of PAGES) {
+      const content = fs.readFileSync(p, 'utf-8');
+      const inlineMatches = content.match(/\bstyle\s*=\s*["']/g) || [];
+      const hexMatches = content.match(/#(?:[0-9a-fA-F]{3}){1,2}\b/g) || [];
+      expect(inlineMatches.length, `${p} 行內樣式應小於 100，實測為 ${inlineMatches.length}`).toBeLessThan(100);
+      expect(hexMatches.length, `${p} 不應包含任何寫死十六進位色碼 (#...)，實測為 ${hexMatches.length}`).toBe(0);
+    }
+  });
+
 });
 

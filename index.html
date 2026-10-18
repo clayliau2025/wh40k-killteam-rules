@@ -9,17 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000 & 殺戮小隊 (Kill Team) 繁體中文全戰棋情報庫</title>
   <meta name="description" content="戰錘 40,000 (11版巡邏特遣隊) 與殺戮小隊 (Kill Team 3版) 繁體中文全戰棋規則情報庫，收錄核心規則、特工資料卡、戰巡手冊、武器特性與即時對戰計分助手。">
-  <link rel="stylesheet" href="shared.css?v=3.4.4">
+  <link rel="stylesheet" href="shared.css?v=3.4.5">
   <style>
     /* ================= 首頁特有樣式 ================= */
     .portal-hero {
-      background: linear-gradient(135deg, #090d16 0%, #1e293b 60%, #0f172a 100%);
-      border: 1px solid #334155;
+      background: linear-gradient(135deg, var(--color-slate-925) 0%, var(--color-slate-800) 60%, var(--theme-dark) 100%);
+      border: 1px solid var(--color-slate-700);
       border-top: 4px solid var(--theme-primary);
       border-radius: var(--radius-lg);
       padding: 36px 32px;
       margin-bottom: 30px;
-      color: #ffffff;
+      color: var(--color-white);
       position: relative;
       overflow: hidden;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
@@ -65,8 +65,8 @@
     }
 
     .edition-tag {
-      background: linear-gradient(90deg, #ea580c, #f97316);
-      color: #ffffff;
+      background: linear-gradient(90deg, var(--theme-primary), var(--theme-accent));
+      color: var(--color-white);
       padding: 4px 12px;
       border-radius: 20px;
       font-size:11px;
@@ -84,12 +84,12 @@
       line-height: 1.2;
       margin-bottom: 10px;
       font-family: var(--font-display);
-      color: #ffffff;
+      color: var(--color-white);
     }
 
     .portal-desc {
       font-size:14px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       max-width: 820px;
       line-height: 1.6;
       margin-bottom: 20px;
@@ -103,7 +103,7 @@
 
     .btn-action {
       background: var(--theme-primary);
-      color: #ffffff;
+      color: var(--color-white);
       text-decoration: none;
       font-weight: 700;
       font-size:13px;
@@ -126,14 +126,14 @@
 
     .btn-secondary {
       background: rgba(255, 255, 255, 0.1);
-      color: #e2e8f0;
+      color: var(--border-subtle);
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: none;
     }
 
     .btn-secondary:hover {
       background: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
+      color: var(--color-white);
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
@@ -143,7 +143,7 @@
       font-size:18px;
       font-weight: 900;
       font-family: var(--font-display);
-      color: #0f172a;
+      color: var(--theme-dark);
       letter-spacing: 0.5px;
       text-transform: uppercase;
       margin: 28px 0 16px 0;
@@ -169,8 +169,8 @@
     }
 
     .team-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: var(--color-white);
+      border: 1px solid var(--theme-border);
       border-radius: var(--radius-md);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
@@ -183,7 +183,7 @@
     .team-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
-      border-color: #94a3b8;
+      border-color: var(--color-slate-400);
     }
 
     .team-card-banner {
@@ -225,14 +225,14 @@
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: #fed7aa;
+      color: var(--color-warning-border);
       font-family: var(--font-display);
     }
 
     .team-card-name {
       font-size:18px;
       font-weight: 900;
-      color: #ffffff;
+      color: var(--color-white);
       font-family: var(--font-display);
       margin-top: 2px;
     }
@@ -246,7 +246,7 @@
 
     .team-card-desc {
       font-size:13px;
-      color: #475569;
+      color: var(--color-slate-600);
       line-height: 1.55;
       margin-bottom: 14px;
       flex: 1;
@@ -260,7 +260,7 @@
 
     .team-features-list li {
       font-size:12px;
-      color: #334155;
+      color: var(--color-slate-700);
       margin-bottom: 5px;
       display: flex;
       align-items: center;
@@ -279,15 +279,15 @@
       flex-wrap: wrap;
       margin-top: auto;
       padding-top: 12px;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid var(--surface-subtle);
     }
 
     .team-btn-primary {
       flex: 1;
       min-width: 130px;
       text-align: center;
-      background: #0f172a;
-      color: #ffffff;
+      background: var(--theme-dark);
+      color: var(--color-white);
       padding: 7px 12px;
       border-radius: var(--radius-sm);
       text-decoration: none;
@@ -301,9 +301,9 @@
     }
 
     .team-btn-starter {
-      background: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
+      background: var(--surface-subtle);
+      color: var(--color-slate-700);
+      border: 1px solid var(--theme-border);
       padding: 7px 12px;
       border-radius: var(--radius-sm);
       text-decoration: none;
@@ -313,13 +313,13 @@
     }
 
     .team-btn-starter:hover {
-      background: #e2e8f0;
-      color: #0f172a;
+      background: var(--border-subtle);
+      color: var(--theme-dark);
     }
 
     /* 武器關鍵字即時搜尋辭典 */
     .glossary-box {
-      background: #ffffff;
+      background: var(--color-white);
       border: 1px solid var(--theme-border);
       border-radius: var(--radius-md);
       padding: 20px;
@@ -337,7 +337,7 @@
       flex: 1;
       padding: 10px 14px;
       font-size:14px;
-      border: 1.5px solid #cbd5e1;
+      border: 1.5px solid var(--theme-border);
       border-radius: var(--radius-sm);
       outline: none;
       font-family: var(--font-body);
@@ -356,8 +356,8 @@
     }
 
     .glossary-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
       border-left: 3.5px solid var(--theme-primary);
       border-radius: 4px;
       padding: 9px 12px;
@@ -365,9 +365,9 @@
     }
 
     .glossary-card:hover {
-      background: #ffffff;
+      background: var(--color-white);
       box-shadow: var(--shadow-sm);
-      border-color: #cbd5e1;
+      border-color: var(--theme-border);
       border-left-color: var(--theme-primary-hover);
     }
 
@@ -383,13 +383,13 @@
 
     .glossary-card-en {
       font-size:12px;
-      color: #64748b;
+      color: var(--color-slate-500);
       font-weight: normal;
     }
 
     .glossary-card-desc {
       font-size:12px;
-      color: #334155;
+      color: var(--color-slate-700);
       line-height: 1.45;
     }
 
@@ -398,16 +398,16 @@
       width: 100%;
       border-collapse: collapse;
       font-size:12px;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--color-white);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
 
     .terms-table th {
-      background: #0f172a;
-      color: #ffffff;
+      background: var(--theme-dark);
+      color: var(--color-white);
       padding: 9px 12px;
       font-family: var(--font-display);
       text-align: left;
@@ -417,16 +417,16 @@
 
     .terms-table td {
       padding: 8px 12px;
-      border-bottom: 1px solid #f1f5f9;
-      color: #1e293b;
+      border-bottom: 1px solid var(--surface-subtle);
+      color: var(--color-slate-800);
     }
 
     .terms-table tr:nth-child(even) {
-      background: #f8fafc;
+      background: var(--surface-ground);
     }
 
     .terms-table tr:hover {
-      background: #fff7ed;
+      background: var(--theme-primary-light);
     }
 
     /* 官方資源連結卡片 */
@@ -438,15 +438,15 @@
     }
 
     .resource-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--color-white);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 14px;
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: #1e293b;
+      color: var(--color-slate-800);
       transition: all 0.2s;
     }
 
@@ -458,7 +458,7 @@
 
     .resource-icon {
       font-size:24px;
-      background: #f8fafc;
+      background: var(--surface-ground);
       width: 44px;
       height: 44px;
       border-radius: 8px;
@@ -466,22 +466,133 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-subtle);
     }
 
     .resource-title {
       font-weight: 800;
       font-size:13px;
-      color: #0f172a;
+      color: var(--theme-dark);
     }
 
     .resource-sub {
       font-size:11px;
-      color: #64748b;
+      color: var(--color-slate-500);
       line-height: 1.35;
     }
+
+    /* --- 首頁傳送門專屬類別 (Portal Layout Classes) --- */
+    .portal-hero-inner {
+      text-align: center;
+      padding: 20px;
+      z-index: 2;
+    }
+    .portal-hero-icon {
+      font-size: var(--font-size-3xl);
+      margin-bottom: 4px;
+    }
+    .portal-hero-title {
+      font-size: var(--font-size-lg);
+      font-weight: 900;
+      color: var(--color-white);
+      font-family: var(--font-display);
+    }
+    .portal-hero-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-slate-600);
+      margin-bottom: 10px;
+    }
+    .portal-card-40k {
+      border-top: 4px solid var(--color-blue-600) !important;
+    }
+    .portal-card-kt {
+      border-top: 4px solid var(--theme-primary) !important;
+    }
+    .portal-cat-kt {
+      color: var(--theme-primary);
+    }
+    .portal-cat-40k {
+      color: var(--color-blue-300);
+    }
+    .portal-list-desc {
+      font-size: var(--font-size-xs);
+      color: var(--text-secondary);
+      padding-left: 18px;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+
+    /* --- 首頁傳送門專屬類別 (Portal Layout Classes) --- */
+    .portal-hero-inner {
+      text-align: center;
+      padding: 20px;
+      z-index: 2;
+    }
+    .portal-hero-icon {
+      font-size: var(--font-size-3xl);
+      margin-bottom: 4px;
+    }
+    .portal-hero-title {
+      font-size: var(--font-size-lg);
+      font-weight: 900;
+      color: var(--color-white);
+      font-family: var(--font-display);
+    }
+    .portal-hero-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-slate-600);
+      margin-bottom: 10px;
+    }
+    .portal-card-40k {
+      border-top: 4px solid var(--color-blue-600) !important;
+    }
+    .portal-card-kt {
+      border-top: 4px solid var(--theme-primary) !important;
+    }
+    .portal-cat-kt {
+      color: var(--theme-primary);
+    }
+    .portal-cat-40k {
+      color: var(--color-blue-300);
+    }
+    .border-top-blue { border-top: 4px solid var(--color-blue-500) !important; }
+    .border-top-danger { border-top: 4px solid var(--color-danger) !important; }
+    .border-top-red { border-top: 4px solid var(--color-red-700) !important; }
+    .border-top-green { border-top: 4px solid var(--color-green-700) !important; }
+    .border-top-angels { border-top: 4px solid var(--faction-angels) !important; }
+    .border-top-plague { border-top: 4px solid var(--faction-plague) !important; }
+    .border-top-kommandos { border-top: 4px solid var(--color-green-800) !important; }
+    .banner-gradient-blue { background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-blue-900) 100%) !important; }
+    .banner-gradient-red { background: linear-gradient(135deg, var(--color-indigo-950) 0%, var(--color-red-900) 100%) !important; }
+    .logo-sep { font-size: 24px; color: var(--color-slate-600); font-weight: 300; }
+    .hero-wh-logo { height: 50px; width: auto; }
+    .hero-kt-logo { height: 48px; width: auto; }
+    .text-blue-900 { color: var(--color-blue-900); }
+    .badge-pill-sm { padding: 2px 8px; border-radius: 4px; font-size: var(--font-size-xs); }
+    .bg-blue { background: var(--color-blue-600); }
+    .bg-danger { background: var(--color-danger); }
+    .bg-primary { background: var(--theme-primary); }
+    .btn-action-danger { background: var(--color-danger) !important; padding: 7px 16px; font-size: 12px; }
+    .btn-action-sky { background: var(--color-sky-600) !important; padding: 7px 16px; font-size: 12px; }
+    .btn-action-angels { background: var(--faction-angels) !important; }
+    .btn-action-plague { background: var(--faction-plague) !important; }
+    .team-btn-danger { background: var(--color-danger) !important; }
+    .team-btn-red { background: var(--color-red-700) !important; }
+    .team-btn-green { background: var(--color-green-700) !important; }
+    .team-btn-angels { background: var(--faction-angels) !important; }
+    .team-btn-plague { background: var(--faction-plague) !important; }
+    .team-btn-kommandos { background: var(--color-green-800) !important; }
+    .ploy-card-danger { border-left: 5px solid var(--color-danger) !important; padding: 16px; background: var(--surface) !important; }
+    .ploy-card-sky { border-left: 5px solid var(--color-sky-600) !important; padding: 16px; background: var(--surface) !important; }
+    .ploy-card-primary { border-left: 5px solid var(--theme-primary) !important; padding: 16px; }
+    .ploy-card-amber { border-left: 5px solid var(--color-amber-600) !important; padding: 16px; }
+    .box-dark-combat { background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 16px; margin-bottom: 30px; }
+    .combat-sub-link-red { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 6px; padding: 10px 14px; text-decoration: none; display: flex; flex-direction: column; gap: 4px; }
+    .combat-sub-link-green { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.35); border-radius: 6px; padding: 10px 14px; text-decoration: none; display: flex; flex-direction: column; gap: 4px; }
+
   </style>
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -629,12 +740,12 @@
       </nav>
     </div>
 
-    <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+    <div class="sidebar-footer d-flex flex-col gap-1 items-stretch">
+      <div class="d-flex justify-between items-center w-full">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.4 PWA</span>
+        <span class="version-badge font-badge">v3.4.4 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
+      <button type="button" class="btn-pwa-install sidebar-pwa-btn w-full justify-center font-badge">📲 安裝為桌面/手機 App</button>
     </div>
   </aside>
 
@@ -657,17 +768,17 @@
 
 <div class="main-wrapper">
   <!-- Portal Hero Banner -->
-  <header class="portal-hero" style="border-top: 4px solid #2563eb;">
+  <header class="portal-hero" class="portal-card-40k">
     <div class="hero-top-row">
       <div class="hero-logos">
         <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="hero-wh-logo" style="height:50px; width:auto; filter:brightness(1.8);" decoding="async">
-        <span style="font-size:24px; color:#475569; font-weight:300;">|</span>
+        <span class="logo-sep">|</span>
         <img src="assets/kt_logo.png" alt="Kill Team" class="hero-kt-logo" style="height:48px; width:auto;" decoding="async">
       </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <span class="edition-tag" style="background:linear-gradient(90deg, #2563eb, #3b82f6); box-shadow:0 2px 8px rgba(37,99,235,0.4);">WH40K 11TH ED COMBAT PATROL</span>
+      <div class="d-flex gap-2 flex-wrap">
+        <span class="edition-tag" style="background:linear-gradient(90deg, var(--color-blue-600), var(--color-blue-500)); box-shadow:0 2px 8px rgba(37,99,235,0.4);">WH40K 11TH ED COMBAT PATROL</span>
         <span class="edition-tag">KILL TEAM 3RD ED</span>
-        <span class="edition-tag" style="background:linear-gradient(90deg, #059669, #10b981); box-shadow:0 2px 8px rgba(16,185,129,0.4);" id="portalVersionBadge">v3.4.4 全站統一更新</span>
+        <span class="edition-tag" style="background:linear-gradient(90deg, var(--color-emerald-600), var(--color-emerald-500)); box-shadow:0 2px 8px rgba(16,185,129,0.4);" id="portalVersionBadge">v3.4.5 全站統一更新</span>
       </div>
     </div>
     <h1 class="portal-title">戰錘 40,000 & 殺戮小隊 繁體中文全戰棋情報庫</h1>
@@ -763,19 +874,19 @@
   </div>
 
   <!-- ================= 40K 戰巡隊專區 (Combat Patrol 11th Edition) ================= -->
-  <h2 class="portal-section-title" id="combat-patrol-section" style="color:#1e3a8a;">
-    <span style="background:#2563eb; color:#ffffff; padding:2px 8px; border-radius:3px; font-size:11px; margin-right:8px; vertical-align:middle;">11TH ED</span>
+  <h2 class="portal-section-title text-blue-900" id="combat-patrol-section">
+    <span style="background:var(--color-blue-600); color:var(--color-white); padding:2px 8px; border-radius:3px; font-size:11px; margin-right:8px; vertical-align:middle;">11TH ED</span>
     戰錘 40,000：核心規則與巡邏特遣隊專區 (Core Rules & Combat Patrol)
   </h2>
   
-  <div class="team-cards-grid" style="margin-bottom:28px;">
+  <div class="team-cards-grid mb-4">
     <!-- 40K 完整核心規則庫卡 -->
-    <div class="team-card" style="border-top: 4px solid #3b82f6;">
-      <div class="team-card-banner" style="background: linear-gradient(135deg, #091326 0%, #1e3a8a 60%, #1e40af 100%);">
-        <div style="text-align:center; padding:20px; z-index:2;">
-          <div style="font-size:32px; margin-bottom:4px;">🛡️📖</div>
-          <div style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:1px; text-transform:uppercase;">11TH ED OFFICIAL CORE RULES</div>
-          <div style="font-size:18px; font-weight:900; color:#ffffff; font-family:var(--font-display);">40K 完整核心規則庫 (全檢索)</div>
+    <div class="team-card border-top-blue">
+      <div class="team-card-banner" style="background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-blue-900) 60%, var(--color-blue-800) 100%);">
+        <div class="portal-hero-inner">
+          <div class="portal-hero-icon">🛡️📖</div>
+          <div class="font-badge font-extrabold portal-cat-40k text-uppercase">11TH ED OFFICIAL CORE RULES</div>
+          <div class="portal-hero-title">40K 完整核心規則庫 (全檢索)</div>
         </div>
       </div>
       <div class="team-card-body">
@@ -790,17 +901,17 @@
           <li><strong>66 條官方問答與最新勘誤：</strong>最新平衡更新與官方疑難裁判完整解答</li>
         </ul>
         <div class="team-card-actions">
-          <a href="40k_core_rules.html" class="team-btn-primary" style="background:#2563eb;">🛡️ 查閱 40K 完整核心規則庫</a>
+          <a href="40k_core_rules.html" class="team-btn-primary" class="bg-blue">🛡️ 查閱 40K 完整核心規則庫</a>
         </div>
       </div>
     </div>
     <!-- 40K 核心規則卡 -->
-    <div class="team-card" style="border-top: 4px solid #2563eb;">
-      <div class="team-card-banner" style="background: linear-gradient(135deg, #091326 0%, #1e3a8a 100%);">
-        <div style="text-align:center; padding:20px; z-index:2;">
-          <div style="font-size:32px; margin-bottom:4px;">⚡📘</div>
-          <div style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:1px; text-transform:uppercase;">OFFICIAL CORE RULES</div>
-          <div style="font-size:18px; font-weight:900; color:#ffffff; font-family:var(--font-display);">戰巡核心作戰指南 (11版)</div>
+    <div class="team-card" class="portal-card-40k">
+      <div class="team-card-banner banner-gradient-blue">
+        <div class="portal-hero-inner">
+          <div class="portal-hero-icon">⚡📘</div>
+          <div class="font-badge font-extrabold portal-cat-40k text-uppercase">OFFICIAL CORE RULES</div>
+          <div class="portal-hero-title">戰巡核心作戰指南 (11版)</div>
         </div>
       </div>
       <div class="team-card-body">
@@ -814,18 +925,18 @@
           <li><strong>官方 10 步流程：</strong>佈局 A/B/C 三大地圖、攻防判定、5 輪任務計分</li>
         </ul>
         <div class="team-card-actions">
-          <a href="40k_combat_patrol_rules.html" class="team-btn-primary" style="background:#2563eb;">⚡ 進入戰巡核心作戰手冊</a>
+          <a href="40k_combat_patrol_rules.html" class="team-btn-primary" class="bg-blue">⚡ 進入戰巡核心作戰手冊</a>
         </div>
       </div>
     </div>
 
     <!-- 40K War Journal 對戰助手卡 -->
-    <div class="team-card" style="border-top: 4px solid #dc2626;">
-      <div class="team-card-banner" style="background: linear-gradient(135deg, #1e1b4b 0%, #7f1d1d 100%);">
-        <div style="text-align:center; padding:20px; z-index:2;">
-          <div style="font-size:32px; margin-bottom:4px;">⚔️📱</div>
-          <div style="font-size:11px; font-weight:800; color:#fca5a5; letter-spacing:1px; text-transform:uppercase;">WAR JOURNAL INTERACTIVE</div>
-          <div style="font-size:18px; font-weight:900; color:#ffffff; font-family:var(--font-display);">戰巡對戰助手 (War Journal)</div>
+    <div class="team-card border-top-danger">
+      <div class="team-card-banner banner-gradient-red">
+        <div class="portal-hero-inner">
+          <div class="portal-hero-icon">⚔️📱</div>
+          <div class="font-badge font-extrabold text-danger text-uppercase">WAR JOURNAL INTERACTIVE</div>
+          <div class="portal-hero-title">戰巡對戰助手 (War Journal)</div>
         </div>
       </div>
       <div class="team-card-body">
@@ -839,17 +950,17 @@
           <li><strong>單位血量與傷亡：</strong>實時監控連長、頭目、卡車與步兵小隊存活狀態</li>
         </ul>
         <div class="team-card-actions">
-          <a href="40k_combat_patrol_tracker.html" class="team-btn-primary" style="background:#dc2626;">⚔️ 啟動 40K 戰巡對戰助手</a>
+          <a href="40k_combat_patrol_tracker.html" class="team-btn-primary team-btn-danger">⚔️ 啟動 40K 戰巡對戰助手</a>
         </div>
       </div>
     </div>
 
     <!-- 阿斯塔特：突擊分隊卡 -->
-    <div class="team-card" style="border-top: 4px solid #b91c1c;">
+    <div class="team-card border-top-red">
       <div class="team-card-banner">
         <img src="assets/cp_astartes/hero_astartes_combat_patrol.jpg" alt="Astartes Combat Patrol" class="team-card-banner-bg" decoding="async" loading="lazy">
         <div class="team-card-banner-overlay">
-          <span class="team-faction-tag" style="color:#fca5a5;">ADEPTUS ASTARTES / 帝國星際戰士</span>
+          <span class="team-faction-tag text-danger">ADEPTUS ASTARTES / 帝國星際戰士</span>
           <div class="team-card-name">阿斯塔特：突擊分隊 (Strike Force)</div>
         </div>
       </div>
@@ -864,17 +975,17 @@
           <li><strong>官方專屬任務與計謀：</strong>主要任務【為了戰團的榮耀】、戰略【無息攻勢/斬首打擊】</li>
         </ul>
         <div class="team-card-actions">
-          <a href="40k_cp_astartes.html" class="team-btn-primary" style="background:#b91c1c;">🩸 查閱突擊分隊手冊</a>
+          <a href="40k_cp_astartes.html" class="team-btn-primary team-btn-red">🩸 查閱突擊分隊手冊</a>
         </div>
       </div>
     </div>
 
     <!-- 歐克蠻人：硬漢幫卡 -->
-    <div class="team-card" style="border-top: 4px solid #15803d;">
+    <div class="team-card border-top-green">
       <div class="team-card-banner">
         <img src="assets/cp_orks/hero_orks_banner.jpg" alt="Orks Combat Patrol" class="team-card-banner-bg" decoding="async" loading="lazy">
         <div class="team-card-banner-overlay">
-          <span class="team-faction-tag" style="color:#bbf7d0;">ORKS / 綠皮歐克蠻人</span>
+          <span class="team-faction-tag text-success">ORKS / 綠皮歐克蠻人</span>
           <div class="team-card-name">歐克蠻人：硬漢幫 (Hard Boyz)</div>
         </div>
       </div>
@@ -889,7 +1000,7 @@
           <li><strong>官方專屬任務與計謀：</strong>主要任務【痛揍他們！】、戰略【碾碎他們/醫療跳跳】</li>
         </ul>
         <div class="team-card-actions">
-          <a href="40k_cp_orks.html" class="team-btn-primary" style="background:#15803d;">🟢 查閱硬漢幫手冊</a>
+          <a href="40k_cp_orks.html" class="team-btn-primary team-btn-green">🟢 查閱硬漢幫手冊</a>
         </div>
       </div>
     </div>
@@ -899,29 +1010,29 @@
   <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 22px; margin-bottom: 40px;" id="cp-roster-directory">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
       <div>
-        <h3 style="margin:0; font-size:16px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
+        <h3 class="font-md font-extrabold text-white d-flex items-center gap-2 m-0">
           <span>📜 官方 App 全 24 支 Combat Patrol 戰巡名冊目錄</span>
           <span class="dropdown-badge badge-40k">APP DATABASE</span>
         </h3>
-        <p style="margin:4px 0 0 0; font-size:12px; color:#94a3b8;">
+        <p class="font-xs text-muted mt-1 mb-0">
           我們已透過本地 SQLite 介面完全打通您 Mac 上官方 App 的資料庫，目前已優先上線最熱門的「突擊分隊」與「硬漢幫」，其餘 22 支戰巡隊隨時皆可秒速提取生成繁中手冊！
         </p>
       </div>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:10px;">
+    <div class="d-grid gap-2" style="grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));">
       <a href="40k_cp_astartes.html" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); border-radius:6px; padding:10px 12px; text-decoration:none; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-weight:700; color:#fca5a5; font-size:13px;">突擊分隊 (星際戰士)</div>
-          <div style="font-size:11px; color:#94a3b8;">主要任務：為了戰團的榮耀</div>
+          <div class="font-bold text-danger font-sm">突擊分隊 (星際戰士)</div>
+          <div class="font-badge text-muted">主要任務：為了戰團的榮耀</div>
         </div>
         <span class="dropdown-badge badge-hot">已實裝</span>
       </a>
 
       <a href="40k_cp_orks.html" style="background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.4); border-radius:6px; padding:10px 12px; text-decoration:none; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-weight:700; color:#86efac; font-size:13px;">硬漢幫 (歐克蠻人)</div>
-          <div style="font-size:11px; color:#94a3b8;">主要任務：痛揍他們！</div>
+          <div class="font-bold text-success font-sm">硬漢幫 (歐克蠻人)</div>
+          <div class="font-badge text-muted">主要任務：痛揍他們！</div>
         </div>
         <span class="dropdown-badge badge-hot">已實裝</span>
       </a>
@@ -1013,7 +1124,7 @@
   <div class="team-cards-grid">
     
     <!-- 死亡天使 -->
-    <div class="team-card" style="border-top: 4px solid #991b1b;">
+    <div class="team-card border-top-angels">
       <div class="team-card-banner">
         <img src="assets/angels_p11_1_1308x1421.png" alt="Angels of Death" class="team-card-banner-bg" decoding="async" loading="lazy">
         <div class="team-card-banner-overlay">
@@ -1031,18 +1142,18 @@
           <li><strong>強大幹部名冊：</strong>星際戰士連長、仲裁軍士、消滅者狙擊手等9種特工</li>
         </ul>
         <div class="team-card-actions">
-          <a href="death_of_angel_web_rule.html" class="team-btn-primary" style="background:#991b1b;">🩸 完整線上規則</a>
+          <a href="death_of_angel_web_rule.html" class="team-btn-primary team-btn-angels">🩸 完整線上規則</a>
           <a href="angel_of_death_starter_set_rule.html" class="team-btn-starter">📦 入門套組版</a>
         </div>
       </div>
     </div>
 
     <!-- 瘟疫戰士 -->
-    <div class="team-card" style="border-top: 4px solid #2d5a27;">
+    <div class="team-card border-top-plague">
       <div class="team-card-banner">
         <img src="assets/plague_p9_1_1668x1274.png" alt="Plague Marines" class="team-card-banner-bg" decoding="async" loading="lazy">
         <div class="team-card-banner-overlay">
-          <span class="team-faction-tag" style="color:#bef264;">DEATH GUARD / 混沌死亡守衛</span>
+          <span class="team-faction-tag text-success">DEATH GUARD / 混沌死亡守衛</span>
           <div class="team-card-name">瘟疫戰士 (Plague Marines)</div>
         </div>
       </div>
@@ -1056,18 +1167,18 @@
           <li><strong>致命腐敗部隊：</strong>冠軍頭目、惡意施瘟者、雙刀肉搏格鬥家等7種特工</li>
         </ul>
         <div class="team-card-actions">
-          <a href="plague_marine.html" class="team-btn-primary" style="background:#2d5a27;">☣️ 完整線上規則</a>
+          <a href="plague_marine.html" class="team-btn-primary team-btn-plague">☣️ 完整線上規則</a>
           <a href="plague_marine_starter_set_rule.html" class="team-btn-starter">📦 入門套組版</a>
         </div>
       </div>
     </div>
 
     <!-- 特戰小子 -->
-    <div class="team-card" style="border-top: 4px solid #166534;">
+    <div class="team-card border-top-kommandos">
       <div class="team-card-banner">
         <img src="assets/kommandos_p11_1_1958x1660.png" alt="Kommandos" class="team-card-banner-bg" decoding="async" loading="lazy">
         <div class="team-card-banner-overlay">
-          <span class="team-faction-tag" style="color:#fdba74;">ORKS / 綠皮歐克獸人</span>
+          <span class="team-faction-tag text-warning">ORKS / 綠皮歐克獸人</span>
           <div class="team-card-name">特戰小子 (Kommandos)</div>
         </div>
       </div>
@@ -1081,7 +1192,7 @@
           <li><strong>豐富爆笑兵種：</strong>特戰頭目老大、炸彈史奎格、特戰屁精等11種特工</li>
         </ul>
         <div class="team-card-actions">
-          <a href="Kommandos.html" class="team-btn-primary" style="background:#166534;">🟢 完整線上規則</a>
+          <a href="Kommandos.html" class="team-btn-primary team-btn-kommandos">🟢 完整線上規則</a>
         </div>
       </div>
     </div>
@@ -1090,80 +1201,80 @@
 
   <!-- 核心機制、對戰助手與裝備手冊 -->
   <h2 class="portal-section-title" id="starter-sets">核心機制、對戰工具與通用手冊</h2>
-  <div class="grid-2" style="margin-bottom:16px;">
+  <div class="grid-2 mb-3">
     <!-- 對戰助手卡 -->
-    <div class="ploy-card" style="border-left: 5px solid #dc2626; padding:16px; background:#fff;">
+    <div class="ploy-card" style="border-left: 5px solid var(--color-danger); padding:16px; background:var(--color-white);">
       <div class="ploy-header">
-        <span class="ploy-title" style="font-size:16px; color:#dc2626;">⚔️ 雙人即時對戰助手 (Match Companion)</span>
-        <span class="ploy-cost" style="background:#dc2626; color:#fff;">APP</span>
+        <span class="ploy-title font-md text-danger">⚔️ 雙人即時對戰助手 (Match Companion)</span>
+        <span class="ploy-cost bg-danger text-white">APP</span>
       </div>
-      <p style="font-size:13px; color:#475569; margin-bottom:10px;">
+      <p class="font-sm text-secondary mb-2">
         桌面對戰必備！手機、平板或筆電一開即用，全方位輔助雙方玩家實體對戰：
       </p>
-      <ul style="font-size:12px; color:#334155; padding-left:18px; margin-bottom:12px; line-height:1.7;">
+      <ul class="portal-list-desc">
         <li><strong>五步建立精靈：</strong>選定小隊、8大戰團戰術/老大戰術、挑選特工武裝、配置4項裝備</li>
         <li><strong>動態特工血量條：</strong>點擊即時扣血加血、低於50%自動亮起「受傷」警告、0血陣亡標記</li>
         <li><strong>資源與流程看板：</strong>標準4回合推進、每回合CP與VP輸入計算、輪流啟動/指令切換</li>
         <li><strong>裝備消耗追蹤：</strong>手榴彈次數遞減、每回合裝備自動重置、localStorage 自動存檔</li>
       </ul>
-      <a href="match_tracker.html" class="btn-action" style="background:#dc2626; padding:7px 16px; font-size:13px;">啟動對戰助手 ➔</a>
+      <a href="match_tracker.html" class="btn-action" style="background:var(--color-danger); padding:7px 16px; font-size:13px;">啟動對戰助手 ➔</a>
     </div>
 
     <!-- 通用裝備手冊卡 -->
-    <div class="ploy-card" style="border-left: 5px solid #0284c7; padding:16px; background:#fff;">
+    <div class="ploy-card" style="border-left: 5px solid var(--color-sky-600); padding:16px; background:var(--color-white);">
       <div class="ploy-header">
-        <span class="ploy-title" style="font-size:16px; color:#0284c7;">🎒 官方通用裝備手冊 (Universal Equipment)</span>
-        <span class="ploy-cost" style="background:#0284c7; color:#fff;">RULES</span>
+        <span class="ploy-title font-md text-info">🎒 官方通用裝備手冊 (Universal Equipment)</span>
+        <span class="ploy-cost bg-blue text-white">RULES</span>
       </div>
-      <p style="font-size:13px; color:#475569; margin-bottom:10px;">
+      <p class="font-sm text-secondary mb-2">
         Games Workshop 2026 最新官方修訂版通用裝備全收錄：
       </p>
-      <ul style="font-size:12px; color:#334155; padding-left:18px; margin-bottom:12px; line-height:1.7;">
+      <ul class="portal-list-desc">
         <li><strong>11 項通用物資：</strong>通訊裝置、地雷、彈藥補給箱、鐵絲網、輕重型路障、便攜路障、戰術梯</li>
         <li><strong>投擲物與破拆：</strong>煙幕手榴彈 (降穿刺)、震撼手榴彈 (APL-1)、破片/穿甲手雷、破拆炸藥</li>
         <li><strong>獨特行動消耗：</strong>彈藥補給 (0AP)、攜帶路障移動、戰術梯垂直 1" 攀爬特規</li>
         <li><strong>最新官方問答：</strong>收錄 June '26 規則問答 (Rules Commentary) 與勘誤說明</li>
       </ul>
-      <a href="universal_equipment.html" class="btn-action" style="background:#0284c7; padding:7px 16px; font-size:13px;">查閱通用裝備規則 ➔</a>
+      <a href="universal_equipment.html" class="btn-action" style="background:var(--color-sky-600); padding:7px 16px; font-size:13px;">查閱通用裝備規則 ➔</a>
     </div>
   </div>
 
   <div class="grid-2">
     <!-- 簡易核心卡 -->
-    <div class="ploy-card" style="border-left: 5px solid #ea580c; padding:16px;">
+    <div class="ploy-card ploy-card-primary">
       <div class="ploy-header">
-        <span class="ploy-title" style="font-size:16px;">⚡ 殺戮小隊 簡易規則 (Lite Rules)</span>
+        <span class="ploy-title" class="font-md">⚡ 殺戮小隊 簡易規則 (Lite Rules)</span>
         <span class="ploy-cost">CORE</span>
       </div>
-      <p style="font-size:13px; color:#475569; margin-bottom:10px;">
+      <p class="font-sm text-secondary mb-2">
         濃縮核心手冊全部對戰基底！最適合新手教學與快速查詢：
       </p>
-      <ul style="font-size:12px; color:#334155; padding-left:18px; margin-bottom:12px;">
+      <ul class="portal-list-desc">
         <li><strong>轉折點架構：</strong>戰略階段（擲先攻權、CP獲取、戰略策略）與交戰階段（輪流啟動特工）</li>
         <li><strong>特工指令：</strong>交戰指令（正常行動與反制）與隱蔽指令（掩護下不可被選為有效目標）</li>
         <li><strong>六大動作：</strong>換位 (1AP)、衝刺 (1AP)、衝鋒 (1AP)、射擊 (1AP)、近戰搏鬥 (1AP)、撤退 (2AP)</li>
         <li><strong>對戰結算：</strong>掩護免擲保底防禦骰、傷害格擋分配與近戰打擊/招架攻防對決</li>
       </ul>
-      <a href="rule_lite.html" class="btn-action" style="padding:6px 14px; font-size:12px;">開啟簡易規則手冊 ➔</a>
+      <a href="rule_lite.html" class="btn-action font-xs py-2">開啟簡易規則手冊 ➔</a>
     </div>
 
     <!-- 入門套組對戰版 -->
-    <div class="ploy-card" style="border-left: 5px solid #d97706; padding:16px;">
+    <div class="ploy-card ploy-card-amber">
       <div class="ploy-header">
-        <span class="ploy-title" style="font-size:16px;">📦 入門套組對戰速查表 (Starter Set Rules)</span>
+        <span class="ploy-title" class="font-md">📦 入門套組對戰速查表 (Starter Set Rules)</span>
         <span class="ploy-cost">QUICKPLAY</span>
       </div>
-      <p style="font-size:13px; color:#475569; margin-bottom:10px;">
+      <p class="font-sm text-secondary mb-2">
         專為實體 Starter Set（死亡天使 VS 瘟疫戰士）盒裝設計的精簡流暢對戰表：
       </p>
-      <ul style="font-size:12px; color:#334155; padding-left:18px; margin-bottom:12px;">
+      <ul class="portal-list-desc">
         <li><strong>實體傷害放置欄：</strong>每張特工卡附帶專屬傷害標記放置區，實戰放骰記錄最省力</li>
         <li><strong>入門特工編制：</strong>預設固定裝備，雙方各挑選 5 位特工出戰（星際戰士首領與重火 2 選 1；瘟疫戰士必選頭目其餘 6 選 4）</li>
         <li><strong>附錄核心行動規則：</strong>數據卡下方即刻附帶換位、衝鋒、射擊、近戰動作完整解說</li>
       </ul>
-      <div style="display:flex; gap:10px;">
-        <a href="angel_of_death_starter_set_rule.html" class="btn-action" style="background:#991b1b; padding:6px 12px; font-size:12px;">死亡天使入門版</a>
-        <a href="plague_marine_starter_set_rule.html" class="btn-action" style="background:#2d5a27; padding:6px 12px; font-size:12px;">瘟疫戰士入門版</a>
+      <div class="d-flex gap-2">
+        <a href="angel_of_death_starter_set_rule.html" class="btn-action btn-action-angels font-xs">死亡天使入門版</a>
+        <a href="plague_marine_starter_set_rule.html" class="btn-action btn-action-plague font-xs">瘟疫戰士入門版</a>
       </div>
     </div>
   </div>
@@ -1350,9 +1461,9 @@
   <table class="terms-table">
     <thead>
       <tr>
-        <th style="width: 25%;">英文原名 (English)</th>
-        <th style="width: 30%;">繁體中文標準 (Traditional Chinese)</th>
-        <th style="width: 45%;">說明與遊戲內涵意</th>
+        <th class="w-25">英文原名 (English)</th>
+        <th class="w-30">繁體中文標準 (Traditional Chinese)</th>
+        <th class="w-45">說明與遊戲內涵意</th>
       </tr>
     </thead>
     <tbody>
@@ -1445,7 +1556,7 @@
   </table>
 
   <!-- 官方社群與資源連結 -->
-  <h2 class="portal-section-title" style="margin-top:32px;">Warhammer Community 官方資源與下載專區</h2>
+  <h2 class="portal-section-title mt-4">Warhammer Community 官方資源與下載專區</h2>
   <div class="resources-grid">
     <a href="https://www.warhammer-community.com/en-gb/downloads/kill-team/" target="_blank" rel="noopener" class="resource-card">
       <div class="resource-icon">📥</div>
@@ -1479,8 +1590,8 @@
     <footer class="site-footer">
       <div class="site-footer-content">
         <p><strong>戰錘 40,000 & 殺戮小隊 (Warhammer 40,000 & Kill Team) 繁體中文全戰棋情報庫</strong></p>
-        <p style="margin-top:4px;">本網站所有規則、專有名詞對照依據 Games Workshop 官方 Kill Team 3rd Edition (2024 / Hivestorm 世代) 與 40K 11th Edition 整理編譯。</p>
-        <p style="margin-top:4px; font-size:12px; color:#64748b;">
+        <p class="mt-1">本網站所有規則、專有名詞對照依據 Games Workshop 官方 Kill Team 3rd Edition (2024 / Hivestorm 世代) 與 40K 11th Edition 整理編譯。</p>
+        <p class="mt-1 font-xs text-muted">
           Warhammer 40,000, Kill Team, Citadel, Adeptus Astartes, Death Guard, Orks 及所有相關商標與圖案均為 Games Workshop Limited 之註冊商標或版權所有，本站僅供華語戰棋愛好者社團學習、推廣與非商業交流使用。
         </p>
       </div>
@@ -1488,7 +1599,7 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.4.4"></script>
+<script src="shared.js?v=3.4.5"></script>
 <!-- 關鍵字搜尋腳本 -->
 <script>
   document.getElementById('keywordSearch').addEventListener('input', function(e) {

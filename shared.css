@@ -378,6 +378,8 @@
   --color-blue-100: #dbeafe;
   --color-blue-50:  #eff6ff;
 
+  --color-blue-800: #1e40af;
+
   --color-cyan-600: #0891b2;
   --color-navy-dark: #091326;
   --color-amber-lightest: #fffbeb;
@@ -398,6 +400,10 @@
   --color-green-600: #16a34a;
   --color-green-500: #22c55e;
   --color-green-400: #4ade80;
+  --color-green-300: #86efac;
+
+  --color-lime-500: #84cc16;
+  --color-lime-300: #bef264;
 
   --color-red-950: #450a0a;
   --color-red-900: #7f1d1d;
@@ -406,13 +412,16 @@
   --color-red-600: #dc2626;
   --color-red-500: #ef4444;
   --color-red-400: #f87171;
+  --color-red-300: #fca5a5;
   --color-red-200: #fecaca;
   --color-red-100: #fee2e2;
   --color-red-50:  #fff5f5;
 
   --color-purple-400: #c084fc;
 
+  --color-amber-950: #714605;
   --color-amber-900: #78350f;
+  --color-amber-850: #9a6a12;
   --color-amber-800: #92400e;
   --color-amber-700: #b45309;
   --color-amber-600: #d97706;
@@ -422,11 +431,13 @@
   --color-amber-100: #fef3c7;
   --color-amber-50:  #fef08a;
 
+  --color-yellow-600: #ca8a04;
   --color-yellow-500: #eab308;
   --color-yellow-400: #facc15;
 
   --color-ground-dark: #090e17;
   --color-body-dark: #0b1120;
+  --color-slate-925: #090d16;
 
   /* 陣營特色色彩 (Faction Colors) */
   --faction-angels: #991b1b;
@@ -457,6 +468,24 @@
 .gap-2 { gap: var(--space-2); }
 .gap-3 { gap: var(--space-3); }
 .gap-4 { gap: var(--space-4); }
+
+.w-25 { width: 25%; }
+.w-30 { width: 30%; }
+.w-45 { width: 45%; }
+.w-50 { width: 50%; }
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-6); }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-6); }
+.mr-1 { margin-right: var(--space-1); }
+.ml-1 { margin-left: var(--space-1); }
+.my-1 { margin-top: var(--space-1); margin-bottom: var(--space-1); }
+.my-2 { margin-top: var(--space-2); margin-bottom: var(--space-2); }
+.py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
 
 .text-primary { color: var(--text-primary); }
 .text-secondary { color: var(--text-secondary); }

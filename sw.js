@@ -1,15 +1,15 @@
 /**
  * 戰錘 40K & 殺戮小隊 繁中規則庫 Service Worker
- * 版本: v3.4.4 (PWA 離線支援與官方戰隊模型圖快取)
+ * 版本: v3.4.5 (PWA 離線支援與官方戰隊模型圖快取)
  */
 
-const CACHE_NAME = 'wh40k-pwa-v3.4.4';
+const CACHE_NAME = 'wh40k-pwa-v3.4.5';
 
 const PRECACHE_ASSETS = [
   './',
   'index.html',
-  'shared.css?v=3.4.4',
-  'shared.js?v=3.4.4',
+  'shared.css?v=3.4.5',
+  'shared.js?v=3.4.5',
   'manifest.json',
   '40k_core_rules.html',
   '40k_combat_patrol_rules.html',
