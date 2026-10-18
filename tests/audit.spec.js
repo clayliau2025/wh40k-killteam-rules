@@ -218,5 +218,28 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     await expect(drawer).not.toHaveClass(/open/);
   });
 
+  test('Stage F 指標驗證：全站 14 頁面側邊欄單一來源動態渲染與 noscript 降級', async ({ page }) => {
+    for (const p of PAGES) {
+      await page.goto('/' + p);
+      // 驗證動態側邊欄由 shared.js 成功渲染且單一無重複
+      const sidebar = page.locator('#appSidebar');
+      await expect(sidebar, `${p} 缺少 #appSidebar`).toBeAttached();
+      const sidebarNav = sidebar.locator('.sidebar-nav');
+      await expect(sidebarNav, `${p} 側邊欄動態選單未能正常渲染`).toBeAttached();
+      const logo = sidebar.locator('.sidebar-logo-img');
+      await expect(logo, `${p} 側邊欄 Logo 未能正常渲染`).toBeAttached();
+    }
+  });
+
+  test('Stage F 指標驗證：行動端漢堡選單觸控目標滿足 44px 規範', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/index.html');
+    const menuBtn = page.locator('.mobile-menu-btn').first();
+    await expect(menuBtn).toBeVisible();
+    const box = await menuBtn.boundingBox();
+    expect(box?.width, '行動端漢堡按鈕寬度應至少 44px').toBeGreaterThanOrEqual(44);
+    expect(box?.height, '行動端漢堡按鈕高度應至少 44px').toBeGreaterThanOrEqual(44);
+  });
+
 });
 

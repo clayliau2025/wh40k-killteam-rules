@@ -195,12 +195,12 @@ function renderModularSidebar() {
       </nav>
     </div>
 
-    <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+    <div class="sidebar-footer d-flex flex-col gap-1 items-stretch">
+      <div class="d-flex justify-between items-center w-full">
         <span>GW 官方 App 實機同步</span>
         <span class="version-badge font-badge" id="sidebarVersionBadge">v3.5.0 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px; gap:6px; display:inline-flex; align-items:center;">${getIcon('mobile')} <span>安裝為桌面/手機 App</span></button>
+      <button type="button" class="btn-pwa-install sidebar-pwa-btn w-full justify-center font-badge d-inline-flex items-center gap-1">${getIcon('mobile')} <span>安裝為桌面/手機 App</span></button>
     </div>
   `;
 }

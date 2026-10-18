@@ -3849,10 +3849,12 @@ body.theme-40k-orks .datacard {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #ffffff;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
@@ -4000,9 +4002,11 @@ body.theme-40k-orks .datacard {
 @media (max-width: 900px) {
   .mobile-menu-btn {
     display: flex;
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 20px;
   }
 
   .app-sidebar {

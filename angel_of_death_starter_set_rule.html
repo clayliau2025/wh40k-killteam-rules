@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>殺戮小隊：死亡天使 (Angels of Death) 入門套組對戰速查表</title>
   <meta name="description" content="殺戮小隊：死亡天使 (Angels of Death) 入門套組對戰速查表，收錄星際戰士特工數據卡、專屬武器特性、特規與對戰快速參考。">
-  <link rel="stylesheet" href="shared.css?v=3.5.0">
+  <link rel="stylesheet" href="shared.css?v=3.5.1">
   <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,146 +24,35 @@
                         <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <!-- 左側側邊欄導航 (SIDEBAR) -->
-  <aside class="app-sidebar" id="appSidebar">
-    <div class="sidebar-header">
-      <a href="index.html" class="sidebar-logo">
-        <img src="assets/wh40k_logo.png" alt="Warhammer 40K" class="sidebar-logo-img" decoding="async">
-        <div class="sidebar-title-group">
-          <div class="sidebar-brand-name">戰錘 40K & KT</div>
-          <div class="sidebar-brand-sub">繁體中文情報庫</div>
-        </div>
-      </a>
-      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="收合/展開側邊欄">◀</button>
-    </div>
-
-    <div class="sidebar-scrollable">
-      <nav class="sidebar-nav">
-        <!-- 首頁 -->
-        <a href="index.html" class="nav-item-link ">
-          <span class="nav-icon">🏠</span>
-          <span class="nav-text">首頁總覽</span>
+    <!-- 全站標準化動態側邊欄 (Single Source of Truth，由 shared.js 自動渲染) -->
+  <aside class="app-sidebar" id="appSidebar" aria-label="全站導航側邊欄">
+    <noscript>
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-logo">
+          <img src="assets/wh40k_logo.png" alt="戰錘 40K &amp; KT" class="sidebar-logo-img" width="36" height="36">
+          <div class="sidebar-title-group">
+            <span class="sidebar-brand-name">戰錘 40K &amp; KT</span>
+            <span class="sidebar-brand-sub">繁體中文情報庫</span>
+          </div>
         </a>
-
-        <!-- 40K 核心規則 & 戰巡隊 (點擊展開 Accordion) -->
-        <div class="nav-group ">
-          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
-            <span class="group-header-left">
-              <span class="nav-icon">⚡</span>
-              <span class="nav-text">戰錘 40K (核心 & 戰巡)</span>
-            </span>
-            <span class="group-arrow">▾</span>
-          </button>
-          <div class="nav-sub-list">
-            <a href="40k_core_rules.html" class="sub-nav-link ">
-              <span class="sub-bullet">•</span>
-              <span>40K 完整核心規則 (11版)</span>
-              <span class="sub-badge badge-blue">APP同步</span>
-            </a>
-            <a href="40k_combat_patrol_rules.html" class="sub-nav-link ">
-              <span class="sub-bullet">•</span>
-              <span>戰巡核心作戰手冊 (11版)</span>
-            </a>
-            <a href="40k_combat_patrol_rules.html#mission-flow" class="sub-nav-link">
-              <span class="sub-bullet">•</span>
-              <span>官方任務流程 (10步驟)</span>
-            </a>
-            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link ">
-              <span class="sub-bullet">•</span>
-              <span>戰巡對戰助手 (War Journal)</span>
-              <span class="sub-badge badge-red">HOT</span>
-            </a>
-            <div class="sub-group-label">戰巡隊資料卡 (DATASHEETS)</div>
-            <a href="40k_cp_astartes.html" class="sub-nav-link ">
-              <span class="sub-bullet">🩸</span>
-              <span>突擊分隊 (阿斯塔特)</span>
-            </a>
-            <a href="40k_cp_orks.html" class="sub-nav-link ">
-              <span class="sub-bullet">🟢</span>
-              <span>硬漢幫 (歐克蠻人)</span>
-            </a>
-            <a href="index.html#cp-roster-directory" class="sub-nav-link">
-              <span class="sub-bullet">📜</span>
-              <span>App 全 24 支戰巡名冊</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 殺戮小隊 (點擊展開 Accordion) -->
-        <div class="nav-group open">
-          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
-            <span class="group-header-left">
-              <span class="nav-icon">🎯</span>
-              <span class="nav-text">殺戮小隊 (Kill Team)</span>
-            </span>
-            <span class="group-arrow">▾</span>
-          </button>
-          <div class="nav-sub-list">
-            <a href="rule_lite.html" class="sub-nav-link ">
-              <span class="sub-bullet">•</span>
-              <span>核心作戰規則 (精簡版)</span>
-            </a>
-            <a href="match_tracker.html" class="sub-nav-link ">
-              <span class="sub-bullet">•</span>
-              <span>殺戮小隊計分助手</span>
-              <span class="sub-badge badge-red">KT 3版</span>
-            </a>
-            <div class="sub-group-label">特遣戰隊 (TEAMS)</div>
-            <a href="death_of_angel_web_rule.html" class="sub-nav-link active">
-              <span class="sub-bullet">🩸</span>
-              <span>死亡天使 (Angels of Death)</span>
-            </a>
-            <a href="Kommandos.html" class="sub-nav-link ">
-              <span class="sub-bullet">🪓</span>
-              <span>歐克特戰小子 (Kommandos)</span>
-            </a>
-            <a href="plague_marine.html" class="sub-nav-link ">
-              <span class="sub-bullet">🪰</span>
-              <span>瘟疫戰士 (Plague Marines)</span>
-            </a>
-            <a href="universal_equipment.html" class="sub-nav-link ">
-              <span class="sub-bullet">⚙️</span>
-              <span>通用戰術裝備庫</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 對戰助手專區 (點擊展開 Accordion) -->
-        <div class="nav-group ">
-          <button type="button" class="nav-group-header" onclick="toggleNavGroup(this)">
-            <span class="group-header-left">
-              <span class="nav-icon">⚔️</span>
-              <span class="nav-text">對戰助手專區</span>
-            </span>
-            <span class="group-arrow">▾</span>
-          </button>
-          <div class="nav-sub-list">
-            <a href="40k_combat_patrol_tracker.html" class="sub-nav-link ">
-              <span class="sub-bullet">⚡</span>
-              <span>40K 戰巡 War Journal 助手</span>
-              <span class="sub-badge badge-red">HOT</span>
-            </a>
-            <a href="match_tracker.html" class="sub-nav-link ">
-              <span class="sub-bullet">🎯</span>
-              <span>殺戮小隊 對戰計分助手</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 辭典 -->
-        <a href="index.html#weapons-glossary" class="nav-item-link">
-          <span class="nav-icon">📖</span>
-          <span class="nav-text">特規與武器辭典</span>
-        </a>
-      </nav>
-    </div>
-
-    <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-        <span>GW 官方 App 實機同步</span>
-        <span class="version-badge font-badge">v3.5.0 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
-    </div>
+      <nav class="sidebar-nav" aria-label="靜態導航選單">
+        <a href="index.html" class="nav-item-link">首頁總覽</a>
+        <a href="40k_core_rules.html" class="nav-item-link">40K 完整核心規則 (11版)</a>
+        <a href="40k_combat_patrol_rules.html" class="nav-item-link">戰巡核心作戰手冊 (11版)</a>
+        <a href="40k_combat_patrol_tracker.html" class="nav-item-link">戰巡對戰助手 (War Journal)</a>
+        <a href="40k_cp_astartes.html" class="nav-item-link">突擊分隊 (阿斯塔特)</a>
+        <a href="40k_cp_orks.html" class="nav-item-link">硬漢幫 (歐克蠻人)</a>
+        <a href="rule_lite.html" class="nav-item-link">殺戮小隊 核心作戰規則 (精簡版)</a>
+        <a href="match_tracker.html" class="nav-item-link">殺戮小隊 計分助手</a>
+        <a href="death_of_angel_web_rule.html" class="nav-item-link">死亡天使 (Angels of Death)</a>
+        <a href="Kommandos.html" class="nav-item-link">歐克特戰小子 (Kommandos)</a>
+        <a href="plague_marine.html" class="nav-item-link">瘟疫戰士 (Plague Marines)</a>
+        <a href="universal_equipment.html" class="nav-item-link">通用戰術裝備庫</a>
+        <a href="angel_of_death_starter_set_rule.html" class="nav-item-link">天使之死 入門規則</a>
+        <a href="plague_marine_starter_set_rule.html" class="nav-item-link">瘟疫戰士 入門規則</a>
+      </nav>
+    </noscript>
   </aside>
 
   <!-- 右側主區域 (MAIN CONTENT) -->
@@ -756,6 +645,6 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.5.0"></script>
+<script src="shared.js?v=3.5.1"></script>
 </body>
 </html>
