@@ -60,4 +60,27 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     }
   });
 
+  test('離線完整性驗證：全站 14 頁面零外部 CDN 資源請求且本地圖片均加載成功', async ({ page }) => {
+    const externalRequests = [];
+    page.on('request', req => {
+      const url = req.url();
+      if (url.includes('fonts.googleapis.com') || url.includes('fonts.gstatic.com') || url.includes('d3ocysny7bghv8.cloudfront.net')) {
+        externalRequests.push(url);
+      }
+    });
+
+    for (const p of PAGES) {
+      await page.goto('/' + p);
+      // 檢查頁面內圖片是否有破圖
+      const brokenImages = await page.evaluate(() => {
+        return Array.from(document.querySelectorAll('img'))
+          .filter(img => img.complete && img.naturalWidth === 0)
+          .map(img => img.src);
+      });
+      expect(brokenImages, `${p} 存在破圖 (naturalWidth === 0)`).toEqual([]);
+    }
+
+    expect(externalRequests, '頁面發送了外部 CDN 請求').toEqual([]);
+  });
+
 });
