@@ -164,12 +164,12 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     const progressBar = page.locator('#readingProgressBar');
     await expect(progressBar).toBeAttached();
 
-    // 2. 桌面與抽屜 TOC 導航項目
-    const tocLinks = page.locator('#crTocSidebar .cr-toc-link');
+    // 2. TOC 導航項目（抽屜）
+    const tocLinks = page.locator('#tocDrawer .cr-toc-link');
     const count = await tocLinks.count();
-    expect(count, '桌面目錄章節數量應為 27').toBe(27);
+    expect(count, '目錄章節數量應為 27').toBe(27);
 
-    // 3. 行動端章節跳轉選單
+    // 3. 章節跳轉選單
     const chapterSelect = page.locator('#mobileChapterSelect');
     await expect(chapterSelect).toBeAttached();
     const optCount = await chapterSelect.locator('option').count();
@@ -189,14 +189,8 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     const progressWidth = await progressBar.evaluate(el => parseFloat(el.style.width || '0'));
     expect(progressWidth, '滾動至半途時閱讀進度應 > 20%').toBeGreaterThan(20);
 
-    // 6. 點擊 TOC 項目觸發跳轉與高亮 (區分桌面側欄與行動端下拉)
-    const isDesktop = (page.viewportSize()?.width || 0) >= 1200;
-    if (isDesktop) {
-      const targetLink = page.locator('#crTocSidebar .cr-toc-link[data-target="sec-05"]');
-      await targetLink.click();
-    } else {
-      await chapterSelect.selectOption('sec-05');
-    }
+    // 6. 點擊 / 選擇章節跳轉與高亮
+    await chapterSelect.selectOption('sec-05');
     await page.waitForTimeout(300);
     const hash = await page.evaluate(() => window.location.hash);
     expect(hash).toBe('#sec-05');

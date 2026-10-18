@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>戰錘 40,000：殺戮小隊 簡易規則 (Lite Rules) - 繁體中文標準版</title>
   <meta name="description" content="戰錘 40,000：殺戮小隊 簡易核心規則 (Lite Rules) 繁體中文標準版，快速掌握姿態指令、移動、射擊掩體判定與近戰格鬥結算機制。">
-  <link rel="stylesheet" href="shared.css?v=3.5.2">
+  <link rel="stylesheet" href="shared.css?v=3.5.3">
 
   <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
@@ -96,6 +96,21 @@
           <a href="#concepts" class="part-pill" data-target="concepts">Ⅴ. 控制範圍與掩護</a>
           <a href="#combat" class="part-pill" data-target="combat">Ⅵ. 射擊與格鬥序列</a>
           <a href="#weapons" class="part-pill" data-target="weapons">Ⅶ. 22項特殊武器規則</a>
+        </div>
+
+        <!-- 快速章節跳轉下拉選單 (與 11 版規則一致) -->
+        <div class="cr-mobile-jump-row no-print" style="margin-bottom: 16px;">
+          <label for="liteChapterSelect" class="font-xs font-bold text-muted d-none">章節跳轉:</label>
+          <select id="liteChapterSelect" class="cr-chapter-select" aria-label="選擇章節快速跳轉">
+            <option value="">-- 快速跳轉至指定章節 (7大核心模組) --</option>
+            <option value="setup">01. 戰鬥前置設定 (Set Up)</option>
+            <option value="orders">02. 特工指令與反制機制 (Orders & Counteract)</option>
+            <option value="flow">03. 轉折點戰鬥流程 (Battle Flow)</option>
+            <option value="actions">04. 六大基礎行動 (Basic Actions)</option>
+            <option value="concepts">05. 控制範圍與掩護 (Engagement Range & Cover)</option>
+            <option value="combat">06. 射擊與格鬥序列 (Shooting & Fight Sequence)</option>
+            <option value="weapons">07. 22項特殊武器規則 (Special Weapon Rules)</option>
+          </select>
         </div>
 
   <div class="grid">
@@ -274,11 +289,24 @@
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.5.2"></script>
+<script src="shared.js?v=3.5.3"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const pills = Array.from(document.querySelectorAll('.part-pill[data-target]'));
     const cards = pills.map(p => document.getElementById(p.getAttribute('data-target'))).filter(Boolean);
+    const chapterSelect = document.getElementById('liteChapterSelect');
+
+    if (chapterSelect) {
+      chapterSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (!val) return;
+        const target = document.getElementById(val);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.pushState(null, '', '#' + val);
+        }
+      });
+    }
 
     function onScroll() {
       const scrollPos = window.scrollY + 120;
@@ -297,6 +325,9 @@
           p.classList.remove('active');
         }
       });
+      if (chapterSelect && currentId && chapterSelect.value !== currentId) {
+        chapterSelect.value = currentId;
+      }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
