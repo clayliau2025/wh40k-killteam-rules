@@ -280,6 +280,7 @@
   --radius-lg: 8px;
 
   /* --- 階層字級 Tokens (Type Scale) --- */
+  --font-size-badge: 11px;
   --font-size-xs: 12px;
   --font-size-sm: 13px;
   --font-size-base: 14px;
@@ -287,7 +288,7 @@
   --font-size-lg: 18px;
   --font-size-xl: 20px;
   --font-size-2xl: 24px;
-  --font-size-3xl: 30px;
+  --font-size-3xl: 32px;
 
   /* --- 間距 Tokens (Spacing Scale) --- */
   --space-1: 4px;
@@ -810,7 +811,7 @@ body {
   color: var(--theme-text-main);
   font-family: var(--font-body);
   line-height: 1.5;
-  font-size: 13.5px;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -857,7 +858,7 @@ body {
 }
 
 .site-nav-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: 0.5px;
   color: #ffffff;
@@ -865,7 +866,7 @@ body {
 }
 
 .site-nav-badge {
-  font-size: 10px;
+  font-size: 11px;
   white-space: nowrap;
   background: var(--theme-primary);
   color: #ffffff;
@@ -925,7 +926,7 @@ body {
 /* 下拉選單指示箭頭 */
 .nav-dropdown-toggle .caret {
   display: inline-block;
-  font-size: 10px;
+  font-size: 12px;
   transition: transform 0.25s ease;
   opacity: 0.75;
 }
@@ -978,7 +979,7 @@ body {
 
 /* 下拉分組標題 */
 .dropdown-header {
-  font-size: 10.5px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #94a3b8;
@@ -1021,7 +1022,7 @@ body {
 }
 
 .dropdown-item-icon {
-  font-size: 15px;
+  font-size: 16px;
   flex-shrink: 0;
   width: 20px;
   text-align: center;
@@ -1046,7 +1047,7 @@ body {
 }
 
 .dropdown-badge {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 4px;
@@ -1179,7 +1180,7 @@ body {
 
 .hero-tag {
   display: inline-block;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -1201,7 +1202,7 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 12.5px;
+  font-size: 13px;
   color: #94a3b8;
   line-height: 1.5;
 }
@@ -1236,7 +1237,7 @@ body {
 }
 
 .section-tag {
-  font-size: 10.5px;
+  font-size: 11px;
   background: var(--theme-primary);
   color: #ffffff;
   padding: 1px 7px;
@@ -1287,7 +1288,7 @@ body {
 
 .ploy-title {
   font-weight: 800;
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--theme-primary);
   display: flex;
   align-items: baseline;
@@ -1295,7 +1296,7 @@ body {
 }
 
 .ploy-title-en {
-  font-size: 10.5px;
+  font-size: 12px;
   color: var(--theme-text-muted);
   font-weight: 500;
 }
@@ -1357,7 +1358,7 @@ body {
   border-bottom: 2px solid var(--theme-primary);
 }
 .ue-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.5px;
 }
@@ -1369,7 +1370,7 @@ body {
   margin-left: 6px;
 }
 .ue-tag {
-  font-size: 10px;
+  font-size: 11px;
   background: var(--theme-primary);
   color: #ffffff;
   padding: 2px 8px;
@@ -1386,7 +1387,7 @@ body {
 .ue-lore {
   font-style: italic;
   color: var(--text-muted, #64748b);
-  font-size: 11.5px;
+  font-size: 12px;
   margin-bottom: 10px;
   border-left: 3px solid var(--border-color, #cbd5e1);
   padding-left: 8px;
@@ -1410,7 +1411,7 @@ body {
 .ap-pill {
   background: var(--theme-primary, #ea580c);
   color: #ffffff;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   padding: 2px 6px;
   border-radius: 4px;
@@ -1468,19 +1469,19 @@ body {
   border: 1px solid var(--theme-border-dark, #334155);
 }
 .stat-legend-code {
-  font-size: 14pt;
+  font-size: 18px;
   font-weight: 900;
   color: #60a5fa;
   font-family: var(--font-display);
 }
 .stat-legend-name {
-  font-size: 8.5pt;
+  font-size: 12px;
   color: #cbd5e1;
   font-weight: 700;
   margin-top: 2px;
 }
 .stat-legend-desc {
-  font-size: 7.5pt;
+  font-size: 12px;
   color: #94a3b8;
   margin-top: 4px;
   line-height: 1.3;
@@ -1489,7 +1490,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 10px 0;
-  font-size: 9.5pt;
+  font-size: 12px;
 }
 .wound-matrix-table th,
 .wound-matrix-table td {
@@ -1508,7 +1509,7 @@ body {
 .dice-val {
   font-weight: 900;
   color: var(--color-danger, #dc2626);
-  font-size: 11pt;
+  font-size: 14px;
 }
 .stratagem-card {
   background: var(--surface, #ffffff);
@@ -1521,7 +1522,7 @@ body {
   flex-direction: column;
 }
 .strat-type {
-  font-size: 8.5pt;
+  font-size: 12px;
   font-weight: 800;
   color: var(--text-muted, #64748b);
   text-transform: uppercase;
@@ -1532,12 +1533,12 @@ body {
   background: var(--surface-subtle, #f1f5f9);
   border-left: 3px solid var(--text-muted, #64748b);
   padding: 4px 8px;
-  font-size: 8.5pt;
+  font-size: 12px;
   color: var(--text-secondary, #334155);
   margin-bottom: 8px;
 }
 .strat-text {
-  font-size: 9.2pt;
+  font-size: 12px;
   color: var(--text-secondary, #1e293b);
   line-height: 1.5;
   flex: 1;
@@ -1550,7 +1551,7 @@ body {
   margin-top: 10px;
 }
 .mission-header {
-  font-size: 14pt;
+  font-size: 18px;
   font-weight: 900;
   color: var(--text-primary, #0f172a);
   font-family: var(--font-display);
@@ -1565,7 +1566,7 @@ body {
   padding: 10px 14px;
   margin: 10px 0;
   border-radius: 0 4px 4px 0;
-  font-size: 9.2pt;
+  font-size: 12px;
   color: var(--text-primary, #1e3a8a);
 }
 
@@ -1594,7 +1595,7 @@ body {
   color: #0f172a;
   padding: 1px 6px;
   border-radius: 3px;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -1616,7 +1617,7 @@ body {
   background: var(--theme-primary);
   color: #ffffff;
   font-weight: 800;
-  font-size: 8.5pt;
+  font-size: 12px;
   padding: 2px 8px;
   letter-spacing: 0.5px;
   border-radius: 3px;
@@ -1633,7 +1634,7 @@ body {
   box-shadow: var(--shadow-sm);
 }
 .card-title {
-  font-size: 11pt;
+  font-size: 14px;
   font-weight: 900;
   color: var(--text-primary, #0f172a);
   text-transform: uppercase;
@@ -1649,7 +1650,7 @@ body {
   border: 1px solid var(--theme-primary);
   background: var(--theme-primary-light, #fff7ed);
   color: var(--theme-primary);
-  font-size: 8pt;
+  font-size: 12px;
   padding: 1px 6px;
   border-radius: 3px;
   font-weight: 800;
@@ -1661,7 +1662,7 @@ body {
   border-radius: 4px;
   padding: 8px 10px;
   margin-top: 8px;
-  font-size: 8.8pt;
+  font-size: 12px;
   color: var(--theme-primary-hover, #9a3412);
   line-height: 1.45;
 }
@@ -1679,7 +1680,7 @@ body {
   }
 }
 .weapon-item {
-  font-size: 8.8pt;
+  font-size: 12px;
   line-height: 1.4;
   background: var(--surface-subtle, #f8fafc);
   padding: 7px 10px;
@@ -1693,7 +1694,7 @@ body {
 .footer-note {
   margin-top: 24px;
   text-align: center;
-  font-size: 8.5pt;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
   border-top: 1px solid var(--border-subtle, #e2e8f0);
   padding-top: 12px;
@@ -1726,7 +1727,7 @@ body {
 }
 
 .header-title {
-  font-size: 14pt;
+  font-size: 18px;
   font-weight: 900;
   color: var(--theme-primary);
   display: flex;
@@ -1736,7 +1737,7 @@ body {
 }
 
 .header-sub {
-  font-size: 8.8pt;
+  font-size: 12px;
   color: var(--text-muted, #475569);
   font-weight: 600;
   margin-top: 2px;
@@ -1745,19 +1746,19 @@ body {
 .dmg-bold {
   font-weight: 900;
   color: var(--accent-kt, #ea580c);
-  font-size: 10pt;
+  font-size: 13px;
 }
 
 .lore-box {
   font-style: italic;
   color: var(--text-muted, #64748b);
-  font-size: 7.5pt;
+  font-size: 12px;
   margin-bottom: 2.5px;
   line-height: 1.25;
 }
 
 .rule-desc {
-  font-size: 8.8pt;
+  font-size: 12px;
   color: var(--text-secondary, #1e293b);
   line-height: 1.38;
 }
@@ -1776,7 +1777,7 @@ body {
   background: var(--surface-subtle, #f8fafc);
   padding: 5px 8px;
   border-radius: var(--radius-sm);
-  font-size: 8.8pt;
+  font-size: 12px;
   margin-bottom: 6px;
   line-height: 1.38;
 }
@@ -1787,14 +1788,14 @@ body {
   padding-top: 2px;
   display: flex;
   justify-content: space-between;
-  font-size: 7pt;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
 }
 
 .keywords-row {
   background: var(--surface-subtle, #f8fafc);
   padding: 2.5px 8px;
-  font-size: 7pt;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
   letter-spacing: 0.3px;
   border-top: 0.5px solid var(--border-subtle, #cbd5e1);
@@ -1809,7 +1810,7 @@ body {
 }
 
 .strat-name {
-  font-size: 9.8pt;
+  font-size: 13px;
   font-weight: 800;
   color: var(--theme-primary-hover, var(--theme-primary));
 }
@@ -1828,7 +1829,7 @@ body {
 }
 
 .rule-subhead-accent {
-  font-size: 11pt;
+  font-size: 14px;
   font-weight: 800;
   color: var(--theme-primary, #1e3a8a);
   margin: 14px 0 6px 0;
@@ -1853,12 +1854,12 @@ body {
 }
 
 .text-meta {
-  font-size: 8.5pt;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
 }
 
 .text-meta-bold {
-  font-size: 8.5pt;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
   font-weight: 700;
 }
@@ -1874,7 +1875,7 @@ body {
 }
 
 .chapter-title {
-  font-size: 15pt;
+  font-size: 20px;
   font-weight: 900;
   margin: 0;
   font-family: var(--font-display);
@@ -1882,7 +1883,7 @@ body {
 }
 
 .chapter-sub {
-  font-size: 9pt;
+  font-size: 12px;
   color: #94a3b8;
   margin: 4px 0 0 0;
 }
@@ -1890,7 +1891,7 @@ body {
 .text-danger-bold {
   color: var(--color-danger, #dc2626);
   font-weight: 900;
-  font-size: 11pt;
+  font-size: 14px;
 }
 
 .mt-4 {
@@ -1910,7 +1911,7 @@ body {
 }
 
 .badge-system-40k {
-  font-size: 9px;
+  font-size: 11px;
   background: var(--accent-40k, #2563eb);
   color: #fff;
   padding: 1px 5px;
@@ -1940,7 +1941,7 @@ body {
 }
 
 .portal-roster-status-muted {
-  font-size: 10.5px;
+  font-size: 12px;
   color: #64748b;
 }
 
@@ -1953,13 +1954,13 @@ body {
 
 .mission-step-title {
   color: var(--accent-40k, #1e3a8a);
-  font-size: 11pt;
+  font-size: 14px;
   font-weight: 700;
   display: block;
 }
 
 .mission-step-desc {
-  font-size: 9pt;
+  font-size: 12px;
   color: var(--text-secondary, #475569);
   margin-top: 4px;
   line-height: 1.5;
@@ -2039,7 +2040,7 @@ body {
 }
 
 .stat-label {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--theme-text-muted);
   display: block;
   font-weight: 800;
@@ -2047,7 +2048,7 @@ body {
 }
 
 .stat-value {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
   color: var(--theme-dark);
   font-family: var(--font-display);
@@ -2060,7 +2061,7 @@ body {
   color: #991b1b;
   border-bottom: 1px dashed #fca5a5;
   padding: 3px 12px;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.5px;
   display: flex;
@@ -2077,7 +2078,7 @@ body.theme-plague .damage-tracker-bar {
 .weapon-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 11.5px;
+  font-size: 12px;
   background: #ffffff;
 }
 
@@ -2114,7 +2115,7 @@ body.theme-plague .damage-tracker-bar {
 }
 
 .weapon-name-en {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--theme-text-muted);
   font-weight: normal;
   display: block;
@@ -2132,7 +2133,7 @@ body.theme-plague .damage-tracker-bar {
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
   color: #334155;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   padding: 1px 5px;
   border-radius: 3px;
@@ -2184,7 +2185,7 @@ body.theme-plague .damage-tracker-bar {
 
 #globalWpTooltip .tooltip-desc {
   color: #cbd5e1;
-  font-size: 11.5px;
+  font-size: 12px;
   margin: 0;
 }
 
@@ -2216,7 +2217,7 @@ body.theme-plague .damage-tracker-bar {
   color: #ffffff;
   padding: 1px 5px;
   border-radius: 3px;
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 800;
   margin-left: 4px;
 }
@@ -2226,7 +2227,7 @@ body.theme-plague .damage-tracker-bar {
   background: #f8fafc;
   border-top: 1px solid #e2e8f0;
   padding: 4px 12px;
-  font-size: 9.5px;
+  font-size: 12px;
   color: #64748b;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -2271,7 +2272,7 @@ body.theme-plague .damage-tracker-bar {
 }
 
 .title-group h2 {
-  font-size: 9.5pt;
+  font-size: 12px;
   letter-spacing: 3px;
   color: var(--cp-sub-text, #cbd5e1);
   text-transform: uppercase;
@@ -2280,7 +2281,7 @@ body.theme-plague .damage-tracker-bar {
 }
 
 .title-group h1 {
-  font-size: 24pt;
+  font-size: 32px;
   font-weight: 900;
   letter-spacing: 1px;
   color: #ffffff;
@@ -2297,7 +2298,7 @@ body.theme-plague .damage-tracker-bar {
   background: var(--theme-primary, #2563eb);
   color: #ffffff;
   font-weight: 800;
-  font-size: 9pt;
+  font-size: 12px;
   padding: 3px 10px;
   letter-spacing: 1px;
   border-radius: 20px;
@@ -2307,7 +2308,7 @@ body.theme-plague .damage-tracker-bar {
 
 .intro-p {
   color: var(--cp-intro-text, #e2e8f0);
-  font-size: 9.5pt;
+  font-size: 12px;
   line-height: 1.55;
   max-width: 820px;
 }
@@ -2350,7 +2351,7 @@ body.theme-plague .damage-tracker-bar {
   padding: 10px 16px;
   border-left: 6px solid var(--theme-primary, #2563eb);
   border-radius: var(--radius-sm);
-  font-size: 13.5pt;
+  font-size: 18px;
   font-weight: 900;
   letter-spacing: 0.5px;
   font-family: var(--font-display);
@@ -2361,7 +2362,7 @@ body.theme-plague .damage-tracker-bar {
 }
 
 .section-badge {
-  font-size: 9pt;
+  font-size: 12px;
   padding: 2px 8px;
   border-radius: 3px;
   background: var(--theme-primary, #2563eb);
@@ -2405,14 +2406,14 @@ body.theme-40k-orks .datacard {
 }
 
 .card-unit-name {
-  font-size: 14pt;
+  font-size: 18px;
   font-weight: 900;
   color: var(--cp-unit-color, var(--theme-primary));
   font-family: var(--font-display);
 }
 
 .card-unit-en {
-  font-size: 9pt;
+  font-size: 12px;
   color: var(--text-muted, #64748b);
   margin-left: 6px;
   font-weight: 500;
@@ -2433,7 +2434,7 @@ body.theme-40k-orks .datacard {
 }
 
 .stat-label {
-  font-size: 7pt;
+  font-size: 11px;
   color: var(--text-muted, #64748b);
   font-weight: 800;
   display: block;
@@ -2441,7 +2442,7 @@ body.theme-40k-orks .datacard {
 }
 
 .stat-val {
-  font-size: 13pt;
+  font-size: 18px;
   font-weight: 900;
   color: var(--text-primary, #0f172a);
   font-family: var(--font-display);
@@ -2459,14 +2460,14 @@ body.theme-40k-orks .datacard {
   width: 100%;
   border-collapse: collapse;
   margin: 10px 0;
-  font-size: 9pt;
+  font-size: 12px;
 }
 
 .weapon-table th {
   background: var(--theme-dark-alt, #1e293b);
   color: #ffffff;
   padding: 6px 8px;
-  font-size: 8.5pt;
+  font-size: 12px;
   font-weight: 800;
   text-align: center;
 }
@@ -2494,7 +2495,7 @@ body.theme-40k-orks .datacard {
   padding: 8px 12px;
   margin-top: 8px;
   border-radius: 0 4px 4px 0;
-  font-size: 9pt;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -2515,7 +2516,7 @@ body.theme-40k-orks .datacard {
 }
 
 .strat-title {
-  font-size: 11.5pt;
+  font-size: 16px;
   font-weight: 900;
   color: var(--cp-unit-color, var(--theme-primary));
   font-family: var(--font-display);
@@ -2525,7 +2526,7 @@ body.theme-40k-orks .datacard {
   background: var(--theme-primary, #2563eb);
   color: #ffffff;
   font-weight: 800;
-  font-size: 8.5pt;
+  font-size: 12px;
   padding: 2px 7px;
   border-radius: 10px;
 }
@@ -2536,7 +2537,7 @@ body.theme-40k-orks .datacard {
   color: #94a3b8;
   border-top: 3px solid var(--theme-primary);
   padding: 24px 16px;
-  font-size: 11.5px;
+  font-size: 12px;
   margin-top: 40px;
   text-align: center;
 }
@@ -2558,7 +2559,7 @@ body.theme-40k-orks .datacard {
     background-color: #ffffff !important;
     color: #000000 !important;
     padding: 0;
-    font-size: 9.5pt;
+    font-size: 12px;
   }
 
   .site-nav,
@@ -2584,7 +2585,7 @@ body.theme-40k-orks .datacard {
 
   .hero-title {
     color: #000000 !important;
-    font-size: 16pt !important;
+    font-size: 20px !important;
   }
 
   .datacard,
@@ -2768,7 +2769,7 @@ body.theme-40k-orks .datacard {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: #9ca3af;
 }
@@ -2892,7 +2893,7 @@ body.theme-40k-orks .datacard {
   border: 1px solid #475569;
   background: #1e293b;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   cursor: pointer;
   display: flex;
@@ -2907,7 +2908,7 @@ body.theme-40k-orks .datacard {
 }
 
 .counter-val {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
   color: #ffffff;
   min-width: 34px;
@@ -2927,7 +2928,7 @@ body.theme-40k-orks .datacard {
   border: 1px solid #334155;
   border-radius: 6px;
   padding: 4px 8px;
-  font-size: 11.5px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2950,7 +2951,7 @@ body.theme-40k-orks .datacard {
   border: none;
   border-radius: 3px;
   padding: 1px 5px;
-  font-size: 10px;
+  font-size: 12px;
   cursor: pointer;
   font-weight: 700;
 }
@@ -3111,7 +3112,7 @@ body.theme-40k-orks .datacard {
 .btn-toggle {
   flex: 1;
   padding: 5px;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
   border-radius: 5px;
   border: 1px solid #cbd5e1;
@@ -3194,7 +3195,7 @@ body.theme-40k-orks .datacard {
 }
 
 .step-label {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   color: #64748b;
 }
@@ -3294,7 +3295,7 @@ body.theme-40k-orks .datacard {
 
 .sidebar-brand-name,
 .brand-title {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 900;
   letter-spacing: 0.5px;
   color: #ffffff !important;
@@ -3304,7 +3305,7 @@ body.theme-40k-orks .datacard {
 
 .sidebar-brand-sub,
 .brand-sub {
-  font-size: 10.5px;
+  font-size: 12px;
   color: #38bdf8 !important;
   font-weight: 700;
   letter-spacing: 0.6px;
@@ -3528,7 +3529,7 @@ body.theme-40k-orks .datacard {
 }
 
 .sub-group-label {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: #64748b;
@@ -3546,7 +3547,7 @@ body.theme-40k-orks .datacard {
   border-radius: 5px;
   color: #94a3b8;
   text-decoration: none;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 500;
   transition: all 0.15s ease;
 }
@@ -3570,7 +3571,7 @@ body.theme-40k-orks .datacard {
 }
 
 .sub-badge {
-  font-size: 9.5px;
+  font-size: 11px;
   font-weight: 800;
   padding: 1px 5px;
   border-radius: 3px;
@@ -3793,7 +3794,7 @@ body.theme-40k-orks .datacard {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
   padding: 5px 10px;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -3904,7 +3905,7 @@ body.theme-40k-orks .datacard {
 }
 
 .cat-card-icon {
-  font-size: 26px;
+  font-size: 24px;
   width: 48px;
   height: 48px;
   border-radius: 10px;
@@ -3927,7 +3928,7 @@ body.theme-40k-orks .datacard {
 }
 
 .cat-tag {
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.8px;
   color: #2563eb;
@@ -3947,7 +3948,7 @@ body.theme-40k-orks .datacard {
 }
 
 .cat-desc {
-  font-size: 12.5px;
+  font-size: 13px;
   color: #64748b;
   line-height: 1.5;
   margin: 0 0 16px 0;
@@ -4063,11 +4064,11 @@ body.theme-40k-orks .datacard {
   }
 
   .stat-box .stat-label {
-    font-size: 7pt !important;
+    font-size: 11px !important;
   }
 
   .stat-box .stat-val {
-    font-size: 11pt !important;
+    font-size: 14px !important;
   }
 
   .card-top {
@@ -4115,7 +4116,7 @@ body.theme-40k-orks .datacard {
   }
 
   .op-name {
-    font-size: 14pt !important;
+    font-size: 18px !important;
     line-height: 1.25 !important;
     display: block !important;
     font-weight: 900 !important;
@@ -4124,7 +4125,7 @@ body.theme-40k-orks .datacard {
   .op-name-en {
     display: block !important;
     margin-left: 0 !important;
-    font-size: 8.5pt !important;
+    font-size: 12px !important;
     margin-top: 2px !important;
     color: #64748b !important;
     font-weight: 600 !important;
@@ -4155,13 +4156,13 @@ body.theme-40k-orks .datacard {
   }
 
   .stat-cluster .stat-label {
-    font-size: 7.5pt !important;
+    font-size: 11px !important;
     margin-bottom: 1px !important;
     color: #64748b !important;
   }
 
   .stat-cluster .stat-value {
-    font-size: 13pt !important;
+    font-size: 18px !important;
     font-weight: 900 !important;
   }
 
@@ -4181,7 +4182,7 @@ body.theme-40k-orks .datacard {
   .weapon-table th,
   .weapon-table td {
     padding: 6px 8px !important;
-    font-size: 8.5pt !important;
+    font-size: 12px !important;
     min-width: 55px;
   }
 
@@ -4209,19 +4210,19 @@ body.theme-40k-orks .datacard {
   .strat-card, .equip-card, .highlight-card {
     padding: 10px 12px !important;
     margin-bottom: 8px !important;
-    font-size: 9.5pt !important;
+    font-size: 12px !important;
     line-height: 1.5 !important;
   }
 
   .rule-desc {
-    font-size: 9.5pt !important;
+    font-size: 12px !important;
     line-height: 1.55 !important;
   }
 
   .ability-block {
     margin: 6px 0 !important;
     padding: 8px 10px !important;
-    font-size: 9pt !important;
+    font-size: 12px !important;
     line-height: 1.5 !important;
   }
 
@@ -4231,14 +4232,14 @@ body.theme-40k-orks .datacard {
   }
 
   .header-title {
-    font-size: 12pt !important;
+    font-size: 16px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 4px !important;
   }
 
   .section-header {
-    font-size: 10pt !important;
+    font-size: 13px !important;
     padding: 6px 10px !important;
     margin: 12px 0 6px 0 !important;
   }
@@ -4276,13 +4277,13 @@ body.theme-40k-orks .datacard {
   }
 
   .portal-title {
-    font-size: 21px !important;
+    font-size: 24px !important;
     line-height: 1.25 !important;
     margin-bottom: 8px !important;
   }
 
   .portal-desc {
-    font-size: 12.5px !important;
+    font-size: 13px !important;
     line-height: 1.55 !important;
     margin-bottom: 14px !important;
   }
@@ -4297,7 +4298,7 @@ body.theme-40k-orks .datacard {
 
   .edition-tag {
     padding: 3px 8px !important;
-    font-size: 9.5px !important;
+    font-size: 11px !important;
   }
 
   /* 入口卡片自適應單欄 */
@@ -4323,7 +4324,7 @@ body.theme-40k-orks .datacard {
 
   /* 麵包屑極簡模式：隱藏上層冗長路徑，直指當前頁面 */
   .topbar-breadcrumbs {
-    font-size: 11.5px;
+    font-size: 12px;
     max-width: calc(100vw - 110px);
   }
   .topbar-breadcrumbs span:first-child,
@@ -4349,7 +4350,7 @@ body.theme-40k-orks .datacard {
   }
 
   .wj-title-group h1 {
-    font-size: 19px !important;
+    font-size: 18px !important;
   }
 
   .command-grid,
@@ -4414,7 +4415,7 @@ textarea:focus-visible,
 }
 
 .tracker-op-header .stat-label {
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.8px;
   color: #475569;
@@ -4423,7 +4424,7 @@ textarea:focus-visible,
 }
 
 .tracker-op-header .stat-value {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 900;
   color: #0f172a;
   line-height: 1.1;
@@ -4440,7 +4441,7 @@ textarea:focus-visible,
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #e2e8f0;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   padding: 5px 12px;
   border-radius: var(--radius-md);
@@ -4455,7 +4456,7 @@ textarea:focus-visible,
   background: rgba(0, 0, 0, 0.35);
   padding: 2px 5px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 12px;
   font-family: monospace;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
@@ -4471,7 +4472,7 @@ textarea:focus-visible,
   height: 34px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   transition: all 0.2s ease;
 }
 .topbar-theme-btn:hover {
@@ -4523,7 +4524,7 @@ textarea:focus-visible,
   border: none;
   outline: none !important;
   background: transparent;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #0f172a;
 }
@@ -4565,16 +4566,16 @@ textarea:focus-visible,
   gap: 2px;
 }
 .search-result-title {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
   color: #0f172a;
 }
 .search-result-desc {
-  font-size: 11.5px;
+  font-size: 12px;
   color: #64748b;
 }
 .search-result-cat {
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   background: #e2e8f0;
   color: #475569;
@@ -4622,7 +4623,7 @@ textarea:focus-visible,
   border: none;
   color: #94a3b8;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   flex: 1;
   height: 100%;
@@ -4632,7 +4633,7 @@ textarea:focus-visible,
 }
 
 .bottom-nav-item .bottom-nav-icon {
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1;
 }
 

@@ -83,4 +83,36 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
     expect(externalRequests, '頁面發送了外部 CDN 請求').toEqual([]);
   });
 
+  test('字級系統 Token 化驗證：全站 14 頁面最小字級均 >= 11px (徽章 11px / 內文 >= 12px)', async ({ page }) => {
+    for (const p of PAGES) {
+      await page.goto('/' + p);
+      const smallestInfo = await page.evaluate((currentPage) => {
+        const textElements = Array.from(document.querySelectorAll('body *:not(script):not(style):not(svg):not(path)'));
+        let minSize = 999;
+        let worst = null;
+        textElements.forEach(el => {
+          if (!el.textContent.trim()) return;
+          if (el.offsetWidth === 0 && el.offsetHeight === 0) return;
+          const fs = parseFloat(window.getComputedStyle(el).fontSize);
+          if (!isNaN(fs) && fs > 0 && fs < 10.9) {
+            if (fs < minSize) {
+              minSize = fs;
+              worst = {
+                tag: el.tagName,
+                cls: el.className,
+                id: el.id,
+                text: el.textContent.trim().slice(0, 40),
+                fs: fs,
+                html: el.outerHTML.slice(0, 150)
+              };
+            }
+          }
+        });
+        return worst;
+      }, p);
+      expect(smallestInfo, `${p} 存在不可讀極小字: ${JSON.stringify(smallestInfo)}`).toBeNull();
+    }
+  });
+
 });
+
