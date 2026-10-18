@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import fs from 'fs';
 
 const PAGES = [
   'index.html',
@@ -112,6 +113,14 @@ test.describe('代碼與設計品質量測基準測試 (Quality Audit Baseline)'
       }, p);
       expect(smallestInfo, `${p} 存在不可讀極小字: ${JSON.stringify(smallestInfo)}`).toBeNull();
     }
+  });
+
+  test('Stage D 指標驗證：match_tracker.html 行內樣式 < 60 且 0 寫死色碼', async () => {
+    const content = fs.readFileSync('match_tracker.html', 'utf-8');
+    const inlineMatches = content.match(/\bstyle\s*=\s*["']/g) || [];
+    const hexMatches = content.match(/#(?:[0-9a-fA-F]{3}){1,2}\b/g) || [];
+    expect(inlineMatches.length, `match_tracker.html 行內樣式數應小於 60，實測為 ${inlineMatches.length}`).toBeLessThan(60);
+    expect(hexMatches.length, `match_tracker.html 不應有寫死色碼，實測為 ${hexMatches.length}`).toBe(0);
   });
 
 });

@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>殺戮小隊：雙人對戰助手 (Match Companion & Tracker) — 繁體中文全規則庫</title>
   <meta name="description" content="殺戮小隊 (Kill Team) 繁體中文雙人即時對戰助手，支援入門套組終極任務與標準競賽規格、特工動態 HP 扣減、AP 追蹤與計分儀表板。">
-  <link rel="stylesheet" href="shared.css?v=3.4.1">
+  <link rel="stylesheet" href="shared.css?v=3.4.2">
   <style>
     /* ================= 對戰助手專屬進階樣式 ================= */
     .wizard-step-content {
@@ -30,23 +30,23 @@
       .mode-select-grid { grid-template-columns: 1fr; }
     }
     .mode-card {
-      border: 2px solid #cbd5e1;
+      border: 2px solid var(--theme-border);
       border-radius: 10px;
       padding: 16px;
-      background: #ffffff;
+      background: var(--color-white);
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
     }
     .mode-card:hover {
-      border-color: #ea580c;
+      border-color: var(--theme-primary);
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(234, 88, 12, 0.12);
     }
     .mode-card.selected {
-      border-color: #ea580c;
-      background: #fff7ed;
-      box-shadow: 0 0 0 2px #ea580c;
+      border-color: var(--theme-primary);
+      background: var(--theme-primary-light);
+      box-shadow: 0 0 0 2px var(--theme-primary);
     }
     .mode-badge {
       display: inline-block;
@@ -59,21 +59,21 @@
 
     /* 陣營卡片 */
     .faction-select-card {
-      border: 2px solid #cbd5e1;
+      border: 2px solid var(--theme-border);
       border-radius: var(--radius-md);
       padding: 12px 14px;
       cursor: pointer;
       transition: all 0.2s ease;
-      background: #f8fafc;
+      background: var(--surface-ground);
     }
     .faction-select-card:hover {
       border-color: var(--theme-primary);
-      background: #ffffff;
+      background: var(--color-white);
       transform: translateY(-2px);
     }
     .faction-select-card.selected {
-      border-color: #ea580c;
-      background: #fff7ed;
+      border-color: var(--theme-primary);
+      background: var(--theme-primary-light);
       box-shadow: 0 0 10px rgba(234, 88, 12, 0.2);
     }
     .faction-select-card.disabled {
@@ -87,20 +87,20 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 12px;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-subtle);
       gap: 10px;
     }
     .loadout-row:last-child {
       border-bottom: none;
     }
     .loadout-row.row-selected {
-      background: #f0fdf4;
-      border-left: 3px solid #16a34a;
+      background: var(--color-success-bg);
+      border-left: 3px solid var(--color-success);
     }
     .loadout-row.row-disabled {
       opacity: 0.4;
       pointer-events: none;
-      background: #f1f5f9;
+      background: var(--surface-subtle);
     }
     .loadout-row.row-disabled label {
       cursor: not-allowed;
@@ -108,10 +108,10 @@
 
     .loadout-select {
       padding: 5px 8px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--theme-border);
       border-radius: 4px;
       font-size:12px;
-      background: #ffffff;
+      background: var(--color-white);
       max-width: 250px;
     }
     .equip-select-grid {
@@ -121,22 +121,22 @@
       margin-top: 10px;
     }
     .equip-select-item {
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--theme-border);
       border-radius: 6px;
       padding: 10px;
       cursor: pointer;
       transition: all 0.15s ease;
-      background: #ffffff;
+      background: var(--color-white);
       position: relative;
     }
     .equip-select-item:hover {
-      border-color: #93c5fd;
-      background: #f8fafc;
+      border-color: var(--color-blue-300);
+      background: var(--surface-ground);
     }
     .equip-select-item.selected {
-      border-color: #2563eb;
-      background: #eff6ff;
-      box-shadow: 0 0 0 1px #2563eb;
+      border-color: var(--color-blue-600);
+      background: var(--color-blue-50);
+      box-shadow: 0 0 0 1px var(--color-blue-600);
     }
 
     /* ================= 大型三階段流程卡片 (PHASE STEPPER) ================= */
@@ -151,8 +151,8 @@
       .phase-stepper-box { grid-template-columns: 1fr; }
     }
     .phase-card {
-      background: #1e293b;
-      border: 2px solid #334155;
+      background: var(--color-slate-800);
+      border: 2px solid var(--color-slate-700);
       border-radius: 10px;
       padding: 12px 14px;
       cursor: pointer;
@@ -161,22 +161,22 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      color: #94a3b8;
+      color: var(--color-slate-400);
     }
     .phase-card:hover {
-      border-color: #64748b;
-      background: #243247;
+      border-color: var(--color-slate-500);
+      background: var(--color-slate-750);
     }
     .phase-card.active {
-      border-color: #f97316;
-      background: linear-gradient(135deg, #2a1f1d 0%, #1e293b 100%);
-      color: #ffffff;
+      border-color: var(--theme-accent);
+      background: linear-gradient(135deg, var(--color-slate-800) 0%, var(--color-slate-800) 100%);
+      color: var(--color-white);
       box-shadow: 0 0 16px rgba(249, 115, 22, 0.35);
     }
     .phase-card.done {
-      border-color: #059669;
-      background: #13271f;
-      color: #a7f3d0;
+      border-color: var(--color-emerald-600);
+      background: var(--color-slate-850);
+      color: var(--color-emerald-200);
     }
     .phase-card-title {
       font-weight: 800;
@@ -193,22 +193,22 @@
       text-transform: uppercase;
     }
     .phase-card.active .phase-card-badge {
-      background: #f97316;
-      color: #ffffff;
+      background: var(--theme-accent);
+      color: var(--color-white);
       box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);
       animation: pulseGlow 1.8s infinite alternate;
     }
     .phase-card.done .phase-card-badge {
-      background: #059669;
-      color: #ffffff;
+      background: var(--color-emerald-600);
+      color: var(--color-white);
     }
     .phase-card-desc {
       font-size:11px;
       line-height: 1.4;
-      color: #94a3b8;
+      color: var(--color-slate-400);
     }
     .phase-card.active .phase-card-desc {
-      color: #fdba74;
+      color: var(--color-orange-300);
     }
     @keyframes pulseGlow {
       from { opacity: 0.85; transform: scale(0.98); }
@@ -217,8 +217,8 @@
 
     /* 階段智慧操作工作流面板 */
     .phase-workflow-panel {
-      background: #0f172a;
-      border: 1px solid #f97316;
+      background: var(--theme-dark);
+      border: 1px solid var(--theme-accent);
       border-radius: 10px;
       padding: 14px 18px;
       margin-bottom: 16px;
@@ -231,7 +231,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #334155;
+      border-bottom: 1px solid var(--color-slate-700);
       padding-bottom: 8px;
       flex-wrap: wrap;
       gap: 8px;
@@ -248,9 +248,9 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: #1e293b;
-      border: 1px solid #475569;
-      color: #f1f5f9;
+      background: var(--color-slate-800);
+      border: 1px solid var(--color-slate-600);
+      color: var(--surface-subtle);
       padding: 3px 8px;
       border-radius: 6px;
       font-size:11px;
@@ -260,20 +260,20 @@
       text-decoration: none;
     }
     .interactive-pill:hover {
-      background: #334155;
-      border-color: #38bdf8;
-      color: #38bdf8;
+      background: var(--color-slate-700);
+      border-color: var(--color-sky-400);
+      color: var(--color-sky-400);
       transform: translateY(-1px);
     }
     .interactive-pill .info-icon {
       font-size:11px;
-      color: #38bdf8;
+      color: var(--color-sky-400);
     }
 
     /* 特工卡片上的能力區塊 */
     .op-abilities-box {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 6px 10px;
       margin-top: 6px;
@@ -282,7 +282,7 @@
     .op-abilities-header {
       font-size:12px;
       font-weight: 800;
-      color: #475569;
+      color: var(--color-slate-600);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 4px;
@@ -297,9 +297,9 @@
 
     /* 指揮重骰專用按鈕 */
     .cr-btn {
-      background: linear-gradient(135deg, #b45309, #d97706);
-      color: #ffffff;
-      border: 1px solid #f59e0b;
+      background: linear-gradient(135deg, var(--color-amber-700), var(--color-amber-600));
+      color: var(--color-white);
+      border: 1px solid var(--color-amber-500);
       border-radius: 6px;
       padding: 4px 10px;
       font-size:11px;
@@ -311,7 +311,7 @@
       gap: 4px;
     }
     .cr-btn:hover {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
+      background: linear-gradient(135deg, var(--color-amber-600), var(--color-amber-500));
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
     }
@@ -323,12 +323,12 @@
       justify-content: center;
       width: 24px;
       height: 24px;
-      background: #334155;
-      color: #ffffff;
+      background: var(--color-slate-700);
+      color: var(--color-white);
       border-radius: 4px;
       font-weight: 800;
       font-size:12px;
-      border: 1px solid #475569;
+      border: 1px solid var(--color-slate-600);
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
     }
 
@@ -337,16 +337,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #1e293b;
+      background: var(--color-slate-800);
       border-radius: 6px;
       padding: 6px 12px;
-      border: 1px solid #334155;
+      border: 1px solid var(--color-slate-700);
       font-size:12px;
     }
     .progress-track {
       flex: 1;
       height: 8px;
-      background: #334155;
+      background: var(--color-slate-700);
       border-radius: 4px;
       overflow: hidden;
     }
@@ -368,17 +368,17 @@
     .side-column {
       border-radius: 10px;
       overflow: hidden;
-      border: 2px solid #cbd5e1;
-      background: #f8fafc;
+      border: 2px solid var(--theme-border);
+      background: var(--surface-ground);
       padding: 12px;
     }
     .side-p1 {
-      border-color: #991b1b;
-      background: #fff5f5;
+      border-color: var(--faction-angels);
+      background: var(--color-red-50);
     }
     .side-p2 {
-      border-color: #166534;
-      background: #f0fdf4;
+      border-color: var(--color-green-800);
+      background: var(--color-success-bg);
     }
     .side-column-header {
       padding: 10px 14px;
@@ -388,13 +388,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #ffffff;
+      color: var(--color-white);
     }
     .p1-header {
-      background: linear-gradient(135deg, #991b1b, #7f1d1d);
+      background: linear-gradient(135deg, var(--faction-angels), var(--color-red-900));
     }
     .p2-header {
-      background: linear-gradient(135deg, #166534, #14532d);
+      background: linear-gradient(135deg, var(--color-green-800), var(--color-green-900));
     }
     .side-col-cards {
       display: flex;
@@ -406,7 +406,7 @@
       display: flex;
       gap: 8px;
       margin-bottom: 14px;
-      border-bottom: 2px solid #334155;
+      border-bottom: 2px solid var(--color-slate-700);
       padding-bottom: 8px;
       flex-wrap: wrap;
     }
@@ -415,25 +415,25 @@
       border-radius: 6px;
       font-size:13px;
       font-weight: 700;
-      background: #1e293b;
-      color: #94a3b8;
+      background: var(--color-slate-800);
+      color: var(--color-slate-400);
       border: none;
       cursor: pointer;
       transition: all 0.2s;
     }
     .tab-pill.active {
-      background: #ea580c;
-      color: #ffffff;
+      background: var(--theme-primary);
+      color: var(--color-white);
       box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
     }
 
     .rules-drawer {
-      background: #111827;
-      border: 1px solid #374151;
+      background: var(--color-slate-900);
+      border: 1px solid var(--color-slate-650);
       border-radius: 8px;
       padding: 12px 16px;
       margin-bottom: 16px;
-      color: #e5e7eb;
+      color: var(--color-slate-200);
     }
 
     /* ================= 氣泡彈窗 (Tactical Popover) ================= */
@@ -442,9 +442,9 @@
       z-index: 10000;
       max-width: 320px;
       width: max-content;
-      background: #0f172a;
-      color: #f8fafc;
-      border: 1px solid #38bdf8;
+      background: var(--theme-dark);
+      color: var(--surface-ground);
+      border: 1px solid var(--color-sky-400);
       border-radius: 8px;
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
       padding: 12px 14px;
@@ -463,35 +463,35 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #334155;
+      border-bottom: 1px solid var(--color-slate-700);
       padding-bottom: 6px;
       margin-bottom: 6px;
       gap: 8px;
     }
     .popover-title {
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--color-sky-400);
       font-size:13px;
     }
     .popover-en {
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-size:11px;
       font-family: monospace;
     }
     .popover-close {
       background: none;
       border: none;
-      color: #94a3b8;
+      color: var(--color-slate-400);
       font-size:16px;
       cursor: pointer;
       padding: 0 4px;
       line-height: 1;
     }
     .popover-close:hover {
-      color: #ffffff;
+      color: var(--color-white);
     }
     .popover-body {
-      color: #cbd5e1;
+      color: var(--theme-border);
       font-size:11px;
       line-height: 1.6;
     }
@@ -502,8 +502,8 @@
       font-size:11px;
       font-weight: 700;
       margin-bottom: 4px;
-      background: #0369a1;
-      color: #e0f2fe;
+      background: var(--color-sky-700);
+      color: var(--color-sky-100);
     }
 
     /* 互動規則膠囊 (Rule Pill) 與 資訊圖示 */
@@ -511,9 +511,9 @@
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      background: #e0f2fe;
-      color: #0369a1;
-      border: 1px solid #bae6fd;
+      background: var(--color-sky-100);
+      color: var(--color-sky-700);
+      border: 1px solid var(--color-sky-200);
       border-radius: 4px;
       padding: 1px 6px;
       font-size:12px;
@@ -523,9 +523,9 @@
       user-select: none;
     }
     .rule-pill-interactive:hover {
-      background: #0284c7;
-      color: #ffffff;
-      border-color: #0284c7;
+      background: var(--color-sky-600);
+      color: var(--color-white);
+      border-color: var(--color-sky-600);
       transform: translateY(-1px);
     }
     .info-bubble-btn {
@@ -535,8 +535,8 @@
       width: 17px;
       height: 17px;
       border-radius: 50%;
-      background: #0284c7;
-      color: #ffffff;
+      background: var(--color-sky-600);
+      color: var(--color-white);
       border: none;
       font-size:12px;
       cursor: pointer;
@@ -546,20 +546,20 @@
       line-height: 1;
     }
     .info-bubble-btn:hover {
-      background: #0369a1;
+      background: var(--color-sky-700);
       transform: scale(1.15);
     }
 
     /* 特工武器表 */
     .op-weapons-box {
       margin: 8px 0;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--surface-ground);
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 6px 8px;
     }
     .op-wp-row {
-      border-bottom: 1px dashed #e2e8f0;
+      border-bottom: 1px dashed var(--border-subtle);
       padding: 4px 0;
     }
     .op-wp-row:last-child {
@@ -571,13 +571,13 @@
       align-items: center;
       font-size:12px;
       font-weight: 700;
-      color: #1e293b;
+      color: var(--color-slate-800);
     }
     .op-wp-stats {
       display: flex;
       gap: 6px;
       font-size:11px;
-      background: #e2e8f0;
+      background: var(--border-subtle);
       padding: 2px 6px;
       border-radius: 4px;
       font-family: monospace;
@@ -600,21 +600,21 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #1e293b;
-      border: 1px solid #334155;
+      background: var(--color-slate-800);
+      border: 1px solid var(--color-slate-700);
       border-radius: 6px;
       padding: 3px 8px;
       font-size:11px;
-      color: #f1f5f9;
+      color: var(--surface-subtle);
     }
     .equip-chip.expended {
       opacity: 0.5;
-      background: #0f172a;
-      border-color: #1e293b;
+      background: var(--theme-dark);
+      border-color: var(--color-slate-800);
     }
     .chip-btn {
-      background: #334155;
-      color: #e2e8f0;
+      background: var(--color-slate-700);
+      color: var(--border-subtle);
       border: none;
       padding: 2px 6px;
       border-radius: 3px;
@@ -622,14 +622,299 @@
       cursor: pointer;
     }
     .chip-btn:hover {
-      background: #475569;
+      background: var(--color-slate-600);
     }
     .chip-btn.used {
-      background: #991b1b;
-      color: #fee2e2;
+      background: var(--faction-angels);
+      color: var(--color-red-100);
     }
+
+    /* --- 對戰助手語意化元件類別 (Semantic Components) --- */
+    .step-title {
+      font-size: var(--font-size-lg);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .step-title-sm {
+      font-size: var(--font-size-md);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 4px 0 6px;
+    }
+    .step-desc {
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .step-desc-xs {
+      font-size: var(--font-size-xs);
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .step-card-box {
+      padding: 14px;
+      background: var(--surface-ground);
+      border-radius: var(--radius-lg);
+    }
+    .step-nav-row {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .step-nav-right {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    /* 規則提要與提示盒 */
+    .rule-notice-warning {
+      background: var(--theme-primary-light);
+      border: 1px solid var(--theme-primary);
+      border-radius: var(--radius-lg);
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+    .rule-notice-warning strong {
+      color: var(--theme-primary);
+    }
+    .rule-notice-warning span {
+      font-size: var(--font-size-sm);
+      color: var(--color-orange-800);
+    }
+    .rule-notice-info {
+      background: var(--surface-subtle);
+      border-left: 4px solid var(--color-sky-600);
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 對戰 HUD 樣式 */
+    .tp-current-val {
+      font-size: var(--font-size-2xl);
+      color: var(--color-white);
+    }
+    .tp-max-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-slate-400);
+      font-weight: 600;
+    }
+    .hud-badge-sm {
+      font-weight: 800;
+      padding: 4px 8px;
+      font-size: var(--font-size-badge);
+    }
+    .btn-haptic-ctrl {
+      padding: 4px 8px;
+      font-size: var(--font-size-sm);
+    }
+    .tactics-label {
+      font-size: var(--font-size-badge);
+      color: var(--color-slate-400);
+      font-weight: 700;
+      margin-right: 4px;
+    }
+    .tactics-display-row {
+      display: inline-flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+    .counter-val-vp {
+      color: var(--color-amber-400);
+    }
+    .equip-hint-row {
+      font-size: var(--font-size-badge);
+      font-weight: 700;
+      color: var(--color-slate-400);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
+    .equip-hint-text {
+      font-size: var(--font-size-xs);
+      color: var(--color-sky-400);
+    }
+
+    /* 流程卡標籤與指示 */
+    .phase-badge-tp {
+      font-size: var(--font-size-badge);
+      background: var(--color-slate-600);
+      color: var(--surface-subtle);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .phase-desc-text {
+      font-size: var(--font-size-xs);
+      color: var(--color-slate-300);
+      line-height: 1.6;
+    }
+    .phase-title-p1 {
+      font-weight: 800;
+      font-size: var(--font-size-base);
+      color: var(--color-orange-300);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .phase-title-p2 {
+      font-weight: 800;
+      font-size: var(--font-size-base);
+      color: var(--color-orange-500);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .phase-title-p3 {
+      font-weight: 800;
+      font-size: var(--font-size-base);
+      color: var(--color-emerald-400);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rolloff-btn {
+      color: var(--color-amber-400);
+      border-color: var(--color-amber-400);
+    }
+    .rolloff-result {
+      font-size: var(--font-size-badge);
+      color: var(--color-amber-50);
+    }
+    .workflow-actions-row {
+      font-size: var(--font-size-xs);
+      color: var(--color-slate-400);
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .tracker-hint-sky {
+      font-size: var(--font-size-badge);
+      color: var(--color-sky-400);
+    }
+    .op-thumb-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 4px;
+      background: var(--color-white);
+      border: 1px solid var(--border-subtle);
+      padding: 2px;
+    }
+    .badge-leader {
+      color: var(--theme-primary);
+      font-size: var(--font-size-badge);
+      font-weight: 800;
+      background: var(--color-orange-100);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .badge-specialist {
+      color: var(--color-sky-600);
+      font-size: var(--font-size-badge);
+      font-weight: 800;
+      background: var(--color-sky-100);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .badge-starter-pick {
+      font-size: var(--font-size-badge);
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .badge-starter-pick.angels-leader {
+      color: var(--color-amber-700);
+      background: var(--color-amber-100);
+    }
+    .badge-starter-pick.angels-heavy {
+      color: var(--color-sky-700);
+      background: var(--color-sky-100);
+    }
+    .badge-starter-pick.plague-leader {
+      color: var(--color-green-700);
+      background: var(--color-emerald-100);
+    }
+    .badge-starter-pick.plague-warrior {
+      color: var(--color-slate-600);
+      background: var(--surface-subtle);
+    }
+    .op-stat-strip {
+      font-size: var(--font-size-badge);
+      color: var(--color-slate-600);
+      margin-top: 3px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .op-stat-strip strong {
+      color: var(--text-primary);
+    }
+    .badge-required {
+      font-size: var(--font-size-badge);
+      background: var(--surface-subtle);
+      color: var(--color-slate-600);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      border: 1px solid var(--theme-border);
+    }
+    .op-custom-config-hint {
+      font-size: var(--font-size-xs);
+      color: var(--text-muted);
+      max-width: 180px;
+      text-align: right;
+    }
+    .tactic-box {
+      background: var(--surface-ground);
+      border: 1px solid var(--theme-border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+    }
+    .tactic-content {
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .faction-opt-title {
+      font-weight: 800;
+    }
+    .faction-opt-desc {
+      font-size: var(--font-size-xs);
+      color: var(--text-muted);
+    }
+    .text-faction-angels { color: var(--faction-angels); }
+    .text-faction-plague { color: var(--faction-plague); }
+    .text-faction-kommandos { color: var(--faction-kommandos); }
+    .bg-faction-angels { background: var(--faction-angels); }
+    .bg-faction-plague { background: var(--faction-plague); }
+    .bg-faction-kommandos { background: var(--faction-kommandos); }
+
+
+    .cursor-pointer { cursor: pointer; }
+    .rules-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .mb-1 { margin-bottom: 4px; }
+    .mb-2 { margin-bottom: 8px; }
+    .mb-3 { margin-bottom: 12px; }
+    .mt-1 { margin-top: 4px; }
+    .mt-2 { margin-top: 8px; }
+    .mt-3 { margin-top: 12px; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+
   </style>
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="rgb(15, 23, 42)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -776,12 +1061,12 @@
       </nav>
     </div>
 
-    <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+    <div class="sidebar-footer d-flex flex-col gap-1 items-stretch">
+      class="d-flex justify-between items-center w-full">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.4.1 PWA</span>
+        <span class="version-badge font-badge">v3.4.1 PWA</span>
       </div>
-      <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px;">📲 安裝為桌面/手機 App</button>
+      <button type="button" class="btn-pwa-install sidebar-pwa-btn w-full justify-center font-badge">📲 安裝為桌面/手機 App</button>
     </div>
   </aside>
 
@@ -804,12 +1089,12 @@
       <div class="tracker-container">
 
         <!-- 頁面語意化主標題 (H1) -->
-        <header class="tracker-main-header" style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-          <h1 style="font-size:20px; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;">
+        <header class="tracker-main-header d-flex items-center justify-between flex-wrap gap-2">
+          <h1 class="page-title d-flex items-center gap-2">
             <span>🎯 殺戮小隊：雙人對戰助手</span>
-            <span class="site-nav-badge" style="background:#ea580c; font-size:11px;">Match Tracker</span>
+            <span class="site-nav-badge font-badge">Match Tracker</span>
           </h1>
-          <div style="display:flex; gap:8px;">
+          <div class="d-flex gap-2">
             <button type="button" class="btn btn-secondary btn-sm" onclick="triggerImportMatchJson()" title="從 JSON 存檔檔案匯入並復原歷史對戰">📂 讀取對戰存檔</button>
           </div>
         </header>
@@ -845,75 +1130,75 @@
     <div class="wizard-step-content active" id="stepContent1">
       
       <!-- 模式切換器 -->
-      <h2 style="font-size:18px; margin-bottom:10px; color:#0f172a;">🎮 第一步：請選擇對戰模式 (Game Mode)</h2>
+      <h2 class="step-title">🎮 第一步：請選擇對戰模式 (Game Mode)</h2>
       <div class="mode-select-grid">
         <!-- 入門套組模式 -->
         <div class="mode-card selected" id="modeCardStarter" onclick="setGameMode('starter')">
-          <span class="mode-badge" style="background:#ea580c; color:#fff;">新手入門推薦 / 終極任務</span>
-          <h3 style="font-size:16px; margin:4px 0 6px; color:#0f172a;">📦 入門套組模式 (Starter Set)</h3>
-          <p style="font-size:12px; color:#64748b; line-height:1.5; margin:0;">
+          <span class="mode-badge badge-mode-starter">新手入門推薦 / 終極任務</span>
+          <h3 class="step-title-sm">📦 入門套組模式 (Starter Set)</h3>
+          <p class="step-desc-xs">
             依據《入門套組手冊》終極任務「永恆抗爭 (Eternal Struggle)」規則。<strong>固定武器角色卡</strong>、特工自帶特規，<strong>免自選戰團戰術</strong>，<strong>無額外裝備庫</strong>，CP 專用於<strong>指揮重骰 (Command Re-roll)</strong>！雙方各編制 <strong>5 位特工</strong>（星際戰士首領與重火 2 選 1；瘟疫戰士必選頭目其餘 6 選 4）。
           </p>
         </div>
         <!-- 標準對戰模式 -->
         <div class="mode-card" id="modeCardFull" onclick="setGameMode('full')">
-          <span class="mode-badge" style="background:#2563eb; color:#fff;">標準競賽規格 / 完整規則</span>
-          <h3 style="font-size:16px; margin:4px 0 6px; color:#0f172a;">⚔️ 標準完整對戰 (Full Matched Play)</h3>
-          <p style="font-size:12px; color:#64748b; line-height:1.5; margin:0;">
+          <span class="mode-badge badge-mode-full">標準競賽規格 / 完整規則</span>
+          <h3 class="step-title-sm">⚔️ 標準完整對戰 (Full Matched Play)</h3>
+          <p class="step-desc-xs">
             支援死亡天使、瘟疫戰士、特戰小子三大陣營。<strong>自由挑選武器選配</strong>、自選戰團戰術機制、配置<strong>剛好 4 件裝備配額</strong>與完整策略。
           </p>
         </div>
       </div>
 
-      <h2 style="font-size:18px; margin-bottom:12px; color:#0f172a;">👥 雙方陣營與指揮官設定</h2>
+      <h2 class="step-title">👥 雙方陣營與指揮官設定</h2>
       <div class="grid-2">
         <!-- 玩家 1 -->
-        <div class="ui-card" style="padding:14px; background:#f8fafc;">
-          <h3 style="color:#0f172a; margin-bottom:8px; font-size:16px;">🛡️ 玩家 1 (Player 1)</h3>
-          <div style="margin-bottom:12px;">
+        <div class="ui-card step-card-box">
+          <h3 class="step-title-sm">🛡️ 玩家 1 (Player 1)</h3>
+          <div class="mb-3">
             <label class="form-label" for="p1Name">指揮官名稱：</label>
             <input type="text" id="p1Name" value="玩家 1" class="form-input">
           </div>
-          <label class="form-label" style="margin-bottom:6px;">選擇殺戮小隊：</label>
-          <div style="display:flex; flex-direction:column; gap:8px;" id="p1FactionList">
+          <label class="form-label mb-1">選擇殺戮小隊：</label>
+          <div class="d-flex flex-col gap-2" id="p1FactionList">
             <!-- 動態生成陣營卡片 -->
           </div>
         </div>
 
         <!-- 玩家 2 -->
-        <div class="ui-card" style="padding:14px; background:#f8fafc;">
-          <h3 style="color:#0f172a; margin-bottom:8px; font-size:16px;">⚔️ 玩家 2 (Player 2)</h3>
-          <div style="margin-bottom:12px;">
+        <div class="ui-card step-card-box">
+          <h3 class="step-title-sm">⚔️ 玩家 2 (Player 2)</h3>
+          <div class="mb-3">
             <label class="form-label" for="p2Name">指揮官名稱：</label>
             <input type="text" id="p2Name" value="玩家 2" class="form-input">
           </div>
-          <label class="form-label" style="margin-bottom:6px;">選擇殺戮小隊：</label>
-          <div style="display:flex; flex-direction:column; gap:8px;" id="p2FactionList">
+          <label class="form-label mb-1">選擇殺戮小隊：</label>
+          <div class="d-flex flex-col gap-2" id="p2FactionList">
             <!-- 動態生成陣營卡片 -->
           </div>
         </div>
       </div>
 
-      <div style="margin-top:20px; text-align:right;">
+      <div class="step-nav-right">
         <button class="btn btn-primary btn-md" onclick="proceedFromStep1()">下一步：前往下一步驟 ➔</button>
       </div>
     </div>
 
     <!-- 步驟 2：陣營特規與戰術 (入門模式自動展示特規並可跳過) -->
     <div class="wizard-step-content" id="stepContent2">
-      <div id="step2Notice" style="display:none; background:#fff7ed; border:1px solid #ea580c; border-radius:8px; padding:12px 16px; margin-bottom:14px;">
-        <strong style="color:#ea580c;">⚡ 入門套組規則提醒：</strong>
-        <span style="font-size:13px; color:#9a3412;">入門套組中無開戰前的「自選戰團戰術」機制，特工卡片已自帶固有戰術特規（如爆彈操典、震懾突擊、噁心韌性5+等）。雙方可直接檢閱特規後前往特工挑選。</span>
+      <div id="step2Notice" class="rule-notice-warning d-none">
+        <strong>⚡ 入門套組規則提醒：</strong>
+        <span>入門套組中無開戰前的「自選戰團戰術」機制，特工卡片已自帶固有戰術特規（如爆彈操典、震懾突擊、噁心韌性5+等）。雙方可直接檢閱特規後前往特工挑選。</span>
       </div>
 
-      <h2 style="font-size:18px; margin-bottom:12px; color:#0f172a;">步驟 2：陣營專屬機制與戰術設定</h2>
-      <p style="color:#64748b; font-size:13px; margin-bottom:16px;">依照各小隊官方規則檢閱或挑選戰鬥哲學與特殊能力：</p>
+      <h2 class="step-title">步驟 2：陣營專屬機制與戰術設定</h2>
+      <p class="step-desc">依照各小隊官方規則檢閱或挑選戰鬥哲學與特殊能力：</p>
 
       <div class="grid-2" id="tacticsContainer">
         <!-- 動態渲染雙方陣營設定 -->
       </div>
 
-      <div style="margin-top:20px; display:flex; justify-content:space-between;">
+      <div class="step-nav-row">
         <button class="btn btn-secondary btn-md" onclick="goToStep(1)">上一步</button>
         <button class="btn btn-primary btn-md" onclick="goToStep(3)">下一步：挑選特工與編制 ➔</button>
       </div>
@@ -921,8 +1206,8 @@
 
     <!-- 步驟 3：特工挑選與武裝選配 (嚴格規則檢查 / 入門模式固定武裝) -->
     <div class="wizard-step-content" id="stepContent3">
-      <h2 style="font-size:18px; margin-bottom:12px; color:#0f172a;">步驟 3：出場特工名冊挑選與武器配置</h2>
-      <div id="step3RuleNotice" style="background:#f1f5f9; border-left:4px solid #0284c7; padding:10px 14px; margin-bottom:16px; font-size:13px; color:#334155; line-height:1.6;">
+      <h2 class="step-title">步驟 3：出場特工名冊挑選與武器配置</h2>
+      <div id="step3RuleNotice" class="rule-notice-info">
         ⚠️ <strong>官方編制規則限制：</strong>請根據所選模式配置符合規則的出場特工名冊。
       </div>
 
@@ -930,7 +1215,7 @@
         <!-- 動態渲染雙方特工選單、即時配額檢驗與武器選項 -->
       </div>
 
-      <div style="margin-top:20px; display:flex; justify-content:space-between;">
+      <div class="step-nav-row">
         <button class="btn btn-secondary btn-md" onclick="goBackFromStep3()">上一步</button>
         <button class="btn btn-primary btn-md" onclick="proceedFromStep3()">下一步：前往下一步驟 ➔</button>
       </div>
@@ -938,21 +1223,21 @@
 
     <!-- 步驟 4：裝備配置 (4配額限制 / 入門模式跳過提示) -->
     <div class="wizard-step-content" id="stepContent4">
-      <div id="step4Notice" style="display:none; background:#fff7ed; border:1px solid #ea580c; border-radius:8px; padding:12px 16px; margin-bottom:14px;">
-        <strong style="color:#ea580c;">⚡ 入門套組規則提醒：</strong>
-        <span style="font-size:13px; color:#9a3412;">《入門套組手冊》教學與終極任務中無額外的裝備庫配置，雙方直接以特工自身武裝與能力作戰。點擊下一步即可直接進入開戰檢視！</span>
+      <div id="step4Notice" class="rule-notice-warning d-none">
+        <strong>⚡ 入門套組規則提醒：</strong>
+        <span>《入門套組手冊》教學與終極任務中無額外的裝備庫配置，雙方直接以特工自身武裝與能力作戰。點擊下一步即可直接進入開戰檢視！</span>
       </div>
 
-      <h2 style="font-size:18px; margin-bottom:12px; color:#0f172a;">步驟 4：裝備配置 (標準賽制：剛好 4 項裝備配額)</h2>
-      <p style="color:#64748b; font-size:13px; margin-bottom:16px;">
-        自「陣營專屬」或「官方通用裝備 (11項)」中挑選恰好 4 項裝備物資。點擊 <span style="color:#0284c7; font-weight:700;">ℹ️ 氣泡</span> 檢視規則：
+      <h2 class="step-title">步驟 4：裝備配置 (標準賽制：剛好 4 項裝備配額)</h2>
+      <p class="step-desc">
+        自「陣營專屬」或「官方通用裝備 (11項)」中挑選恰好 4 項裝備物資。點擊 <span class="text-info font-bold">ℹ️ 氣泡</span> 檢視規則：
       </p>
 
       <div class="grid-2" id="equipmentSetupContainer">
         <!-- 動態渲染雙方裝備選擇清單 -->
       </div>
 
-      <div style="margin-top:20px; display:flex; justify-content:space-between;">
+      <div class="step-nav-row">
         <button class="btn btn-secondary btn-md" onclick="goToStep(3)">上一步</button>
         <button class="btn btn-primary btn-md" onclick="proceedToStep5()">下一步：檢視並開戰 ➔</button>
       </div>
@@ -960,14 +1245,14 @@
 
     <!-- 步驟 5：檢視確認並開戰 -->
     <div class="wizard-step-content" id="stepContent5">
-      <h2 style="font-size:18px; margin-bottom:12px; color:#0f172a;">步驟 5：對戰配置總檢視</h2>
-      <p style="color:#64748b; font-size:13px; margin-bottom:16px;">確認雙方陣營、戰術、出場特工編制無誤後，即可點擊開始對戰：</p>
+      <h2 class="step-title">步驟 5：對戰配置總檢視</h2>
+      <p class="step-desc">確認雙方陣營、戰術、出場特工編制無誤後，即可點擊開始對戰：</p>
 
       <div class="grid-2" id="reviewContainer">
         <!-- 動態渲染雙方配置摘要 -->
       </div>
 
-      <div style="margin-top:24px; display:flex; justify-content:space-between; align-items:center;">
+      <div class="step-nav-row">
         <button class="btn btn-secondary btn-md" onclick="goBackFromStep5()">上一步</button>
         <button class="btn btn-success btn-lg" id="btnStartMatch" onclick="startMatch()">⚡ 正式開始對戰 (START MATCH) ➔</button>
       </div>
@@ -984,8 +1269,8 @@
       <div class="match-hud-top">
         <div class="tp-badge-large">
           <span>轉折點</span>
-          <span id="currentTpText" style="font-size:24px; color:#ffffff;">1</span>
-          <span style="font-size:13px; color:#94a3b8; font-weight:600;">/ 共 4 回合</span>
+          <span id="currentTpText" class="tp-current-val">1</span>
+          <span class="tp-max-label">/ 共 4 回合</span>
         </div>
 
         <div class="tp-progress-steps">
@@ -995,12 +1280,12 @@
           <div class="tp-step-pill" id="tpStep4" onclick="setTurningPoint(4)">TP 4</div>
         </div>
 
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <span id="gameModeBadgeInHud" class="badge badge-warning" style="font-weight:800; padding:4px 8px; font-size:11px;">入門套組模式</span>
+        <div class="d-flex items-center flex-wrap gap-2">
+          <span id="gameModeBadgeInHud" class="badge badge-warning hud-badge-sm">入門套組模式</span>
           <button type="button" class="btn btn-secondary btn-sm btn-wake-lock" onclick="toggleWakeLock()" title="開啟螢幕常亮（防止手機自動休眠鎖屏）">
             <span class="wake-lock-icon">🔆</span> <span class="wake-lock-text">螢幕常亮</span>
           </button>
-          <button type="button" class="btn btn-ghost btn-sm btn-haptic-toggle" onclick="toggleHaptics()" title="切換操作震動觸感回饋" style="padding:4px 8px; font-size:13px;">
+          <button type="button" class="btn btn-ghost btn-sm btn-haptic-toggle btn-haptic-ctrl" onclick="toggleHaptics()" title="切換操作震動觸感回饋">
             📳
           </button>
           <button class="btn btn-secondary btn-sm" onclick="toggleRulesDrawer()">📖 核心行動速查</button>
@@ -1046,8 +1331,8 @@
 
       <!-- 摺疊核心規則提示抽屜 -->
       <div id="rulesDrawer" class="rules-drawer" style="display:none;">
-        <div style="font-weight:700; color:#38bdf8; margin-bottom:6px; font-size:13px;">⚡ 核心動作 AP 消耗速查：</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px; line-height:1.5;">
+        <div class="font-sm font-bold text-sky mb-1">⚡ 核心動作 AP 消耗速查：</div>
+        <div class="rules-quick-grid">
           <div>• <strong>換位 (Reposition) 1AP：</strong>正常移動，不可進入敵方控場範圍。</div>
           <div>• <strong>衝刺 (Dash) 1AP：</strong>額外移動 3"，不可攀爬跳下。</div>
           <div>• <strong>衝鋒 (Charge) 1AP：</strong>MOVE+2" 移動，必須進入敵方控場範圍。</div>
@@ -1055,7 +1340,7 @@
           <div>• <strong>近戰 (Fight) 1AP：</strong>雙方同時投骰，輪流選擇「打擊」或「招架」。</div>
           <div>• <strong>撤退 (Fall Back) 2AP：</strong>自敵方控場脫離，需消耗 2 AP。</div>
         </div>
-        <div style="margin-top:6px; font-size:12px; color:#9ca3af;">
+        <div class="font-xs text-muted mt-1">
           ⚠️ <strong>受傷 (Injured) 規則：</strong>特工血量低於最大生命值 50% 時，移動力 <strong>-2"</strong> 且所有武器攻擊投骰命中結果 <strong>-1</strong>。
         </div>
       </div>
@@ -1067,23 +1352,23 @@
           <div class="player-header">
             <div class="player-name-tag">
               <span id="p1HudName">玩家 1</span>
-              <span class="team-badge" id="p1HudBadge" style="background:#991b1b;">死亡天使</span>
+              <span class="team-badge bg-faction-angels" id="p1HudBadge">死亡天使</span>
             </div>
             <div class="init-tag" id="p1InitTag" onclick="setInitiative(1)">👑 先攻權 (Initiative)</div>
           </div>
 
           <!-- 戰術膠囊區 -->
-          <div style="margin-bottom:10px;">
-            <span style="font-size:11px; color:#94a3b8; font-weight:700; margin-right:4px;">陣營戰術 / 特規：</span>
-            <div id="p1TacticsDisplay" style="display:inline-flex; gap:6px; flex-wrap:wrap; margin-top:2px;">
+          <div class="mb-2">
+            <span class="tactics-label">陣營戰術 / 特規：</span>
+            <div id="p1TacticsDisplay" class="tactics-display-row">
               <!-- 動態生成戰術膠囊 -->
             </div>
           </div>
 
           <div class="counters-row">
             <!-- CP 與 指揮重骰 -->
-            <div class="counter-box" style="flex:1;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div class="counter-box flex-1">
+              <div class="d-flex justify-between items-center mb-1">
                 <span class="counter-label">指揮點數 (CP)</span>
                 <button class="cr-btn" onclick="useCommandReroll(1)" title="消耗 1 CP 重骰一顆攻擊或防禦骰">
                   🎲 指揮重骰 (-1)
@@ -1096,11 +1381,11 @@
               </div>
             </div>
             <!-- VP -->
-            <div class="counter-box" style="flex:1;">
+            <div class="counter-box flex-1">
               <div class="counter-label">勝利分數 (VP)</div>
               <div class="counter-ctrls">
                 <button class="counter-btn" onclick="changeVP(1, -1)">-</button>
-                <div class="counter-val" id="p1VPVal" style="color:#fbbf24;">0</div>
+                <div class="counter-val counter-val-vp" id="p1VPVal">0</div>
                 <button class="counter-btn" onclick="changeVP(1, 1)">+</button>
               </div>
             </div>
@@ -1108,9 +1393,9 @@
 
           <!-- 裝備追蹤晶片 (標準模式展示) -->
           <div id="p1EquipSection">
-            <div style="font-size:11px; font-weight:700; color:#94a3b8; display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+            <div class="equip-hint-row">
               <span>裝備物資與消耗狀態：</span>
-              <span style="font-size:12px; color:#38bdf8;">懸停/點擊 ℹ️ 查看裝備規則</span>
+              <span class="equip-hint-text">懸停/點擊 ℹ️ 查看裝備規則</span>
             </div>
             <div class="equip-chips-container" id="p1EquipChips"></div>
           </div>
@@ -1121,23 +1406,23 @@
           <div class="player-header">
             <div class="player-name-tag">
               <span id="p2HudName">玩家 2</span>
-              <span class="team-badge" id="p2HudBadge" style="background:#2d5a27;">瘟疫戰士</span>
+              <span class="team-badge bg-faction-plague" id="p2HudBadge">瘟疫戰士</span>
             </div>
-            <div class="init-tag" id="p2InitTag" onclick="setInitiative(2)" style="background:#475569; color:#cbd5e1;">爭奪先攻</div>
+            <div class="init-tag" id="p2InitTag" onclick="setInitiative(2)">爭奪先攻</div>
           </div>
 
           <!-- 戰術膠囊區 -->
-          <div style="margin-bottom:10px;">
-            <span style="font-size:11px; color:#94a3b8; font-weight:700; margin-right:4px;">陣營戰術 / 特規：</span>
-            <div id="p2TacticsDisplay" style="display:inline-flex; gap:6px; flex-wrap:wrap; margin-top:2px;">
+          <div class="mb-2">
+            <span class="tactics-label">陣營戰術 / 特規：</span>
+            <div id="p2TacticsDisplay" class="tactics-display-row">
               <!-- 動態生成戰術膠囊 -->
             </div>
           </div>
 
           <div class="counters-row">
             <!-- CP 與 指揮重骰 -->
-            <div class="counter-box" style="flex:1;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div class="counter-box flex-1">
+              <div class="d-flex justify-between items-center mb-1">
                 <span class="counter-label">指揮點數 (CP)</span>
                 <button class="cr-btn" onclick="useCommandReroll(2)" title="消耗 1 CP 重骰一顆攻擊或防禦骰">
                   🎲 指揮重骰 (-1)
@@ -1150,11 +1435,11 @@
               </div>
             </div>
             <!-- VP -->
-            <div class="counter-box" style="flex:1;">
+            <div class="counter-box flex-1">
               <div class="counter-label">勝利分數 (VP)</div>
               <div class="counter-ctrls">
                 <button class="counter-btn" onclick="changeVP(2, -1)">-</button>
-                <div class="counter-val" id="p2VPVal" style="color:#fbbf24;">0</div>
+                <div class="counter-val counter-val-vp" id="p2VPVal">0</div>
                 <button class="counter-btn" onclick="changeVP(2, 1)">+</button>
               </div>
             </div>
@@ -1162,9 +1447,9 @@
 
           <!-- 裝備追蹤晶片 (標準模式展示) -->
           <div id="p2EquipSection">
-            <div style="font-size:11px; font-weight:700; color:#94a3b8; display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+            <div class="equip-hint-row">
               <span>裝備物資與消耗狀態：</span>
-              <span style="font-size:12px; color:#38bdf8;">懸停/點擊 ℹ️ 查看裝備規則</span>
+              <span class="equip-hint-text">懸停/點擊 ℹ️ 查看裝備規則</span>
             </div>
             <div class="equip-chips-container" id="p2EquipChips"></div>
           </div>
@@ -1504,7 +1789,7 @@ const KT_DB_STARTER = {
   angels: {
     name: '死亡天使 (入門版)',
     nameEn: 'Angels of Death (Starter)',
-    color: '#991b1b',
+    color: 'var(--faction-angels)',
     squadRuleDesc: '剛好挑選 5 名特工出戰：連長與軍士 2 選 1，狙擊手與重裝槍手 2 選 1，其餘為 3 名常規戰士。固定武器卡片，特工自帶特規。',
     maxOps: 5,
     tactics: [
@@ -1613,7 +1898,7 @@ const KT_DB_STARTER = {
   plague: {
     name: '瘟疫戰士 (入門版)',
     nameEn: 'Plague Marines (Starter)',
-    color: '#2d5a27',
+    color: 'var(--faction-plague)',
     squadRuleDesc: '剛好挑選 5 名特工出戰：必須包含 1 名冠軍頭目，其餘 6 名特工中挑選 4 名出戰。固定武裝卡片，全員享有噁心韌性 5+ 減傷。',
     maxOps: 5,
     tactics: [
@@ -1724,7 +2009,7 @@ const KT_DB_FULL = {
   angels: {
     name: '死亡天使',
     nameEn: 'Angels of Death',
-    color: '#991b1b',
+    color: 'var(--faction-angels)',
     squadRuleDesc: '剛好挑選 6 名特工，且必須恰好包含 1 名首領特工 (連長或軍士)。殲滅者狙擊手與重裝槍手各限 1 名。',
     maxOps: 6,
     tactics: [
@@ -1921,7 +2206,7 @@ const KT_DB_FULL = {
   plague: {
     name: '瘟疫戰士',
     nameEn: 'Plague Marines',
-    color: '#2d5a27',
+    color: 'var(--faction-plague)',
     squadRuleDesc: '剛好挑選 6 名特工 (含 1 名首領特工)。噁心韌性 5+ 減傷 / 納垢賜福雙動。',
     maxOps: 6,
     tactics: [
@@ -2050,7 +2335,7 @@ const KT_DB_FULL = {
   kommandos: {
     name: '特戰小子',
     nameEn: 'Kommandos',
-    color: '#166534',
+    color: 'var(--color-green-800)',
     squadRuleDesc: '剛好挑選 10 名特工 (含 1 名老大首領)。可配置炸彈小子、狙擊小子等專家。',
     maxOps: 10,
     tactics: [
@@ -2339,20 +2624,20 @@ function renderStep1FactionLists() {
     let html = '';
     // 死亡天使
     html += `<div class="faction-select-card ${p.faction === 'angels' ? 'selected' : ''}" onclick="selectFaction(${pNum}, 'angels')">
-      <div style="font-weight:800; color:#991b1b;">🩸 死亡天使 (Angels of Death)</div>
-      <div style="font-size:12px; color:#64748b;">${isStarter ? '入門版角色卡 / 7 選 5 名出戰 (首領2選1、重火2選1)' : '阿斯塔特修士 / 自選戰團戰術 / 限 6 名精銳'}</div>
+      <div class="faction-opt-title text-faction-angels">🩸 死亡天使 (Angels of Death)</div>
+      <div style="font-size:12px; color:var(--color-slate-500);">${isStarter ? '入門版角色卡 / 7 選 5 名出戰 (首領2選1、重火2選1)' : '阿斯塔特修士 / 自選戰團戰術 / 限 6 名精銳'}</div>
     </div>`;
 
     // 瘟疫戰士
     html += `<div class="faction-select-card ${p.faction === 'plague' ? 'selected' : ''}" onclick="selectFaction(${pNum}, 'plague')">
-      <div style="font-weight:800; color:#2d5a27;">☣️ 瘟疫戰士 (Plague Marines)</div>
-      <div style="font-size:12px; color:#64748b;">${isStarter ? '入門版角色卡 / 7 選 5 名出戰 (必含冠軍頭目，其餘6選4) / 噁心韌性5+' : '死亡守衛 / 噁心韌性5+減傷 / 限 6 名瘟疫戰士'}</div>
+      <div class="faction-opt-title text-faction-plague">☣️ 瘟疫戰士 (Plague Marines)</div>
+      <div style="font-size:12px; color:var(--color-slate-500);">${isStarter ? '入門版角色卡 / 7 選 5 名出戰 (必含冠軍頭目，其餘6選4) / 噁心韌性5+' : '死亡守衛 / 噁心韌性5+減傷 / 限 6 名瘟疫戰士'}</div>
     </div>`;
 
     // 特戰小子 (標準模式限定)
     html += `<div class="faction-select-card ${p.faction === 'kommandos' ? 'selected' : ''} ${isStarter ? 'disabled' : ''}" onclick="${isStarter ? '' : `selectFaction(${pNum}, 'kommandos')`}">
-      <div style="font-weight:800; color:#166534;">🟢 特戰小子 (Kommandos) ${isStarter ? '<span style="font-size:12px; color:#94a3b8; font-weight:normal;">(僅限標準模式)</span>' : ''}</div>
-      <div style="font-size:12px; color:#64748b;">歐克獸人 / 老大戰術簡報 / 限 10 名小子與專家</div>
+      <div style="font-weight:800; color:var(--color-green-800);">🟢 特戰小子 (Kommandos) ${isStarter ? '<span style="font-size:12px; color:var(--color-slate-400); font-weight:normal;">(僅限標準模式)</span>' : ''}</div>
+      <div class="faction-opt-desc">歐克獸人 / 老大戰術簡報 / 限 10 名小子與專家</div>
     </div>`;
 
     container.innerHTML = html;
@@ -2511,44 +2796,44 @@ function renderStep2() {
   c.innerHTML = [1, 2].map(pNum => {
     const p = matchState.players[pNum - 1];
     const fData = db[p.faction];
-    let html = `<div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px;">
+    let html = `<div class="tactic-box">
       <h3 style="color:${fData.color}; font-size:16px; margin-bottom:8px;">${p.name} (${fData.name}) 戰術機制</h3>`;
 
     if (isStarter) {
-      html += `<div style="font-size:13px; line-height:1.6; color:#334155;">
+      html += `<div class="tactic-content">
         <p><strong>• 入門套組特工固有能力：</strong></p>
-        <div style="display:flex; gap:6px; flex-wrap:wrap; margin:6px 0;">
+        <div class="d-flex gap-1 flex-wrap my-1">
           ${fData.tactics.map(t => `
             <span class="interactive-pill" onclick="showTacticPopover(event, '${t.name}')">
               ℹ️ ${t.name}
             </span>
           `).join('')}
         </div>
-        <p style="font-size:12px; color:#64748b;">點擊上方氣泡可隨時查驗詳細規則說明。在進入終極任務時，特工將全面解鎖各自特殊能力。</p>
+        <p class="font-xs text-muted">點擊上方氣泡可隨時查驗詳細規則說明。在進入終極任務時，特工將全面解鎖各自特殊能力。</p>
       </div>`;
       p.tactics = fData.tactics.map(t => t.name);
     } else {
       if (p.faction === 'angels') {
-        html += `<p style="font-size:12px; color:#475569; margin-bottom:10px;">請挑選 <strong>2 項戰團戰術</strong> (主戰術 + 次戰術)：</p>
-          <div style="display:flex; flex-direction:column; gap:6px;">`;
+        html += `<p class="font-xs text-secondary mb-2">請挑選 <strong>2 項戰團戰術</strong> (主戰術 + 次戰術)：</p>
+          <div class="d-flex flex-col gap-1">`;
         fData.tactics.forEach(t => {
           const isChecked = (p.tactics || []).includes(t.name) || (p.tactics.length < 2 && (t.id === 't1' || t.id === 't6'));
-          html += `<label style="display:flex; gap:8px; font-size:12px; align-items:flex-start; cursor:pointer;">
+          html += `<label class="d-flex gap-2 font-xs items-start cursor-pointer">
             <input type="checkbox" name="p${pNum}_tac" value="${t.name}" ${isChecked ? 'checked' : ''} onchange="limitCheckboxes(this, 2)">
             <div><strong>${t.name}</strong>: ${t.desc}</div>
           </label>`;
         });
         html += `</div>`;
       } else if (p.faction === 'plague') {
-        html += `<div style="font-size:13px; line-height:1.6; color:#334155;">
+        html += `<div class="tactic-content">
           <p><strong>• 噁心韌性 (Disgustingly Resilient)：</strong>每當受到傷害時，擲一顆 D6，若為 5+ 則該點傷害被完全忽略。</p>
-          <p style="margin-top:6px;"><strong>• 納垢賜福 (Blessings of Nurgle)：</strong>特工在單次啟動期間內，可以執行兩次「射擊」或兩次「近戰」行動。</p>
+          <p class="mt-1"><strong>• 納垢賜福 (Blessings of Nurgle)：</strong>特工在單次啟動期間內，可以執行兩次「射擊」或兩次「近戰」行動。</p>
         </div>`;
         p.tactics = ['噁心韌性', '納垢賜福'];
       } else if (p.faction === 'kommandos') {
-        html += `<div style="font-size:13px; line-height:1.6; color:#334155;">
-          <label style="display:block; margin:6px 0; cursor:pointer;"><input type="radio" name="p${pNum}_ork" value="伏擊潛行" checked> <strong>伏擊潛行 (Sneak)：</strong>第 1 回合全員處於掩體可免費執行 1 次衝刺。</label>
-          <label style="display:block; margin:6px 0; cursor:pointer;"><input type="radio" name="p${pNum}_ork" value="狂呼暴衝"> <strong>狂呼暴衝 (Waaagh)：</strong>交戰策略費用減 1 CP。</label>
+        html += `<div class="tactic-content">
+          <label class="d-block my-1 cursor-pointer"><input type="radio" name="p${pNum}_ork" value="伏擊潛行" checked> <strong>伏擊潛行 (Sneak)：</strong>第 1 回合全員處於掩體可免費執行 1 次衝刺。</label>
+          <label class="d-block my-1 cursor-pointer"><input type="radio" name="p${pNum}_ork" value="狂呼暴衝"> <strong>狂呼暴衝 (Waaagh)：</strong>交戰策略費用減 1 CP。</label>
         </div>`;
       }
     }
@@ -2577,12 +2862,12 @@ function renderStep3() {
       notice.innerHTML = `📦 <strong>入門套組編制規則：</strong>雙方小隊<strong>各挑選剛好 5 位特工出戰</strong>！<br>
       • <strong>星際戰士 (死亡天使)：</strong>首領 2 選 1（連長或軍士）、重火支援 2 選 1（狙擊手或重裝槍手）、其餘 3 名常規戰士。<br>
       • <strong>瘟疫戰士：</strong>必須包含 1 名冠軍頭目，其餘 6 名特工中挑選 4 位出戰。`;
-      notice.style.borderLeftColor = '#ea580c';
-      notice.style.background = '#fff7ed';
+      notice.style.borderLeftColor = 'var(--theme-primary)';
+      notice.style.background = 'var(--theme-primary-light)';
     } else {
       notice.innerHTML = `⚔️ <strong>官方編制規則限制：</strong>死亡天使與瘟疫戰士<strong>必須剛好 6 名</strong>，特戰小子<strong>必須剛好 10 名</strong>，且<strong>必須恰好 1 名首領特工 (Leader)</strong>。各專家特工上限皆為 1 名。`;
-      notice.style.borderLeftColor = '#0284c7';
-      notice.style.background = '#f1f5f9';
+      notice.style.borderLeftColor = 'var(--color-sky-600)';
+      notice.style.background = 'var(--surface-subtle)';
     }
   }
 
@@ -2606,11 +2891,11 @@ function renderStep3() {
     const fData = db[p.faction];
     const maxOps = fData.maxOps;
 
-    let html = `<div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px;" id="squadCard_p${pNum}">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+    let html = `<div style="background:var(--surface-ground); border:1px solid var(--theme-border); border-radius:8px; padding:14px;" id="squadCard_p${pNum}">
+      <div class="d-flex justify-between items-center mb-1">
         <h3 style="color:${fData.color}; font-size:16px; margin:0;">${p.name} (${fData.name}) 名冊</h3>
       </div>
-      <div style="font-size:12px; color:#64748b; margin-bottom:8px;">${fData.squadRuleDesc}</div>
+      <div class="font-xs text-muted mb-2">${fData.squadRuleDesc}</div>
 
       <!-- 即時編制檢查標籤 -->
       <div class="squad-status-bar" id="squadBar_p${pNum}">
@@ -2620,7 +2905,7 @@ function renderStep3() {
         ${isStarter && p.faction === 'plague' ? `<span class="squad-badge warn" id="badgeSpec_p${pNum}">其餘隊員: 0 / 4 名 (6選4)</span>` : ''}
       </div>
 
-      <div style="display:flex; flex-direction:column;">`;
+      <div class="d-flex flex-col">`;
 
     // 智慧預選
     const preCheckedIds = new Set();
@@ -2672,32 +2957,32 @@ function renderStep3() {
       const isPrechecked = preCheckedIds.has(op.id);
 
       html += `<div class="loadout-row ${isPrechecked ? 'row-selected' : ''}" id="row_p${pNum}_${op.id}">
-        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1;">
+        <label class="d-flex items-center gap-2 cursor-pointer flex-1">
           <input type="checkbox" name="p${pNum}_op" value="${op.id}" data-leader="${op.isLeader ? 'true' : 'false'}" data-specialist="${op.isSpecialist ? 'true' : 'false'}" ${isPrechecked ? 'checked' : ''} onchange="handleOperativeToggle(${pNum}, this)">
-          <img src="${op.thumb}" alt="${op.name}" style="width:32px; height:32px; object-fit:contain; border-radius:4px; background:#fff; border:1px solid #e2e8f0; flex-shrink:0;" onerror="this.onerror=null; this.src='assets/kt_icon.svg';" decoding="async" loading="lazy">
+          <img src="${op.thumb}" alt="${op.name}" style="width:32px; height:32px; object-fit:contain; border-radius:4px; background:var(--color-white); border:1px solid var(--border-subtle); flex-shrink:0;" onerror="this.onerror=null; this.src='assets/kt_icon.svg';" decoding="async" loading="lazy">
           <div>
-            <div style="font-weight:700; font-size:13px; color:#0f172a;">
+            <div class="font-sm font-bold text-primary">
               ${op.name}
-              ${op.isLeader ? '<span style="color:#ea580c; font-size:11px; font-weight:800; background:#ffedd5; padding:1px 5px; border-radius:3px; margin-left:4px;">👑 LEADER</span>' : ''}
-              ${op.isSpecialist ? '<span style="color:#0284c7; font-size:11px; font-weight:800; background:#e0f2fe; padding:1px 5px; border-radius:3px; margin-left:4px;">★ 專家</span>' : ''}
-              ${isStarter && p.faction === 'angels' && op.isLeader ? '<span style="color:#b45309; font-size:11px; font-weight:700; background:#fef3c7; padding:1px 5px; border-radius:3px; margin-left:4px;">(首領 2選1)</span>' : ''}
-              ${isStarter && p.faction === 'angels' && (op.id === 'st_sm_elim' || op.id === 'st_sm_hvy') ? '<span style="color:#0369a1; font-size:12px; font-weight:700; background:#e0f2fe; padding:1px 5px; border-radius:3px; margin-left:4px;">(重火 2選1)</span>' : ''}
-              ${isStarter && p.faction === 'plague' && op.isLeader ? '<span style="color:#15803d; font-size:11px; font-weight:700; background:#dcfce7; padding:1px 5px; border-radius:3px; margin-left:4px;">(必選頭目)</span>' : ''}
-              ${isStarter && p.faction === 'plague' && !op.isLeader ? '<span style="color:#475569; font-size:11px; font-weight:600; background:#f1f5f9; padding:1px 5px; border-radius:3px; margin-left:4px;">(6選4)</span>' : ''}
+              ${op.isLeader ? '<span style="color:var(--theme-primary); font-size:11px; font-weight:800; background:var(--color-orange-100); padding:1px 5px; border-radius:3px; margin-left:4px;">👑 LEADER</span>' : ''}
+              ${op.isSpecialist ? '<span style="color:var(--color-sky-600); font-size:11px; font-weight:800; background:var(--color-sky-100); padding:1px 5px; border-radius:3px; margin-left:4px;">★ 專家</span>' : ''}
+              ${isStarter && p.faction === 'angels' && op.isLeader ? '<span style="color:var(--color-amber-700); font-size:11px; font-weight:700; background:var(--color-amber-100); padding:1px 5px; border-radius:3px; margin-left:4px;">(首領 2選1)</span>' : ''}
+              ${isStarter && p.faction === 'angels' && (op.id === 'st_sm_elim' || op.id === 'st_sm_hvy') ? '<span style="color:var(--color-sky-700); font-size:12px; font-weight:700; background:var(--color-sky-100); padding:1px 5px; border-radius:3px; margin-left:4px;">(重火 2選1)</span>' : ''}
+              ${isStarter && p.faction === 'plague' && op.isLeader ? '<span style="color:var(--color-green-700); font-size:11px; font-weight:700; background:var(--color-emerald-100); padding:1px 5px; border-radius:3px; margin-left:4px;">(必選頭目)</span>' : ''}
+              ${isStarter && p.faction === 'plague' && !op.isLeader ? '<span style="color:var(--color-slate-600); font-size:11px; font-weight:600; background:var(--surface-subtle); padding:1px 5px; border-radius:3px; margin-left:4px;">(6選4)</span>' : ''}
             </div>
-            <div style="font-size:11px; color:#475569; margin-top:3px; display:flex; gap:10px; flex-wrap:wrap;">
-              <span>APL: <strong style="color:#0f172a;">${op.apl}</strong></span>
-              <span>移速: <strong style="color:#0f172a;">${op.move}</strong></span>
-              <span>豁免: <strong style="color:#0f172a;">${op.save}</strong></span>
-              <span>生命 (HP): <strong style="color:#0f172a;">${op.wounds}</strong></span>
+            <div class="op-stat-strip">
+              <span>APL: <strong>${op.apl}</strong></span>
+              <span>移速: <strong>${op.move}</strong></span>
+              <span>豁免: <strong>${op.save}</strong></span>
+              <span>生命 (HP): <strong>${op.wounds}</strong></span>
             </div>
           </div>
         </label>`;
 
       if (isStarter) {
         // 入門模式：固定武裝標記
-        html += `<div style="text-align:right;">
-          <span style="font-size:11px; background:#f1f5f9; color:#475569; padding:2px 8px; border-radius:4px; font-weight:600; border:1px solid #cbd5e1;">🔒 入門固定武器</span>
+        html += `<div class="text-right">
+          <span style="font-size:11px; background:var(--surface-subtle); color:var(--color-slate-600); padding:2px 8px; border-radius:4px; font-weight:600; border:1px solid var(--theme-border);">🔒 入門固定武器</span>
         </div>`;
       } else {
         // 標準模式：武器下拉選單
@@ -2709,7 +2994,7 @@ function renderStep3() {
             </select>
           </div>`;
         } else if (optionKeys.length === 1) {
-          html += `<div style="font-size:12px; color:#64748b; max-width:180px; text-align:right;">${optionKeys[0]}</div>`;
+          html += `<div class="op-custom-config-hint">${optionKeys[0]}</div>`;
         }
       }
 
@@ -2827,28 +3112,28 @@ function renderStep4() {
   c.innerHTML = [1, 2].map(pNum => {
     const p = matchState.players[pNum - 1];
     const fData = KT_DB_FULL[p.faction] || KT_DB_STARTER[p.faction];
-    let html = `<div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+    let html = `<div class="tactic-box">
+      <div class="d-flex justify-between items-center mb-2">
         <h3 style="color:${fData.color}; font-size:16px; margin:0;">${p.name} 裝備物資</h3>
         <span class="squad-badge warn" id="equipBadge_p${pNum}">已選: 0 / 4 件配額</span>
       </div>
-      <div style="font-size:11px; color:#64748b; margin-bottom:8px;">
+      <div class="font-xs text-muted mb-2">
         自「陣營專屬」與「官方通用裝備 (11項)」中挑選剛好 4 項：
       </div>`;
 
     if (fData.factionEquip && fData.factionEquip.length > 0) {
-      html += `<div style="font-weight:700; font-size:12px; color:#0f172a; margin-top:8px;">【陣營專屬裝備】</div>
+      html += `<div class="font-xs font-bold text-primary mt-2">【陣營專屬裝備】</div>
         <div class="equip-select-grid">`;
       fData.factionEquip.forEach(eq => {
         html += `<div class="equip-select-item" onclick="toggleEquipCard(event, this, ${pNum})">
-          <label style="display:flex; gap:6px; cursor:pointer; align-items:flex-start;">
+          <label class="d-flex gap-1 cursor-pointer items-start">
             <input type="checkbox" name="p${pNum}_eq" value="${eq.id}" data-type="${eq.type}" data-name="${eq.name}" data-desc="${eq.desc}" onchange="handleEquipChange(${pNum})">
-            <div style="flex:1;">
-              <div style="font-weight:700; font-size:12px; color:#0f172a; display:flex; align-items:center; justify-content:space-between;">
+            <div class="flex-1">
+              <div class="font-xs font-bold text-primary d-flex items-center justify-between">
                 <span>${eq.name}</span>
                 <button class="info-bubble-btn" onclick="showEquipPopover(event, '${eq.id}')" onmouseenter="showEquipPopover(event, '${eq.id}')" title="查看規則">ℹ️</button>
               </div>
-              <div style="font-size:11px; color:#64748b; margin-top:2px;">${eq.desc}</div>
+              <div class="font-badge text-muted mt-1">${eq.desc}</div>
             </div>
           </label>
         </div>`;
@@ -2856,18 +3141,18 @@ function renderStep4() {
       html += `</div>`;
     }
 
-    html += `<div style="font-weight:700; font-size:12px; color:#0f172a; margin-top:14px;">【官方通用裝備 (11 項全規則)】</div>
+    html += `<div class="font-xs font-bold text-primary mt-3">【官方通用裝備 (11 項全規則)】</div>
       <div class="equip-select-grid">`;
     UNIVERSAL_EQUIPMENT.forEach(eq => {
       html += `<div class="equip-select-item" onclick="toggleEquipCard(event, this, ${pNum})">
-        <label style="display:flex; gap:6px; cursor:pointer; align-items:flex-start;">
+        <label class="d-flex gap-1 cursor-pointer items-start">
           <input type="checkbox" name="p${pNum}_eq" value="${eq.id}" data-type="${eq.type}" data-name="${eq.name}" data-desc="${eq.desc}" onchange="handleEquipChange(${pNum})">
-          <div style="flex:1;">
-            <div style="font-weight:700; font-size:12px; color:#0f172a; display:flex; align-items:center; justify-content:space-between;">
+          <div class="flex-1">
+            <div class="font-xs font-bold text-primary d-flex items-center justify-between">
               <span>${eq.name}</span>
               <button class="info-bubble-btn" onclick="showEquipPopover(event, '${eq.id}')" onmouseenter="showEquipPopover(event, '${eq.id}')" title="查看規則">ℹ️</button>
             </div>
-            <div style="font-size:11px; color:#64748b; margin-top:2px;">${eq.desc}</div>
+            <div class="font-badge text-muted mt-1">${eq.desc}</div>
           </div>
         </label>
       </div>`;
@@ -3017,13 +3302,13 @@ function renderStep5() {
   c.innerHTML = [1, 2].map(pNum => {
     const p = matchState.players[pNum - 1];
     const fData = db[p.faction];
-    return `<div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px;">
+    return `<div class="tactic-box">
       <h3 style="color:${fData.color}; font-size:16px; margin-bottom:8px;">${p.name} (${fData.name})</h3>
-      <div style="font-size:13px; line-height:1.7; color:#334155;">
+      <div class="font-sm text-secondary">
         <p><strong>對戰模式：</strong>${matchState.gameMode === 'starter' ? '📦 入門套組手冊 (終極任務)' : '⚔️ 標準完整對戰'}</p>
         <p><strong>戰團戰術 / 特規：</strong>${p.tactics.join('、')}</p>
         <p><strong>出場特工 (${p.operatives.length} 名)：</strong>${p.operatives.map(o => `${o.name} (${o.selectedOptionKey})`).join('、')}</p>
-        ${matchState.gameMode !== 'starter' ? `<p><strong>裝備配額 (${p.equipment.length} 項)：</strong>${p.equipment.length > 0 ? p.equipment.map(e => e.name).join('、') : '未選取'}</p>` : '<p style="color:#64748b;"><em>入門套組模式：無額外裝備庫，特工憑自身數據卡作戰。</em></p>'}
+        ${matchState.gameMode !== 'starter' ? `<p><strong>裝備配額 (${p.equipment.length} 項)：</strong>${p.equipment.length > 0 ? p.equipment.map(e => e.name).join('、') : '未選取'}</p>` : '<p style="color:var(--color-slate-500);"><em>入門套組模式：無額外裝備庫，特工憑自身數據卡作戰。</em></p>'}
       </div>
     </div>`;
   }).join('');
@@ -3079,7 +3364,7 @@ function updateMatchUI() {
   const modeBadge = document.getElementById('gameModeBadgeInHud');
   if (modeBadge) {
     modeBadge.innerText = matchState.gameMode === 'starter' ? '📦 入門套組模式' : '⚔️ 標準完整模式';
-    modeBadge.style.background = matchState.gameMode === 'starter' ? '#ea580c' : '#2563eb';
+    modeBadge.style.background = matchState.gameMode === 'starter' ? 'var(--theme-primary)' : 'var(--color-blue-600)';
   }
 
   // 更新全新三大階段指示卡片狀態
@@ -3121,8 +3406,8 @@ function updateMatchUI() {
     const hasInit = matchState.initiative === pNum;
 
     panel.className = hasInit ? 'player-panel has-initiative' : 'player-panel';
-    initTag.style.background = hasInit ? '#fbbf24' : '#475569';
-    initTag.style.color = hasInit ? '#78350f' : '#cbd5e1';
+    initTag.style.background = hasInit ? 'var(--color-amber-400)' : 'var(--color-slate-600)';
+    initTag.style.color = hasInit ? 'var(--color-amber-900)' : 'var(--theme-border)';
     initTag.innerText = hasInit ? '👑 先攻權 (Initiative)' : '爭奪先攻';
 
     // 戰術膠囊氣泡
@@ -3170,7 +3455,7 @@ function renderPhaseWorkflowPanel() {
 
     let cpActionHtml = '';
     if (matchState.cpClaimedInCurrentTp) {
-      cpActionHtml = `<span class="badge badge-success" style="padding:4px 10px; font-size:11px;">
+      cpActionHtml = `<span class="badge badge-success hud-badge-sm">
         ✅ 本回合 CP 已發放完畢 (${isTP1 ? '雙方各 +1 CP' : `${initPlayer.name} +1 CP / ${nonInitPlayer.name} +2 CP`})
       </span>`;
     } else {
@@ -3182,26 +3467,26 @@ function renderPhaseWorkflowPanel() {
     }
 
     html = `<div class="workflow-header">
-      <div style="font-weight:800; font-size:14px; color:#fdba74; display:flex; align-items:center; gap:6px;">
+      <div class="phase-title-p1">
         <span>📜 戰略階段引導工作流 (STRATEGY PHASE)</span>
-        <span style="font-size:11px; background:#475569; color:#f1f5f9; padding:1px 6px; border-radius:3px;">TP ${matchState.turningPoint}</span>
+        <span class="phase-badge-tp">TP ${matchState.turningPoint}</span>
       </div>
       <button class="btn btn-primary btn-sm" onclick="nextPhase()">
         完成戰略準備，進入交戰階段 ➔
       </button>
     </div>
-    <div style="font-size:12px; color:#cbd5e1; line-height:1.6;">
+    <div class="phase-desc-text">
       <!-- 步驟 1：爭奪先攻權 -->
-      <div style="margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+      <div class="d-flex items-center gap-2 flex-wrap mb-2">
         <div><strong>步驟 1：爭奪先攻權 (Roll-off)</strong> — 雙方擲 D6，點數高者奪取本回合先攻權：</div>
-        <button class="btn btn-secondary btn-sm" style="color:#fbbf24; border-color:#fbbf24;" onclick="rollInitiativeDice()">🎲 擲先攻權對決骰</button>
-        ${matchState.rollOffResults ? `<span style="font-size:11px; color:#fef08a;">對決結果：${p1.name} [ <span class="dice-badge">${matchState.rollOffResults.p1}</span> ] vs ${p2.name} [ <span class="dice-badge">${matchState.rollOffResults.p2}</span> ] ➔ <strong>${matchState.initiative === 1 ? p1.name : p2.name} 奪得先攻！</strong></span>` : `<span style="font-size:11px; color:#94a3b8;">(目前先攻：<strong>${matchState.initiative === 1 ? p1.name : p2.name}</strong>，可點擊上方冠冕手動指定)</span>`}
+        <button class="btn btn-secondary btn-sm rolloff-btn" onclick="rollInitiativeDice()">🎲 擲先攻權對決骰</button>
+        ${matchState.rollOffResults ? `<span class="rolloff-result">對決結果：${p1.name} [ <span class="dice-badge">${matchState.rollOffResults.p1}</span> ] vs ${p2.name} [ <span class="dice-badge">${matchState.rollOffResults.p2}</span> ] ➔ <strong>${matchState.initiative === 1 ? p1.name : p2.name} 奪得先攻！</strong></span>` : `<span style="font-size:11px; color:var(--color-slate-400);">(目前先攻：<strong>${matchState.initiative === 1 ? p1.name : p2.name}</strong>，可點擊上方冠冕手動指定)</span>`}
       </div>
 
       <!-- 步驟 2：產生指揮點數 (決定先後攻後分配) -->
-      <div style="margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+      <div class="d-flex items-center gap-2 flex-wrap mb-2">
         <div><strong>步驟 2：產生指揮點數 (CP)</strong> — 
-          <span style="color:#94a3b8;">${isTP1 ? '第 1 回合雙方各得 1 CP：' : `先攻玩家 (${initPlayer.name}) 得 1 CP，後攻玩家 (${nonInitPlayer.name}) 得 2 CP：`}</span>
+          <span class="text-muted">${isTP1 ? '第 1 回合雙方各得 1 CP：' : `先攻玩家 (${initPlayer.name}) 得 1 CP，後攻玩家 (${nonInitPlayer.name}) 得 2 CP：`}</span>
         </div>
         ${cpActionHtml}
       </div>
@@ -3209,7 +3494,7 @@ function renderPhaseWorkflowPanel() {
       <!-- 步驟 3：宣告戰略策略 -->
       <div>
         <strong>步驟 3：宣告戰略策略 (Strategy Ploys)</strong> — 
-        ${isStarter ? '<span style="color:#94a3b8;">入門套組手冊規範：<strong>無戰略策略卡</strong>，CP 專用於交戰階段之<strong>「指揮重骰 (Command Re-roll)」</strong>。完成先後攻與 CP 發放後即可開戰！</span>' : `<span style="color:#94a3b8;">由先攻玩家 (${initPlayer.name}) 優先宣告，雙方交替花費 1 CP 使用戰略策略，直至雙方皆放棄。</span>`}
+        ${isStarter ? '<span class="text-muted">入門套組手冊規範：<strong>無戰略策略卡</strong>，CP 專用於交戰階段之<strong>「指揮重骰 (Command Re-roll)」</strong>。完成先後攻與 CP 發放後即可開戰！</span>' : `<span class="text-muted">由先攻玩家 (${initPlayer.name}) 優先宣告，雙方交替花費 1 CP 使用戰略策略，直至雙方皆放棄。</span>`}
       </div>
     </div>`;
   } else if (matchState.phase === 2) {
@@ -3223,11 +3508,11 @@ function renderPhaseWorkflowPanel() {
     const p2Pct = p2Total > 0 ? Math.round((p2Done / p2Total) * 100) : 100;
 
     html = `<div class="workflow-header">
-      <div style="font-weight:800; font-size:14px; color:#f97316; display:flex; align-items:center; gap:6px;">
+      <div class="phase-title-p2">
         <span>⚔️ 交戰階段進度儀表 (FIREFIGHT PHASE)</span>
-        <span style="font-size:11px; background:#475569; color:#f1f5f9; padding:1px 6px; border-radius:3px;">先攻方：${matchState.initiative === 1 ? p1.name : p2.name}</span>
+        <span class="phase-badge-tp">先攻方：${matchState.initiative === 1 ? p1.name : p2.name}</span>
       </div>
-      <div style="display:flex; gap:8px;">
+      <div class="d-flex gap-2">
         <button class="btn btn-success btn-sm" onclick="nextPhase()">
           全員啟動完畢，進入結算階段 ➔
         </button>
@@ -3235,22 +3520,22 @@ function renderPhaseWorkflowPanel() {
     </div>
     
     <!-- 雙方特工啟動進度條 -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+    <div class="d-grid gap-3" style="grid-template-columns:1fr 1fr;">
       <div class="activation-progress-bar">
-        <span style="font-weight:700; color:#ef4444; width:80px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${p1.name}：</span>
-        <div class="progress-track"><div class="progress-fill" style="width:${p1Pct}%; background:#ef4444;"></div></div>
-        <span style="font-size:11px; color:#cbd5e1; font-weight:700;">${p1Done} / ${p1Total} 啟動</span>
+        <span style="font-weight:700; color:var(--color-red-500); width:80px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${p1.name}：</span>
+        <div class="progress-track"><div class="progress-fill bg-danger" style="width:${p1Pct}%;"></div></div>
+        <span class="activation-count">${p1Done} / ${p1Total} 啟動</span>
       </div>
       <div class="activation-progress-bar">
-        <span style="font-weight:700; color:#22c55e; width:80px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${p2.name}：</span>
-        <div class="progress-track"><div class="progress-fill" style="width:${p2Pct}%; background:#22c55e;"></div></div>
-        <span style="font-size:11px; color:#cbd5e1; font-weight:700;">${p2Done} / ${p2Total} 啟動</span>
+        <span style="font-weight:700; color:var(--color-green-500); width:80px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${p2.name}：</span>
+        <div class="progress-track"><div class="progress-fill bg-success" style="width:${p2Pct}%;"></div></div>
+        <span class="activation-count">${p2Done} / ${p2Total} 啟動</span>
       </div>
     </div>
 
     <!-- 交戰輔助快捷操作列 -->
-    <div class="workflow-actions-row" style="font-size:12px; color:#94a3b8; justify-content:space-between; margin-top:2px;">
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+    <div class="workflow-actions-row" style="font-size:12px; color:var(--color-slate-400); justify-content:space-between; margin-top:2px;">
+      <div class="d-flex items-center flex-wrap gap-2">
         <span>🎲 投骰失誤？快速重骰：</span>
         <button class="cr-btn" onclick="useCommandReroll(1)">${p1.name} 重骰 (扣1 CP)</button>
         <button class="cr-btn" onclick="useCommandReroll(2)">${p2.name} 重骰 (扣1 CP)</button>
@@ -3259,23 +3544,23 @@ function renderPhaseWorkflowPanel() {
         </span>
       </div>
       <div>
-        <span style="font-size:11px; color:#38bdf8;">提示：由先攻方先啟動 1 名特工，依序交替啟動直至雙方全員完成。</span>
+        <span class="tracker-hint-sky">提示：由先攻方先啟動 1 名特工，依序交替啟動直至雙方全員完成。</span>
       </div>
     </div>`;
   } else if (matchState.phase === 3) {
     // 結算重整階段 (Wrap-up Phase)
     html = `<div class="workflow-header">
-      <div style="font-weight:800; font-size:14px; color:#34d399; display:flex; align-items:center; gap:6px;">
+      <div class="phase-title-p3">
         <span>🔄 結算重整階段引導 (WRAP-UP PHASE)</span>
-        <span style="font-size:11px; background:#475569; color:#f1f5f9; padding:1px 6px; border-radius:3px;">TP ${matchState.turningPoint} 回合結束</span>
+        <span class="phase-badge-tp">TP ${matchState.turningPoint} 回合結束</span>
       </div>
       <button class="btn btn-success btn-sm" onclick="nextTurningPoint()">
         ✨ 一鍵重整特工並前進至下個轉折點 ➔
       </button>
     </div>
-    <div style="font-size:12px; color:#cbd5e1; line-height:1.6;">
+    <div class="phase-desc-text">
       <p><strong>1. 目標控制與計分：</strong>依任務規定檢視雙方特工佔領的標記點，使用上方 VP 計分器登記雙方獲得的 VP 分數。</p>
-      <p style="margin-top:4px;"><strong>2. 回合重整：</strong>點擊右上角按鈕將自動：<strong>將雙方所有特工重置為「待啟動」</strong>、重置每回合裝備道具，並自動前進至第 ${matchState.turningPoint < 4 ? matchState.turningPoint + 1 : 4} 轉折點之戰略階段。</p>
+      <p class="mt-1"><strong>2. 回合重整：</strong>點擊右上角按鈕將自動：<strong>將雙方所有特工重置為「待啟動」</strong>、重置每回合裝備道具，並自動前進至第 ${matchState.turningPoint < 4 ? matchState.turningPoint + 1 : 4} 轉折點之戰略階段。</p>
     </div>`;
   }
 
@@ -3395,9 +3680,9 @@ function renderOpCards() {
         <div class="side-column-header p1-header">
           <div>
             <span>🛡️ ${p1.name}</span>
-            <span style="font-size:12px; opacity:0.9; margin-left:6px;">(${p1F.name})</span>
+            <span class="font-xs" style="opacity:0.9; margin-left:6px;">(${p1F.name})</span>
           </div>
-          <div style="font-size:12px;">存活: <strong>${p1Alive} / ${p1.operatives.length}</strong></div>
+          <div class="font-xs">存活: <strong>${p1Alive} / ${p1.operatives.length}</strong></div>
         </div>
         <div class="side-col-cards">
           ${p1.operatives.map(op => renderSingleOperativeCard(op, 1)).join('')}
@@ -3408,9 +3693,9 @@ function renderOpCards() {
         <div class="side-column-header p2-header">
           <div>
             <span>⚔️ ${p2.name}</span>
-            <span style="font-size:12px; opacity:0.9; margin-left:6px;">(${p2F.name})</span>
+            <span class="font-xs" style="opacity:0.9; margin-left:6px;">(${p2F.name})</span>
           </div>
-          <div style="font-size:12px;">存活: <strong>${p2Alive} / ${p2.operatives.length}</strong></div>
+          <div class="font-xs">存活: <strong>${p2Alive} / ${p2.operatives.length}</strong></div>
         </div>
         <div class="side-col-cards">
           ${p2.operatives.map(op => renderSingleOperativeCard(op, 2)).join('')}
@@ -3434,9 +3719,9 @@ function renderSingleOperativeCard(op, playerNum) {
   const isInjured = !isDead && (op.currentWounds <= Math.ceil(op.wounds / 2));
   const hpPct = Math.max(0, Math.round((op.currentWounds / op.wounds) * 100));
 
-  let hpColor = '#10b981';
-  if (hpPct <= 25) hpColor = '#ef4444';
-  else if (hpPct <= 50) hpColor = '#f59e0b';
+  let hpColor = 'var(--color-emerald-500)';
+  if (hpPct <= 25) hpColor = 'var(--color-red-500)';
+  else if (hpPct <= 50) hpColor = 'var(--color-amber-500)';
 
   let cardClass = 'tracker-op-card';
   if (isDead) cardClass += ' incapacitated';
@@ -3448,9 +3733,9 @@ function renderSingleOperativeCard(op, playerNum) {
   let weaponsHtml = '';
   if (weapons.length > 0) {
     weaponsHtml = `<div class="op-weapons-box">
-      <div style="font-size:12px; font-weight:700; color:#475569; margin-bottom:4px; display:flex; justify-content:space-between;">
+      <div style="font-size:12px; font-weight:700; color:var(--color-slate-600); margin-bottom:4px; display:flex; justify-content:space-between;">
         <span>配備武器 (WEAPONS)</span>
-        <span style="font-size:12px; color:#0284c7;">懸停/點擊詞綴看規則</span>
+        <span class="font-xs text-info">懸停/點擊詞綴看規則</span>
       </div>
       ${weapons.map(w => `
         <div class="op-wp-row">
@@ -3484,7 +3769,7 @@ function renderSingleOperativeCard(op, playerNum) {
     abilitiesHtml = `<div class="op-abilities-box">
       <div class="op-abilities-header">
         <span>特工特殊能力 (ABILITIES)</span>
-        <span style="font-size:12px; color:#0284c7;">點擊查看詳情</span>
+        <span class="font-xs text-info">點擊查看詳情</span>
       </div>
       <div>
         ${op.abilities.map(abName => `
@@ -3502,9 +3787,9 @@ function renderSingleOperativeCard(op, playerNum) {
     <div class="tracker-op-header">
       <img src="${op.thumb}" alt="${op.name}" class="tracker-op-thumb" onerror="this.onerror=null; this.src='assets/kt_icon.svg';" decoding="async" loading="lazy">
       <div class="tracker-op-meta">
-        <div class="tracker-op-title">${op.name} ${op.isLeader ? '<span style="color:#ea580c; font-size:11px; font-weight:800; background:#ffedd5; padding:1px 5px; border-radius:3px;">[LEADER]</span>' : ''}</div>
+        <div class="tracker-op-title">${op.name} ${op.isLeader ? '<span style="color:var(--theme-primary); font-size:11px; font-weight:800; background:var(--color-orange-100); padding:1px 5px; border-radius:3px;">[LEADER]</span>' : ''}</div>
         <div class="tracker-op-sub">${op.nameEn} (玩家 ${playerNum})</div>
-        <div style="font-size:11px; color:#475569; margin-top:2px;">配置：<strong>${op.selectedOptionKey || '預設'}</strong></div>
+        <div class="font-badge text-muted mt-1">配置：<strong>${op.selectedOptionKey || '預設'}</strong></div>
       </div>
       <div class="stat-cluster">
         <div class="stat-box" title="行動點數 (Action Point Limit)"><span class="stat-label">APL</span><span class="stat-value">${op.apl}</span></div>
@@ -3524,9 +3809,9 @@ function renderSingleOperativeCard(op, playerNum) {
     <div class="hp-module">
       <div class="hp-info-row">
         <span>生命值 (Wounds)：</span>
-        <span style="font-size:13px; color:${isDead ? '#ef4444' : '#0f172a'};">
+        <span style="font-size:13px; color:${isDead ? 'var(--color-red-500)' : 'var(--theme-dark)'};">
           ${op.currentWounds} / ${op.wounds} HP
-          ${isDead ? '<strong style="color:#dc2626; margin-left:6px;">[💀 陣亡]</strong>' : (isInjured ? '<strong style="color:#d97706; margin-left:6px;">[⚠️ 受傷 -2" 移速 / -1 命中]</strong>' : '')}
+          ${isDead ? '<strong style="color:var(--color-danger); margin-left:6px;">[💀 陣亡]</strong>' : (isInjured ? '<strong style="color:var(--color-amber-600); margin-left:6px;">[⚠️ 受傷 -2" 移速 / -1 命中]</strong>' : '')}
         </span>
       </div>
       <div class="hp-bar-bg">
@@ -3568,7 +3853,7 @@ function renderEquipChips(playerNum) {
   const p = matchState.players[playerNum - 1];
   const c = document.getElementById(`p${playerNum}EquipChips`);
   if (!p.equipment || p.equipment.length === 0) {
-    c.innerHTML = '<span style="font-size:11px; color:#64748b;">未配置裝備</span>';
+    c.innerHTML = '<span class="font-badge text-muted">未配置裝備</span>';
     return;
   }
   c.innerHTML = p.equipment.map((eq, idx) => {
@@ -3578,7 +3863,7 @@ function renderEquipChips(playerNum) {
     } else if (eq.type === 'turn' || eq.type === 'battle') {
       btnHtml = `<button class="chip-btn ${eq.used ? 'used' : ''}" onclick="toggleEquipUsed(${playerNum}, ${idx})">${eq.used ? '已使用' : '可使用'}</button>`;
     } else {
-      btnHtml = `<span style="font-size:12px; color:#94a3b8; font-weight:700;">(常駐/地形)</span>`;
+      btnHtml = `<span class="font-xs font-bold text-muted">(常駐/地形)</span>`;
     }
 
     return `<div class="equip-chip ${eq.count !== undefined && eq.count <= 0 ? 'expended' : (eq.used ? 'expended' : 'ready')}">
@@ -3682,7 +3967,7 @@ function showTacticPopover(event, rawTacticStr) {
       target,
       rawTacticStr,
       def.nameEn,
-      `<p>${def.desc}</p><div style="font-size:12px; color:#94a3b8; margin-top:6px; border-top:1px dashed #334155; padding-top:4px;">類別：${def.category}</div>`,
+      `<p>${def.desc}</p><div class="popover-rule-footer">類別：${def.category}</div>`,
       '戰術 / 陣營機制'
     );
   } else {
@@ -3708,7 +3993,7 @@ function showAbilityPopover(event, abilityName) {
       target,
       abilityName,
       def.nameEn,
-      `<p>${def.desc}</p><div style="font-size:12px; color:#94a3b8; margin-top:6px; border-top:1px dashed #334155; padding-top:4px;">類別：${def.category}</div>`,
+      `<p>${def.desc}</p><div class="popover-rule-footer">類別：${def.category}</div>`,
       '特工特殊能力'
     );
   } else {
@@ -3725,7 +4010,7 @@ function showCrPopover(event) {
     target,
     '指揮重骰 (Command Re-roll)',
     def.nameEn,
-    `<p>${def.desc}</p><div style="font-size:12px; color:#38bdf8; margin-top:6px; line-height:1.4;"><strong>Starter Set 核心地位：</strong>在入門套組中，CR 為唯一常備的策略，提供指揮官靈活調整關鍵投骰之機會。</div>`,
+    `<p>${def.desc}</p><div class="popover-rule-footer text-sky"><strong>Starter Set 核心地位：</strong>在入門套組中，CR 為唯一常備的策略，提供指揮官靈活調整關鍵投骰之機會。</div>`,
     def.category
   );
 }
@@ -3740,7 +4025,7 @@ function showRulePopover(event, rawRuleStr) {
       target,
       info.title,
       '',
-      `<p>${info.desc}</p><div style="font-size:12px; color:#94a3b8; margin-top:6px; border-top:1px dashed #334155; padding-top:4px;">來源：官方 22 項武器特性標準規範。</div>`,
+      `<p>${info.desc}</p><div class="popover-rule-footer">來源：官方 22 項武器特性標準規範。</div>`,
       '武器特殊規則'
     );
   } else {
@@ -3777,7 +4062,7 @@ function showEquipPopover(event, equipId) {
       target,
       eq.name,
       typeName,
-      `<p style="margin-bottom:6px;">${eq.desc}</p>`,
+      `<p class="mb-1">${eq.desc}</p>`,
       factionName
     );
   }
@@ -4031,6 +4316,6 @@ window.triggerImportMatchJson = triggerImportMatchJson;
   </div> <!-- end app-main -->
 </div> <!-- end app-layout -->
 
-<script src="shared.js?v=3.4.1"></script>
+<script src="shared.js?v=3.4.2"></script>
 </body>
 </html>
