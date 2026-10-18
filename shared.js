@@ -198,7 +198,7 @@ function renderModularSidebar() {
     <div class="sidebar-footer" style="flex-direction:column; gap:6px; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <span>GW 官方 App 實機同步</span>
-        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.11 PWA</span>
+        <span class="version-badge" id="sidebarVersionBadge" style="font-weight:700; color:#38bdf8; font-size:11px; background:rgba(56,189,248,0.12); padding:1px 6px; border-radius:4px; border: 1px solid rgba(56,189,248,0.25);">v3.3.12 PWA</span>
       </div>
       <button type="button" class="btn-pwa-install sidebar-pwa-btn" style="width:100%; justify-content:center; padding:6px; font-size:11px; gap:6px; display:inline-flex; align-items:center;">${getIcon('mobile')} <span>安裝為桌面/手機 App</span></button>
     </div>
@@ -1189,7 +1189,7 @@ function initGlobalSearch() {
       <div class="search-modal-box" onclick="event.stopPropagation()">
         <div class="search-input-header">
           <span class="search-icon-large" style="display:inline-flex; align-items:center;">${getIcon('search')}</span>
-          <input type="text" id="globalSearchInput" class="search-main-input" placeholder="搜尋全站規則、陣營、數據卡、武器特性 (支援中英文)..." autocomplete="off" spellcheck="false">
+          <input type="text" id="globalSearchInput" class="search-main-input" aria-label="搜尋全站規則、陣營、數據卡、武器特性 (支援中英文)" placeholder="搜尋全站規則、陣營、數據卡、武器特性 (支援中英文)..." autocomplete="off" spellcheck="false">
           <span class="search-close-key" onclick="closeGlobalSearch()" style="cursor:pointer;" title="關閉">ESC</span>
         </div>
         <div class="search-results-list" id="searchResultsList"></div>
